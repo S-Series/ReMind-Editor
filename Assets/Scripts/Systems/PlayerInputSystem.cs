@@ -24,10 +24,222 @@ public partial class @PlayerInputSystem : IInputActionCollection2, IDisposable
     ""name"": ""PlayerInputSystem"",
     ""maps"": [
         {
-            ""name"": ""OnMenu"",
+            ""name"": ""General"",
             ""id"": ""453f31a4-71b6-496b-8a3a-335e7119de3c"",
-            ""actions"": [],
-            ""bindings"": []
+            ""actions"": [
+                {
+                    ""name"": ""Up"",
+                    ""type"": ""Button"",
+                    ""id"": ""9b9eb5fe-f3c8-461c-a087-cd833aad50c1"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Down"",
+                    ""type"": ""Button"",
+                    ""id"": ""161b0d47-dc7e-495b-ace2-bd356384eea7"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Right"",
+                    ""type"": ""Button"",
+                    ""id"": ""661e0712-3caa-445f-9244-dc94ab371360"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Left"",
+                    ""type"": ""Button"",
+                    ""id"": ""9a57e969-0b80-4cdb-88cf-42a377ee5649"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Switch"",
+                    ""type"": ""Button"",
+                    ""id"": ""55f44301-231b-42da-a8be-c81a19c21fb8"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Escape"",
+                    ""type"": ""Button"",
+                    ""id"": ""b9b395a2-627a-40bb-99db-61e033750212"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Delete"",
+                    ""type"": ""Button"",
+                    ""id"": ""a4fb32cb-3706-40dd-bff3-b50dc9cbc924"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""568d240c-d1c8-48f9-8081-9ea7e60abef9"",
+                    ""path"": ""<Keyboard>/upArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Up"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6f842b82-3bd8-4764-b9b7-2a1ef9cbab7c"",
+                    ""path"": ""<Keyboard>/downArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Down"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d6110de9-5305-4c25-ad7c-26d8258d252d"",
+                    ""path"": ""<Keyboard>/rightArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Right"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""394d0632-df31-480c-b3ed-ff81633829b3"",
+                    ""path"": ""<Keyboard>/leftArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Left"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""114450b6-ece5-442e-88f1-eba124c7d74f"",
+                    ""path"": ""<Keyboard>/tab"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Switch"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d014eeb1-2473-432a-87f9-244184846690"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Escape"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e36de542-f863-4d14-9caa-e2bf8e82aa37"",
+                    ""path"": ""<Keyboard>/delete"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Delete"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""Test"",
+            ""id"": ""8aa8c405-a764-4182-93b7-148f3f1e3732"",
+            ""actions"": [
+                {
+                    ""name"": ""test"",
+                    ""type"": ""Value"",
+                    ""id"": ""2f85b158-62d0-41d5-b9ac-4caeb67fd3f7"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""test1"",
+                    ""type"": ""Button"",
+                    ""id"": ""ce95ac72-2469-47ca-af29-ee9c75af4c09"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": ""Test"",
+                    ""id"": ""ea56749c-beda-4fe2-b0d6-3f38750287c4"",
+                    ""path"": ""OneModifier"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""test"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""modifier"",
+                    ""id"": ""cff777ce-bd5b-4151-b0ae-5f49bbfaa33b"",
+                    ""path"": ""<Keyboard>/shift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""test"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""binding"",
+                    ""id"": ""066d803b-5ca9-40b6-b562-4f2275eb46ca"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""test"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b4c1174e-4c2c-474e-81c2-7cd1cfe0b202"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""test1"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": [
@@ -93,8 +305,19 @@ public partial class @PlayerInputSystem : IInputActionCollection2, IDisposable
         }
     ]
 }");
-        // OnMenu
-        m_OnMenu = asset.FindActionMap("OnMenu", throwIfNotFound: true);
+        // General
+        m_General = asset.FindActionMap("General", throwIfNotFound: true);
+        m_General_Up = m_General.FindAction("Up", throwIfNotFound: true);
+        m_General_Down = m_General.FindAction("Down", throwIfNotFound: true);
+        m_General_Right = m_General.FindAction("Right", throwIfNotFound: true);
+        m_General_Left = m_General.FindAction("Left", throwIfNotFound: true);
+        m_General_Switch = m_General.FindAction("Switch", throwIfNotFound: true);
+        m_General_Escape = m_General.FindAction("Escape", throwIfNotFound: true);
+        m_General_Delete = m_General.FindAction("Delete", throwIfNotFound: true);
+        // Test
+        m_Test = asset.FindActionMap("Test", throwIfNotFound: true);
+        m_Test_test = m_Test.FindAction("test", throwIfNotFound: true);
+        m_Test_test1 = m_Test.FindAction("test1", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -151,30 +374,127 @@ public partial class @PlayerInputSystem : IInputActionCollection2, IDisposable
         return asset.FindBinding(bindingMask, out action);
     }
 
-    // OnMenu
-    private readonly InputActionMap m_OnMenu;
-    private IOnMenuActions m_OnMenuActionsCallbackInterface;
-    public struct OnMenuActions
+    // General
+    private readonly InputActionMap m_General;
+    private IGeneralActions m_GeneralActionsCallbackInterface;
+    private readonly InputAction m_General_Up;
+    private readonly InputAction m_General_Down;
+    private readonly InputAction m_General_Right;
+    private readonly InputAction m_General_Left;
+    private readonly InputAction m_General_Switch;
+    private readonly InputAction m_General_Escape;
+    private readonly InputAction m_General_Delete;
+    public struct GeneralActions
     {
         private @PlayerInputSystem m_Wrapper;
-        public OnMenuActions(@PlayerInputSystem wrapper) { m_Wrapper = wrapper; }
-        public InputActionMap Get() { return m_Wrapper.m_OnMenu; }
+        public GeneralActions(@PlayerInputSystem wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Up => m_Wrapper.m_General_Up;
+        public InputAction @Down => m_Wrapper.m_General_Down;
+        public InputAction @Right => m_Wrapper.m_General_Right;
+        public InputAction @Left => m_Wrapper.m_General_Left;
+        public InputAction @Switch => m_Wrapper.m_General_Switch;
+        public InputAction @Escape => m_Wrapper.m_General_Escape;
+        public InputAction @Delete => m_Wrapper.m_General_Delete;
+        public InputActionMap Get() { return m_Wrapper.m_General; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
         public bool enabled => Get().enabled;
-        public static implicit operator InputActionMap(OnMenuActions set) { return set.Get(); }
-        public void SetCallbacks(IOnMenuActions instance)
+        public static implicit operator InputActionMap(GeneralActions set) { return set.Get(); }
+        public void SetCallbacks(IGeneralActions instance)
         {
-            if (m_Wrapper.m_OnMenuActionsCallbackInterface != null)
+            if (m_Wrapper.m_GeneralActionsCallbackInterface != null)
             {
+                @Up.started -= m_Wrapper.m_GeneralActionsCallbackInterface.OnUp;
+                @Up.performed -= m_Wrapper.m_GeneralActionsCallbackInterface.OnUp;
+                @Up.canceled -= m_Wrapper.m_GeneralActionsCallbackInterface.OnUp;
+                @Down.started -= m_Wrapper.m_GeneralActionsCallbackInterface.OnDown;
+                @Down.performed -= m_Wrapper.m_GeneralActionsCallbackInterface.OnDown;
+                @Down.canceled -= m_Wrapper.m_GeneralActionsCallbackInterface.OnDown;
+                @Right.started -= m_Wrapper.m_GeneralActionsCallbackInterface.OnRight;
+                @Right.performed -= m_Wrapper.m_GeneralActionsCallbackInterface.OnRight;
+                @Right.canceled -= m_Wrapper.m_GeneralActionsCallbackInterface.OnRight;
+                @Left.started -= m_Wrapper.m_GeneralActionsCallbackInterface.OnLeft;
+                @Left.performed -= m_Wrapper.m_GeneralActionsCallbackInterface.OnLeft;
+                @Left.canceled -= m_Wrapper.m_GeneralActionsCallbackInterface.OnLeft;
+                @Switch.started -= m_Wrapper.m_GeneralActionsCallbackInterface.OnSwitch;
+                @Switch.performed -= m_Wrapper.m_GeneralActionsCallbackInterface.OnSwitch;
+                @Switch.canceled -= m_Wrapper.m_GeneralActionsCallbackInterface.OnSwitch;
+                @Escape.started -= m_Wrapper.m_GeneralActionsCallbackInterface.OnEscape;
+                @Escape.performed -= m_Wrapper.m_GeneralActionsCallbackInterface.OnEscape;
+                @Escape.canceled -= m_Wrapper.m_GeneralActionsCallbackInterface.OnEscape;
+                @Delete.started -= m_Wrapper.m_GeneralActionsCallbackInterface.OnDelete;
+                @Delete.performed -= m_Wrapper.m_GeneralActionsCallbackInterface.OnDelete;
+                @Delete.canceled -= m_Wrapper.m_GeneralActionsCallbackInterface.OnDelete;
             }
-            m_Wrapper.m_OnMenuActionsCallbackInterface = instance;
+            m_Wrapper.m_GeneralActionsCallbackInterface = instance;
             if (instance != null)
             {
+                @Up.started += instance.OnUp;
+                @Up.performed += instance.OnUp;
+                @Up.canceled += instance.OnUp;
+                @Down.started += instance.OnDown;
+                @Down.performed += instance.OnDown;
+                @Down.canceled += instance.OnDown;
+                @Right.started += instance.OnRight;
+                @Right.performed += instance.OnRight;
+                @Right.canceled += instance.OnRight;
+                @Left.started += instance.OnLeft;
+                @Left.performed += instance.OnLeft;
+                @Left.canceled += instance.OnLeft;
+                @Switch.started += instance.OnSwitch;
+                @Switch.performed += instance.OnSwitch;
+                @Switch.canceled += instance.OnSwitch;
+                @Escape.started += instance.OnEscape;
+                @Escape.performed += instance.OnEscape;
+                @Escape.canceled += instance.OnEscape;
+                @Delete.started += instance.OnDelete;
+                @Delete.performed += instance.OnDelete;
+                @Delete.canceled += instance.OnDelete;
             }
         }
     }
-    public OnMenuActions @OnMenu => new OnMenuActions(this);
+    public GeneralActions @General => new GeneralActions(this);
+
+    // Test
+    private readonly InputActionMap m_Test;
+    private ITestActions m_TestActionsCallbackInterface;
+    private readonly InputAction m_Test_test;
+    private readonly InputAction m_Test_test1;
+    public struct TestActions
+    {
+        private @PlayerInputSystem m_Wrapper;
+        public TestActions(@PlayerInputSystem wrapper) { m_Wrapper = wrapper; }
+        public InputAction @test => m_Wrapper.m_Test_test;
+        public InputAction @test1 => m_Wrapper.m_Test_test1;
+        public InputActionMap Get() { return m_Wrapper.m_Test; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(TestActions set) { return set.Get(); }
+        public void SetCallbacks(ITestActions instance)
+        {
+            if (m_Wrapper.m_TestActionsCallbackInterface != null)
+            {
+                @test.started -= m_Wrapper.m_TestActionsCallbackInterface.OnTest;
+                @test.performed -= m_Wrapper.m_TestActionsCallbackInterface.OnTest;
+                @test.canceled -= m_Wrapper.m_TestActionsCallbackInterface.OnTest;
+                @test1.started -= m_Wrapper.m_TestActionsCallbackInterface.OnTest1;
+                @test1.performed -= m_Wrapper.m_TestActionsCallbackInterface.OnTest1;
+                @test1.canceled -= m_Wrapper.m_TestActionsCallbackInterface.OnTest1;
+            }
+            m_Wrapper.m_TestActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @test.started += instance.OnTest;
+                @test.performed += instance.OnTest;
+                @test.canceled += instance.OnTest;
+                @test1.started += instance.OnTest1;
+                @test1.performed += instance.OnTest1;
+                @test1.canceled += instance.OnTest1;
+            }
+        }
+    }
+    public TestActions @Test => new TestActions(this);
     private int m_KeyboardMouseSchemeIndex = -1;
     public InputControlScheme KeyboardMouseScheme
     {
@@ -220,7 +540,19 @@ public partial class @PlayerInputSystem : IInputActionCollection2, IDisposable
             return asset.controlSchemes[m_XRSchemeIndex];
         }
     }
-    public interface IOnMenuActions
+    public interface IGeneralActions
     {
+        void OnUp(InputAction.CallbackContext context);
+        void OnDown(InputAction.CallbackContext context);
+        void OnRight(InputAction.CallbackContext context);
+        void OnLeft(InputAction.CallbackContext context);
+        void OnSwitch(InputAction.CallbackContext context);
+        void OnEscape(InputAction.CallbackContext context);
+        void OnDelete(InputAction.CallbackContext context);
+    }
+    public interface ITestActions
+    {
+        void OnTest(InputAction.CallbackContext context);
+        void OnTest1(InputAction.CallbackContext context);
     }
 }

@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class NoteHolder : MonoBehaviour
 {
-    public enum NoteType{Normal, Bottom, };
+    public enum NoteType{Normal, Bottom, Air};
     public NoteType type = NoteType.Normal;
+    public int legnth = 0;
     public bool is2D = false;
-    public bool isLong = false;
 
     [SerializeField] GameObject[] noteObject;
 
