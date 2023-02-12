@@ -6,12 +6,9 @@ using GameNote;
 
 public class NoteEdit : MonoBehaviour
 {
-    public static bool isEditing = false;
-    public static bool isMultyEditing = false;
-    private static NormalNote editNote;
-    public static List<NormalNote> notes = new List<NormalNote>();
-
     PlayerInputSystem inputActions;
+    private enum EditType { None, Normal, Speed, Effect };
+    private static EditType s_editType = EditType.None;
 
     private void Awake()
     {
@@ -26,18 +23,6 @@ public class NoteEdit : MonoBehaviour
         inputActions.General.Delete.performed += item => OnDelete();
     }
 
-    public static void NoteSelect(NormalNote note, bool isMultiple = false)
-    {
-        isEditing = true;
-        if (!isMultiple) { notes = new List<NormalNote>(); }
-        notes.Add(note);
-        if (notes.Count >= 2) { isMultyEditing = true; }
-        else { isMultyEditing = false; }
-
-        notes = notes.OrderBy(item => item.ms).ThenBy(item => item.line).ToList();
-        editNote = notes[0];
-    }
-
     #region //$ Input Actions
     public void OnUp()
     {
@@ -45,7 +30,7 @@ public class NoteEdit : MonoBehaviour
     }
     public void OnDown()
     {
-        
+
     }
     public void OnLeft()
     {
