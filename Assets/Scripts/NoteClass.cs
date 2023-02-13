@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
@@ -14,25 +15,42 @@ namespace GameNote
         public static int CalMs(int pos)
         {
             int _ret = 0;
+
+            int _calMs;
+            float _calPos;
+            double _calBpm;
             s_SpeedNotes.OrderBy(item => item.pos);
 
             SpeedNote _speedNote = null;
+
+            int _index = 0;
             for (int i = 0; i < s_SpeedNotes.Count; i++)
             {
-                if (pos < s_SpeedNotes[i].pos) 
+                if (pos >= s_SpeedNotes[i].pos)
                 {
-                    if (i == 0) { _speedNote = null; }
-                    else { _speedNote = s_SpeedNotes[i - 1]; }
-                    break;
+                    _index = i;
                 }
+                else { break; }
             }
 
-            if (_speedNote == null) { _ret = Mathf.RoundToInt(pos); }
+            if (_index == 0) { _speedNote = null; }
+            else { _speedNote = s_SpeedNotes[_index - 1]; }
+
+            if (_speedNote == null)
+            {
+                _calMs = 0;
+                _calPos = pos;
+                _calBpm = ValueManager.s_Bpm;
+            }
             else
             {
                 InitSpeedMs();
-
+                _calMs = _speedNote.ms;
+                _calPos = pos - _speedNote.pos;
+                _calBpm = _speedNote.bpm * _speedNote.multiple;
             }
+
+            _ret = Mathf.RoundToInt(Convert.ToSingle(150 * _calPos / _calBpm));
 
             return _ret;
         }
@@ -40,12 +58,15 @@ namespace GameNote
         private static void InitSpeedMs()
         {
             float _pos;
+            double _bpm;
             s_SpeedNotes[0].ms = 0;
 
             for (int i = 1; i < s_SpeedNotes.Count; i++)
             {
+                _bpm = s_SpeedNotes[i].bpm * s_SpeedNotes[i].multiple;
                 _pos = s_SpeedNotes[i].pos - s_SpeedNotes[i - 1].pos;
-                s_SpeedNotes[i].ms = s_SpeedNotes[i - 1].ms + Mathf.RoundToInt(_pos);
+                s_SpeedNotes[i].ms = s_SpeedNotes[i - 1].ms 
+                    + Mathf.RoundToInt(Convert.ToSingle(150 * _pos / _bpm));
             }
         }
     }
@@ -63,11 +84,11 @@ namespace GameNote
 
     public class SpeedNote:Note
     {
-        double bpm, multiple;
+        public double bpm, multiple;
     }
 
     public class EffectNote:Note
     {
-        int effectIndex, duration;
+        public int effectIndex, duration;
     }
 }
