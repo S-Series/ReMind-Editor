@@ -150,70 +150,108 @@
             ]
         },
         {
-            "name": "Test",
-            "id": "8aa8c405-a764-4182-93b7-148f3f1e3732",
+            "name": "Tools",
+            "id": "c3c3243f-c60b-4c39-b165-260511da9c4b",
             "actions": [
                 {
-                    "name": "test",
-                    "type": "Value",
-                    "id": "2f85b158-62d0-41d5-b9ac-4caeb67fd3f7",
+                    "name": "NormalNote",
+                    "type": "Button",
+                    "id": "d1ec1bf4-01bf-4334-a116-97e493d4024b",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": true
+                    "initialStateCheck": false
                 },
                 {
-                    "name": "test1",
+                    "name": "BottomNote",
                     "type": "Button",
-                    "id": "ce95ac72-2469-47ca-af29-ee9c75af4c09",
+                    "id": "b569bcfe-538d-4b19-b6ba-d95292d456a8",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": true
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Eraser",
+                    "type": "Button",
+                    "id": "207cfa21-646a-4cd1-a0c6-7dcc296d1ee9",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Special",
+                    "type": "Button",
+                    "id": "d5c4bdfc-d6d5-4e66-bbe9-249167648ab8",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Change",
+                    "type": "Button",
+                    "id": "41c4aed4-1510-4890-a112-702f213ff83d",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
                 {
-                    "name": "Test",
-                    "id": "ea56749c-beda-4fe2-b0d6-3f38750287c4",
-                    "path": "OneModifier",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "test",
-                    "isComposite": true,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "modifier",
-                    "id": "cff777ce-bd5b-4151-b0ae-5f49bbfaa33b",
-                    "path": "<Keyboard>/shift",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "test",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "binding",
-                    "id": "066d803b-5ca9-40b6-b562-4f2275eb46ca",
-                    "path": "<Keyboard>/s",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "test",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
                     "name": "",
-                    "id": "b4c1174e-4c2c-474e-81c2-7cd1cfe0b202",
-                    "path": "<Keyboard>/s",
+                    "id": "3db2a0a7-9a48-4ab0-8f3c-d3d492e36081",
+                    "path": "<Keyboard>/q",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
-                    "action": "test1",
+                    "action": "NormalNote",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a1072dea-55e9-4771-b0e6-c7ff84315e0c",
+                    "path": "<Keyboard>/w",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "BottomNote",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8d6207fd-07d0-49de-a682-a4e1dee4e5d0",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Eraser",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "682f5d40-23fd-4971-b59f-ac36888a50d4",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Special",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a4d5da2f-8164-469d-b262-ceb2cd2cf81f",
+                    "path": "<Keyboard>/tab",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Change",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

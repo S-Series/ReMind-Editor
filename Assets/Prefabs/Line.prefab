@@ -385,9 +385,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4844807984776495280}
   - component: {fileID: 4844807984776495287}
-  - component: {fileID: 3903147065161813204}
+  - component: {fileID: 1841133900552034779}
   m_Layer: 0
-  m_Name: Guide
+  m_Name: Line
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -463,7 +463,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &3903147065161813204
+--- !u!114 &1841133900552034779
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -472,11 +472,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4844807984776495281}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5d68e76dc72851429b1269cf4f6b60a, type: 3}
+  m_Script: {fileID: 11500000, guid: 843f4d8fa4ac9534e8ab747abda2e32f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texts:
-  - {fileID: 4844807983034579695}
-  - {fileID: 4844807984131410767}
-  ColliderField: {fileID: 6927685521709809375}
-  holders: []
+  texts: []

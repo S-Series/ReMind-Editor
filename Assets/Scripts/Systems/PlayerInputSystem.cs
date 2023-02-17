@@ -172,70 +172,108 @@ public partial class @PlayerInputSystem : IInputActionCollection2, IDisposable
             ]
         },
         {
-            ""name"": ""Test"",
-            ""id"": ""8aa8c405-a764-4182-93b7-148f3f1e3732"",
+            ""name"": ""Tools"",
+            ""id"": ""c3c3243f-c60b-4c39-b165-260511da9c4b"",
             ""actions"": [
                 {
-                    ""name"": ""test"",
-                    ""type"": ""Value"",
-                    ""id"": ""2f85b158-62d0-41d5-b9ac-4caeb67fd3f7"",
+                    ""name"": ""NormalNote"",
+                    ""type"": ""Button"",
+                    ""id"": ""d1ec1bf4-01bf-4334-a116-97e493d4024b"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
-                    ""initialStateCheck"": true
+                    ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""test1"",
+                    ""name"": ""BottomNote"",
                     ""type"": ""Button"",
-                    ""id"": ""ce95ac72-2469-47ca-af29-ee9c75af4c09"",
+                    ""id"": ""b569bcfe-538d-4b19-b6ba-d95292d456a8"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
-                    ""initialStateCheck"": true
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Eraser"",
+                    ""type"": ""Button"",
+                    ""id"": ""207cfa21-646a-4cd1-a0c6-7dcc296d1ee9"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Special"",
+                    ""type"": ""Button"",
+                    ""id"": ""d5c4bdfc-d6d5-4e66-bbe9-249167648ab8"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Change"",
+                    ""type"": ""Button"",
+                    ""id"": ""41c4aed4-1510-4890-a112-702f213ff83d"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
                 {
-                    ""name"": ""Test"",
-                    ""id"": ""ea56749c-beda-4fe2-b0d6-3f38750287c4"",
-                    ""path"": ""OneModifier"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""test"",
-                    ""isComposite"": true,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""modifier"",
-                    ""id"": ""cff777ce-bd5b-4151-b0ae-5f49bbfaa33b"",
-                    ""path"": ""<Keyboard>/shift"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""test"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""binding"",
-                    ""id"": ""066d803b-5ca9-40b6-b562-4f2275eb46ca"",
-                    ""path"": ""<Keyboard>/s"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""test"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
                     ""name"": """",
-                    ""id"": ""b4c1174e-4c2c-474e-81c2-7cd1cfe0b202"",
-                    ""path"": ""<Keyboard>/s"",
+                    ""id"": ""3db2a0a7-9a48-4ab0-8f3c-d3d492e36081"",
+                    ""path"": ""<Keyboard>/q"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
-                    ""action"": ""test1"",
+                    ""action"": ""NormalNote"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a1072dea-55e9-4771-b0e6-c7ff84315e0c"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""BottomNote"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8d6207fd-07d0-49de-a682-a4e1dee4e5d0"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Eraser"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""682f5d40-23fd-4971-b59f-ac36888a50d4"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Special"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a4d5da2f-8164-469d-b262-ceb2cd2cf81f"",
+                    ""path"": ""<Keyboard>/tab"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Change"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -314,10 +352,13 @@ public partial class @PlayerInputSystem : IInputActionCollection2, IDisposable
         m_General_Switch = m_General.FindAction("Switch", throwIfNotFound: true);
         m_General_Escape = m_General.FindAction("Escape", throwIfNotFound: true);
         m_General_Delete = m_General.FindAction("Delete", throwIfNotFound: true);
-        // Test
-        m_Test = asset.FindActionMap("Test", throwIfNotFound: true);
-        m_Test_test = m_Test.FindAction("test", throwIfNotFound: true);
-        m_Test_test1 = m_Test.FindAction("test1", throwIfNotFound: true);
+        // Tools
+        m_Tools = asset.FindActionMap("Tools", throwIfNotFound: true);
+        m_Tools_NormalNote = m_Tools.FindAction("NormalNote", throwIfNotFound: true);
+        m_Tools_BottomNote = m_Tools.FindAction("BottomNote", throwIfNotFound: true);
+        m_Tools_Eraser = m_Tools.FindAction("Eraser", throwIfNotFound: true);
+        m_Tools_Special = m_Tools.FindAction("Special", throwIfNotFound: true);
+        m_Tools_Change = m_Tools.FindAction("Change", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -455,46 +496,70 @@ public partial class @PlayerInputSystem : IInputActionCollection2, IDisposable
     }
     public GeneralActions @General => new GeneralActions(this);
 
-    // Test
-    private readonly InputActionMap m_Test;
-    private ITestActions m_TestActionsCallbackInterface;
-    private readonly InputAction m_Test_test;
-    private readonly InputAction m_Test_test1;
-    public struct TestActions
+    // Tools
+    private readonly InputActionMap m_Tools;
+    private IToolsActions m_ToolsActionsCallbackInterface;
+    private readonly InputAction m_Tools_NormalNote;
+    private readonly InputAction m_Tools_BottomNote;
+    private readonly InputAction m_Tools_Eraser;
+    private readonly InputAction m_Tools_Special;
+    private readonly InputAction m_Tools_Change;
+    public struct ToolsActions
     {
         private @PlayerInputSystem m_Wrapper;
-        public TestActions(@PlayerInputSystem wrapper) { m_Wrapper = wrapper; }
-        public InputAction @test => m_Wrapper.m_Test_test;
-        public InputAction @test1 => m_Wrapper.m_Test_test1;
-        public InputActionMap Get() { return m_Wrapper.m_Test; }
+        public ToolsActions(@PlayerInputSystem wrapper) { m_Wrapper = wrapper; }
+        public InputAction @NormalNote => m_Wrapper.m_Tools_NormalNote;
+        public InputAction @BottomNote => m_Wrapper.m_Tools_BottomNote;
+        public InputAction @Eraser => m_Wrapper.m_Tools_Eraser;
+        public InputAction @Special => m_Wrapper.m_Tools_Special;
+        public InputAction @Change => m_Wrapper.m_Tools_Change;
+        public InputActionMap Get() { return m_Wrapper.m_Tools; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
         public bool enabled => Get().enabled;
-        public static implicit operator InputActionMap(TestActions set) { return set.Get(); }
-        public void SetCallbacks(ITestActions instance)
+        public static implicit operator InputActionMap(ToolsActions set) { return set.Get(); }
+        public void SetCallbacks(IToolsActions instance)
         {
-            if (m_Wrapper.m_TestActionsCallbackInterface != null)
+            if (m_Wrapper.m_ToolsActionsCallbackInterface != null)
             {
-                @test.started -= m_Wrapper.m_TestActionsCallbackInterface.OnTest;
-                @test.performed -= m_Wrapper.m_TestActionsCallbackInterface.OnTest;
-                @test.canceled -= m_Wrapper.m_TestActionsCallbackInterface.OnTest;
-                @test1.started -= m_Wrapper.m_TestActionsCallbackInterface.OnTest1;
-                @test1.performed -= m_Wrapper.m_TestActionsCallbackInterface.OnTest1;
-                @test1.canceled -= m_Wrapper.m_TestActionsCallbackInterface.OnTest1;
+                @NormalNote.started -= m_Wrapper.m_ToolsActionsCallbackInterface.OnNormalNote;
+                @NormalNote.performed -= m_Wrapper.m_ToolsActionsCallbackInterface.OnNormalNote;
+                @NormalNote.canceled -= m_Wrapper.m_ToolsActionsCallbackInterface.OnNormalNote;
+                @BottomNote.started -= m_Wrapper.m_ToolsActionsCallbackInterface.OnBottomNote;
+                @BottomNote.performed -= m_Wrapper.m_ToolsActionsCallbackInterface.OnBottomNote;
+                @BottomNote.canceled -= m_Wrapper.m_ToolsActionsCallbackInterface.OnBottomNote;
+                @Eraser.started -= m_Wrapper.m_ToolsActionsCallbackInterface.OnEraser;
+                @Eraser.performed -= m_Wrapper.m_ToolsActionsCallbackInterface.OnEraser;
+                @Eraser.canceled -= m_Wrapper.m_ToolsActionsCallbackInterface.OnEraser;
+                @Special.started -= m_Wrapper.m_ToolsActionsCallbackInterface.OnSpecial;
+                @Special.performed -= m_Wrapper.m_ToolsActionsCallbackInterface.OnSpecial;
+                @Special.canceled -= m_Wrapper.m_ToolsActionsCallbackInterface.OnSpecial;
+                @Change.started -= m_Wrapper.m_ToolsActionsCallbackInterface.OnChange;
+                @Change.performed -= m_Wrapper.m_ToolsActionsCallbackInterface.OnChange;
+                @Change.canceled -= m_Wrapper.m_ToolsActionsCallbackInterface.OnChange;
             }
-            m_Wrapper.m_TestActionsCallbackInterface = instance;
+            m_Wrapper.m_ToolsActionsCallbackInterface = instance;
             if (instance != null)
             {
-                @test.started += instance.OnTest;
-                @test.performed += instance.OnTest;
-                @test.canceled += instance.OnTest;
-                @test1.started += instance.OnTest1;
-                @test1.performed += instance.OnTest1;
-                @test1.canceled += instance.OnTest1;
+                @NormalNote.started += instance.OnNormalNote;
+                @NormalNote.performed += instance.OnNormalNote;
+                @NormalNote.canceled += instance.OnNormalNote;
+                @BottomNote.started += instance.OnBottomNote;
+                @BottomNote.performed += instance.OnBottomNote;
+                @BottomNote.canceled += instance.OnBottomNote;
+                @Eraser.started += instance.OnEraser;
+                @Eraser.performed += instance.OnEraser;
+                @Eraser.canceled += instance.OnEraser;
+                @Special.started += instance.OnSpecial;
+                @Special.performed += instance.OnSpecial;
+                @Special.canceled += instance.OnSpecial;
+                @Change.started += instance.OnChange;
+                @Change.performed += instance.OnChange;
+                @Change.canceled += instance.OnChange;
             }
         }
     }
-    public TestActions @Test => new TestActions(this);
+    public ToolsActions @Tools => new ToolsActions(this);
     private int m_KeyboardMouseSchemeIndex = -1;
     public InputControlScheme KeyboardMouseScheme
     {
@@ -550,9 +615,12 @@ public partial class @PlayerInputSystem : IInputActionCollection2, IDisposable
         void OnEscape(InputAction.CallbackContext context);
         void OnDelete(InputAction.CallbackContext context);
     }
-    public interface ITestActions
+    public interface IToolsActions
     {
-        void OnTest(InputAction.CallbackContext context);
-        void OnTest1(InputAction.CallbackContext context);
+        void OnNormalNote(InputAction.CallbackContext context);
+        void OnBottomNote(InputAction.CallbackContext context);
+        void OnEraser(InputAction.CallbackContext context);
+        void OnSpecial(InputAction.CallbackContext context);
+        void OnChange(InputAction.CallbackContext context);
     }
 }

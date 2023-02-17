@@ -1,26 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class test : MonoBehaviour
+public class test : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler
 {
-    PlayerInputSystem inputActions;
-
-    private void Awake()
+    public void OnPointerClick(PointerEventData eventData)
     {
-        inputActions = new PlayerInputSystem();
-        inputActions.Test.test.performed += item => doSomething();
-        inputActions.Test.test1.performed += item => printing();
-        inputActions.Enable();
+        print("A");
     }
 
-    private void doSomething()
+    public void OnPointerEnter(PointerEventData eventData)
     {
-
-    }
-
-    private void printing()
-    {
-
+        print("B");
     }
 }

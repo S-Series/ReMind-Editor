@@ -26,7 +26,7 @@ public class NoteField : MonoBehaviour
     {
         for (int i = 0; i < s_this.holders.Count - 1; i++)
         {
-
+            
         }
     }
 }

@@ -80,15 +80,18 @@ namespace GameNote
     {
         public int line;
         public bool isAir;
+        public LineHolder holder;
     }
 
     public class SpeedNote:Note
     {
         public double bpm, multiple;
+        public SpeedHolder holder;
     }
 
     public class EffectNote:Note
     {
         public int effectIndex, duration;
+        public EffectHolder holder;
     }
 }
