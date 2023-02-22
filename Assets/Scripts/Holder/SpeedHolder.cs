@@ -5,5 +5,7 @@ using GameNote;
 
 public class SpeedHolder : MonoBehaviour
 {
+    public static List<SpeedHolder> holders = new List<SpeedHolder>();
+
     public SpeedNote noteClass;
 }

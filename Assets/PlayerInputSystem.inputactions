@@ -3,6 +3,56 @@
     "maps": [
         {
             "name": "General",
+            "id": "5a64f1e9-ac3d-4d61-83be-f9db9cab8193",
+            "actions": [
+                {
+                    "name": "SetZero",
+                    "type": "Button",
+                    "id": "8a9c5945-99b1-488a-a2de-0700fca9ccfa",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "One Modifier",
+                    "id": "51b56443-2e54-4ec5-8789-3b7ee536a236",
+                    "path": "OneModifier",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SetZero",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "modifier",
+                    "id": "dc807900-21d7-43c0-8d08-7389b3dc6daf",
+                    "path": "<Keyboard>/leftShift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "SetZero",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "binding",
+                    "id": "540467d0-82c8-4480-ad58-4a67832ebf15",
+                    "path": "<Keyboard>/0",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "SetZero",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                }
+            ]
+        },
+        {
+            "name": "Edit",
             "id": "453f31a4-71b6-496b-8a3a-335e7119de3c",
             "actions": [
                 {

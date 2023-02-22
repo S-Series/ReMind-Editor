@@ -25,6 +25,56 @@ public partial class @PlayerInputSystem : IInputActionCollection2, IDisposable
     ""maps"": [
         {
             ""name"": ""General"",
+            ""id"": ""5a64f1e9-ac3d-4d61-83be-f9db9cab8193"",
+            ""actions"": [
+                {
+                    ""name"": ""SetZero"",
+                    ""type"": ""Button"",
+                    ""id"": ""8a9c5945-99b1-488a-a2de-0700fca9ccfa"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": ""One Modifier"",
+                    ""id"": ""51b56443-2e54-4ec5-8789-3b7ee536a236"",
+                    ""path"": ""OneModifier"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SetZero"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""modifier"",
+                    ""id"": ""dc807900-21d7-43c0-8d08-7389b3dc6daf"",
+                    ""path"": ""<Keyboard>/leftShift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""SetZero"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""binding"",
+                    ""id"": ""540467d0-82c8-4480-ad58-4a67832ebf15"",
+                    ""path"": ""<Keyboard>/0"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""SetZero"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                }
+            ]
+        },
+        {
+            ""name"": ""Edit"",
             ""id"": ""453f31a4-71b6-496b-8a3a-335e7119de3c"",
             ""actions"": [
                 {
@@ -345,13 +395,16 @@ public partial class @PlayerInputSystem : IInputActionCollection2, IDisposable
 }");
         // General
         m_General = asset.FindActionMap("General", throwIfNotFound: true);
-        m_General_Up = m_General.FindAction("Up", throwIfNotFound: true);
-        m_General_Down = m_General.FindAction("Down", throwIfNotFound: true);
-        m_General_Right = m_General.FindAction("Right", throwIfNotFound: true);
-        m_General_Left = m_General.FindAction("Left", throwIfNotFound: true);
-        m_General_Switch = m_General.FindAction("Switch", throwIfNotFound: true);
-        m_General_Escape = m_General.FindAction("Escape", throwIfNotFound: true);
-        m_General_Delete = m_General.FindAction("Delete", throwIfNotFound: true);
+        m_General_SetZero = m_General.FindAction("SetZero", throwIfNotFound: true);
+        // Edit
+        m_Edit = asset.FindActionMap("Edit", throwIfNotFound: true);
+        m_Edit_Up = m_Edit.FindAction("Up", throwIfNotFound: true);
+        m_Edit_Down = m_Edit.FindAction("Down", throwIfNotFound: true);
+        m_Edit_Right = m_Edit.FindAction("Right", throwIfNotFound: true);
+        m_Edit_Left = m_Edit.FindAction("Left", throwIfNotFound: true);
+        m_Edit_Switch = m_Edit.FindAction("Switch", throwIfNotFound: true);
+        m_Edit_Escape = m_Edit.FindAction("Escape", throwIfNotFound: true);
+        m_Edit_Delete = m_Edit.FindAction("Delete", throwIfNotFound: true);
         // Tools
         m_Tools = asset.FindActionMap("Tools", throwIfNotFound: true);
         m_Tools_NormalNote = m_Tools.FindAction("NormalNote", throwIfNotFound: true);
@@ -418,24 +471,12 @@ public partial class @PlayerInputSystem : IInputActionCollection2, IDisposable
     // General
     private readonly InputActionMap m_General;
     private IGeneralActions m_GeneralActionsCallbackInterface;
-    private readonly InputAction m_General_Up;
-    private readonly InputAction m_General_Down;
-    private readonly InputAction m_General_Right;
-    private readonly InputAction m_General_Left;
-    private readonly InputAction m_General_Switch;
-    private readonly InputAction m_General_Escape;
-    private readonly InputAction m_General_Delete;
+    private readonly InputAction m_General_SetZero;
     public struct GeneralActions
     {
         private @PlayerInputSystem m_Wrapper;
         public GeneralActions(@PlayerInputSystem wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Up => m_Wrapper.m_General_Up;
-        public InputAction @Down => m_Wrapper.m_General_Down;
-        public InputAction @Right => m_Wrapper.m_General_Right;
-        public InputAction @Left => m_Wrapper.m_General_Left;
-        public InputAction @Switch => m_Wrapper.m_General_Switch;
-        public InputAction @Escape => m_Wrapper.m_General_Escape;
-        public InputAction @Delete => m_Wrapper.m_General_Delete;
+        public InputAction @SetZero => m_Wrapper.m_General_SetZero;
         public InputActionMap Get() { return m_Wrapper.m_General; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -445,29 +486,74 @@ public partial class @PlayerInputSystem : IInputActionCollection2, IDisposable
         {
             if (m_Wrapper.m_GeneralActionsCallbackInterface != null)
             {
-                @Up.started -= m_Wrapper.m_GeneralActionsCallbackInterface.OnUp;
-                @Up.performed -= m_Wrapper.m_GeneralActionsCallbackInterface.OnUp;
-                @Up.canceled -= m_Wrapper.m_GeneralActionsCallbackInterface.OnUp;
-                @Down.started -= m_Wrapper.m_GeneralActionsCallbackInterface.OnDown;
-                @Down.performed -= m_Wrapper.m_GeneralActionsCallbackInterface.OnDown;
-                @Down.canceled -= m_Wrapper.m_GeneralActionsCallbackInterface.OnDown;
-                @Right.started -= m_Wrapper.m_GeneralActionsCallbackInterface.OnRight;
-                @Right.performed -= m_Wrapper.m_GeneralActionsCallbackInterface.OnRight;
-                @Right.canceled -= m_Wrapper.m_GeneralActionsCallbackInterface.OnRight;
-                @Left.started -= m_Wrapper.m_GeneralActionsCallbackInterface.OnLeft;
-                @Left.performed -= m_Wrapper.m_GeneralActionsCallbackInterface.OnLeft;
-                @Left.canceled -= m_Wrapper.m_GeneralActionsCallbackInterface.OnLeft;
-                @Switch.started -= m_Wrapper.m_GeneralActionsCallbackInterface.OnSwitch;
-                @Switch.performed -= m_Wrapper.m_GeneralActionsCallbackInterface.OnSwitch;
-                @Switch.canceled -= m_Wrapper.m_GeneralActionsCallbackInterface.OnSwitch;
-                @Escape.started -= m_Wrapper.m_GeneralActionsCallbackInterface.OnEscape;
-                @Escape.performed -= m_Wrapper.m_GeneralActionsCallbackInterface.OnEscape;
-                @Escape.canceled -= m_Wrapper.m_GeneralActionsCallbackInterface.OnEscape;
-                @Delete.started -= m_Wrapper.m_GeneralActionsCallbackInterface.OnDelete;
-                @Delete.performed -= m_Wrapper.m_GeneralActionsCallbackInterface.OnDelete;
-                @Delete.canceled -= m_Wrapper.m_GeneralActionsCallbackInterface.OnDelete;
+                @SetZero.started -= m_Wrapper.m_GeneralActionsCallbackInterface.OnSetZero;
+                @SetZero.performed -= m_Wrapper.m_GeneralActionsCallbackInterface.OnSetZero;
+                @SetZero.canceled -= m_Wrapper.m_GeneralActionsCallbackInterface.OnSetZero;
             }
             m_Wrapper.m_GeneralActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @SetZero.started += instance.OnSetZero;
+                @SetZero.performed += instance.OnSetZero;
+                @SetZero.canceled += instance.OnSetZero;
+            }
+        }
+    }
+    public GeneralActions @General => new GeneralActions(this);
+
+    // Edit
+    private readonly InputActionMap m_Edit;
+    private IEditActions m_EditActionsCallbackInterface;
+    private readonly InputAction m_Edit_Up;
+    private readonly InputAction m_Edit_Down;
+    private readonly InputAction m_Edit_Right;
+    private readonly InputAction m_Edit_Left;
+    private readonly InputAction m_Edit_Switch;
+    private readonly InputAction m_Edit_Escape;
+    private readonly InputAction m_Edit_Delete;
+    public struct EditActions
+    {
+        private @PlayerInputSystem m_Wrapper;
+        public EditActions(@PlayerInputSystem wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Up => m_Wrapper.m_Edit_Up;
+        public InputAction @Down => m_Wrapper.m_Edit_Down;
+        public InputAction @Right => m_Wrapper.m_Edit_Right;
+        public InputAction @Left => m_Wrapper.m_Edit_Left;
+        public InputAction @Switch => m_Wrapper.m_Edit_Switch;
+        public InputAction @Escape => m_Wrapper.m_Edit_Escape;
+        public InputAction @Delete => m_Wrapper.m_Edit_Delete;
+        public InputActionMap Get() { return m_Wrapper.m_Edit; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(EditActions set) { return set.Get(); }
+        public void SetCallbacks(IEditActions instance)
+        {
+            if (m_Wrapper.m_EditActionsCallbackInterface != null)
+            {
+                @Up.started -= m_Wrapper.m_EditActionsCallbackInterface.OnUp;
+                @Up.performed -= m_Wrapper.m_EditActionsCallbackInterface.OnUp;
+                @Up.canceled -= m_Wrapper.m_EditActionsCallbackInterface.OnUp;
+                @Down.started -= m_Wrapper.m_EditActionsCallbackInterface.OnDown;
+                @Down.performed -= m_Wrapper.m_EditActionsCallbackInterface.OnDown;
+                @Down.canceled -= m_Wrapper.m_EditActionsCallbackInterface.OnDown;
+                @Right.started -= m_Wrapper.m_EditActionsCallbackInterface.OnRight;
+                @Right.performed -= m_Wrapper.m_EditActionsCallbackInterface.OnRight;
+                @Right.canceled -= m_Wrapper.m_EditActionsCallbackInterface.OnRight;
+                @Left.started -= m_Wrapper.m_EditActionsCallbackInterface.OnLeft;
+                @Left.performed -= m_Wrapper.m_EditActionsCallbackInterface.OnLeft;
+                @Left.canceled -= m_Wrapper.m_EditActionsCallbackInterface.OnLeft;
+                @Switch.started -= m_Wrapper.m_EditActionsCallbackInterface.OnSwitch;
+                @Switch.performed -= m_Wrapper.m_EditActionsCallbackInterface.OnSwitch;
+                @Switch.canceled -= m_Wrapper.m_EditActionsCallbackInterface.OnSwitch;
+                @Escape.started -= m_Wrapper.m_EditActionsCallbackInterface.OnEscape;
+                @Escape.performed -= m_Wrapper.m_EditActionsCallbackInterface.OnEscape;
+                @Escape.canceled -= m_Wrapper.m_EditActionsCallbackInterface.OnEscape;
+                @Delete.started -= m_Wrapper.m_EditActionsCallbackInterface.OnDelete;
+                @Delete.performed -= m_Wrapper.m_EditActionsCallbackInterface.OnDelete;
+                @Delete.canceled -= m_Wrapper.m_EditActionsCallbackInterface.OnDelete;
+            }
+            m_Wrapper.m_EditActionsCallbackInterface = instance;
             if (instance != null)
             {
                 @Up.started += instance.OnUp;
@@ -494,7 +580,7 @@ public partial class @PlayerInputSystem : IInputActionCollection2, IDisposable
             }
         }
     }
-    public GeneralActions @General => new GeneralActions(this);
+    public EditActions @Edit => new EditActions(this);
 
     // Tools
     private readonly InputActionMap m_Tools;
@@ -606,6 +692,10 @@ public partial class @PlayerInputSystem : IInputActionCollection2, IDisposable
         }
     }
     public interface IGeneralActions
+    {
+        void OnSetZero(InputAction.CallbackContext context);
+    }
+    public interface IEditActions
     {
         void OnUp(InputAction.CallbackContext context);
         void OnDown(InputAction.CallbackContext context);

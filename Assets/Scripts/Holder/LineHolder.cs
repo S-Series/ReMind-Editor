@@ -5,7 +5,8 @@ using TMPro;
 
 public class LineHolder : MonoBehaviour
 {
-    [SerializeField] TextMeshPro[] texts;
     [SerializeField] Transform ColliderField;
+    
+    public TextMeshPro[] texts;
     public List<GuideHolder> holders = new List<GuideHolder>();
 }

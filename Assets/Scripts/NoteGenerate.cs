@@ -8,6 +8,14 @@ public class NoteGenerate : MonoBehaviour
     public static bool s_isGenerating = false;
     public static int s_Page, s_Indexer, s_previewIndex;
     [SerializeField] GameObject[] previews;
+    /// <summary>
+    /// previews[0] = Normal Note
+    /// previews[1] = Bottom Note
+    /// previews[2] = Airial Note
+    /// previews[3] = Speed Note
+    /// previews[4] = Effect Note
+    /// previews[5] = 
+    /// </summary>
 
     void Awake()
     {
@@ -18,7 +26,10 @@ public class NoteGenerate : MonoBehaviour
     {
         if (!s_isGenerating) { return; }
 
-        
+        if (s_previewIndex == 0 || s_previewIndex == 3)
+        {
+
+        }
     }
 
     public void ChangePreview(int index)

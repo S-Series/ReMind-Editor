@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using GameNote;
 
-public class NoteHolder : MonoBehaviour
+public class NoteHolder : MonoBehaviour, IPointerClickHandler
 {
-    public enum NoteType{Normal, Bottom, Air};
+    public static List<NoteHolder> holders = new List<NoteHolder>();
+
+    public enum NoteType { Normal, Bottom, Air };
     public NoteType type = NoteType.Normal;
     public NoteHolder linkedHolder;
     public int legnth = 0;
@@ -17,11 +20,14 @@ public class NoteHolder : MonoBehaviour
 
     public void UpdateNote(bool repeat)
     {
-        
+
     }
 
-    public void OnMouseDown()
+    public void OnPointerClick(PointerEventData eventData)
     {
-        
+        if (Input.GetKey(KeyCode.LeftControl))
+        {
+
+        }
     }
 }

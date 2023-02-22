@@ -12,6 +12,25 @@ namespace GameNote
         public static List<SpeedNote> s_SpeedNotes = new List<SpeedNote>();
         public static List<EffectNote> s_EffectNotes = new List<EffectNote>();
 
+        public static void SortAll()
+        {
+            s_NormalNotes.OrderBy(item => item.pos).ThenBy(item => item.line);
+            s_SpeedNotes.OrderBy(item => item.pos);
+            s_EffectNotes.OrderBy(item => item.pos);
+        }
+        public static void InitAll()
+        {
+            InitSpeedMs();
+            foreach (NormalNote note in s_NormalNotes)
+            {
+                note.ms = CalMs(note.pos);
+            }
+            foreach (EffectNote note in s_EffectNotes)
+            {
+                note.ms = CalMs(note.pos);
+            }    
+        }    
+
         public static int CalMs(int pos)
         {
             int _ret = 0;

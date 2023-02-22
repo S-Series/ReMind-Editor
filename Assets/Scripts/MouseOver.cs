@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class MouseOver : MonoBehaviour
+public class MouseOver : MonoBehaviour, IPointerUpHandler
 {
-    void OnMouseOver()
+    public void OnPointerUp(PointerEventData eventData)
     {
+        print(string.Format("Mouse Overed By {0}", name));
         if (!NoteGenerate.s_isGenerating) { return; }
 
         NoteGenerate.s_Page = transform.GetComponentInParent<GuideHolder>().page;

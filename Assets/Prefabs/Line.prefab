@@ -107,8 +107,8 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -5018583
-  m_SortingLayer: 2
+  m_SortingLayerID: 942637603
+  m_SortingLayer: 3
   m_SortingOrder: 1
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!114 &4844807983034579695
@@ -238,7 +238,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.55, y: -75}
+  m_AnchoredPosition: {x: -0.55, y: -90}
   m_SizeDelta: {x: 3, y: 1.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!23 &4844807984131410766
@@ -279,8 +279,8 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -5018583
-  m_SortingLayer: 2
+  m_SortingLayerID: 942637603
+  m_SortingLayer: 3
   m_SortingOrder: 1
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!114 &4844807984131410767
@@ -303,7 +303,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 000ms
+  m_text: ms\n0000000
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -330,7 +330,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 7
+  m_fontSize: 6.6
   m_fontSizeBase: 4.5
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -385,7 +385,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4844807984776495280}
   - component: {fileID: 4844807984776495287}
-  - component: {fileID: 1841133900552034779}
+  - component: {fileID: 8328056957688182224}
   m_Layer: 0
   m_Name: Line
   m_TagString: Untagged
@@ -449,8 +449,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -5018583
-  m_SortingLayer: 2
+  m_SortingLayerID: 942637603
+  m_SortingLayer: 3
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: f098016941e72014ab6fc6298091e0c3, type: 3}
   m_Color: {r: 0.5882353, g: 0.5882353, b: 0.5882353, a: 1}
@@ -463,7 +463,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1841133900552034779
+--- !u!114 &8328056957688182224
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -472,7 +472,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 4844807984776495281}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 843f4d8fa4ac9534e8ab747abda2e32f, type: 3}
+  m_Script: {fileID: 11500000, guid: d5d68e76dc72851429b1269cf4f6b60a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texts: []
+  ColliderField: {fileID: 6927685521709809375}
+  texts:
+  - {fileID: 4844807983034579695}
+  - {fileID: 4844807984131410767}
+  holders: []
