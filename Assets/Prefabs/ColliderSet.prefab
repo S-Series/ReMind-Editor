@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2451841871435907600}
   - component: {fileID: 2451841871435907601}
+  - component: {fileID: 5318863978819548936}
   m_Layer: 0
   m_Name: 03
   m_TagString: 03
@@ -58,6 +59,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.8, y: 1600}
   m_EdgeRadius: 0
+--- !u!114 &5318863978819548936
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2451841871435907695}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10ce732a8afab3c45bfbd45e1812bf7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2451841871436916929
 GameObject:
   m_ObjectHideFlags: 0
@@ -68,6 +81,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2451841871436916930}
   - component: {fileID: 2451841871436916931}
+  - component: {fileID: 7397182630444976267}
   m_Layer: 0
   m_Name: 04
   m_TagString: 04
@@ -116,6 +130,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.8, y: 1600}
   m_EdgeRadius: 0
+--- !u!114 &7397182630444976267
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2451841871436916929}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10ce732a8afab3c45bfbd45e1812bf7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2451841871521435678
 GameObject:
   m_ObjectHideFlags: 0
@@ -126,6 +152,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2451841871521435679}
   - component: {fileID: 2451841871521435648}
+  - component: {fileID: 1272477468094324321}
   m_Layer: 0
   m_Name: 02
   m_TagString: 02
@@ -174,6 +201,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.8, y: 1600}
   m_EdgeRadius: 0
+--- !u!114 &1272477468094324321
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2451841871521435678}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10ce732a8afab3c45bfbd45e1812bf7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2451841871642089362
 GameObject:
   m_ObjectHideFlags: 0
@@ -183,7 +222,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2451841871642089363}
-  - component: {fileID: 3078689441119925189}
   m_Layer: 0
   m_Name: ColliderSet
   m_TagString: Untagged
@@ -210,25 +248,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3078689441119925189
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2451841871642089362}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 843f4d8fa4ac9534e8ab747abda2e32f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Page: 0
-  indexer: 0
-  guideColliders:
-  - {fileID: 2451841872705609743}
-  - {fileID: 2451841871521435648}
-  - {fileID: 2451841871435907601}
-  - {fileID: 2451841871436916931}
 --- !u!1 &2451841872705609741
 GameObject:
   m_ObjectHideFlags: 0
@@ -239,6 +258,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2451841872705609742}
   - component: {fileID: 2451841872705609743}
+  - component: {fileID: 7478237719141686178}
   m_Layer: 0
   m_Name: 01
   m_TagString: 01
@@ -287,3 +307,15 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.8, y: 1600}
   m_EdgeRadius: 0
+--- !u!114 &7478237719141686178
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2451841872705609741}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10ce732a8afab3c45bfbd45e1812bf7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

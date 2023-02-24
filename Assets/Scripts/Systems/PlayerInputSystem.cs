@@ -35,6 +35,15 @@ public partial class @PlayerInputSystem : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Save"",
+                    ""type"": ""Button"",
+                    ""id"": ""ddbb9d1b-b5ba-4419-bb8b-9d319756e7c7"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -52,7 +61,7 @@ public partial class @PlayerInputSystem : IInputActionCollection2, IDisposable
                 {
                     ""name"": ""modifier"",
                     ""id"": ""dc807900-21d7-43c0-8d08-7389b3dc6daf"",
-                    ""path"": ""<Keyboard>/leftShift"",
+                    ""path"": ""<Keyboard>/leftCtrl"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
@@ -68,6 +77,39 @@ public partial class @PlayerInputSystem : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
                     ""action"": ""SetZero"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""One Modifier"",
+                    ""id"": ""7102f6bc-cdee-4841-b3f6-ef4a60d65844"",
+                    ""path"": ""OneModifier"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Save"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""modifier"",
+                    ""id"": ""f2dd367b-4a1f-4caa-9b8a-e25f125f6fe5"",
+                    ""path"": ""<Keyboard>/leftCtrl"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Save"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""binding"",
+                    ""id"": ""3b2726d5-1139-4516-857a-daa26dacb52d"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Save"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 }
@@ -396,6 +438,7 @@ public partial class @PlayerInputSystem : IInputActionCollection2, IDisposable
         // General
         m_General = asset.FindActionMap("General", throwIfNotFound: true);
         m_General_SetZero = m_General.FindAction("SetZero", throwIfNotFound: true);
+        m_General_Save = m_General.FindAction("Save", throwIfNotFound: true);
         // Edit
         m_Edit = asset.FindActionMap("Edit", throwIfNotFound: true);
         m_Edit_Up = m_Edit.FindAction("Up", throwIfNotFound: true);
@@ -472,11 +515,13 @@ public partial class @PlayerInputSystem : IInputActionCollection2, IDisposable
     private readonly InputActionMap m_General;
     private IGeneralActions m_GeneralActionsCallbackInterface;
     private readonly InputAction m_General_SetZero;
+    private readonly InputAction m_General_Save;
     public struct GeneralActions
     {
         private @PlayerInputSystem m_Wrapper;
         public GeneralActions(@PlayerInputSystem wrapper) { m_Wrapper = wrapper; }
         public InputAction @SetZero => m_Wrapper.m_General_SetZero;
+        public InputAction @Save => m_Wrapper.m_General_Save;
         public InputActionMap Get() { return m_Wrapper.m_General; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -489,6 +534,9 @@ public partial class @PlayerInputSystem : IInputActionCollection2, IDisposable
                 @SetZero.started -= m_Wrapper.m_GeneralActionsCallbackInterface.OnSetZero;
                 @SetZero.performed -= m_Wrapper.m_GeneralActionsCallbackInterface.OnSetZero;
                 @SetZero.canceled -= m_Wrapper.m_GeneralActionsCallbackInterface.OnSetZero;
+                @Save.started -= m_Wrapper.m_GeneralActionsCallbackInterface.OnSave;
+                @Save.performed -= m_Wrapper.m_GeneralActionsCallbackInterface.OnSave;
+                @Save.canceled -= m_Wrapper.m_GeneralActionsCallbackInterface.OnSave;
             }
             m_Wrapper.m_GeneralActionsCallbackInterface = instance;
             if (instance != null)
@@ -496,6 +544,9 @@ public partial class @PlayerInputSystem : IInputActionCollection2, IDisposable
                 @SetZero.started += instance.OnSetZero;
                 @SetZero.performed += instance.OnSetZero;
                 @SetZero.canceled += instance.OnSetZero;
+                @Save.started += instance.OnSave;
+                @Save.performed += instance.OnSave;
+                @Save.canceled += instance.OnSave;
             }
         }
     }
@@ -694,6 +745,7 @@ public partial class @PlayerInputSystem : IInputActionCollection2, IDisposable
     public interface IGeneralActions
     {
         void OnSetZero(InputAction.CallbackContext context);
+        void OnSave(InputAction.CallbackContext context);
     }
     public interface IEditActions
     {

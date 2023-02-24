@@ -12,4 +12,17 @@ public class GuideGenerate : MonoBehaviour
     {
         s_this = this;
     }
+
+    public static void Generate(int count)
+    {
+        if (count < 01) { count = 01; }
+        if (count > 33) { count = 32; }
+
+        s_guideCount = count;
+        foreach (LineHolder holder in NoteField.s_holders)
+        {
+            holder.InitColliderField();
+            holder.GenerateCollider(s_this.guidePrefab, count);
+        }
+    }
 }

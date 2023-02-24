@@ -5,7 +5,6 @@ using TMPro;
 
 public class GuideHolder : MonoBehaviour
 {
-    public int page = 0, indexer = 0;
     [SerializeField] BoxCollider2D[] guideColliders;
 
     public void ReSizeCollider(int guideCount)

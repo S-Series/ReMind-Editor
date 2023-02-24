@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
@@ -8,61 +9,87 @@ public class EditManager : MonoBehaviour
 {
     public static EditManager s_this;
 
-    private enum EditType { None, Normal, Speed, Effect };
-    private static EditType s_editType = EditType.None;
+    public static bool s_isEditing = false;
+    public static EditType s_editType = EditType.None;
+    public enum EditType { None, Normal, Speed, Effect };
 
-    public static List<NormalNote> s_EditNormal = new List<NormalNote>();
-    public static List<SpeedNote> s_EditSpeed = new List<SpeedNote>();
-    public static List<EffectNote> s_EditEffect = new List<EffectNote>();
+    public static MultyNoteHolder noteHolder;
+    private static int[] holderIndex = new int[2] { 0, 0 };
+
+    [SerializeField] GameObject[] EditWindowObjects;
 
     private void Awake()
     {
         s_this = this;
     }
 
-    public static void SelectNote(GameObject gameObject, bool isMulty = false)
+    public static void SelectNote(MultyNoteHolder holder, EditType type, NormalNote note = null)
     {
-        if (!isMulty) { ResetLists(); }
+        noteHolder = holder;
+        s_editType = type;
 
-        NormalNote editNormal = null;
-        SpeedNote editSpeed = null;
-        EffectNote editEffect = null;
-
-        try { editNormal = gameObject.GetComponent<NoteHolder>().noteClass; }
-        catch
+        if (type == EditType.Normal)
         {
-            try { editSpeed = gameObject.GetComponent<SpeedHolder>().noteClass; }
-            catch 
+            holderIndex = new int[2] { note.line, Convert.ToInt32(note.isAir) };
+            s_this.EditWindowObjects[0].SetActive(true);
+            s_this.EditWindowObjects[1].SetActive(false);
+            s_this.EditWindowObjects[2].SetActive(false);
+        }
+        else if (type == EditType.Speed)
+        {
+            holderIndex = new int[2] { 0, 0 };
+            s_this.EditWindowObjects[0].SetActive(false);
+            s_this.EditWindowObjects[1].SetActive(true);
+            s_this.EditWindowObjects[2].SetActive(false);
+        }
+        else if (type == EditType.Effect)
+        {
+            holderIndex = new int[2] { 0, 0 };
+            s_this.EditWindowObjects[0].SetActive(false);
+            s_this.EditWindowObjects[1].SetActive(false);
+            s_this.EditWindowObjects[2].SetActive(true);
+        }
+        else
+        {
+            s_this.EscapeEditMode();
+            return;
+        }
+    }
+
+    public void EscapeEditMode()
+    {
+        holderIndex = new int[2] { 0, 0 };
+        s_this.EditWindowObjects[0].SetActive(false);
+        s_this.EditWindowObjects[1].SetActive(false);
+        s_this.EditWindowObjects[2].SetActive(false);
+        s_isEditing = false;
+    }
+
+    public void SetNotePos(int pos)
+    {
+        bool isGenerated = false;
+        MultyNoteHolder targetHolder;
+
+        if (s_editType == EditType.Normal)
+        {
+            //# Airial Note
+            if (holderIndex[1] == 1)
             {
-                try { editEffect = gameObject.GetComponent<EffectHolder>().noteClass; }
-                catch { throw new System.Exception("Wrong GameObject Sended"); }
+                NoteField.s_multyHolders.Find(item => item.stdPos == pos);
             }
         }
+    }
 
-        if (editNormal != null) 
-        {
-            if (s_EditNormal.Contains(editNormal)) { s_EditNormal.Remove(editNormal); }
-            else { s_EditNormal.Add(editNormal); }
-        }
-        else if (editSpeed != null) {; }
-        else {; }
-    }
-    public static void ResetLists()
-    {
-        s_EditNormal = new List<NormalNote>();
-        s_EditSpeed = new List<SpeedNote>();
-        s_EditEffect = new List<EffectNote>();
-    }
-    
     public void MoveNote(bool isUp = false, bool isDown = false, bool isLeft = false)
     {
         if (Input.GetKey(KeyCode.LeftControl)) { LegnthNote(isUp, isDown); }
 
-        int stdPos = 2147483647;
-        if (s_EditNormal.Count != 0) { stdPos = s_EditNormal[0].pos; }
-        if (s_EditSpeed.Count != 0) { stdPos = stdPos < s_EditSpeed[0].pos ? stdPos : s_EditSpeed[0].pos; }
-        if (s_EditEffect.Count != 0) { stdPos = stdPos < s_EditEffect[0].pos ? stdPos : s_EditEffect[0].pos; }
-        if (stdPos == 2147483647) { return; }
+        int stdPos;
+        stdPos = noteHolder.stdPos;
+
+        bool isSame;
+        if (stdPos % (1600.0f / GuideGenerate.s_guideCount) == 0) { isSame = true; }
+        else { isSame = false; }
 
         if (isUp)
         {
@@ -81,6 +108,7 @@ public class EditManager : MonoBehaviour
 
         }
     }
+    
     private void LegnthNote(bool isUp, bool isDown)
     {
         if (isUp == isDown) { return; }

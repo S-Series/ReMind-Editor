@@ -32,17 +32,17 @@ public class NoteTest : MonoBehaviour
             foreach (NormalNote note in deleteNormals)
             {
                 ToolManager.EraseManager.DeleteObject(NoteHolder.holders
-                    .Find(item => item.noteClass == note).gameObject, ToolManager.EraseManager.NoteType.Normal);
+                    .Find(item => item.noteClass == note).gameObject, ToolManager.NoteType.Normal);
             }
             foreach (SpeedNote note in deleteSpeeds)
             {
                 ToolManager.EraseManager.DeleteObject(SpeedHolder.holders
-                    .Find(item => item.noteClass == note).gameObject, ToolManager.EraseManager.NoteType.Speed);
+                    .Find(item => item.noteClass == note).gameObject, ToolManager.NoteType.Speed);
             }
             foreach (EffectNote note in deleteEffects)
             {
                 ToolManager.EraseManager.DeleteObject(EffectHolder.holders
-                    .Find(item => item.noteClass == note).gameObject, ToolManager.EraseManager.NoteType.Effect);
+                    .Find(item => item.noteClass == note).gameObject, ToolManager.NoteType.Effect);
             }
 
             ResetAll();

@@ -5,14 +5,13 @@ using GameNote;
 
 public class ToolManager : MonoBehaviour
 {
+    public enum NoteType { Null, Normal, Speed, Effect };
+    public static NoteType noteType = NoteType.Null;
+
     public static class EraseManager
     {
-        public enum NoteType { Null, Normal, Speed, Effect };
-
         public static bool isErasing = false;
         public static GameObject EraseObject = null;
-
-        public static NoteType noteType = NoteType.Null;
 
         public static void MouseOveredObject(GameObject gameObject, NoteType type)
         {
@@ -60,16 +59,16 @@ public class ToolManager : MonoBehaviour
             EraseObject = null;
             noteType = NoteType.Null;
 
-            if (type == NoteType.Normal) 
+            if (type == NoteType.Normal)
             {
-                NoteClass.s_NormalNotes.RemoveAll(item => 
+                NoteClass.s_NormalNotes.RemoveAll(item =>
                 item == gameObject.GetComponent<NoteHolder>().noteClass);
                 Destroy(gameObject.GetComponent<NoteHolder>().linkedHolder.gameObject);
             }
             else if (type == NoteType.Speed)
             {
-                NoteClass.s_SpeedNotes.RemoveAll(item => 
-                item == gameObject.GetComponent<SpeedHolder>().noteClass); 
+                NoteClass.s_SpeedNotes.RemoveAll(item =>
+                item == gameObject.GetComponent<SpeedHolder>().noteClass);
             }
             else if (type == NoteType.Effect)
             {
@@ -79,5 +78,10 @@ public class ToolManager : MonoBehaviour
 
             Destroy(gameObject);
         }
+    }
+
+    public void ToolButton(int index)
+    {
+        NoteGenerate.ChangePreview(index);
     }
 }
