@@ -5,7 +5,7 @@ using UnityEngine;
 public class GuideGenerate : MonoBehaviour
 {
     private static GuideGenerate s_this;
-    public static int s_guideCount;
+    public static int s_guideCount = 1;
     [SerializeField] GameObject guidePrefab;
 
     private void Awake()

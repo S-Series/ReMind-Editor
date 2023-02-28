@@ -12,7 +12,6 @@ public class ToolManager : MonoBehaviour
     {
         public static bool isErasing = false;
         public static GameObject EraseObject = null;
-
         public static void MouseOveredObject(GameObject gameObject, NoteType type)
         {
             if (EraseObject == gameObject) { return; }
@@ -53,7 +52,6 @@ public class ToolManager : MonoBehaviour
                 default: return;
             }
         }
-
         public static void DeleteObject(GameObject gameObject, NoteType type)
         {
             EraseObject = null;
