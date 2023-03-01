@@ -10,11 +10,15 @@ public class GuideHolder : MonoBehaviour
     [SerializeField] SpriteRenderer guideLineRenderer;
     [SerializeField] BoxCollider2D[] guideColliders;
 
-    public void ReSizeCollider(int guideCount, int pos)
+    public void ReSizeCollider(int guideCount, int _page, int _index)
     {
+        int pos;
+        pos = Mathf.RoundToInt(1600.0f / guideCount * _index);
+
         transform.localScale = new Vector3(1, 1.0f / guideCount, 1);
-        transform.localPosition = new Vector3(0, 0, 0);
-        if (pos % 400 == 0) { guideLineRenderer.color = new Vector4(1, 1, 1, 1); }
+        transform.localPosition = new Vector3(0, pos, 0);
+
+        if (pos % 400 == 0) { guideLineRenderer.color = new Color32(255, 255, 255, 255); }
         else { guideLineRenderer.color = new Color32(255, 255, 255, 255); }
     }
 
