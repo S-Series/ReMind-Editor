@@ -8,10 +8,7 @@ public class GuideGenerate : MonoBehaviour
     public static int s_guideCount = 1;
     [SerializeField] GameObject guidePrefab;
 
-    private void Awake()
-    {
-        s_this = this;
-    }
+    private void Awake() { s_this = this; }
 
     public static void Generate(int count)
     {
