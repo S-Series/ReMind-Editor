@@ -18,8 +18,11 @@ public class GuideGenerate : MonoBehaviour
         s_guideCount = count;
         foreach (LineHolder holder in NoteField.s_holders)
         {
-            holder.InitColliderField();
             holder.GenerateCollider(s_this.guidePrefab, count);
+            foreach (GuideHolder guide in holder.holders)
+            {
+                guide.EnableCollider(NoteGenerate.s_isGenerating);
+            }
         }
     }
 }

@@ -5,21 +5,35 @@ using TMPro;
 
 public class GuideHolder : MonoBehaviour
 {
-    public int page = 1, index = 0;
+    public int index = 0;
 
     [SerializeField] SpriteRenderer guideLineRenderer;
     [SerializeField] BoxCollider2D[] guideColliders;
 
-    public void ReSizeCollider(int guideCount, int _page, int _index)
+    public void ReSizeCollider(int guideCount, int index)
     {
         int pos;
-        pos = Mathf.RoundToInt(1600.0f / guideCount * _index);
+        pos = Mathf.RoundToInt(16.0f / guideCount * index);
 
         transform.localScale = new Vector3(1, 1.0f / guideCount, 1);
         transform.localPosition = new Vector3(0, pos, 0);
+        print(pos);
 
-        if (pos % 400 == 0) { guideLineRenderer.color = new Color32(255, 255, 255, 255); }
-        else { guideLineRenderer.color = new Color32(255, 255, 255, 255); }
+        if (pos == 0)
+        {
+            guideLineRenderer.color = new Color32(255, 255, 255, 255);
+            //guideLineRenderer.transform.localScale = new Vector3(1, 1.25f, 1);
+        }
+        else if (pos % 4 == 0)
+        {
+            guideLineRenderer.color = new Color32(255, 200, 200, 50);
+            //guideLineRenderer.transform.localScale = new Vector3(1, 1.25f, 1);
+        }
+        else
+        {
+            guideLineRenderer.color = new Color32(200, 200, 255, 50);
+            //guideLineRenderer.transform.localScale = new Vector3(1, 1.25f, 1);
+        }
     }
 
     public void EnableCollider(bool isEnable)

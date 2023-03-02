@@ -6,11 +6,12 @@ using TMPro;
 public class LineHolder : MonoBehaviour
 {
     [SerializeField] Transform ColliderField;
-    
+
+    public int page;
     public TextMeshPro[] texts;
     public List<GuideHolder> holders = new List<GuideHolder>();
 
-    public void InitColliderField()
+    private void InitColliderField()
     {
         for (int i = 0; i < ColliderField.childCount; i++)
         {
@@ -21,18 +22,25 @@ public class LineHolder : MonoBehaviour
 
     public void GenerateCollider(GameObject game, int count)
     {
-        GameObject copyObject;
+        InitColliderField();
 
-        for (int i = 0; i < ColliderField.childCount; i++)
+        GameObject copyObject;
+        GuideHolder copyHolder;
+
+        for (int i = 0; i < holders.Count; i++)
         {
-            Destroy(ColliderField.GetChild(i).gameObject);
+            Destroy(holders[i].gameObject);
         }
+
+        holders = new List<GuideHolder>();
 
         for (int i = 0; i < count; i++)
         {
             copyObject = Instantiate(game, ColliderField, false);
-            copyObject.transform.localPosition
-                = new Vector3(0, Mathf.RoundToInt(1600f / count * (i + 1)), 0);
+            copyHolder = copyObject.GetComponent<GuideHolder>();
+            holders[i].index = ;
+            holders[i].ReSizeCollider(count, i);
+            holders.Add(copyHolder);
         }
     }
 }

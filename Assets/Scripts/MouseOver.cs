@@ -9,7 +9,7 @@ public class MouseOver : MonoBehaviour, IPointerUpHandler, IPointerClickHandler
     {
         if (!NoteGenerate.s_isGenerating) { return; }
 
-        NoteGenerate.s_Page = transform.GetComponentInParent<GuideHolder>().page;
+        NoteGenerate.s_Page = transform.GetComponentInParent<LineHolder>().page;
         NoteGenerate.s_Indexer = transform.GetComponentInParent<GuideHolder>().index;
     }
 

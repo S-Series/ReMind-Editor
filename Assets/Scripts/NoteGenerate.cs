@@ -69,11 +69,28 @@ public class NoteGenerate : MonoBehaviour
 
         s_previewIndex = index;
         s_this.previews[index].SetActive(true);
+
+        foreach(LineHolder holder in NoteField.s_holders)
+        {
+            foreach(GuideHolder guide in holder.holders)
+            {
+                guide.EnableCollider(true);
+            }
+        }
     }
 
     public void Escape()
     {
-        s_isGenerating = true;
+        s_isGenerating = false;
+        
         foreach (GameObject gameObject in previews) { gameObject.SetActive(false); }
+
+        foreach (LineHolder holder in NoteField.s_holders)
+        {
+            foreach (GuideHolder guide in holder.holders)
+            {
+                guide.EnableCollider(false);
+            }
+        }
     }
 }

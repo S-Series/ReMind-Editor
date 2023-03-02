@@ -28,11 +28,19 @@ public class NoteField : MonoBehaviour
         {
             _copyObject = Instantiate(LinePrefab, DrawField[0], false);
             _copyObject.transform.localPosition = new Vector3(-480.7692f, 1600 * i, 0);
+
             _holder = _copyObject.transform.GetComponent<LineHolder>();
+            _holder.page = i;
             _holder.texts[0].text = string.Format("{0:D3}", i + 1);
             _holder.texts[1].text = string.Format("ms\n{0}", NoteClass.CalMs(1600 * i));
+
             s_holders.Add(_holder);
         }
+    }
+
+    private void Start()
+    {
+        GuideGenerate.Generate(8);
     }
 
     private void Update()
