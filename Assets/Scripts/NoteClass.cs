@@ -99,7 +99,7 @@ namespace GameNote
     {
         public int line;
         public bool isAir;
-        public LineHolder holder;
+        public NoteHolder holder;
     }
 
     public class SpeedNote:Note

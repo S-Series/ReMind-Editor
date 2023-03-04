@@ -3,16 +3,38 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class MouseOver : MonoBehaviour, IPointerUpHandler, IPointerClickHandler
+public class MouseOver : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler
 {
-    public void OnPointerUp(PointerEventData eventData)
+    public void OnPointerEnter(PointerEventData eventData)
     {
         print("Overed");
 
         if (!NoteGenerate.s_isGenerating) { return; }
 
-        NoteGenerate.posX = NoteField.scroll;
-        NoteGenerate.posY = NoteField.scroll;
+        NoteGenerate.posY = transform.parent.GetComponent<GuideHolder>().posY;
+        switch (tag.ToString())
+        {
+
+            case "01":
+                NoteGenerate.s_Line = 1;
+                break;
+
+            case "02":
+                NoteGenerate.s_Line = 2;
+                break;
+
+            case "03":
+                NoteGenerate.s_Line = 3;
+                break;
+
+            case "04":
+                NoteGenerate.s_Line = 4;
+                break;
+
+            default:
+                NoteGenerate.s_Line = 0;
+                break;
+        }
     }
 
     public void OnPointerClick(PointerEventData eventData)
@@ -20,6 +42,7 @@ public class MouseOver : MonoBehaviour, IPointerUpHandler, IPointerClickHandler
         print("Clicked");
 
         if (!NoteGenerate.s_isGenerating) { return; }
-        
+
+        NoteGenerate.GenerateNote();
     }
 }

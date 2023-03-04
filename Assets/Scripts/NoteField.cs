@@ -12,11 +12,12 @@ public class NoteField : MonoBehaviour
     public static List<LineHolder> s_holders = new List<LineHolder>();
     public static List<MultyNoteHolder> s_multyHolders = new List<MultyNoteHolder>();
 
+    public static int s_Page = 0;
+    public static int s_Scroll = 0;
+    public static int s_Zoom = 10;
+
     [SerializeField] GameObject LinePrefab;
     [SerializeField] Transform[] DrawField;
-
-    [SerializeField] public static int scroll = 0;
-    [SerializeField] public static int Zoom = 10;
 
     private void Awake()
     {
@@ -27,7 +28,7 @@ public class NoteField : MonoBehaviour
         for (int i = 0; i < 999; i++)
         {
             _copyObject = Instantiate(LinePrefab, DrawField[0], false);
-            _copyObject.transform.localPosition = new Vector3(-480.7692f, 1600 * i, 0);
+            _copyObject.transform.localPosition = new Vector3(-480.7692f, 1600 * 2 * i, 0);
 
             _holder = _copyObject.transform.GetComponent<LineHolder>();
             _holder.page = i;
@@ -49,22 +50,21 @@ public class NoteField : MonoBehaviour
         //$ Mouse Up
         if (Input.GetAxis("Mouse ScrollWheel") > 0)
         {
-            Collider(false);
-            if (Input.GetKey(KeyCode.LeftControl)) { Zoom++; }
-            else { scroll--; }
+            if (Input.GetKey(KeyCode.LeftControl)) { s_Zoom++; }
+            else { s_Scroll++; }
             UpdateField();
         }
         //$ Mouse Down
         if (Input.GetAxis("Mouse ScrollWheel") < 0)
         {
-            Collider(false);
-            if (Input.GetKey(KeyCode.LeftControl)) { Zoom--; }
-            else { scroll++; }
+            if (Input.GetKey(KeyCode.LeftControl)) { s_Zoom--; }
+            else { s_Scroll--; }
             UpdateField();
         }
 
 
     }
+    
     public MultyNoteHolder FindMultyHolder(NormalNote note)
     {
         MultyNoteHolder ret = null;
@@ -103,36 +103,45 @@ public class NoteField : MonoBehaviour
         }
         return ret;
     }
+    
     public void ResetZoom()
     {
         print("A");
-        Zoom = 10;
+        s_Zoom = 10;
         s_this.UpdateField();
     }
     public void UpdateField()
     {
         Vector3 _pos;
         Vector3 _scale;
+        int _count = GuideGenerate.s_guideCount;
 
-        if (scroll > 0) { scroll = 0; }
-        if (scroll < -999 * 8) { scroll = -999 * 8; }
+        if (s_Scroll < 0) { s_Page--; s_Scroll += _count; }
+        else if (s_Scroll > _count) { s_Page++; s_Scroll -= _count; }
 
-        if (Zoom < 02) { Zoom = 02; }
-        if (Zoom > 40) { Zoom = 40; }
+        if (s_Page < 0) { s_Page = 0; s_Scroll = 0; }
+        else if (s_Page > 999) { s_Page = 999; }
 
-        _pos = new Vector3(-0.5f, scroll / 5f * 8 * (Zoom / 10.0f) - 5, 0);
-        _scale = new Vector3(0.00312f, Zoom * 0.0003125f, 0.00312f);
+        if (s_Zoom < 02) { s_Zoom = 02; }
+        else if (s_Zoom > 40) { s_Zoom = 40; }
+
+        _pos = new Vector3(-0.5f, ((s_Page * -10) - (10f / GuideGenerate.s_guideCount * s_Scroll)) * s_Zoom / 10 - 5, 0);
+        _scale = new Vector3(0.00312f, s_Zoom * 0.0003125f, 0.00312f);
 
         DrawField[0].localScale = _scale;
         DrawField[0].localPosition = _pos;
 
-        DrawField[1].localScale = new Vector3(0.00415f, Zoom * 0.000415f, 0.00415f);
-        DrawField[1].localPosition = new Vector3(25, -31.3f, -19 + scroll / 5f * 8 * (Zoom / 10.0f));
+        DrawField[1].localScale = new Vector3(0.00415f, s_Zoom * 0.000415f, 0.00415f);
+        // DrawField[1].localPosition = new Vector3(25, -31.3f, -19 + s_Scroll / 5f * 8 * (s_Zoom / 10.0f));
 
         DrawField[2].localScale = _scale;
         DrawField[2].localPosition = _pos;
 
-        if (NoteGenerate.s_isGenerating) { Collider(true); }
+        DrawField[3].localScale = _scale;
+        DrawField[3].localPosition = _pos;
+
+        GuideGenerate.UpdateGuideColor();
+        GuideGenerate.GuideFieldSize(_scale, s_Zoom / 10.0f);
     }
     public void AddNote(NormalNote normal = null, SpeedNote speed = null, EffectNote effect = null)
     {
@@ -177,7 +186,8 @@ public class NoteField : MonoBehaviour
 
         }
     }
-    public static void Collider(bool isEnable)
+
+    public static void SortMultyHolder()
     {
 
     }

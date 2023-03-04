@@ -311,6 +311,15 @@ public partial class @PlayerInputSystem : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Escape"",
+                    ""type"": ""Button"",
+                    ""id"": ""edaac24a-dda7-4668-8d85-c3048557a5ca"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -366,6 +375,17 @@ public partial class @PlayerInputSystem : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Change"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c9eafe65-8351-42fb-a7a9-0ee43f6871a7"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Escape"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -455,6 +475,7 @@ public partial class @PlayerInputSystem : IInputActionCollection2, IDisposable
         m_Tools_Eraser = m_Tools.FindAction("Eraser", throwIfNotFound: true);
         m_Tools_Special = m_Tools.FindAction("Special", throwIfNotFound: true);
         m_Tools_Change = m_Tools.FindAction("Change", throwIfNotFound: true);
+        m_Tools_Escape = m_Tools.FindAction("Escape", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -641,6 +662,7 @@ public partial class @PlayerInputSystem : IInputActionCollection2, IDisposable
     private readonly InputAction m_Tools_Eraser;
     private readonly InputAction m_Tools_Special;
     private readonly InputAction m_Tools_Change;
+    private readonly InputAction m_Tools_Escape;
     public struct ToolsActions
     {
         private @PlayerInputSystem m_Wrapper;
@@ -650,6 +672,7 @@ public partial class @PlayerInputSystem : IInputActionCollection2, IDisposable
         public InputAction @Eraser => m_Wrapper.m_Tools_Eraser;
         public InputAction @Special => m_Wrapper.m_Tools_Special;
         public InputAction @Change => m_Wrapper.m_Tools_Change;
+        public InputAction @Escape => m_Wrapper.m_Tools_Escape;
         public InputActionMap Get() { return m_Wrapper.m_Tools; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -674,6 +697,9 @@ public partial class @PlayerInputSystem : IInputActionCollection2, IDisposable
                 @Change.started -= m_Wrapper.m_ToolsActionsCallbackInterface.OnChange;
                 @Change.performed -= m_Wrapper.m_ToolsActionsCallbackInterface.OnChange;
                 @Change.canceled -= m_Wrapper.m_ToolsActionsCallbackInterface.OnChange;
+                @Escape.started -= m_Wrapper.m_ToolsActionsCallbackInterface.OnEscape;
+                @Escape.performed -= m_Wrapper.m_ToolsActionsCallbackInterface.OnEscape;
+                @Escape.canceled -= m_Wrapper.m_ToolsActionsCallbackInterface.OnEscape;
             }
             m_Wrapper.m_ToolsActionsCallbackInterface = instance;
             if (instance != null)
@@ -693,6 +719,9 @@ public partial class @PlayerInputSystem : IInputActionCollection2, IDisposable
                 @Change.started += instance.OnChange;
                 @Change.performed += instance.OnChange;
                 @Change.canceled += instance.OnChange;
+                @Escape.started += instance.OnEscape;
+                @Escape.performed += instance.OnEscape;
+                @Escape.canceled += instance.OnEscape;
             }
         }
     }
@@ -764,5 +793,6 @@ public partial class @PlayerInputSystem : IInputActionCollection2, IDisposable
         void OnEraser(InputAction.CallbackContext context);
         void OnSpecial(InputAction.CallbackContext context);
         void OnChange(InputAction.CallbackContext context);
+        void OnEscape(InputAction.CallbackContext context);
     }
 }

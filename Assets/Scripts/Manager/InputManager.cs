@@ -54,7 +54,7 @@ public class InputManager : MonoBehaviour
         //# Esc
         inputActions.Edit.Escape.performed += item =>
         {
-            NoteGenerate.Escape();
+
         };
         #endregion
 
@@ -83,6 +83,10 @@ public class InputManager : MonoBehaviour
         inputActions.Tools.Change.performed += item =>
         {
 
+        };
+        inputActions.Tools.Escape.performed += item =>
+        {
+            NoteGenerate.Escape();
         };
         #endregion
 

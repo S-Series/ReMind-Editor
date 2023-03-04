@@ -17,8 +17,13 @@ public class NoteHolder : MonoBehaviour
     [SerializeField] GameObject[] noteObject;
     [SerializeField] Sprite[] AirSprite;
 
-    public void UpdateNote(bool repeat)
+    public void GenerateTwin()
     {
 
+    }
+
+    public void UpdateNote(bool repeat)
+    {
+        transform.localPosition = new Vector3(noteClass.line * 240 - 600, noteClass.pos * 2, 0);
     }
 }
