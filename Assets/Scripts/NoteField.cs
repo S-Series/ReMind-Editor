@@ -15,8 +15,8 @@ public class NoteField : MonoBehaviour
     [SerializeField] GameObject LinePrefab;
     [SerializeField] Transform[] DrawField;
 
-    [SerializeField] private int scroll = 0;
-    [SerializeField] private int Zoom = 10;
+    [SerializeField] public static int scroll = 0;
+    [SerializeField] public static int Zoom = 10;
 
     private void Awake()
     {
@@ -42,7 +42,6 @@ public class NoteField : MonoBehaviour
     {
         GuideGenerate.Generate(8);
     }
-
     private void Update()
     {
         if (!s_isFieldMovable) { return; }
@@ -50,6 +49,7 @@ public class NoteField : MonoBehaviour
         //$ Mouse Up
         if (Input.GetAxis("Mouse ScrollWheel") > 0)
         {
+            Collider(false);
             if (Input.GetKey(KeyCode.LeftControl)) { Zoom++; }
             else { scroll--; }
             UpdateField();
@@ -57,6 +57,7 @@ public class NoteField : MonoBehaviour
         //$ Mouse Down
         if (Input.GetAxis("Mouse ScrollWheel") < 0)
         {
+            Collider(false);
             if (Input.GetKey(KeyCode.LeftControl)) { Zoom--; }
             else { scroll++; }
             UpdateField();
@@ -64,7 +65,6 @@ public class NoteField : MonoBehaviour
 
 
     }
-
     public MultyNoteHolder FindMultyHolder(NormalNote note)
     {
         MultyNoteHolder ret = null;
@@ -103,57 +103,56 @@ public class NoteField : MonoBehaviour
         }
         return ret;
     }
-    
     public void ResetZoom()
     {
         print("A");
-        s_this.Zoom = 10;
+        Zoom = 10;
         s_this.UpdateField();
     }
-
     public void UpdateField()
     {
         Vector3 _pos;
         Vector3 _scale;
 
         if (scroll > 0) { scroll = 0; }
-        if (scroll < -999 * 5) { scroll = -999 * 5; }
+        if (scroll < -999 * 8) { scroll = -999 * 8; }
 
         if (Zoom < 02) { Zoom = 02; }
         if (Zoom > 40) { Zoom = 40; }
 
-        _pos = new Vector3(-0.5f, scroll * (Zoom / 10.0f) - 5, 0);
+        _pos = new Vector3(-0.5f, scroll / 5f * 8 * (Zoom / 10.0f) - 5, 0);
         _scale = new Vector3(0.00312f, Zoom * 0.0003125f, 0.00312f);
 
         DrawField[0].localScale = _scale;
         DrawField[0].localPosition = _pos;
 
         DrawField[1].localScale = new Vector3(0.00415f, Zoom * 0.000415f, 0.00415f);
-        DrawField[1].localPosition = new Vector3(25, -31.3f, -19 + scroll * (Zoom / 10.0f));
+        DrawField[1].localPosition = new Vector3(25, -31.3f, -19 + scroll / 5f * 8 * (Zoom / 10.0f));
 
         DrawField[2].localScale = _scale;
         DrawField[2].localPosition = _pos;
-    }
 
+        if (NoteGenerate.s_isGenerating) { Collider(true); }
+    }
     public void AddNote(NormalNote normal = null, SpeedNote speed = null, EffectNote effect = null)
     {
         int _pos;
         MultyNoteHolder targetHolder;
 
-        if (normal != null) 
+        if (normal != null)
         {
             _pos = normal.pos;
-            targetHolder = s_multyHolders.Find(item => item.stdPos == normal.pos); 
+            targetHolder = s_multyHolders.Find(item => item.stdPos == normal.pos);
         }
-        else if (speed != null) 
+        else if (speed != null)
         {
-            _pos = speed.pos; 
-            targetHolder = s_multyHolders.Find(item => item.stdPos == speed.pos); 
+            _pos = speed.pos;
+            targetHolder = s_multyHolders.Find(item => item.stdPos == speed.pos);
         }
-        else if (effect != null) 
+        else if (effect != null)
         {
             _pos = effect.pos;
-            targetHolder = s_multyHolders.Find(item => item.stdPos == effect.pos); 
+            targetHolder = s_multyHolders.Find(item => item.stdPos == effect.pos);
         }
         else { return; }
 
@@ -177,5 +176,9 @@ public class NoteField : MonoBehaviour
         {
 
         }
+    }
+    public static void Collider(bool isEnable)
+    {
+
     }
 }

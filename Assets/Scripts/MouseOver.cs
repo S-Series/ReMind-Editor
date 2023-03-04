@@ -7,15 +7,19 @@ public class MouseOver : MonoBehaviour, IPointerUpHandler, IPointerClickHandler
 {
     public void OnPointerUp(PointerEventData eventData)
     {
+        print("Overed");
+
         if (!NoteGenerate.s_isGenerating) { return; }
 
-        NoteGenerate.s_Page = transform.GetComponentInParent<LineHolder>().page;
-        NoteGenerate.s_Indexer = transform.GetComponentInParent<GuideHolder>().index;
+        NoteGenerate.posX = NoteField.scroll;
+        NoteGenerate.posY = NoteField.scroll;
     }
 
     public void OnPointerClick(PointerEventData eventData)
     {
+        print("Clicked");
+
         if (!NoteGenerate.s_isGenerating) { return; }
-        NoteGenerate.GenerateNote();
+        
     }
 }

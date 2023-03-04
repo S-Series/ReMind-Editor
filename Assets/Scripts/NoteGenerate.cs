@@ -6,9 +6,8 @@ public class NoteGenerate : MonoBehaviour
 {
     private static NoteGenerate s_this;
     public static bool s_isGenerating = false;
-    public static int s_Line = 1, s_Page = 1, s_Indexer, s_previewIndex;
 
-    private int posX = 0, posY = 0, posZ = 0;
+    public static int posX = 0, posY = 0, posZ = 0, s_previewIndex = 0;
 
     [SerializeField] GameObject[] previews;
     /// <summary>
@@ -29,10 +28,6 @@ public class NoteGenerate : MonoBehaviour
     private void Update()
     {
         if (!s_isGenerating) { return; }
-
-        posX = s_Line * 120 - 480;
-        posY = (s_Page - 1) * 1600 + Mathf.RoundToInt(1600.0f / GuideGenerate.s_guideCount * s_Indexer);
-        posZ = 0;
 
         if (s_previewIndex == 1)
         {
@@ -79,18 +74,13 @@ public class NoteGenerate : MonoBehaviour
         }
     }
 
-    public void Escape()
+    public static void Escape()
     {
+        print("Escaped");
         s_isGenerating = false;
         
-        foreach (GameObject gameObject in previews) { gameObject.SetActive(false); }
+        foreach (GameObject gameObject in s_this.previews) { gameObject.SetActive(false); }
 
-        foreach (LineHolder holder in NoteField.s_holders)
-        {
-            foreach (GuideHolder guide in holder.holders)
-            {
-                guide.EnableCollider(false);
-            }
-        }
+        NoteField.Collider(false);
     }
 }

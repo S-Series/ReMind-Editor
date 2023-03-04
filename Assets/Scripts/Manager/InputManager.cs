@@ -54,7 +54,7 @@ public class InputManager : MonoBehaviour
         //# Esc
         inputActions.Edit.Escape.performed += item =>
         {
-
+            NoteGenerate.Escape();
         };
         #endregion
 
@@ -62,7 +62,7 @@ public class InputManager : MonoBehaviour
         //# Keycode Q
         inputActions.Tools.NormalNote.performed += item =>
         {
-
+            ToolManager.Tool(0);
         };
         //# Keycode W
         inputActions.Tools.BottomNote.performed += item =>
