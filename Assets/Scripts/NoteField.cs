@@ -8,10 +8,11 @@ public class NoteField : MonoBehaviour
 {
     public static NoteField s_this;
 
+    [SerializeField] public List<NoteHolder> debug;
+
     public static bool s_isFieldMovable = true;
     public static List<LineHolder> s_holders = new List<LineHolder>();
-    public static List<MultyNoteHolder> s_multyHolders = new List<MultyNoteHolder>();
-    [SerializeField] public List<MultyNoteHolder> debug = new List<MultyNoteHolder>();
+    public static List<NoteHolder> s_noteHolders = new List<NoteHolder>();
     public static int s_Page = 0;
     public static int s_Scroll = 0;
     public static int s_Zoom = 10;
@@ -65,38 +66,38 @@ public class NoteField : MonoBehaviour
 
     }
     
-    public MultyNoteHolder FindMultyHolder(NormalNote note)
+    public NoteHolder FindMultyHolder(NormalNote note)
     {
-        MultyNoteHolder ret = null;
+        NoteHolder ret = null;
         if (note.isAir)
         {
-            for (int i = 0; i < s_multyHolders.Count; i++)
+            for (int i = 0; i < s_noteHolders.Count; i++)
             {
-                if (s_multyHolders[i].airials.Contains(note))
+                if (s_noteHolders[i].airials.Contains(note))
                 {
-                    ret = s_multyHolders[i];
+                    ret = s_noteHolders[i];
                     break;
                 }
             }
         }
         else if (note.line > 4)
         {
-            for (int i = 0; i < s_multyHolders.Count; i++)
+            for (int i = 0; i < s_noteHolders.Count; i++)
             {
-                if (s_multyHolders[i].bottoms.Contains(note))
+                if (s_noteHolders[i].bottoms.Contains(note))
                 {
-                    ret = s_multyHolders[i];
+                    ret = s_noteHolders[i];
                     break;
                 }
             }
         }
         else
         {
-            for (int i = 0; i < s_multyHolders.Count; i++)
+            for (int i = 0; i < s_noteHolders.Count; i++)
             {
-                if (s_multyHolders[i].normals.Contains(note))
+                if (s_noteHolders[i].normals.Contains(note))
                 {
-                    ret = s_multyHolders[i];
+                    ret = s_noteHolders[i];
                     break;
                 }
             }
@@ -143,8 +144,8 @@ public class NoteField : MonoBehaviour
         GuideGenerate.UpdateGuideColor();
         GuideGenerate.GuideFieldSize(_scale, s_Zoom / 10.0f);
     }
-    public static void SortMultyHolder()
+    public static void SortNoteHolder()
     {
-        s_multyHolders.OrderBy(item => item.stdMs);
+        s_noteHolders.OrderBy(item => item.stdMs);
     }
 }

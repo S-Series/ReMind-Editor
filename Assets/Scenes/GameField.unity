@@ -3286,16 +3286,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c276ba54d0901d4ea946d08103f8ddc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 0
-  linkedHolder: {fileID: 0}
-  is2D: 1
-  noteCollider: {fileID: 0}
-  noteObject:
-  - {fileID: 413469919}
-  - {fileID: 953409671}
-  - {fileID: 563808566}
-  - {fileID: 173463865}
-  AirSprite: []
+  stdMs: 0
+  stdPos: 0
+  normalObjects:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  airialObjects:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  bottomObjects:
+  - {fileID: 0}
+  - {fileID: 0}
+  speedObject: {fileID: 0}
+  effectObject: {fileID: 0}
 --- !u!1 &444698819
 GameObject:
   m_ObjectHideFlags: 0
@@ -3696,6 +3703,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f53a6a28251f0ae46b3c342022161027, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  debug: []
   LinePrefab: {fileID: 2746684483852347678, guid: 10db3c75181558d47a90df3de0b12607, type: 3}
   DrawField:
   - {fileID: 1448772551}
@@ -3731,12 +3739,12 @@ MonoBehaviour:
   previews:
   - {fileID: 2008317632}
   - {fileID: 288573008}
-  - {fileID: 1967771691}
   - {fileID: 560952854}
+  - {fileID: 1967771691}
   - {fileID: 444698819}
   - {fileID: 1805351785}
   GeneratePrefabs:
-  - {fileID: 5323825597026842122, guid: 35e19c6f6ee56fb45a95a1aa328cd040, type: 3}
+  - {fileID: 1014723833351867499, guid: b1ed38076c7e7e3499612a21b24bb884, type: 3}
   - {fileID: 0}
   - {fileID: 0}
   GenerateField: {fileID: 262587653}
@@ -3815,16 +3823,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c276ba54d0901d4ea946d08103f8ddc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 0
-  linkedHolder: {fileID: 0}
-  is2D: 1
-  noteCollider: {fileID: 0}
-  noteObject:
-  - {fileID: 1867758115}
-  - {fileID: 1797610236}
-  - {fileID: 1298237498}
-  - {fileID: 1471587820}
-  AirSprite: []
+  stdMs: 0
+  stdPos: 0
+  normalObjects:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  airialObjects:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  bottomObjects:
+  - {fileID: 0}
+  - {fileID: 0}
+  speedObject: {fileID: 0}
+  effectObject: {fileID: 0}
 --- !u!1 &560952854
 GameObject:
   m_ObjectHideFlags: 0
@@ -10303,7 +10318,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f01316a0194e82448251b3ce8463b03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EditWindowObjects: []
 --- !u!1 &1585325577
 GameObject:
   m_ObjectHideFlags: 0
@@ -12466,16 +12480,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c276ba54d0901d4ea946d08103f8ddc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 0
-  linkedHolder: {fileID: 0}
-  is2D: 1
-  noteCollider: {fileID: 0}
-  noteObject:
-  - {fileID: 666144689}
-  - {fileID: 1767842444}
-  - {fileID: 682448520}
-  - {fileID: 266160172}
-  AirSprite: []
+  stdMs: 0
+  stdPos: 0
+  normalObjects:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  airialObjects:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  bottomObjects:
+  - {fileID: 0}
+  - {fileID: 0}
+  speedObject: {fileID: 0}
+  effectObject: {fileID: 0}
 --- !u!1 &1963470694
 GameObject:
   m_ObjectHideFlags: 0
@@ -13835,16 +13856,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c276ba54d0901d4ea946d08103f8ddc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 0
-  linkedHolder: {fileID: 0}
-  is2D: 1
-  noteCollider: {fileID: 0}
-  noteObject:
-  - {fileID: 1109250880}
-  - {fileID: 1188931442}
-  - {fileID: 1452735382}
-  - {fileID: 1368352595}
-  AirSprite: []
+  stdMs: 0
+  stdPos: 0
+  normalObjects:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  airialObjects:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  bottomObjects:
+  - {fileID: 0}
+  - {fileID: 0}
+  speedObject: {fileID: 0}
+  effectObject: {fileID: 0}
 --- !u!1 &2147044787
 GameObject:
   m_ObjectHideFlags: 0

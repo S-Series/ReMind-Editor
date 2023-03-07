@@ -5,19 +5,8 @@ using UnityEngine.EventSystems;
 
 public class test : MonoBehaviour
 {
-    struct testStruct
+    private void Start()
     {
-        int a;
-        int b;
-        public testStruct(int _a, int _b)
-        {
-            a = _a;
-            b = _b;
-        }
-    }
-
-    public class testClass
-    {
-        
+        print(GetComponentInParent<AutoTest>().gameObject.name);
     }
 }

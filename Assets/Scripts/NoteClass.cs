@@ -100,17 +100,41 @@ namespace GameNote
         public int line;
         public bool isAir;
         public NoteHolder holder;
+
+        public static NormalNote Generate()
+        {
+            NormalNote ret;
+            ret = new NormalNote();
+            NoteClass.s_NormalNotes.Add(ret);
+            return ret;
+        }
     }
 
     public class SpeedNote:Note
     {
         public double bpm, multiple;
         public SpeedHolder holder;
+
+        public static SpeedNote Generate()
+        {
+            SpeedNote ret;
+            ret = new SpeedNote();
+            NoteClass.s_SpeedNotes.Add(ret);
+            return ret;
+        }
     }
 
     public class EffectNote:Note
     {
         public int effectIndex, duration;
         public EffectHolder holder;
+
+        public static EffectNote Generate()
+        {
+            EffectNote ret;
+            ret = new EffectNote();
+            NoteClass.s_EffectNotes.Add(ret);
+            return ret;
+        }
     }
 }

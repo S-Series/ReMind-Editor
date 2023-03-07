@@ -52,9 +52,13 @@ public class GuideGenerate : MonoBehaviour
 
     public static void EnableGuideCollider(bool isEnable)
     {
-        foreach(GuideHolder holder in holders)
+        foreach (GuideHolder holder in holders)
         {
             holder.EnableCollider(isEnable);
+        }
+        foreach (NoteHolder holder in NoteField.s_noteHolders)
+        {
+            holder.EditMode(true);
         }
     }
     public static void UpdateGuideColor()

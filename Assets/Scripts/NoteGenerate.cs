@@ -15,7 +15,7 @@ public class NoteGenerate : MonoBehaviour
     [SerializeField] Transform GenerateField;
     /// <summary>
     /// previews[0] = Normal Note   || GeneratePrefabs[0]
-    /// previews[1] = Bottom Note   || GeneratePrefabs[0]
+    /// previews[1] = Bottom Note   || GeneratePrefabs[1]
     /// previews[2] = Eraser        || 
     /// previews[3] = Airial Note   || GeneratePrefabs[0]
     /// previews[4] = Speed Note    || GeneratePrefabs[1]
@@ -39,7 +39,7 @@ public class NoteGenerate : MonoBehaviour
             if (s_Line <= 2) { posX = -240; }
             else { posX = 240; }
         }
-        else if (s_previewIndex == 3 || s_previewIndex == 4) { posX = -1121; }
+        else if (s_previewIndex == 4 || s_previewIndex == 5) { posX = -1121; }
         else if (s_Line == 0) { posX = -360; }
 
         previews[s_previewIndex].transform.localPosition
@@ -52,58 +52,47 @@ public class NoteGenerate : MonoBehaviour
     {
         int pos;
         GameObject copyObject;
-        MultyNoteHolder multyHolder;
+        NoteHolder holder;
         pos = posY + Mathf.RoundToInt
             (1600f / GuideGenerate.s_guideCount * NoteField.s_Scroll + 1600f * NoteField.s_Page);
-        multyHolder = NoteField.s_multyHolders.Find(item => item.stdPos == pos);
+        holder = NoteField.s_noteHolders.Find(item => item.stdPos == pos);
 
         switch (ToolManager.noteType)
         {
             #region //$ Normal Note Generate
             case ToolManager.NoteType.Normal:
 
-                if (multyHolder != null)
+                if (holder != null)
                 {
-                    if (s_previewIndex == 3)
-                        { if (multyHolder.airials[s_Line - 1] != null) { return; } }
-                    else
-                        { if (multyHolder.normals[s_Line - 1] != null) { return; } }
+                    if (s_previewIndex == 3) { if (holder.airials[s_Line - 1] != null) { return; } }
+                    else if (s_previewIndex == 1) { if (holder.bottoms[s_Line < 3 ? 0 : 1] != null) { return; } }
+                    else { if (holder.normals[s_Line - 1] != null) { return; } }
+                }
+                else
+                {
+                    copyObject = Instantiate(s_this.GeneratePrefabs[0], s_this.GenerateField, false);
+                    holder = copyObject.GetComponent<NoteHolder>();
+                    holder.name = "Pos : " + pos.ToString();
+                    holder.stdMs = NoteClass.CalMs(pos);
+                    holder.stdPos = pos;
+                    holder.EditMode(false);
                 }
 
-                NormalNote normal;
-                NoteHolder normalHolder;
-
                 //$ Init NormalNote
-                normal = new NormalNote();
-                normal.pos = pos;
-                normal.ms = NoteClass.CalMs(normal.pos);
+                NormalNote normal;
+                normal = NormalNote.Generate();
+                normal.ms = holder.stdMs;
+                normal.pos = holder.stdPos;
                 normal.line = s_Line;
                 normal.isAir = s_previewIndex == 3 ? true : false;
 
-                //$ Init NoteHolder
-                copyObject = Instantiate(s_this.GeneratePrefabs[0], s_this.GenerateField, false);
-                normalHolder = copyObject.GetComponent<NoteHolder>();
-                normalHolder.is2D = true;
-                normalHolder.type = s_previewIndex == 0 ? NoteHolder.NoteType.Normal :
-                    s_previewIndex == 1 ? NoteHolder.NoteType.Bottom : NoteHolder.NoteType.Air;
+                if (s_previewIndex == 3) { holder.airials[s_Line - 1] = normal; }
+                else if (s_previewIndex == 1) { holder.bottoms[s_Line < 3 ? 0 : 1] = normal; }
+                else { holder.normals[s_Line - 1] = normal; }
 
-                NoteClass.s_NormalNotes.Add(normal);
-                normal.holder = normalHolder;
-                normalHolder.noteClass = normal;
-                normalHolder.GenerateTwin();
-                normalHolder.UpdateNote(true);
-
-                if (multyHolder == null)
-                {
-                    multyHolder = new MultyNoteHolder();
-                    multyHolder.stdMs = normal.ms;
-                    multyHolder.stdPos = normal.pos;
-                    NoteField.s_multyHolders.Add(multyHolder);
-                    NoteField.SortMultyHolder();
-                }
-                if (normal.isAir) { multyHolder.airials[normal.line - 1] = normal; }
-                else { multyHolder.normals[normal.line - 1] = normal; }
-
+                holder.UpdateNote();
+                NoteField.s_noteHolders.Add(holder);
+                NoteField.s_this.debug = NoteField.s_noteHolders;
 
                 break;
             #endregion
@@ -140,13 +129,15 @@ public class NoteGenerate : MonoBehaviour
 
             default: print("returned"); return;
         }
-        
-        NoteField.s_this.debug = NoteField.s_multyHolders;
+
+        NoteField.SortNoteHolder();
     }
 
     public static void ChangePreview(int index)
     {
         foreach (GameObject gameObject in s_this.previews) { gameObject.SetActive(false); }
+
+        if (index == 4 && s_previewIndex == 4) { index = 5; }
 
         if (index < 0 || index >= s_this.previews.Length)
         {

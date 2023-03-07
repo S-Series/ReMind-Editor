@@ -23,22 +23,22 @@ public class InputManager : MonoBehaviour
         //# Up Arrow
         inputActions.Edit.Up.performed += item =>
         {
-            EditManager.s_this.MoveNote(isUp: true);
+            // EditManager.s_this.MoveNote(isUp: true);
         };
         //# Down Arrow
         inputActions.Edit.Down.performed += item =>
         {
-            EditManager.s_this.MoveNote(isDown: true);
+            // EditManager.s_this.MoveNote(isDown: true);
         };
         //# Left Arrow
         inputActions.Edit.Left.performed += item =>
         {
-            EditManager.s_this.MoveNote(isLeft: true);
+            // EditManager.s_this.MoveNote(isLeft: true);
         };
         //# Right Arrow
         inputActions.Edit.Right.performed += item =>
         {
-            EditManager.s_this.MoveNote(/*Auto*/);
+            // EditManager.s_this.MoveNote(/*Auto*/);
         };
 
         //# Left Tab
@@ -59,7 +59,7 @@ public class InputManager : MonoBehaviour
         #endregion
 
         #region //$ Note Tools Actions
-        //# Keycode Q
+        //# Keycode Q   || 
         inputActions.Tools.NormalNote.performed += item =>
         {
             ToolManager.Tool(0);
@@ -67,17 +67,17 @@ public class InputManager : MonoBehaviour
         //# Keycode W
         inputActions.Tools.BottomNote.performed += item =>
         {
-
+            ToolManager.Tool(1);
         };
         //# Keycode E
         inputActions.Tools.Eraser.performed += item =>
         {
-
+            ToolManager.Tool(2);
         };
         //# Keycode R
         inputActions.Tools.Special.performed += item =>
         {
-
+            ToolManager.Tool(3);
         };
         //# Keycode Tab
         inputActions.Tools.Change.performed += item =>
