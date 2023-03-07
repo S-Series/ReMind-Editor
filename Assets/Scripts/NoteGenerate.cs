@@ -140,6 +140,8 @@ public class NoteGenerate : MonoBehaviour
 
             default: print("returned"); return;
         }
+        
+        NoteField.s_this.debug = NoteField.s_multyHolders;
     }
 
     public static void ChangePreview(int index)

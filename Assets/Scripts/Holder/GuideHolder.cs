@@ -42,7 +42,7 @@ public class GuideHolder : MonoBehaviour
         int _pos;
         _pos = Mathf.RoundToInt(1600f / count * (index + this.index));
         if (_pos % 1600 == 0) { guideLineRenderer.color = new Color32(255, 255, 255, 255); }
-        else if (_pos % 400 == 0) { guideLineRenderer.color = new Color32(255, 255, 100, 50); }
-        else { guideLineRenderer.color = new Color32(175, 175, 255, 25); }
+        else if (_pos % 400 == 0) { guideLineRenderer.color = new Color32(60, 242, 187, 50); }
+        else { guideLineRenderer.color = new Color32(255, 255, 255, 25); }
     }
 }

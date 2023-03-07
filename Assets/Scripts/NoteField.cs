@@ -11,7 +11,7 @@ public class NoteField : MonoBehaviour
     public static bool s_isFieldMovable = true;
     public static List<LineHolder> s_holders = new List<LineHolder>();
     public static List<MultyNoteHolder> s_multyHolders = new List<MultyNoteHolder>();
-
+    [SerializeField] public List<MultyNoteHolder> debug = new List<MultyNoteHolder>();
     public static int s_Page = 0;
     public static int s_Scroll = 0;
     public static int s_Zoom = 10;
@@ -143,52 +143,8 @@ public class NoteField : MonoBehaviour
         GuideGenerate.UpdateGuideColor();
         GuideGenerate.GuideFieldSize(_scale, s_Zoom / 10.0f);
     }
-    public void AddNote(NormalNote normal = null, SpeedNote speed = null, EffectNote effect = null)
-    {
-        int _pos;
-        MultyNoteHolder targetHolder;
-
-        if (normal != null)
-        {
-            _pos = normal.pos;
-            targetHolder = s_multyHolders.Find(item => item.stdPos == normal.pos);
-        }
-        else if (speed != null)
-        {
-            _pos = speed.pos;
-            targetHolder = s_multyHolders.Find(item => item.stdPos == speed.pos);
-        }
-        else if (effect != null)
-        {
-            _pos = effect.pos;
-            targetHolder = s_multyHolders.Find(item => item.stdPos == effect.pos);
-        }
-        else { return; }
-
-        if (targetHolder == null)
-        {
-            targetHolder = new MultyNoteHolder();
-            targetHolder.stdMs = NoteClass.CalMs(_pos);
-            targetHolder.stdPos = _pos;
-            s_multyHolders.Add(targetHolder);
-        }
-
-        if (normal != null)
-        {
-
-        }
-        else if (speed != null)
-        {
-
-        }
-        else if (effect != null)
-        {
-
-        }
-    }
-
     public static void SortMultyHolder()
     {
-
+        s_multyHolders.OrderBy(item => item.stdMs);
     }
 }

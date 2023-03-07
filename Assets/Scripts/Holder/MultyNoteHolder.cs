@@ -1,9 +1,9 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using GameNote;
 
-public class MultyNoteHolder
+[Serializable] public class MultyNoteHolder
 {
     public int stdMs;
     public int stdPos;
