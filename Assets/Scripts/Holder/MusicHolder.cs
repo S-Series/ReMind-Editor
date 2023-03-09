@@ -56,10 +56,13 @@ public class MusicHolder : MonoBehaviour, IPointerClickHandler
             loadBtn.interactable = true;
             yield break;
         }
-        if (isWav.isOn) { path = Application.dataPath + "_DataBox/_MusicFile/" + name + ".wav"; }
-        else { path = Application.dataPath + "_DataBox/_MusicFile/" + name + ".mp3"; }
+        if (isWav.isOn) { path = Application.dataPath + "/_DataBox/_MusicFile/" + name + ".wav"; }
+        else { path = Application.dataPath + "/_DataBox/_MusicFile/" + name + ".mp3"; }
 
-        using (UnityWebRequest www = UnityWebRequestMultimedia.GetAudioClip(path, isWav.isOn? AudioType.WAV:AudioType.MPEG))
+        print(path);
+
+        using (UnityWebRequest www = UnityWebRequestMultimedia
+            .GetAudioClip(path, isWav.isOn ? AudioType.WAV : AudioType.MPEG))
         {
             yield return www.SendWebRequest();
 
@@ -69,13 +72,17 @@ public class MusicHolder : MonoBehaviour, IPointerClickHandler
                 PlayerPrefs.SetString("SongName", "");
                 isWav.interactable = true;
                 inputField.interactable = true;
-                loadBtn.interactable = true; 
+                loadBtn.interactable = true;
                 yield break;
             }
             else
             {
-                audioSource.clip = DownloadHandlerAudioClip.GetContent(www);
-                PlayerPrefs.SetString("SongName", name);
+                try
+                {
+                    audioSource.clip = DownloadHandlerAudioClip.GetContent(www);
+                    PlayerPrefs.SetString("SongName", name);
+                }
+                catch { }
                 isWav.interactable = true;
                 inputField.interactable = true;
                 loadBtn.interactable = true;
@@ -83,4 +90,3 @@ public class MusicHolder : MonoBehaviour, IPointerClickHandler
         }
     }
 }
-    

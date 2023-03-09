@@ -8,8 +8,6 @@ public class NoteField : MonoBehaviour
 {
     public static NoteField s_this;
 
-    [SerializeField] public List<NoteHolder> debug;
-
     public static bool s_isFieldMovable = true;
     public static List<LineHolder> s_holders = new List<LineHolder>();
     public static List<NoteHolder> s_noteHolders = new List<NoteHolder>();
@@ -104,7 +102,6 @@ public class NoteField : MonoBehaviour
         }
         return ret;
     }
-    
     public void ResetZoom()
     {
         print("A");
@@ -126,14 +123,16 @@ public class NoteField : MonoBehaviour
         if (s_Zoom < 02) { s_Zoom = 02; }
         else if (s_Zoom > 40) { s_Zoom = 40; }
 
-        _pos = new Vector3(-0.5f, ((s_Page * -10) - (10f / GuideGenerate.s_guideCount * s_Scroll)) * s_Zoom / 10 - 5, 0);
+        _pos = new Vector3(-0.5f, ((s_Page * -10) 
+            - (10f / GuideGenerate.s_guideCount * s_Scroll)) * s_Zoom / 10 - 5, 0);
         _scale = new Vector3(0.00312f, s_Zoom * 0.0003125f, 0.00312f);
 
         DrawField[0].localScale = _scale;
         DrawField[0].localPosition = _pos;
 
-        DrawField[1].localScale = new Vector3(0.00415f, s_Zoom * 0.000415f, 0.00415f);
-        // DrawField[1].localPosition = new Vector3(25, -31.3f, -19 + s_Scroll / 5f * 8 * (s_Zoom / 10.0f));
+        DrawField[1].localScale = new Vector3(0.00415f, s_Zoom * 0.0003125001f, 0.00415f);
+        DrawField[1].localPosition = new Vector3(25, -31.3f, ((s_Page * -10) 
+            - (10f / GuideGenerate.s_guideCount * s_Scroll)) * s_Zoom / 10 - 19);
 
         DrawField[2].localScale = _scale;
         DrawField[2].localPosition = _pos;
@@ -143,6 +142,7 @@ public class NoteField : MonoBehaviour
 
         GuideGenerate.UpdateGuideColor();
         GuideGenerate.GuideFieldSize(_scale, s_Zoom / 10.0f);
+        foreach (NoteHolder holder in NoteField.s_noteHolders) { holder.UpdateScale(); }
     }
     public static void SortNoteHolder()
     {

@@ -9,6 +9,7 @@ public class NoteHolder : MonoBehaviour
     public static List<NoteHolder> holders = new List<NoteHolder>();
 
     public int stdMs, stdPos;
+    public GameNoteHolder gameNoteHolder;
 
     public NormalNote[] normals = new NormalNote[4] { null, null, null, null };
     public NormalNote[] airials = new NormalNote[4] { null, null, null, null };
@@ -24,7 +25,7 @@ public class NoteHolder : MonoBehaviour
 
     public void UpdateNote()
     {
-        transform.localPosition = new Vector3(0, stdPos * 2, 0); 
+        transform.localPosition = new Vector3(0, stdPos * 2, 0);
 
         for (int i = 0; i < 4; i++)
         {
@@ -46,6 +47,13 @@ public class NoteHolder : MonoBehaviour
 
         if (effectNote == null) { effectObject.SetActive(false); }
         else { effectObject.SetActive(true); }
+
+        gameNoteHolder.UpdateNote(this);
+    }
+    public void UpdateScale()
+    {
+        transform.localScale = new Vector3(1, 1f / (NoteField.s_Zoom / 10f), 1);
+        gameNoteHolder.UpdateScale();
     }
     public void EditMode(bool isTrue)
     {

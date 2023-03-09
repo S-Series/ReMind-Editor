@@ -12,7 +12,7 @@ public class NoteGenerate : MonoBehaviour
 
     [SerializeField] GameObject[] previews;
     [SerializeField] GameObject[] GeneratePrefabs;
-    [SerializeField] Transform GenerateField;
+    [SerializeField] Transform[] GenerateField;
     /// <summary>
     /// previews[0] = Normal Note   || GeneratePrefabs[0]
     /// previews[1] = Bottom Note   || GeneratePrefabs[1]
@@ -70,12 +70,16 @@ public class NoteGenerate : MonoBehaviour
                 }
                 else
                 {
-                    copyObject = Instantiate(s_this.GeneratePrefabs[0], s_this.GenerateField, false);
+                    copyObject = Instantiate(s_this.GeneratePrefabs[0], s_this.GenerateField[0], false);
                     holder = copyObject.GetComponent<NoteHolder>();
                     holder.name = "Pos : " + pos.ToString();
                     holder.stdMs = NoteClass.CalMs(pos);
                     holder.stdPos = pos;
                     holder.EditMode(false);
+
+                    copyObject = Instantiate(s_this.GeneratePrefabs[1], s_this.GenerateField[1], false);
+                    holder.gameNoteHolder = copyObject.GetComponent<GameNoteHolder>();
+                    holder.gameNoteHolder.name = "Pos : " + pos.ToString();
                 }
 
                 //$ Init NormalNote
@@ -91,8 +95,8 @@ public class NoteGenerate : MonoBehaviour
                 else { holder.normals[s_Line - 1] = normal; }
 
                 holder.UpdateNote();
+                holder.UpdateScale();
                 NoteField.s_noteHolders.Add(holder);
-                NoteField.s_this.debug = NoteField.s_noteHolders;
 
                 break;
             #endregion
@@ -111,7 +115,7 @@ public class NoteGenerate : MonoBehaviour
                 speed.multiple = 1.0;
 
                 //$ Init SpeedHolder
-                copyObject = Instantiate(s_this.GeneratePrefabs[1], s_this.GenerateField, false);
+                copyObject = Instantiate(s_this.GeneratePrefabs[1], s_this.GenerateField[0], false);
                 speedHolder = copyObject.GetComponent<SpeedHolder>();
 
                 NoteClass.s_SpeedNotes.Add(speed);
