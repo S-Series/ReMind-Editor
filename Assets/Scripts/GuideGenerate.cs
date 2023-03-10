@@ -6,11 +6,13 @@ public class GuideGenerate : MonoBehaviour
 {
     private static GuideGenerate s_this;
     public static int s_guideCount = 1;
-    [SerializeField] GameObject ColliderPrefab;
-    [SerializeField] Transform ColliderField;
+    public static int[] s_guidePos = new int[1] { 0 };
     private static List<GuideHolder> holders = new List<GuideHolder>();
 
-    private void Awake() { s_this = this; Generate(4); }
+    [SerializeField] GameObject ColliderPrefab;
+    [SerializeField] Transform ColliderField;
+
+    private void Awake() { s_this = this; Generate(8); }
 
     public static void Generate(int count)
     {

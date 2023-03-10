@@ -54,7 +54,7 @@ public class InputManager : MonoBehaviour
         //# Esc
         inputActions.Edit.Escape.performed += item =>
         {
-
+            EditManager.Escape();
         };
         #endregion
 
@@ -92,7 +92,6 @@ public class InputManager : MonoBehaviour
 
         General(true);
         Editing(false);
-        Tools(true);
     }
 
     public static void General(bool isEnable)
@@ -103,13 +102,15 @@ public class InputManager : MonoBehaviour
 
     public static void Editing(bool isEnable)
     {
-        if (isEnable) { inputActions.Edit.Enable(); }
-        else { inputActions.Edit.Disable(); }
-    }
-
-    public static void Tools(bool isEnable)
-    {
-        if (isEnable) { inputActions.Tools.Enable(); }
-        else { inputActions.Tools.Disable(); }
+        if (isEnable)
+        {
+            inputActions.Edit.Enable();
+            inputActions.Tools.Disable();
+        }
+        else
+        {
+            inputActions.Edit.Disable();
+            inputActions.Tools.Enable();
+        }
     }
 }

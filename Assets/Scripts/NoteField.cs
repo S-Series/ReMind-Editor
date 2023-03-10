@@ -38,10 +38,6 @@ public class NoteField : MonoBehaviour
         }
     }
 
-    private void Start()
-    {
-        GuideGenerate.Generate(8);
-    }
     private void Update()
     {
         if (!s_isFieldMovable) { return; }
@@ -142,7 +138,8 @@ public class NoteField : MonoBehaviour
 
         GuideGenerate.UpdateGuideColor();
         GuideGenerate.GuideFieldSize(_scale, s_Zoom / 10.0f);
-        foreach (NoteHolder holder in NoteField.s_noteHolders) { holder.UpdateScale(); }
+        foreach (NoteHolder holder in s_noteHolders) { holder.UpdateScale(); }
+        foreach (LineHolder holder in s_holders) { holder.UpdateScale(); }
     }
     public static void SortNoteHolder()
     {

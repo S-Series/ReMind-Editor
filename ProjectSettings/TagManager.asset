@@ -8,6 +8,9 @@ TagManager:
   - 02
   - 03
   - 04
+  - Bottom
+  - Airial
+  - Normal
   layers:
   - Default
   - TransparentFX

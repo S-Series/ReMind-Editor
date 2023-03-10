@@ -57,30 +57,40 @@ public class NoteGenerate : MonoBehaviour
             (1600f / GuideGenerate.s_guideCount * NoteField.s_Scroll + 1600f * NoteField.s_Page);
         holder = NoteField.s_noteHolders.Find(item => item.stdPos == pos);
 
+        if (holder != null)
+        {
+            if (s_previewIndex == 1) 
+                { if (holder.bottoms[s_Line < 3 ? 0 : 1] != null) { return; } }
+
+            else if (s_previewIndex == 3) 
+                { if (holder.airials[s_Line - 1] != null) { return; } }
+
+            else if (s_previewIndex == 4) 
+                { if (holder.speedNote != null) { return; } }
+
+            else if (s_previewIndex == 5) 
+                { if (holder.effectNote != null) { return; } }
+
+            else { if (holder.normals[s_Line - 1] != null) { return; } }
+        }
+        else
+        {
+            copyObject = Instantiate(s_this.GeneratePrefabs[0], s_this.GenerateField[0], false);
+            holder = copyObject.GetComponent<NoteHolder>();
+            holder.name = "Pos : " + pos.ToString();
+            holder.stdMs = NoteClass.CalMs(pos);
+            holder.stdPos = pos;
+            holder.EditMode(false);
+
+            copyObject = Instantiate(s_this.GeneratePrefabs[1], s_this.GenerateField[1], false);
+            holder.gameNoteHolder = copyObject.GetComponent<GameNoteHolder>();
+            holder.gameNoteHolder.name = "Pos : " + pos.ToString();
+        }
+
         switch (ToolManager.noteType)
         {
             #region //$ Normal Note Generate
             case ToolManager.NoteType.Normal:
-
-                if (holder != null)
-                {
-                    if (s_previewIndex == 3) { if (holder.airials[s_Line - 1] != null) { return; } }
-                    else if (s_previewIndex == 1) { if (holder.bottoms[s_Line < 3 ? 0 : 1] != null) { return; } }
-                    else { if (holder.normals[s_Line - 1] != null) { return; } }
-                }
-                else
-                {
-                    copyObject = Instantiate(s_this.GeneratePrefabs[0], s_this.GenerateField[0], false);
-                    holder = copyObject.GetComponent<NoteHolder>();
-                    holder.name = "Pos : " + pos.ToString();
-                    holder.stdMs = NoteClass.CalMs(pos);
-                    holder.stdPos = pos;
-                    holder.EditMode(false);
-
-                    copyObject = Instantiate(s_this.GeneratePrefabs[1], s_this.GenerateField[1], false);
-                    holder.gameNoteHolder = copyObject.GetComponent<GameNoteHolder>();
-                    holder.gameNoteHolder.name = "Pos : " + pos.ToString();
-                }
 
                 //$ Init NormalNote
                 NormalNote normal;
@@ -96,6 +106,7 @@ public class NoteGenerate : MonoBehaviour
 
                 holder.UpdateNote();
                 holder.UpdateScale();
+                holder.EditMode(false);
                 NoteField.s_noteHolders.Add(holder);
 
                 break;
@@ -161,6 +172,7 @@ public class NoteGenerate : MonoBehaviour
         s_this.previews[index].SetActive(true);
 
         GuideGenerate.EnableGuideCollider(true);
+        foreach (NoteHolder holder in NoteField.s_noteHolders) { holder.EditMode(false); }
     }
 
     public static void Escape()
@@ -171,5 +183,6 @@ public class NoteGenerate : MonoBehaviour
         foreach (GameObject gameObject in s_this.previews) { gameObject.SetActive(false); }
 
         GuideGenerate.EnableGuideCollider(false);
+        foreach (NoteHolder holder in NoteField.s_noteHolders) { holder.EditMode(true); }
     }
 }

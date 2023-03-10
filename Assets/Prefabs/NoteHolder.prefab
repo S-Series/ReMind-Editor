@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 1014723832836383261}
   m_Layer: 0
   m_Name: Bottoms
-  m_TagString: Untagged
+  m_TagString: Bottom
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -167,6 +167,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1014723832883863549}
   - component: {fileID: 1014723832883863550}
+  - component: {fileID: 3661603048959144597}
   - component: {fileID: 2206488269294961290}
   m_Layer: 0
   m_Name: Air04
@@ -242,6 +243,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &3661603048959144597
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1014723832883863548}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1591c65717b62f47becb9421f8d4e36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!61 &2206488269294961290
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -402,6 +415,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1014723833269013127}
   - component: {fileID: 1014723833269013144}
+  - component: {fileID: 3151062074575018459}
   - component: {fileID: 5863531115137825939}
   m_Layer: 0
   m_Name: Air03
@@ -477,6 +491,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &3151062074575018459
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1014723833269013126}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1591c65717b62f47becb9421f8d4e36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!61 &5863531115137825939
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -553,6 +579,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stdMs: 0
   stdPos: 0
+  gameNoteHolder: {fileID: 0}
   normalObjects:
   - {fileID: 6367677638190123143}
   - {fileID: 1014723833257163513}
@@ -702,6 +729,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1014723833439605155}
   - component: {fileID: 1014723833439605156}
+  - component: {fileID: 6943090949904561512}
   - component: {fileID: 7524734180961877311}
   m_Layer: 0
   m_Name: Air02
@@ -777,6 +805,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &6943090949904561512
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1014723833439605154}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1591c65717b62f47becb9421f8d4e36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!61 &7524734180961877311
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -938,7 +978,7 @@ GameObject:
   - component: {fileID: 1014723834383784660}
   m_Layer: 0
   m_Name: Airials
-  m_TagString: Untagged
+  m_TagString: Airial
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -972,6 +1012,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7052810919737230072}
   - component: {fileID: 4077681112556134685}
+  - component: {fileID: 269959329326103627}
   - component: {fileID: 7553259134916485371}
   m_Layer: 0
   m_Name: Air01
@@ -1047,6 +1088,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &269959329326103627
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2747370496236699458}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1591c65717b62f47becb9421f8d4e36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!61 &7553259134916485371
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1332,7 +1385,7 @@ GameObject:
   - component: {fileID: 6367677637986505249}
   m_Layer: 0
   m_Name: Notes
-  m_TagString: Untagged
+  m_TagString: Normal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

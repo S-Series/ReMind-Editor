@@ -32,7 +32,7 @@ public class GameNoteHolder : MonoBehaviour
                     if (holder.normals[j] != null)
                     {
                         lineRenderer.positionCount += 2;
-                        lineRenderer.SetPosition(index, new Vector3(240f * (i - j), 0, 350));
+                        lineRenderer.SetPosition(index, new Vector3(240f * (j - i), 0, 350));
                         lineRenderer.SetPosition(index + 1, new Vector3(0, 0, 0));
                         index += 2;
                     }
