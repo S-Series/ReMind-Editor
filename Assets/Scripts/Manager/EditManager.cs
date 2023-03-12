@@ -55,6 +55,6 @@ public class EditManager : MonoBehaviour
         pos = s_SelectNoteHolder.stdPos;
         isFit = GuideGenerate.s_guidePos.Contains(pos % 1600);
 
-
+        
     }
 }

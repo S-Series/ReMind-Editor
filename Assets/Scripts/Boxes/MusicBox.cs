@@ -7,9 +7,9 @@ using UnityEngine.Networking;
 using UnityEngine.EventSystems;
 using TMPro;
 
-public class MusicHolder : MonoBehaviour, IPointerClickHandler
+public class MusicBox : MonoBehaviour, IPointerClickHandler
 {
-    private static MusicHolder s_this;
+    private static MusicBox s_this;
     private bool isUp = false;
     AudioSource audioSource;
     [SerializeField] Toggle isWav;

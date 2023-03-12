@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class ToolHolder : MonoBehaviour, IPointerClickHandler
+public class ToolBox : MonoBehaviour, IPointerClickHandler
 {
     Animator animator;
     private bool isUp = true;

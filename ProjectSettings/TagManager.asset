@@ -11,6 +11,7 @@ TagManager:
   - Bottom
   - Airial
   - Normal
+  - Draggable
   layers:
   - Default
   - TransparentFX
