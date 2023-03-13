@@ -14,6 +14,7 @@ public class NoteField : MonoBehaviour
     public static int s_Page = 0;
     public static int s_Scroll = 0;
     public static int s_Zoom = 10;
+    public static int s_StartPos = 0;
 
     [SerializeField] GameObject LinePrefab;
     [SerializeField] Transform[] DrawField;
@@ -110,6 +111,8 @@ public class NoteField : MonoBehaviour
         Vector3 _scale;
         int _count = GuideGenerate.s_guideCount;
 
+        s_StartPos = s_Page * 1600 + Mathf.RoundToInt(1600f / _count * s_Scroll);
+
         if (s_Scroll < 0) { s_Page--; s_Scroll += _count; }
         else if (s_Scroll > _count) { s_Page++; s_Scroll -= _count; }
 
@@ -138,8 +141,11 @@ public class NoteField : MonoBehaviour
 
         GuideGenerate.UpdateGuideColor();
         GuideGenerate.GuideFieldSize(_scale, s_Zoom / 10.0f);
+
         foreach (NoteHolder holder in s_noteHolders) { holder.UpdateScale(); }
         foreach (LineHolder holder in s_holders) { holder.UpdateScale(); }
+
+        EditBox.UpdateRenderer();
     }
     public static void SortNoteHolder()
     {

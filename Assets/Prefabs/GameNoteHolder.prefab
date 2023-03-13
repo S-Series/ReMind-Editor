@@ -887,7 +887,7 @@ GameObject:
   - component: {fileID: 2368270511865297179}
   m_Layer: 0
   m_Name: Normals
-  m_TagString: Untagged
+  m_TagString: Normal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2790,7 +2790,7 @@ GameObject:
   - component: {fileID: 2368270513403709017}
   m_Layer: 0
   m_Name: Bottoms
-  m_TagString: Untagged
+  m_TagString: Bottom
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2823,7 +2823,7 @@ GameObject:
   - component: {fileID: 2368270513431882612}
   m_Layer: 0
   m_Name: Airials
-  m_TagString: Untagged
+  m_TagString: Airial
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

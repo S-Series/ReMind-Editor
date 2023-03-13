@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 public class DragDrop : MonoBehaviour
 {
     [SerializeField] InputAction inputAction;
-    [SerializeField] Camera camera;
+    [SerializeField] private Camera camera;
     private Vector3 velocity = Vector3.zero;
 
     private void OnEnable()
@@ -53,6 +53,7 @@ public class DragDrop : MonoBehaviour
                 pos = Vector3.SmoothDamp(clicked.transform.position,
                     ray.GetPoint(initialDistance), ref velocity, 0);
                 clicked.transform.position = RetouchVector3(pos);
+                EditBox.UpdateRenderer();
                 yield return null;
             }
         }

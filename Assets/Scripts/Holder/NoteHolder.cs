@@ -63,6 +63,17 @@ public class NoteHolder : MonoBehaviour
         speedObject.GetComponent<BoxCollider2D>().enabled = false;
         effectObject.GetComponent<BoxCollider2D>().enabled = false;
     }
+    public void CheckDestroy()
+    {
+        if (normals == new NormalNote[4]{ null, null, null, null}
+            && airials == new NormalNote[4] { null, null, null, null}
+            && bottoms == new NormalNote[2] { null, null }
+            && speedNote == null && effectNote == null)
+        {
+            NoteField.s_noteHolders.RemoveAll(item => item == this);
+            Destroy(this.gameObject);
+        }
+    }
     /*public static NoteHolder GenerateNoteHolder()
     {
         NoteHolder ret;

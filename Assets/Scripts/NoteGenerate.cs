@@ -85,6 +85,7 @@ public class NoteGenerate : MonoBehaviour
             copyObject = Instantiate(s_this.GeneratePrefabs[1], s_this.GenerateField[1], false);
             holder.gameNoteHolder = copyObject.GetComponent<GameNoteHolder>();
             holder.gameNoteHolder.name = "Pos : " + pos.ToString();
+            NoteField.s_noteHolders.Add(holder);
         }
 
         switch (ToolManager.noteType)
@@ -107,7 +108,6 @@ public class NoteGenerate : MonoBehaviour
                 holder.UpdateNote();
                 holder.UpdateScale();
                 holder.EditMode(false);
-                NoteField.s_noteHolders.Add(holder);
 
                 break;
             #endregion
@@ -147,7 +147,28 @@ public class NoteGenerate : MonoBehaviour
 
         NoteField.SortNoteHolder();
     }
+    public static NoteHolder GenerateNoteManual(int pos)
+    {
+        NoteHolder ret;
+        GameObject copyObject;
 
+        ret = NoteField.s_noteHolders.Find(item => item.stdPos == pos);
+
+        if (ret != null) { return ret; }
+
+        copyObject = Instantiate(s_this.GeneratePrefabs[0], s_this.GenerateField[0], false);
+        ret = copyObject.GetComponent<NoteHolder>();
+        ret.name = "Pos : " + pos.ToString();
+        ret.stdMs = NoteClass.CalMs(pos);
+        ret.stdPos = pos;
+        ret.EditMode(false);
+
+        copyObject = Instantiate(s_this.GeneratePrefabs[1], s_this.GenerateField[1], false);
+        ret.gameNoteHolder = copyObject.GetComponent<GameNoteHolder>();
+        ret.gameNoteHolder.name = "Pos : " + pos.ToString();
+        NoteField.s_noteHolders.Add(ret);
+        return ret;
+    }
     public static void ChangePreview(int index)
     {
         foreach (GameObject gameObject in s_this.previews) { gameObject.SetActive(false); }
@@ -174,7 +195,6 @@ public class NoteGenerate : MonoBehaviour
         GuideGenerate.EnableGuideCollider(true);
         foreach (NoteHolder holder in NoteField.s_noteHolders) { holder.EditMode(false); }
     }
-
     public static void Escape()
     {
         print("Escaped");
