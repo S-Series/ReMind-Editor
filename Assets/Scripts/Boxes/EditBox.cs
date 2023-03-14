@@ -64,13 +64,16 @@ public class EditBox : MonoBehaviour
 
     private void UpdateBox(int index)
     {
-        if (nowIndex == index) { return; }
+        editBoxes[index].SetActive(true);
 
         lineRenderer = editBoxes[index].GetComponent<LineRenderer>();
         lineRenderer.enabled = true;
 
-        editBoxes[index].SetActive(true);
-        editBoxes[index].transform.localPosition = new Vector3(-3.75f, 0, 0);
+        Vector3 position;
+        position = editBoxes[index].transform.localPosition;
+        if (Mathf.Abs(position.x) > 10 || Mathf.Abs(position.y) > 4.5)
+            { editBoxes[index].transform.localPosition = new Vector3(-3.75f, 0, 0); }
+
         nowIndex = index;
     }
 
