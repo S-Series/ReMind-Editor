@@ -5,15 +5,39 @@ using UnityEngine.EventSystems;
 
 public class test : MonoBehaviour
 {
+    [SerializeField] Animator anim;
+    private const string animTag = "Crouch";
+    bool isPressed = false;
+    KeyCode KC = KeyCode.F;
+
+    IEnumerator Delay;
+
     private void Start()
     {
-        print(0);
-        print(1);
-        print(2);
-        print(3);
-        for (int i = 0; i < 20; i++)
+        Delay = IDoSomething();
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KC))
         {
-            print(i + 4);
+            StartCoroutine(Delay);
         }
+        if (Input.GetKeyUp(KC))
+        {
+            StopCoroutine(Delay);
+            Delay = IDoSomething();
+        }
+    }
+
+    private IEnumerator IDoSomething()
+    {
+        yield return new WaitForSeconds(0.3f);
+        SkillActivate();
+    }
+
+    private void SkillActivate()
+    {
+
     }
 }

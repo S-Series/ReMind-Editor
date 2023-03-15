@@ -97,7 +97,7 @@ namespace GameNote
 
     public class NormalNote:Note
     {
-        public int line, legnth;
+        public int line, legnth = 1, SoundIndex = 0;
         public bool isAir;
         public NoteHolder holder;
 

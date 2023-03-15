@@ -212,7 +212,7 @@ public class EditManager : MonoBehaviour
     }
     public static void LegnthNote(int editLegnth)
     {
-        if (editLegnth < 0) { editLegnth = 0; }
+        if (editLegnth < 1) { editLegnth = 1; }
 
         if (s_SelectedObject.transform.parent.CompareTag("Normal"))
         {
