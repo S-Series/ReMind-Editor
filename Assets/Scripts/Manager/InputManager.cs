@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 public class InputManager : MonoBehaviour
 {
     public static PlayerInputSystem inputActions;
+    private static bool[] s_Enable = new bool[3];
 
     private void Awake()
     {
@@ -17,6 +18,10 @@ public class InputManager : MonoBehaviour
         inputActions.General.SetZero.performed += item =>
         {
             NoteField.s_this.ResetZoom();
+        };
+        inputActions.General.Save.performed += item =>
+        {
+            SaveManager.SaveNoteFile();
         };
         #endregion
 
@@ -95,12 +100,16 @@ public class InputManager : MonoBehaviour
         Editing(false);
     }
 
+    public static void EnableInput(bool isEnable)
+    {
+        if (isEnable) { inputActions.Enable(); }
+        else { inputActions.Disable(); }
+    }
     public static void General(bool isEnable)
     {
         if (isEnable) { inputActions.General.Enable(); }
         else { inputActions.General.Disable(); }
     }
-
     public static void Editing(bool isEnable)
     {
         if (isEnable)

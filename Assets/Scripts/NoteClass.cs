@@ -126,7 +126,7 @@ namespace GameNote
 
     public class EffectNote:Note
     {
-        public int effectIndex, duration;
+        public int effectIndex, value;
         public EffectHolder holder;
 
         public static EffectNote Generate()
