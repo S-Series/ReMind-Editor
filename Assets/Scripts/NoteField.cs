@@ -151,4 +151,13 @@ public class NoteField : MonoBehaviour
     {
         s_noteHolders.OrderBy(item => item.stdMs);
     }
+    public static IEnumerator IResetHolderList()
+    {
+        for (int i = 0; i < s_noteHolders.Count; i++)
+        {
+            s_noteHolders[i].DestroyHolder();
+            yield return null;
+        }
+        s_noteHolders = new List<NoteHolder>();
+    }
 }

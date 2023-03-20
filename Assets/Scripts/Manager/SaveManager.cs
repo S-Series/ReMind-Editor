@@ -1,8 +1,10 @@
+using System;
 using System.IO;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using GameNote;
 
 public class SaveManager : MonoBehaviour
 {
@@ -34,11 +36,13 @@ public class SaveManager : MonoBehaviour
         saveFile.bpm = ValueManager.s_Bpm;
         saveFile.editorVersion = s_version;
 
+        NoteField.SortNoteHolder();
+
         for (int i = 0; i < NoteField.s_noteHolders.Count; i++)
         {
             saveData = "";
             holder = NoteField.s_noteHolders[i];
-            
+
             saveData += string.Format("|{0:D11}|__", holder.stdMs);
             saveData += string.Format("|{0:D11}|__", holder.stdPos);
             saveData += string.Format("|{0:D2}|{1:D2}|{2:D2}|{3:D2}|__",
@@ -56,14 +60,14 @@ public class SaveManager : MonoBehaviour
                 holder.bottoms[1] == null ? 0 : holder.bottoms[1].legnth,
                 holder.bottoms[0] == null ? 0 : holder.bottoms[0].SoundIndex,
                 holder.bottoms[1] == null ? 0 : holder.bottoms[1].SoundIndex);
-            saveData += string.Format("|{0:D2}|{1}|{2:D5}|__",
-                holder.speedNote == null ? 00 : 01,
-                holder.effectNote == null ? -1 : string.Format("{0:D2}", holder.effectNote.effectIndex),
+            saveData += string.Format("|{0}|{1}|{2:D5}|__",
+                holder.speedNote == null ? "00" : "01",
+                holder.effectNote == null ? "-1" : string.Format("{0:D2}", holder.effectNote.effectIndex),
                 holder.effectNote == null ? 0 : holder.effectNote.value);
             saveData += string.Format("|{0:D5}|{1:D5}|",
-                holder.speedNote == null ? 00 : 
+                holder.speedNote == null ? 00 :
                     Mathf.RoundToInt(System.Convert.ToSingle(holder.speedNote.bpm * 100)),
-                holder.speedNote == null ? 00 : 
+                holder.speedNote == null ? 00 :
                     Mathf.RoundToInt(System.Convert.ToSingle(holder.speedNote.multiple * 1000)));
             print(saveData);
             saveFile.noteDatas.Add(saveData);
@@ -82,7 +86,7 @@ public class SaveManager : MonoBehaviour
 
     private IEnumerator IWriteFile(SaveFile saveFile, string fileName)
     {
-        
+
         string path, jsonData;
         path = Application.dataPath + "/_DataBox/" + fileName + ".json";
         jsonData = JsonUtility.ToJson(saveFile, true);
@@ -97,6 +101,29 @@ public class SaveManager : MonoBehaviour
     }
     private IEnumerator IReadFile(string fileName)
     {
+        InputManager.EnableInput(false);
+
+        //$ Check NoteField
+        if (NoteField.s_noteHolders.Count != 0)
+        {
+            isActive = false;
+            isPassed = false;
+            PopUpObjects[0].GetComponent<Animator>().SetTrigger("On");
+
+            while (true)
+            {
+                if (isActive)
+                {
+                    PopUpObjects[0].GetComponent<Animator>().SetTrigger("Off");
+                    if (!isPassed) { InputManager.EnableInput(true);  yield break; }
+                    break;
+                }
+                yield return null;
+            }
+        }
+
+        yield return NoteField.IResetHolderList();
+
         string path;
         path = Application.dataPath + "/_DataBox/" + fileName + ".json";
 
@@ -110,14 +137,14 @@ public class SaveManager : MonoBehaviour
         {
             isActive = false;
             isPassed = false;
-            PopUpObjects[0].GetComponent<Animator>().SetTrigger("On");
+            PopUpObjects[1].GetComponent<Animator>().SetTrigger("On");
 
             while (true)
             {
                 if (isActive)
                 {
-                    PopUpObjects[0].GetComponent<Animator>().SetTrigger("Off");
-                    if (!isPassed) { yield break; }
+                    PopUpObjects[1].GetComponent<Animator>().SetTrigger("Off");
+                    if (!isPassed) { InputManager.EnableInput(true); yield break; }
                     break;
                 }
                 yield return null;
@@ -126,10 +153,99 @@ public class SaveManager : MonoBehaviour
 
         ValueManager.s_Bpm = saveFile.bpm;
 
+        string[] saveData;
+        string[] noteData;
+
+        NoteHolder copyHolder;
+        NormalNote normal;
+        SpeedNote speed;
+        EffectNote effect;
+
         for (int i = 0; i < saveFile.noteDatas.Count; i++)
         {
-            
+            saveData = saveFile.noteDatas[i].Split("__", StringSplitOptions.RemoveEmptyEntries);
+
+            copyHolder = NoteGenerate.GenerateNoteManual(Convert.ToInt32(saveData[1].Replace("|", "")));
+            copyHolder.stdMs = Convert.ToInt32(saveData[0].Replace("|", ""));
+
+            noteData = saveData[2].Split('|', StringSplitOptions.RemoveEmptyEntries);
+            for (int j = 0; j < 4; j++)
+            {
+                if (noteData[j] == "00") { copyHolder.normals[j] = null; }
+                else
+                {
+                    normal = NormalNote.Generate();
+                    normal.isAir = false;
+                    normal.ms = copyHolder.stdMs;
+                    normal.pos = copyHolder.stdPos;
+                    normal.line = j + 1;
+                    normal.holder = copyHolder;
+                    normal.SoundIndex = 0;
+                    normal.legnth = Convert.ToInt32(noteData[j]);
+                    copyHolder.normals[j] = normal;
+                }
+            }
+
+            noteData = saveData[3].Split('|', StringSplitOptions.RemoveEmptyEntries);
+            for (int j = 0; j < 4; j++)
+            {
+                if (noteData[j] == "00") { copyHolder.airials[j] = null; }
+                else
+                {
+                    normal = NormalNote.Generate();
+                    normal.isAir = true;
+                    normal.ms = copyHolder.stdMs;
+                    normal.pos = copyHolder.stdPos;
+                    normal.line = j + 1;
+                    normal.holder = copyHolder;
+                    normal.legnth = 0;
+                    normal.SoundIndex = 0;
+                    copyHolder.airials[j] = normal;
+                }
+            }
+
+            noteData = saveData[4].Split('|', StringSplitOptions.RemoveEmptyEntries);
+            for (int j = 0; j < 2; j++)
+            {
+                if (noteData[j] == "00") { copyHolder.bottoms[j] = null; }
+                else
+                {
+                    normal = NormalNote.Generate();
+                    normal.ms = copyHolder.stdMs;
+                    normal.pos = copyHolder.stdPos;
+                    normal.line = j + 1 + 4;
+                    normal.holder = copyHolder;
+                    normal.legnth = Convert.ToInt32(noteData[j]);
+                    normal.SoundIndex = Convert.ToInt32(noteData[j + 2]);
+                    copyHolder.bottoms[j] = normal;
+                }
+            }
+
+            noteData = saveData[5].Split('|', StringSplitOptions.RemoveEmptyEntries);
+            if (noteData[1] != "-1")
+            {
+                effect = EffectNote.Generate();
+                effect.effectIndex = Convert.ToInt32(noteData[1]);
+                effect.value = Convert.ToInt32(noteData[2]);
+            }
+            if (noteData[0] == "01")
+            {
+                noteData = saveData[6].Split('|', StringSplitOptions.RemoveEmptyEntries);
+                speed = SpeedNote.Generate();
+                speed.ms = copyHolder.stdMs;
+                speed.pos = copyHolder.stdPos;
+                speed.bpm = Convert.ToDouble(noteData[0]) / 100d;
+                speed.multiple = Convert.ToDouble(noteData[1]) / 1000d;
+            }
+
+            copyHolder.UpdateNote();
+            copyHolder.CheckDestroy();
+            yield return null;
         }
+    
+        InputManager.EnableInput(true);
+
+        print(ValueManager.s_Bpm);
     }
 
     public void ConfirmButton(bool pass)

@@ -71,8 +71,21 @@ public class NoteHolder : MonoBehaviour
             && speedNote == null && effectNote == null)
         {
             NoteField.s_noteHolders.RemoveAll(item => item == this);
+            Destroy(gameNoteHolder.gameObject);
             Destroy(this.gameObject);
         }
+    }
+    public void DestroyHolder()
+    {
+        foreach(NormalNote note in normals) { NoteClass.s_NormalNotes.RemoveAll(item => item == note); }
+        foreach(NormalNote note in airials) { NoteClass.s_NormalNotes.RemoveAll(item => item == note); }
+        foreach(NormalNote note in bottoms) { NoteClass.s_NormalNotes.RemoveAll(item => item == note); }
+        NoteClass.s_SpeedNotes.RemoveAll(item => item == speedNote);
+        NoteClass.s_EffectNotes.RemoveAll(item => item == effectNote);
+        NoteClass.InitAll();
+
+        Destroy(gameNoteHolder.gameObject);
+        Destroy(this.gameObject);
     }
     /*public static NoteHolder GenerateNoteHolder()
     {

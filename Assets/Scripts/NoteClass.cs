@@ -76,9 +76,11 @@ namespace GameNote
 
         private static void InitSpeedMs()
         {
+            if (s_SpeedNotes.Count == 0) { return; }
+
             float _pos;
             double _bpm;
-            s_SpeedNotes[0].ms = 0;
+            s_SpeedNotes[0].ms = Mathf.RoundToInt(Convert.ToSingle(150 * s_SpeedNotes[0].pos / ValueManager.s_Bpm));
 
             for (int i = 1; i < s_SpeedNotes.Count; i++)
             {
