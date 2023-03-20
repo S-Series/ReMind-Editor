@@ -105,6 +105,7 @@ public class SaveManager : MonoBehaviour
 
         saveFile = JsonUtility.FromJson<SaveFile>(File.ReadAllText(path));
 
+        //$ Check Old Version File
         if (saveFile.editorVersion < s_version)
         {
             isActive = false;
@@ -115,16 +116,20 @@ public class SaveManager : MonoBehaviour
             {
                 if (isActive)
                 {
-                    if (!isPassed) { }
+                    PopUpObjects[0].GetComponent<Animator>().SetTrigger("Off");
+                    if (!isPassed) { yield break; }
                     break;
                 }
                 yield return null;
             }
         }
 
+        ValueManager.s_Bpm = saveFile.bpm;
 
-
-        for ()
+        for (int i = 0; i < saveFile.noteDatas.Count; i++)
+        {
+            
+        }
     }
 
     public void ConfirmButton(bool pass)
