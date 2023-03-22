@@ -6,7 +6,6 @@ using UnityEngine.InputSystem;
 public class InputManager : MonoBehaviour
 {
     public static PlayerInputSystem inputActions;
-    private static bool[] s_Enable = new bool[3];
 
     private void Awake()
     {

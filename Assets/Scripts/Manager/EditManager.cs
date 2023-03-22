@@ -9,6 +9,7 @@ public class EditManager : MonoBehaviour
 {
     public static NoteHolder s_SelectNoteHolder;
     public static GameObject s_SelectedObject;
+    private static int page, posY;
 
     public static void Select(GameObject obj)
     {
@@ -20,6 +21,9 @@ public class EditManager : MonoBehaviour
 
         s_SelectNoteHolder = obj.GetComponentInParent<NoteHolder>();
         s_SelectedObject = obj;
+
+        posY = s_SelectNoteHolder.stdPos % 1600;
+        page = Mathf.FloorToInt(s_SelectNoteHolder.stdPos / 1600f);
 
         obj.GetComponent<BoxCollider2D>().enabled = false;
 
@@ -50,9 +54,9 @@ public class EditManager : MonoBehaviour
 
     public static void PosNote(int editPos)
     {
-        editPos = s_SelectNoteHolder.stdPos - s_SelectNoteHolder.stdPos % 1600 + editPos;
         NoteHolder targetHolder;
         targetHolder = NoteField.s_noteHolders.Find(item => item.stdPos == editPos);
+
         if (targetHolder == null) { targetHolder = NoteGenerate.GenerateNoteManual(editPos); }
 
         if (s_SelectedObject.transform.parent.CompareTag("Normal"))
@@ -230,5 +234,24 @@ public class EditManager : MonoBehaviour
             note.legnth = editLegnth;
             s_SelectNoteHolder.UpdateNote();
         }
+    }
+
+    public static void MoveNotePos(bool isUp)
+    {
+        int editPos;
+
+        if (GuideGenerate.s_guidePos.Contains(posY))
+        {
+            editPos = isUp ? 
+                0 : 0;
+        }
+        else
+        {
+            editPos = isUp ? 0 : 0;
+        }
+    }
+    public static void MoveNotePage(bool isUp)
+    {
+
     }
 }
