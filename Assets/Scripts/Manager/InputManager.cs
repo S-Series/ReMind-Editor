@@ -28,12 +28,12 @@ public class InputManager : MonoBehaviour
         //# Up Arrow
         inputActions.Edit.Up.performed += item =>
         {
-            // EditManager.s_this.MoveNote(isUp: true);
+            EditManager.MoveNoteInput(true);
         };
         //# Down Arrow
         inputActions.Edit.Down.performed += item =>
         {
-            // EditManager.s_this.MoveNote(isDown: true);
+            EditManager.MoveNoteInput(false);
         };
         //# Left Arrow
         inputActions.Edit.Left.performed += item =>

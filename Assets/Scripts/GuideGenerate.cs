@@ -34,6 +34,10 @@ public class GuideGenerate : MonoBehaviour
 
         s_guideCount = count;
 
+        s_guidePos = new int[count + 1];
+        for (int i = 0; i < count; i++) { s_guidePos[i] = System.Convert.ToInt32(1600f / count * i); }
+        s_guidePos[count] = 1600;
+
         for (int i = 0; i < 5; i++)
         {
             for (int j = 0; j < count; j++)

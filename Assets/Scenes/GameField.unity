@@ -15585,6 +15585,71 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f01316a0194e82448251b3ce8463b03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  actions:
+  - m_Name: Element 0
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 1f41f772-c971-48b1-a9cc-28c51533f63e
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: f294ecf2-520d-4cd1-b0d6-6d2ca7ff421e
+      m_Path: <Keyboard>/shift
+      m_Interactions: Press
+      m_Processors: 
+      m_Groups: 
+      m_Action: Element 0
+      m_Flags: 0
+    m_Flags: 0
+  - m_Name: Element 1
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 18b9116e-eb46-406b-aa04-4b60ffcc65d8
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: a3841d18-6957-4ccc-8e7f-6bae20d4ee26
+      m_Path: <Keyboard>/shift
+      m_Interactions: Press(behavior=1)
+      m_Processors: 
+      m_Groups: 
+      m_Action: Element 1
+      m_Flags: 0
+    m_Flags: 0
+  - m_Name: Element 2
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 982faf78-2b8b-4a2a-8811-755f28be86d5
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: 1dfc8538-8e6a-4d0d-8dd2-ac40699fd06d
+      m_Path: <Keyboard>/ctrl
+      m_Interactions: Press
+      m_Processors: 
+      m_Groups: 
+      m_Action: Element 2
+      m_Flags: 0
+    m_Flags: 0
+  - m_Name: Element 3
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 08a04748-9d80-4ba5-8a9a-8086438a8bc5
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: 05cf1813-7eea-4a11-a76d-d539853d1760
+      m_Path: <Keyboard>/ctrl
+      m_Interactions: Press(behavior=1)
+      m_Processors: 
+      m_Groups: 
+      m_Action: Element 3
+      m_Flags: 0
+    m_Flags: 0
 --- !u!114 &1565003371
 MonoBehaviour:
   m_ObjectHideFlags: 0
