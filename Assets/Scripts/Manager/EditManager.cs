@@ -158,7 +158,7 @@ public class EditManager : MonoBehaviour
         s_SelectNoteHolder.UpdateNote();
         s_SelectNoteHolder.CheckDestroy();
 
-        Select(targetObject );
+        Select(targetObject);
     }
     public static void PageNote(int editPage)
     {

@@ -8,7 +8,8 @@ public class EditBox : MonoBehaviour
     private static EditBox s_this;
     private static LineRenderer lineRenderer = null;
     private static int nowIndex = -1, pos = 0;
-    private static Vector3[] vector = new Vector3[3];
+    private static Vector3[] vector = new Vector3[3]
+        {new Vector3(), new Vector3(), new Vector3()};
 
     [SerializeField] GameObject[] editBoxes;
 
@@ -72,13 +73,14 @@ public class EditBox : MonoBehaviour
         Vector3 position;
         position = editBoxes[index].transform.localPosition;
         if (Mathf.Abs(position.x) > 10 || Mathf.Abs(position.y) > 4.5)
-            { editBoxes[index].transform.localPosition = new Vector3(-3.75f, 0, 0); }
+        { editBoxes[index].transform.localPosition = new Vector3(-3.75f, 0, 0); }
 
         nowIndex = index;
     }
 
     public static void UpdateRenderer()
     {
+        if (nowIndex == -1) { return; }
         if (lineRenderer == null) { return; }
 
         vector[1] = s_this.editBoxes[nowIndex].transform.localPosition;

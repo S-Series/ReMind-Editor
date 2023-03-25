@@ -15,6 +15,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "AltZero",
+                    "type": "Button",
+                    "id": "aaaa18c0-2579-4fb1-84c6-2eae61f567bb",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Save",
                     "type": "Button",
                     "id": "ddbb9d1b-b5ba-4419-bb8b-9d319756e7c7",
@@ -88,6 +97,39 @@
                     "processors": "",
                     "groups": "Keyboard&Mouse",
                     "action": "Save",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "One Modifier",
+                    "id": "5334b1bc-24a1-44a0-b8cc-3f36041ad0cb",
+                    "path": "OneModifier",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "AltZero",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "modifier",
+                    "id": "20922096-d3bf-4200-80bd-ac4fab9a9b5a",
+                    "path": "<Keyboard>/alt",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "AltZero",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "binding",
+                    "id": "1e30f771-8d06-4050-b7b9-26db57e631d0",
+                    "path": "<Keyboard>/0",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "AltZero",
                     "isComposite": false,
                     "isPartOfComposite": true
                 }

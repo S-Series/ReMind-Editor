@@ -37,6 +37,15 @@ public partial class @PlayerInputSystem : IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
+                    ""name"": ""AltZero"",
+                    ""type"": ""Button"",
+                    ""id"": ""aaaa18c0-2579-4fb1-84c6-2eae61f567bb"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""Save"",
                     ""type"": ""Button"",
                     ""id"": ""ddbb9d1b-b5ba-4419-bb8b-9d319756e7c7"",
@@ -110,6 +119,39 @@ public partial class @PlayerInputSystem : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
                     ""action"": ""Save"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""One Modifier"",
+                    ""id"": ""5334b1bc-24a1-44a0-b8cc-3f36041ad0cb"",
+                    ""path"": ""OneModifier"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AltZero"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""modifier"",
+                    ""id"": ""20922096-d3bf-4200-80bd-ac4fab9a9b5a"",
+                    ""path"": ""<Keyboard>/alt"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AltZero"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""binding"",
+                    ""id"": ""1e30f771-8d06-4050-b7b9-26db57e631d0"",
+                    ""path"": ""<Keyboard>/0"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AltZero"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 }
@@ -458,6 +500,7 @@ public partial class @PlayerInputSystem : IInputActionCollection2, IDisposable
         // General
         m_General = asset.FindActionMap("General", throwIfNotFound: true);
         m_General_SetZero = m_General.FindAction("SetZero", throwIfNotFound: true);
+        m_General_AltZero = m_General.FindAction("AltZero", throwIfNotFound: true);
         m_General_Save = m_General.FindAction("Save", throwIfNotFound: true);
         // Edit
         m_Edit = asset.FindActionMap("Edit", throwIfNotFound: true);
@@ -536,12 +579,14 @@ public partial class @PlayerInputSystem : IInputActionCollection2, IDisposable
     private readonly InputActionMap m_General;
     private IGeneralActions m_GeneralActionsCallbackInterface;
     private readonly InputAction m_General_SetZero;
+    private readonly InputAction m_General_AltZero;
     private readonly InputAction m_General_Save;
     public struct GeneralActions
     {
         private @PlayerInputSystem m_Wrapper;
         public GeneralActions(@PlayerInputSystem wrapper) { m_Wrapper = wrapper; }
         public InputAction @SetZero => m_Wrapper.m_General_SetZero;
+        public InputAction @AltZero => m_Wrapper.m_General_AltZero;
         public InputAction @Save => m_Wrapper.m_General_Save;
         public InputActionMap Get() { return m_Wrapper.m_General; }
         public void Enable() { Get().Enable(); }
@@ -555,6 +600,9 @@ public partial class @PlayerInputSystem : IInputActionCollection2, IDisposable
                 @SetZero.started -= m_Wrapper.m_GeneralActionsCallbackInterface.OnSetZero;
                 @SetZero.performed -= m_Wrapper.m_GeneralActionsCallbackInterface.OnSetZero;
                 @SetZero.canceled -= m_Wrapper.m_GeneralActionsCallbackInterface.OnSetZero;
+                @AltZero.started -= m_Wrapper.m_GeneralActionsCallbackInterface.OnAltZero;
+                @AltZero.performed -= m_Wrapper.m_GeneralActionsCallbackInterface.OnAltZero;
+                @AltZero.canceled -= m_Wrapper.m_GeneralActionsCallbackInterface.OnAltZero;
                 @Save.started -= m_Wrapper.m_GeneralActionsCallbackInterface.OnSave;
                 @Save.performed -= m_Wrapper.m_GeneralActionsCallbackInterface.OnSave;
                 @Save.canceled -= m_Wrapper.m_GeneralActionsCallbackInterface.OnSave;
@@ -565,6 +613,9 @@ public partial class @PlayerInputSystem : IInputActionCollection2, IDisposable
                 @SetZero.started += instance.OnSetZero;
                 @SetZero.performed += instance.OnSetZero;
                 @SetZero.canceled += instance.OnSetZero;
+                @AltZero.started += instance.OnAltZero;
+                @AltZero.performed += instance.OnAltZero;
+                @AltZero.canceled += instance.OnAltZero;
                 @Save.started += instance.OnSave;
                 @Save.performed += instance.OnSave;
                 @Save.canceled += instance.OnSave;
@@ -774,6 +825,7 @@ public partial class @PlayerInputSystem : IInputActionCollection2, IDisposable
     public interface IGeneralActions
     {
         void OnSetZero(InputAction.CallbackContext context);
+        void OnAltZero(InputAction.CallbackContext context);
         void OnSave(InputAction.CallbackContext context);
     }
     public interface IEditActions

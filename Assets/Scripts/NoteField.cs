@@ -57,10 +57,8 @@ public class NoteField : MonoBehaviour
             else { s_Scroll--; }
             UpdateField();
         }
-
-
     }
-    
+
     public NoteHolder FindMultyHolder(NormalNote note)
     {
         NoteHolder ret = null;
@@ -99,12 +97,6 @@ public class NoteField : MonoBehaviour
         }
         return ret;
     }
-    public void ResetZoom()
-    {
-        print("A");
-        s_Zoom = 10;
-        s_this.UpdateField();
-    }
     public void UpdateField()
     {
         Vector3 _pos;
@@ -122,7 +114,7 @@ public class NoteField : MonoBehaviour
         if (s_Zoom < 02) { s_Zoom = 02; }
         else if (s_Zoom > 40) { s_Zoom = 40; }
 
-        _pos = new Vector3(-0.5f, ((s_Page * -10) 
+        _pos = new Vector3(-0.5f, ((s_Page * -10)
             - (10f / GuideGenerate.s_guideCount * s_Scroll)) * s_Zoom / 10 - 5, 0);
         _scale = new Vector3(0.00312f, s_Zoom * 0.0003125f, 0.00312f);
 
@@ -130,7 +122,7 @@ public class NoteField : MonoBehaviour
         DrawField[0].localPosition = _pos;
 
         DrawField[1].localScale = new Vector3(0.00415f, s_Zoom * 0.0003125001f, 0.00415f);
-        DrawField[1].localPosition = new Vector3(25, -31.3f, ((s_Page * -10) 
+        DrawField[1].localPosition = new Vector3(25, -31.3f, ((s_Page * -10)
             - (10f / GuideGenerate.s_guideCount * s_Scroll)) * s_Zoom / 10 - 19);
 
         DrawField[2].localScale = _scale;
@@ -159,5 +151,16 @@ public class NoteField : MonoBehaviour
             yield return null;
         }
         s_noteHolders = new List<NoteHolder>();
+    }
+    public static void ResetZoom()      //$ InputManager SetZero Action
+    {
+        s_Zoom = 10;
+        s_this.UpdateField();
+    }
+    public static void PageToSelect()   //$ InputManager AltZero Action
+    {
+        if (EditManager.s_SelectNoteHolder == null) { return; }
+
+        
     }
 }

@@ -13,10 +13,14 @@ public class InputManager : MonoBehaviour
     }
     private void Start()
     {
-        #region //$ General Actions
+        #region //# General Actions
         inputActions.General.SetZero.performed += item =>
         {
-            NoteField.s_this.ResetZoom();
+            NoteField.ResetZoom();
+        };
+        inputActions.General.AltZero.performed += item =>
+        {
+            NoteField.PageToSelect();
         };
         inputActions.General.Save.performed += item =>
         {
@@ -24,7 +28,7 @@ public class InputManager : MonoBehaviour
         };
         #endregion
 
-        #region //$ Note Edits Actions
+        #region //# Note Edits Actions
         //# Up Arrow
         inputActions.Edit.Up.performed += item =>
         {
@@ -63,7 +67,7 @@ public class InputManager : MonoBehaviour
         };
         #endregion
 
-        #region //$ Note Tools Actions
+        #region //# Note Tools Actions
         //# Keycode Q   || 
         inputActions.Tools.NormalNote.performed += item =>
         {
