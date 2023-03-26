@@ -88,9 +88,9 @@ public class NoteHolder : MonoBehaviour
         Destroy(this.gameObject);
     }
     
-    public GameObject Normal(int line) { return normalObjects[line]; }
-    public GameObject Airial(int line) { return airialObjects[line]; }
-    public GameObject Bottom(int line) { return bottomObjects[line]; }
+    public GameObject Normal(int index) { return normalObjects[index]; }
+    public GameObject Airial(int index) { return airialObjects[index]; }
+    public GameObject Bottom(int index) { return bottomObjects[index]; }
     public GameObject Speed() { return speedObject; }
     public GameObject Effect() { return effectObject; }
 

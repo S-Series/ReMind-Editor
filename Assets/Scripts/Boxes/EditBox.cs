@@ -51,7 +51,6 @@ public class EditBox : MonoBehaviour
             }
         }
 
-        vector[0] = gameObject.transform.position;
         UpdateRenderer();
     }
 
@@ -83,6 +82,7 @@ public class EditBox : MonoBehaviour
         if (nowIndex == -1) { return; }
         if (lineRenderer == null) { return; }
 
+        vector[0] = EditManager.s_SelectedObject.transform.position;
         vector[1] = s_this.editBoxes[nowIndex].transform.localPosition;
         vector[2] = (vector[0] - vector[1]) / 1.1f;
         vector[2].z = 0;

@@ -106,7 +106,7 @@ public class NoteField : MonoBehaviour
         s_StartPos = s_Page * 1600 + Mathf.RoundToInt(1600f / _count * s_Scroll);
 
         if (s_Scroll < 0) { s_Page--; s_Scroll += _count; }
-        else if (s_Scroll > _count) { s_Page++; s_Scroll -= _count; }
+        while (s_Scroll > _count) { s_Page++; s_Scroll -= _count; }
 
         if (s_Page < 0) { s_Page = 0; s_Scroll = 0; }
         else if (s_Page > 999) { s_Page = 999; }
