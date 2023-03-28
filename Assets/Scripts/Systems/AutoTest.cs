@@ -12,10 +12,9 @@ public class AutoTest : MonoBehaviour
     {
         if (!s_isTesting) { return; }
 
-        if (s_TargetHolder.stdMs <= ValueManager.s_testMs)
+        if (s_TargetHolder.stdMs <= 0)
         {
             JudgeApply(s_TargetHolder);
-            
         }
     }
     public static void StartTest()
@@ -25,5 +24,10 @@ public class AutoTest : MonoBehaviour
     private static void JudgeApply(NoteHolder holder)
     {
         
+    }
+    private static IEnumerator ITest()
+    {
+
+        yield return null;
     }
 }
