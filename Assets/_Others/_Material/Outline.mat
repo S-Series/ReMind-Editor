@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Dissolve
-  m_Shader: {fileID: -6465566751694194690, guid: 9c31168ce8394544fb92194e3cf9b179, type: 3}
+  m_Name: Outline
+  m_Shader: {fileID: -6465566751694194690, guid: 89b2a77159ec2394087d954758ebcce9, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
   m_LightmapFlags: 4
@@ -51,10 +51,9 @@ Material:
     m_Ints: []
     m_Floats:
     - _EnableExternalAlpha: 0
-    - _Fade: 0.46
-    - _Scale: 10
+    - _Thickness: 0.001
     m_Colors:
-    - _Color: {r: 14.259475, g: 4.202837, b: 0, a: 1}
+    - _Color: {r: 122.8092, g: 135.58704, b: 26.975431, a: 1}
     - _Flip: {r: 1, g: 1, b: 1, a: 1}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
