@@ -5,13 +5,32 @@ using UnityEngine;
 public class AutoTest : MonoBehaviour
 {
     private static AutoTest s_this;
-    public static int s_Index;
+    public static int s_Index, s_Ms, s_TargetMs;
     public static NoteHolder s_TargetHolder;
     public static bool s_isTesting = false;
+
+    private static List<NoteHolder> s_holders;
+    private static int s_SpeedMs, s_SpeedPos, s_EffectMs, s_EffectPos;
+    private static int[] s_OffsetMs = new int[2], s_Offset = new int[2];
+    private static float s_posY;
+
+    [SerializeField] GameObject MovingField;
+
+    private void FixedUpdate()
+    {
+        if (!s_isTesting) { return; }
+        
+    }
     private void Update()
     {
         if (!s_isTesting) { return; }
+        s_OffsetMs[0] = s_Ms - s_Offset[0]; //$ Draw Offset Ms
+        s_OffsetMs[1] = s_Ms - s_Offset[1]; //$ Judge Offset Ms
 
+        //# Note Field Movement
+        //s_posY = 
+        
+        //# Note Judge
         if (s_TargetHolder.stdMs <= 0)
         {
             JudgeApply(s_TargetHolder);
@@ -19,15 +38,33 @@ public class AutoTest : MonoBehaviour
     }
     public static void StartTest()
     {
+        if (NoteField.s_noteHolders.Count == 0) { return; }
 
+        InputManager.EnableInput(false);
+        s_this.StartCoroutine(s_this.MoveField());
+
+        s_holders = new List<NoteHolder>();
+        s_holders = NoteField.s_noteHolders;
+
+        s_TargetHolder = s_holders[0];
+        s_Index = 0;
+        s_TargetMs = s_TargetHolder.stdMs;
+    }
+    public static void EndTest()
+    {
+        s_this.StopAllCoroutines();
     }
     private static void JudgeApply(NoteHolder holder)
     {
         
     }
-    private static IEnumerator ITest()
-    {
 
-        yield return null;
+    private IEnumerator MoveField()
+    {
+        while (true)
+        {
+            MovingField.transform.localPosition = new Vector3(0, s_posY, 0);
+            yield return null;
+        }
     }
 }
