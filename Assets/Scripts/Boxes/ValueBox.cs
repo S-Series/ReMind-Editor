@@ -16,7 +16,7 @@ public class ValueBox : MonoBehaviour, IPointerClickHandler
         s_this = this;
         animator = GetComponent<Animator>();
     }
-    public static void GetDataFromOrigin()
+    public void GetDataFromOrigin()
     {
 
     }

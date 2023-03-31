@@ -43,7 +43,7 @@ public class EditBox : MonoBehaviour
 
             if (holder != null)
             {
-                s_this.UpdateBox(2);
+                s_this.UpdateBox(2);    
             }
             else
             {
@@ -62,6 +62,11 @@ public class EditBox : MonoBehaviour
         nowIndex = -1;
     }
 
+    public void UpdageInfo(int index)
+    {
+
+    }
+
     private void UpdateBox(int index)
     {
         editBoxes[index].SetActive(true);
@@ -72,7 +77,7 @@ public class EditBox : MonoBehaviour
         Vector3 position;
         position = editBoxes[index].transform.localPosition;
         if (Mathf.Abs(position.x) > 10 || Mathf.Abs(position.y) > 4.5)
-        { editBoxes[index].transform.localPosition = new Vector3(-3.75f, 0, 0); }
+        { editBoxes[index].transform.localPosition = new Vector3(-5.75f, 0, 0); }
 
         nowIndex = index;
     }
