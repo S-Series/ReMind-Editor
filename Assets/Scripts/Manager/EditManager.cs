@@ -12,7 +12,8 @@ public class EditManager : MonoBehaviour
 
     public static NoteHolder s_SelectNoteHolder;
     public static GameObject s_SelectedObject;
-    private static int s_page, s_posY, s_line, s_legnth;
+    public static int s_page, s_posY, s_line, s_legnth, s_soundIndex;
+    public static bool s_isAirial = false;
     private static bool s_shift = false, s_ctrl = false;
 
     private static readonly string[] noteTag = { "Normal", "Airial", "Bottom" };
@@ -56,20 +57,26 @@ public class EditManager : MonoBehaviour
 
         if (obj.transform.parent.CompareTag(noteTag[0]))
         {
+            s_isAirial = false;
             s_line = Convert.ToInt32(obj.tag);
             s_legnth = s_SelectNoteHolder.normals[s_line - 1].legnth;
+            s_soundIndex = s_SelectNoteHolder.normals[s_line - 1].SoundIndex;
             obj.GetComponent<SpriteRenderer>().color = new Color32(100, 255, 100, 255);
         }
         else if (obj.transform.parent.CompareTag(noteTag[1]))
         {
+            s_isAirial = false;
             s_line = Convert.ToInt32(obj.tag);
             s_legnth = s_SelectNoteHolder.bottoms[s_line - 4 - 1].legnth;
+            s_soundIndex = s_SelectNoteHolder.bottoms[s_line - 1].SoundIndex;
             obj.GetComponent<SpriteRenderer>().color = new Color32(255, 000, 000, 255);
         }
         else if (obj.transform.parent.CompareTag(noteTag[2]))
         {
+            s_isAirial = true;
             s_line = Convert.ToInt32(obj.tag);
             s_legnth = 0;
+            s_soundIndex = s_SelectNoteHolder.airials[s_line - 1].SoundIndex;
             obj.GetComponent<SpriteRenderer>().color = new Color32(255, 255, 000, 255);
         }
         else

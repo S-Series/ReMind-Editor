@@ -74,6 +74,8 @@ public class EditBox : MonoBehaviour
         lineRenderer = editBoxes[index].GetComponent<LineRenderer>();
         lineRenderer.enabled = true;
 
+        editBoxes[index].GetComponent<NoteChange>().UpdateInfoFields();
+
         Vector3 position;
         position = editBoxes[index].transform.localPosition;
         if (Mathf.Abs(position.x) > 10 || Mathf.Abs(position.y) > 4.5)
