@@ -10,6 +10,7 @@ public class OffsetSetting : MonoBehaviour
     [SerializeField] AudioSource[] audioSources;
     [SerializeField] InputAction input;
     [SerializeField] GameObject[] inputObjects;
+    [SerializeField] TMPro.TextMeshPro outputTmp;
 
     private void Awake()
     {
@@ -25,8 +26,10 @@ public class OffsetSetting : MonoBehaviour
     {
         testMs = 0;
         TestCoroutine = ITesting();
-        DisplayCoroutine = IDisplay();
+        DisplayCoroutine = IDisplay(0);
         StartCoroutine(TestCoroutine);
+        outputTmp.color = new Color32(150, 150, 150, 255);
+        outputTmp.text = "";
     }
     private void OnDisable()
     {
@@ -66,18 +69,30 @@ public class OffsetSetting : MonoBehaviour
     {
         inputObjects[1].transform.localPosition = inputObjects[0].transform.localPosition;
         StopCoroutine(DisplayCoroutine);
-        DisplayCoroutine = IDisplay();
+        DisplayCoroutine = IDisplay(testMs);
         StartCoroutine(DisplayCoroutine);
     }
 
-    IEnumerator IDisplay()
+    IEnumerator IDisplay(int judgeMs)
     {
-        print("display");
+        if (judgeMs > 2000) { judgeMs -= 2000; }
+
         float timer = 0.0f;
 
         SpriteRenderer renderer;
         renderer = inputObjects[1].GetComponent<SpriteRenderer>();
         renderer.color = new Color32(255, 235, 0, 255);
+
+        if (judgeMs == 0)
+        {
+            outputTmp.text = "<color=#FFFF64>¡¾0ms</color>";
+        }
+        else
+        {
+            outputTmp.text = judgeMs > 1000 ? 
+                string.Format("<color=#6464FF>Fast</color>    -{0:D4}ms", 2000 - judgeMs) :
+                string.Format("<color=#FF6464>Late</color>    +{0:D4}ms", judgeMs);
+        }
 
         yield return new WaitForSeconds(0.25f);
 

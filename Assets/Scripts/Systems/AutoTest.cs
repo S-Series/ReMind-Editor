@@ -56,6 +56,9 @@ public class AutoTest : MonoBehaviour
         s_TargetHolder = s_holders[0];
         s_Index = 0;
         s_TargetMs = s_TargetHolder.stdMs;
+
+        s_Ms = -ValueManager.s_delay;
+        MusicBox.audioSource.Play();
     }
     public static void EndTest()
     {
@@ -68,7 +71,7 @@ public class AutoTest : MonoBehaviour
             JudgeEffect(holder.normals[i]);
             JudgeEffect(holder.airials[i]);
         }
-
+    
         JudgeEffect(holder.bottoms[0]);
         JudgeEffect(holder.bottoms[1]);
 

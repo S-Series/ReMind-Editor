@@ -11,7 +11,7 @@ public class MusicBox : MonoBehaviour, IPointerClickHandler
 {
     private static MusicBox s_this;
     private bool isUp = false;
-    AudioSource audioSource;
+    public static AudioSource audioSource;
     [SerializeField] Toggle isWav;
     [SerializeField] TMP_InputField inputField;
     [SerializeField] Button loadBtn;
