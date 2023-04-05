@@ -5,8 +5,9 @@ using UnityEngine.InputSystem;
 
 public class OffsetSetting : MonoBehaviour
 {
-    private int testMs, index;
-    private IEnumerator TestCoroutine, DisplayCoroutine;
+    private int getMs, testMs, index;
+    private float drawMs, judgeMs;
+    private IEnumerator DisplayCoroutine;
     [SerializeField] AudioSource[] audioSources;
     [SerializeField] InputAction input;
     [SerializeField] GameObject[] inputObjects;
@@ -14,10 +15,8 @@ public class OffsetSetting : MonoBehaviour
 
     private void Awake()
     {
-        TestCoroutine = ITesting();
         input.performed += item =>
         {
-            print("run");
             DisplayInput();
         };
         input.Enable();
@@ -25,15 +24,12 @@ public class OffsetSetting : MonoBehaviour
     private void OnEnable()
     {
         testMs = 0;
-        TestCoroutine = ITesting();
         DisplayCoroutine = IDisplay(0);
-        StartCoroutine(TestCoroutine);
         outputTmp.color = new Color32(150, 150, 150, 255);
         outputTmp.text = "";
     }
     private void OnDisable()
     {
-        StopCoroutine(TestCoroutine);
         StopCoroutine(DisplayCoroutine);
     }
     private void FixedUpdate()
@@ -41,30 +37,27 @@ public class OffsetSetting : MonoBehaviour
         testMs++;
     }
 
-    IEnumerator ITesting()
+    private void Update()
     {
-        float drawMs, judgeMs;
-        while (true)
+        getMs = testMs;
+        drawMs = getMs % 2000 + ValueManager.s_DrawOffset;
+        judgeMs = getMs + ValueManager.s_JudgeOffset;
+
+        if (drawMs > 2000) { drawMs -= 2000; }
+        else if (drawMs < 0) { drawMs += 2000; }
+
+        inputObjects[0].transform.localPosition
+            = new Vector3(Mathf.Lerp(-1100f, 1100f, drawMs >= 1000
+            ? (drawMs - 1000) / 2000f : (drawMs + 1000) / 2000f), 0, 0);
+
+        if (judgeMs >= 500 * (index))
         {
-            if (testMs > 2000) { testMs -= 2000; }
+            if (index % 4 == 0) { audioSources[0].Play(); }
+            else { audioSources[1].Play(); }
 
-            drawMs = testMs + ValueManager.s_DrawOffset;
-            judgeMs = testMs + ValueManager.s_JudgeOffset;
-
-            inputObjects[0].transform.localPosition
-                = new Vector3(Mathf.Lerp(-660f, 660f, testMs >= 1000 
-                ? (testMs - 1000) / 2000f : (testMs + 1000) / 2000f), 0, 0);
-
-            if (judgeMs >= 500 * (index))
-            {
-                // if (index == 0) { audioSources[0].Play(); }
-                // else { audioSources[1].Play(); }
-            }
-
-            yield return null;
+            index++;
         }
     }
-
     private void DisplayInput()
     {
         inputObjects[1].transform.localPosition = inputObjects[0].transform.localPosition;
@@ -75,7 +68,7 @@ public class OffsetSetting : MonoBehaviour
 
     IEnumerator IDisplay(int judgeMs)
     {
-        if (judgeMs > 2000) { judgeMs -= 2000; }
+        judgeMs = (judgeMs + ValueManager.s_JudgeOffset) % 2000;
 
         float timer = 0.0f;
 
@@ -85,11 +78,11 @@ public class OffsetSetting : MonoBehaviour
 
         if (judgeMs == 0)
         {
-            outputTmp.text = "<color=#FFFF64>¡¾0ms</color>";
+            outputTmp.text = "<color=#FFFF64>ï¿½ï¿½0ms</color>";
         }
         else
         {
-            outputTmp.text = judgeMs > 1000 ? 
+            outputTmp.text = judgeMs > 1000 ?
                 string.Format("<color=#6464FF>Fast</color>    -{0:D4}ms", 2000 - judgeMs) :
                 string.Format("<color=#FF6464>Late</color>    +{0:D4}ms", judgeMs);
         }

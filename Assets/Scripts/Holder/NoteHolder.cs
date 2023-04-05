@@ -23,6 +23,8 @@ public class NoteHolder : MonoBehaviour
     [SerializeField] private GameObject speedObject;
     [SerializeField] private GameObject effectObject;
 
+    [SerializeField] private GameObject[] ParentObjects;
+
     public void UpdateNote()
     {
         transform.localPosition = new Vector3(0, stdPos * 2, 0);
@@ -87,7 +89,10 @@ public class NoteHolder : MonoBehaviour
         Destroy(gameNoteHolder.gameObject);
         Destroy(this.gameObject);
     }
-    
+    public void EnableNote(bool isEnable)
+    {
+        foreach (GameObject gameObject in ParentObjects) { gameObject.SetActive(isEnable); }
+    }   
     public GameObject Normal(int index) { return normalObjects[index]; }
     public GameObject Airial(int index) { return airialObjects[index]; }
     public GameObject Bottom(int index) { return bottomObjects[index]; }

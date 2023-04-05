@@ -84,7 +84,7 @@ public class AutoTest : MonoBehaviour
             print("Not Available");
         }
 
-        holder.gameObject.SetActive(false);
+        holder.EnableNote(false);
     }
 
     private static void JudgeEffect(GameNote.NormalNote note)

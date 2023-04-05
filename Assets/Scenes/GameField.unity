@@ -1711,7 +1711,6 @@ GameObject:
   - component: {fileID: 113728674}
   - component: {fileID: 113728676}
   - component: {fileID: 113728673}
-  - component: {fileID: 113728672}
   - component: {fileID: 113728675}
   m_Layer: 0
   m_Name: BuildField
@@ -1720,14 +1719,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!81 &113728672
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 113728671}
-  m_Enabled: 1
 --- !u!20 &113728673
 Camera:
   m_ObjectHideFlags: 0
@@ -7473,7 +7464,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 2100, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!95 &536165171
@@ -10000,7 +9991,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &782074449
 RectTransform:
   m_ObjectHideFlags: 0
@@ -19125,6 +19116,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1565003366}
+  - component: {fileID: 1565003372}
   - component: {fileID: 1565003370}
   - component: {fileID: 1565003369}
   - component: {fileID: 1565003368}
@@ -19313,6 +19305,14 @@ MonoBehaviour:
   - {fileID: 90120742}
   noteFileInput: {fileID: 839027062}
   fileButtons: []
+--- !u!81 &1565003372
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1565003364}
+  m_Enabled: 1
 --- !u!1 &1584952830
 GameObject:
   m_ObjectHideFlags: 0
@@ -22327,7 +22327,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1801460675
 Transform:
   m_ObjectHideFlags: 0
@@ -22785,7 +22785,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 80384a7c9718043408c3b7eb8dead138, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -23637,7 +23637,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 2cde52019900e9c45a4c6b6e861a2af9, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1

@@ -595,6 +595,11 @@ MonoBehaviour:
   - {fileID: 1014723833427311381}
   speedObject: {fileID: 5346671460098484311}
   effectObject: {fileID: 3318157525562403660}
+  ParentObjects:
+  - {fileID: 1014723832836383260}
+  - {fileID: 1014723834383784659}
+  - {fileID: 6367677637986505248}
+  - {fileID: 7514092874861475417}
 --- !u!1 &1014723833427311381
 GameObject:
   m_ObjectHideFlags: 0
