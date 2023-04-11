@@ -50,6 +50,7 @@ public class AutoTest : MonoBehaviour
         InputManager.EnableInput(false);
         s_this.StartCoroutine(s_this.MoveField());
 
+        NoteField.SortNoteHolder();
         s_holders = new List<NoteHolder>();
         s_holders = NoteField.s_noteHolders;
 
@@ -62,6 +63,7 @@ public class AutoTest : MonoBehaviour
     }
     public static void EndTest()
     {
+        InputManager.EnableInput(true);
         s_this.StopAllCoroutines();
     }
     private static void JudgeApply(NoteHolder holder)
@@ -86,7 +88,6 @@ public class AutoTest : MonoBehaviour
 
         holder.EnableNote(false);
     }
-
     private static void JudgeEffect(GameNote.NormalNote note)
     {
         if (note == null) { return; }
