@@ -19,7 +19,8 @@ public class OffsetSetting : MonoBehaviour
         {
             DisplayInput();
         };
-        input.Enable();
+        DisplayCoroutine = IDisplay(0);
+        gameObject.SetActive(false);
     }
     private void OnEnable()
     {
@@ -27,16 +28,18 @@ public class OffsetSetting : MonoBehaviour
         DisplayCoroutine = IDisplay(0);
         outputTmp.color = new Color32(150, 150, 150, 255);
         outputTmp.text = "";
+        input.Enable();
     }
     private void OnDisable()
     {
         StopCoroutine(DisplayCoroutine);
+        input.Disable();
     }
+    
     private void FixedUpdate()
     {
         testMs++;
     }
-
     private void Update()
     {
         getMs = testMs;
@@ -58,6 +61,7 @@ public class OffsetSetting : MonoBehaviour
             index++;
         }
     }
+    
     private void DisplayInput()
     {
         inputObjects[1].transform.localPosition = inputObjects[0].transform.localPosition;

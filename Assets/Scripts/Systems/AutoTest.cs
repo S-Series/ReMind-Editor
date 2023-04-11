@@ -1,3 +1,4 @@
+using System.Threading;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,11 +12,11 @@ public class AutoTest : MonoBehaviour
     public static bool s_isTesting = false;
 
     private static List<NoteHolder> s_holders;
-    private static int s_SpeedMs, s_SpeedPos, s_EffectMs, s_EffectPos;
-    private static int[] s_OffsetMs = new int[2], s_Offset = new int[2];
-    private static float s_posY, s_bpm;
+    private static int s_SpeedMs, s_SpeedPos, s_EffectMs, s_EffectPos, s_OffsetMs;
+    private static int[] s_Offset = new int[2];
+    private static float s_posY, s_bpm, s_bpmValue;
 
-    [SerializeField] Transform MovingField;
+    [SerializeField] Transform[] MovingField;
     [SerializeField] Animator[] judgeEffects;
     [SerializeField] AudioSource[] judgeSounds;
     [SerializeField] AudioSource[] judgeLongSounds;
@@ -30,19 +31,19 @@ public class AutoTest : MonoBehaviour
     private void Update()
     {
         if (!s_isTesting) { return; }
-        s_OffsetMs[0] = s_Ms - s_Offset[0]; //$ Draw Offset Ms
-        s_OffsetMs[1] = s_Ms - s_Offset[1]; //$ Judge Offset Ms
+        s_OffsetMs = s_Ms - s_Offset[1]; //$ Judge Offset Ms
 
         //# Note Field Movement
         s_posY = s_SpeedPos + s_EffectPos
-            + (s_OffsetMs[0] - s_SpeedMs - s_EffectMs) * s_bpm / 150f;
+            + (s_OffsetMs - s_SpeedMs - s_EffectMs) * s_bpmValue;
         
         //# Note Judge
-        if (s_TargetHolder.stdMs <= s_OffsetMs[1])
+        if (s_TargetHolder.stdMs <= s_OffsetMs)
         {
             JudgeApply(s_TargetHolder);
         }
     }
+    
     public static void StartTest()
     {
         if (NoteField.s_noteHolders.Count == 0) { return; }
@@ -58,8 +59,12 @@ public class AutoTest : MonoBehaviour
         s_Index = 0;
         s_TargetMs = s_TargetHolder.stdMs;
 
-        s_Ms = -ValueManager.s_delay;
+        s_Ms = ValueManager.s_delay;
+        s_bpm = System.Convert.ToSingle(ValueManager.s_Bpm);
+        s_bpmValue = s_bpm / 150f;
         MusicBox.audioSource.Play();
+
+        s_isTesting = true;
     }
     public static void EndTest()
     {
@@ -99,11 +104,14 @@ public class AutoTest : MonoBehaviour
 
         s_this.judgeEffects[index].SetTrigger(judgeEffectTrigger);
     }
+
     private IEnumerator MoveField()
     {
         while (true)
         {
-            MovingField.localPosition = new Vector3(0, s_posY, 0);
+            MovingField[0].localPosition = new Vector3(0, s_posY, 0);
+            MovingField[1].localPosition = new Vector3(0, s_posY * (ValueManager.s_GameSpeed / 100f), 0);
+            MovingField[2].localPosition = new Vector3(0, s_Offset[0] * s_bpmValue, 0);
             yield return null;
         }
     }
