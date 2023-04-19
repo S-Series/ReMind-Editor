@@ -66,7 +66,7 @@
                 "m_Node": {
                     "m_Id": "c978e6c15c3b42eda9b9b9c4ced32814"
                 },
-                "m_SlotId": 1
+                "m_SlotId": 0
             }
         },
         {
@@ -108,7 +108,7 @@
                 "m_Node": {
                     "m_Id": "c978e6c15c3b42eda9b9b9c4ced32814"
                 },
-                "m_SlotId": 0
+                "m_SlotId": 1
             }
         },
         {
@@ -201,10 +201,10 @@
     },
     "m_PreviewData": {
         "serializedMesh": {
-            "m_SerializedMesh": "{\"mesh\":{\"instanceID\":0}}",
+            "m_SerializedMesh": "{\"mesh\":{\"fileID\":10210,\"guid\":\"0000000000000000e000000000000000\",\"type\":0}}",
             "m_Guid": ""
         },
-        "preventRotation": false
+        "preventRotation": true
     },
     "m_Path": "Shader Graphs",
     "m_GraphPrecision": 1,
@@ -600,7 +600,7 @@
     "hlslDeclarationOverride": 0,
     "m_Hidden": false,
     "m_Value": {
-        "m_SerializedTexture": "{\"texture\":{\"fileID\":2800000,\"guid\":\"e5f7066fe9af5c04a90b36d0eed84666\",\"type\":3}}",
+        "m_SerializedTexture": "{\"texture\":{\"fileID\":2800000,\"guid\":\"61ebc9f31c433124db0b818cf0af73ba\",\"type\":3}}",
         "m_Guid": ""
     },
     "isMainTexture": false,
@@ -629,9 +629,9 @@
     "hlslDeclarationOverride": 0,
     "m_Hidden": false,
     "m_Value": {
-        "r": 0.0,
-        "g": 128.0,
-        "b": 105.4117660522461,
+        "r": 170.89002990722657,
+        "g": 170.89002990722657,
+        "b": 0.0,
         "a": 0.0
     },
     "isMainColor": false,

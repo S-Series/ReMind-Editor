@@ -1,4 +1,3 @@
-using System.Threading;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -36,14 +35,14 @@ public class AutoTest : MonoBehaviour
         //# Note Field Movement
         s_posY = s_SpeedPos + s_EffectPos
             + (s_OffsetMs - s_SpeedMs - s_EffectMs) * s_bpmValue;
-        
+
         //# Note Judge
         if (s_TargetHolder.stdMs <= s_OffsetMs)
         {
             JudgeApply(s_TargetHolder);
         }
     }
-    
+
     public static void StartTest()
     {
         if (NoteField.s_noteHolders.Count == 0) { return; }
@@ -69,6 +68,7 @@ public class AutoTest : MonoBehaviour
     public static void EndTest()
     {
         InputManager.EnableInput(true);
+        foreach (NoteHolder holder in NoteField.s_noteHolders) { holder.EnableNote(true); }
         s_this.StopAllCoroutines();
     }
     private static void JudgeApply(NoteHolder holder)
@@ -78,7 +78,7 @@ public class AutoTest : MonoBehaviour
             JudgeEffect(holder.normals[i]);
             JudgeEffect(holder.airials[i]);
         }
-    
+
         JudgeEffect(holder.bottoms[0]);
         JudgeEffect(holder.bottoms[1]);
 
@@ -98,7 +98,7 @@ public class AutoTest : MonoBehaviour
         if (note == null) { return; }
 
         int index;
-     
+
         if (note.isAir || note.line > 4) { index = note.line - 1 + 4; }
         else { index = note.line - 1; }
 
