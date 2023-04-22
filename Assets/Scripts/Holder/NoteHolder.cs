@@ -32,7 +32,13 @@ public class NoteHolder : MonoBehaviour
         for (int i = 0; i < 4; i++)
         {
             if (normals[i] == null) { normalObjects[i].SetActive(false); }
-            else { normalObjects[i].SetActive(true); }
+            else
+            {
+                normalObjects[i].SetActive(true);
+                normalObjects[i].TryGetComponent<NoteLegnth>(out var noteLegnth);
+                if (noteLegnth == null) { throw new System.Exception("NoteLegnth Operation is not Exist!"); }
+                noteLegnth.Legnth(normals[i].legnth);
+            }
 
             if (airials[i] == null) { airialObjects[i].SetActive(false); }
             else { airialObjects[i].SetActive(true); }
@@ -41,7 +47,13 @@ public class NoteHolder : MonoBehaviour
         for (int i = 0; i < 2; i++)
         {
             if (bottoms[i] == null) { bottomObjects[i].SetActive(false); }
-            else { bottomObjects[i].SetActive(true); }
+            else
+            {
+                bottomObjects[i].SetActive(true);
+                bottomObjects[i].TryGetComponent<NoteLegnth>(out var noteLegnth);
+                if (noteLegnth == null) { throw new System.Exception("NoteLegnth Operation is not Exist!"); }
+                noteLegnth.Legnth(bottoms[i].legnth);
+            }
         }
 
         if (speedNote == null) { speedObject.SetActive(false); }
@@ -59,9 +71,24 @@ public class NoteHolder : MonoBehaviour
     }
     public void EditMode(bool isTrue)
     {
-        foreach (GameObject obj in normalObjects) { obj.GetComponent<BoxCollider2D>().enabled = isTrue; }
+        foreach (GameObject obj in normalObjects)
+        {
+            for (int i = 0; i < obj.transform.childCount; i++)
+            {
+                obj.TryGetComponent<BoxCollider2D>(out var collider2D);
+                if (collider2D != null) { collider2D.enabled = isTrue; }
+            }
+        }
+        foreach (GameObject obj in bottomObjects)
+        {
+            for (int i = 0; i < obj.transform.childCount; i++)
+            {
+                obj.TryGetComponent<BoxCollider2D>(out var collider2D);
+                if (collider2D != null) { collider2D.enabled = isTrue; }
+            }
+        }
         foreach (GameObject obj in airialObjects) { obj.GetComponent<BoxCollider2D>().enabled = isTrue; }
-        foreach (GameObject obj in bottomObjects) { obj.GetComponent<BoxCollider2D>().enabled = isTrue; }
+
         speedObject.GetComponent<BoxCollider2D>().enabled = false;
         effectObject.GetComponent<BoxCollider2D>().enabled = false;
     }

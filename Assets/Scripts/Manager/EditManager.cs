@@ -12,6 +12,7 @@ public class EditManager : MonoBehaviour
 
     public static NoteHolder s_SelectNoteHolder;
     public static GameObject s_SelectedObject;
+    private static BoxCollider2D s_SelectedCollider2D;
     public static int s_page, s_posY, s_line, s_legnth, s_soundIndex;
     public static bool s_isAirial = false;
     private static bool s_shift = false, s_ctrl = false;
@@ -39,12 +40,12 @@ public class EditManager : MonoBehaviour
         }
     }
 
-    public static void Select(GameObject obj)
+    public static void Select(GameObject obj, bool isParentNote)
     {
-        if (s_SelectedObject != null)
+        if (s_SelectedCollider2D != null)
         {
-            s_SelectedObject.GetComponent<BoxCollider2D>().enabled = true;
-            s_SelectedObject.GetComponent<SpriteRenderer>().color = new Color32(255, 255, 255, 255);
+            s_SelectedCollider2D.enabled = true;
+            s_SelectedCollider2D.GetComponent<SpriteRenderer>().color = new Color32(255, 255, 255, 255);
         }
 
         s_SelectNoteHolder = obj.GetComponentInParent<NoteHolder>();
@@ -52,8 +53,6 @@ public class EditManager : MonoBehaviour
 
         s_posY = s_SelectNoteHolder.stdPos % 1600;
         s_page = Mathf.FloorToInt(s_SelectNoteHolder.stdPos / 1600f);
-
-        obj.GetComponent<BoxCollider2D>().enabled = false;
 
         if (obj.transform.parent.CompareTag(noteTag[0]))
         {
@@ -85,6 +84,16 @@ public class EditManager : MonoBehaviour
             s_legnth = 0;
             obj.GetComponent<SpriteRenderer>().color = new Color32(100, 255, 100, 255);
         }
+
+        if (!isParentNote) { s_SelectedCollider2D = obj.GetComponent<BoxCollider2D>(); }
+        else
+        {
+            if (s_legnth == 0) 
+                { s_SelectedCollider2D = obj.transform.GetChild(0).GetComponent<BoxCollider2D>(); }
+            else { s_SelectedCollider2D = obj.transform.GetChild(1).GetComponent<BoxCollider2D>(); }
+        }
+
+        s_SelectedCollider2D.enabled = false;
 
         InputManager.Editing(true);
         EditBox.PopUpBox(obj);
@@ -136,7 +145,7 @@ public class EditManager : MonoBehaviour
         if (s_SelectedObject.transform.parent.CompareTag(noteTag[0]))
         {
             if (targetHolder.normals[s_line - 1] != null)
-                { Select(targetHolder.Normal(s_line - 1)); }
+                { Select(targetHolder.Normal(s_line - 1), true); }
             else
             {
                 NormalNote note;
@@ -149,13 +158,13 @@ public class EditManager : MonoBehaviour
                 targetObject = targetHolder.Normal(note.line - 1);
                 targetHolder.UpdateNote();
                 s_SelectNoteHolder.UpdateNote();
-                Select(targetObject);
+                Select(targetObject, true);
             }
         }
         else if (s_SelectedObject.transform.parent.CompareTag(noteTag[1]))
         {
             if (targetHolder.airials[s_line - 1] != null)
-            { Select(targetHolder.Airial(s_line - 1)); }
+            { Select(targetHolder.Airial(s_line - 1), false); }
             else
             {
                 NormalNote note;
@@ -168,13 +177,13 @@ public class EditManager : MonoBehaviour
                 targetObject = targetHolder.Airial(note.line - 1);
                 targetHolder.UpdateNote();
                 s_SelectNoteHolder.UpdateNote();
-                Select(targetObject);
+                Select(targetObject, false);
             }
         }
         else if (s_SelectedObject.transform.parent.CompareTag(noteTag[2]))
         {
             if (targetHolder.bottoms[s_line - 1] != null)
-            { Select(targetHolder.Bottom(s_line - 1)); }
+            { Select(targetHolder.Bottom(s_line - 1), true); }
             else
             {
                 NormalNote note;
@@ -187,13 +196,13 @@ public class EditManager : MonoBehaviour
                 targetObject = targetHolder.Bottom(note.line - 1);
                 targetHolder.UpdateNote();
                 s_SelectNoteHolder.UpdateNote();
-                Select(targetObject);
+                Select(targetObject, true);
             }
         }
         else if (s_SelectedObject.CompareTag("01"))
         {
             if (targetHolder.speedNote != null)
-            { Select(targetHolder.Speed()); }
+            { Select(targetHolder.Speed(), false); }
             else
             {
                 SpeedNote note;
@@ -205,13 +214,13 @@ public class EditManager : MonoBehaviour
                 targetObject = targetHolder.Speed();
                 targetHolder.UpdateNote();
                 s_SelectNoteHolder.UpdateNote();
-                Select(targetObject);
+                Select(targetObject, false);
             }
         }
         else
         {
             if (targetHolder.effectNote != null)
-            { Select(targetHolder.Effect()); }
+            { Select(targetHolder.Effect(), false); }
             else
             {
                 EffectNote note;
@@ -223,7 +232,7 @@ public class EditManager : MonoBehaviour
                 targetObject = targetHolder.Effect();
                 targetHolder.UpdateNote();
                 s_SelectNoteHolder.UpdateNote();
-                Select(targetObject);
+                Select(targetObject, false);
             }
         }
 
@@ -243,7 +252,7 @@ public class EditManager : MonoBehaviour
         if (s_SelectedObject.transform.parent.CompareTag(noteTag[0]))
         {
             if (targetHolder.normals[s_line - 1] != null)
-                { Select(targetHolder.Normal(s_line - 1)); }
+                { Select(targetHolder.Normal(s_line - 1), true); }
             else
             {
                 NormalNote note;
@@ -255,13 +264,13 @@ public class EditManager : MonoBehaviour
 
                 targetHolder.UpdateNote();
                 s_SelectNoteHolder.UpdateNote();
-                Select(targetHolder.Normal(note.line - 1));
+                Select(targetHolder.Normal(note.line - 1), true);
             }
         }
         else if (s_SelectedObject.transform.parent.CompareTag(noteTag[1]))
         {
             if (targetHolder.airials[s_line - 1] != null)
-            { Select(targetHolder.Airial(s_line - 1)); }
+            { Select(targetHolder.Airial(s_line - 1), false); }
             else
             {
                 NormalNote note;
@@ -273,13 +282,13 @@ public class EditManager : MonoBehaviour
 
                 targetHolder.UpdateNote();
                 s_SelectNoteHolder.UpdateNote();
-                Select(targetHolder.Airial(note.line - 1));
+                Select(targetHolder.Airial(note.line - 1), false);
             }
         }
         else if (s_SelectedObject.transform.parent.CompareTag(noteTag[2]))
         {
             if (targetHolder.bottoms[s_line - 1] != null)
-            { Select(targetHolder.Bottom(s_line - 1)); }
+            { Select(targetHolder.Bottom(s_line - 1), true); }
             else
             {
                 NormalNote note;
@@ -291,13 +300,13 @@ public class EditManager : MonoBehaviour
 
                 targetHolder.UpdateNote();
                 s_SelectNoteHolder.UpdateNote();
-                Select(targetHolder.Bottom(note.line - 4 - 1));
+                Select(targetHolder.Bottom(note.line - 4 - 1), true);
             }
         }
         else if (s_SelectedObject.CompareTag("01"))
         {
             if (targetHolder.speedNote != null)
-            { Select(targetHolder.Speed()); }
+            { Select(targetHolder.Speed(), false); }
             else
             {
                 SpeedNote note;
@@ -305,17 +314,17 @@ public class EditManager : MonoBehaviour
 
                 targetHolder.speedNote = note;
                 s_SelectNoteHolder.speedNote = null;
-                Select(targetHolder.Speed());
+                Select(targetHolder.Speed(), false);
 
                 targetHolder.UpdateNote();
                 s_SelectNoteHolder.UpdateNote();
-                Select(targetHolder.Speed());
+                Select(targetHolder.Speed(), false);
             }
         }
         else
         {
             if (targetHolder.effectNote != null)
-            { Select(targetHolder.Effect()); }
+            { Select(targetHolder.Effect(), false); }
             else
             {
                 EffectNote note;
@@ -323,11 +332,11 @@ public class EditManager : MonoBehaviour
 
                 targetHolder.effectNote = note;
                 s_SelectNoteHolder.effectNote = null;
-                Select(targetHolder.Effect());
+                Select(targetHolder.Effect(), false);
 
                 targetHolder.UpdateNote();
                 s_SelectNoteHolder.UpdateNote();
-                Select(targetHolder.Effect());
+                Select(targetHolder.Effect(), false);
             }
         }
     }
@@ -340,7 +349,7 @@ public class EditManager : MonoBehaviour
         if (s_SelectedObject.transform.parent.CompareTag(noteTag[0]))
         {
             if (s_SelectNoteHolder.normals[editLine - 1] != null)
-            { Select(s_SelectNoteHolder.Normal(editLine - 1)); }
+            { Select(s_SelectNoteHolder.Normal(editLine - 1), true); }
             else
             {
                 editNormal = s_SelectNoteHolder.normals[s_line - 1];
@@ -350,13 +359,13 @@ public class EditManager : MonoBehaviour
                 s_SelectNoteHolder.normals[editLine - 1] = editNormal;
 
                 s_SelectNoteHolder.UpdateNote();
-                Select(s_SelectNoteHolder.Normal(editLine - 1));
+                Select(s_SelectNoteHolder.Normal(editLine - 1), true);
             }
         }
         else if (s_SelectedObject.transform.parent.CompareTag(noteTag[1]))
         {
             if (s_SelectNoteHolder.airials[editLine - 1] != null)
-            { Select(s_SelectNoteHolder.Normal(editLine - 1)); }
+            { Select(s_SelectNoteHolder.Airial(editLine - 1), true); }
             else
             {
                 editNormal = s_SelectNoteHolder.airials[s_line - 1];
@@ -366,7 +375,7 @@ public class EditManager : MonoBehaviour
                 s_SelectNoteHolder.airials[editLine - 1] = editNormal;
 
                 s_SelectNoteHolder.UpdateNote();
-                Select(s_SelectNoteHolder.Normal(editLine - 1));
+                Select(s_SelectNoteHolder.Airial(editLine - 1), true);
             }
         }
         else
@@ -374,7 +383,7 @@ public class EditManager : MonoBehaviour
             if (editLine > 2) { return; }
 
             if (s_SelectNoteHolder.bottoms[editLine - 1] != null)
-            { Select(s_SelectNoteHolder.Normal(editLine - 1)); }
+            { Select(s_SelectNoteHolder.Bottom(editLine - 1), false); }
             else
             {
                 editNormal = s_SelectNoteHolder.bottoms[s_line - 4 - 1];
@@ -384,13 +393,14 @@ public class EditManager : MonoBehaviour
                 s_SelectNoteHolder.bottoms[editLine - 1] = editNormal;
 
                 s_SelectNoteHolder.UpdateNote();
-                Select(s_SelectNoteHolder.Normal(editLine - 1));
+                Select(s_SelectNoteHolder.Bottom(editLine - 1), false);
             }
         }
     }
     public static void LegnthNote(int editLegnth)
     {
         if (editLegnth < 1) { editLegnth = 1; }
+
 
         if (s_SelectedObject.transform.parent.CompareTag("Normal"))
         {
