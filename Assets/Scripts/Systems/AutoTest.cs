@@ -19,6 +19,7 @@ public class AutoTest : MonoBehaviour
     [SerializeField] Animator[] judgeEffects;
     [SerializeField] AudioSource[] judgeSounds;
     [SerializeField] AudioSource[] judgeLongSounds;
+    [SerializeField] Material[] materials;
 
     private const string judgeEffectTrigger = "Play";
 

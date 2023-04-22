@@ -5,8 +5,10 @@ using UnityEngine.EventSystems;
 
 public class NoteClick : MonoBehaviour, IPointerClickHandler
 {
+    [SerializeField] private bool isNoteParent;
     public void OnPointerClick(PointerEventData eventData)
     {
-        EditManager.Select(this.gameObject);
+        if (!isNoteParent) { EditManager.Select(this.gameObject); }
+        else { EditManager.Select(this.transform.parent.gameObject); }
     }
 }
