@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class AutoTest : MonoBehaviour
 {
@@ -8,24 +9,71 @@ public class AutoTest : MonoBehaviour
 
     public static int s_Index, s_Ms, s_TargetMs;
     public static NoteHolder s_TargetHolder;
-    public static bool s_isTesting = false;
+    public static bool s_isTesting = false, s_isPause = false;
 
     private static List<NoteHolder> s_holders;
     private static int s_SpeedMs, s_SpeedPos, s_EffectMs, s_EffectPos, s_OffsetMs;
     private static int[] s_Offset = new int[2];
     private static float s_posY, s_bpm, s_bpmValue;
 
-    [SerializeField] Transform[] MovingField;
+    [SerializeField] private InputAction[] inputActions;
+
+    [SerializeField] Transform[] _MovingField;
+    private static Transform[] MovingField;
+
     [SerializeField] Animator[] judgeEffects;
     [SerializeField] AudioSource[] judgeSounds;
     [SerializeField] AudioSource[] judgeLongSounds;
     [SerializeField] Material[] materials;
+    [SerializeField] UnityEngine.UI.Button[] buttons;
 
     private const string judgeEffectTrigger = "Play";
 
+    private void Start()
+    {
+        MovingField = _MovingField;
+        buttons[0].interactable = true;
+        buttons[1].interactable = false;
+
+        //# Space
+        inputActions[0].performed += item =>
+        {
+            if (s_isPause)
+            {
+                float _time;
+                _time = s_Ms + ValueManager.s_delay;
+                if (_time < 0)
+                {
+                    s_Ms += (int)(_time);
+                    _time += _time;
+                }
+                MusicBox.audioSource.time = _time;
+                MusicBox.audioSource.Play();
+                s_isPause = false;
+            }
+            else
+            {
+                MusicBox.audioSource.Stop();
+                s_isPause = true;
+            }
+        };
+        //# UpArrow
+        inputActions[1].performed += item =>
+        {
+            if (!s_isPause) { return; }
+            s_Ms += 100;
+        };
+        //# DownArrow
+        inputActions[2].performed += item =>
+        {
+            if (!s_isPause) { return; }
+            s_Ms -= 100;
+        };
+    }
     private void FixedUpdate()
     {
         if (!s_isTesting) { return; }
+        if (!s_isPause) { return; }
         s_Ms++;
     }
     private void Update()
@@ -49,7 +97,7 @@ public class AutoTest : MonoBehaviour
         if (NoteField.s_noteHolders.Count == 0) { return; }
 
         InputManager.EnableInput(false);
-        s_this.StartCoroutine(s_this.MoveField());
+        s_this.StartCoroutine(MoveField());
 
         NoteField.SortNoteHolder();
         s_holders = new List<NoteHolder>();
@@ -62,15 +110,21 @@ public class AutoTest : MonoBehaviour
         s_Ms = ValueManager.s_delay;
         s_bpm = System.Convert.ToSingle(ValueManager.s_Bpm);
         s_bpmValue = s_bpm / 150f;
-        MusicBox.audioSource.Play();
 
-        s_isTesting = true;
+        s_this.StartCoroutine(IStartTest(ValueManager.s_delay));
     }
     public static void EndTest()
     {
+        s_this.buttons[0].interactable = false;
+        s_this.buttons[1].interactable = true;
         InputManager.EnableInput(true);
         foreach (NoteHolder holder in NoteField.s_noteHolders) { holder.EnableNote(true); }
         s_this.StopAllCoroutines();
+
+        s_this.buttons[0].interactable = true;
+        s_this.buttons[1].interactable = false;
+
+        MusicBox.audioSource.Play();
     }
     private static void JudgeApply(NoteHolder holder)
     {
@@ -91,8 +145,6 @@ public class AutoTest : MonoBehaviour
         {
             print("Not Available");
         }
-
-        holder.EnableNote(false);
     }
     private static void JudgeEffect(GameNote.NormalNote note)
     {
@@ -106,7 +158,14 @@ public class AutoTest : MonoBehaviour
         s_this.judgeEffects[index].SetTrigger(judgeEffectTrigger);
     }
 
-    private IEnumerator MoveField()
+    private static IEnumerator IStartTest(int delay)
+    {
+        s_isTesting = true;
+        if (delay < 0) { MusicBox.audioSource.time = -delay / 1000f; }
+        else { yield return new WaitForSeconds(delay / 1000f); }
+        MusicBox.audioSource.Play();
+    }
+    private static IEnumerator MoveField()
     {
         while (true)
         {
@@ -115,5 +174,14 @@ public class AutoTest : MonoBehaviour
             MovingField[2].localPosition = new Vector3(0, s_Offset[0] * s_bpmValue, 0);
             yield return null;
         }
+    }
+
+    public void Btn_StartTest()
+    {
+        StartTest();
+    }
+    public void Btn_EndTest()
+    {
+        EndTest();
     }
 }
