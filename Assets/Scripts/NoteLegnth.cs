@@ -8,7 +8,7 @@ public class NoteLegnth : MonoBehaviour
 
     public void Legnth(int legnth)
     {
-        if (legnth <= 0)
+        if (legnth <= 1)
         {
             LongNotes[0].gameObject.SetActive(true);
 
@@ -24,8 +24,14 @@ public class NoteLegnth : MonoBehaviour
             LongNotes[2].gameObject.SetActive(true);
             LongNotes[3].gameObject.SetActive(true);
 
-            LongNotes[2].localScale = new Vector3(95, legnth * 10, 95);
+            LongNotes[1].localScale = new Vector3(95, legnth * 10, 95);
             LongNotes[3].localPosition = new Vector3(0, 100 * legnth, 0);
         }
+    }
+
+    public Transform GetTransform(bool isSingle)
+    {
+        if (isSingle) { return LongNotes[0]; }
+        else { return LongNotes[1]; }
     }
 }
