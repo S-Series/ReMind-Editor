@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using TMPro;
 
 public class AutoTest : MonoBehaviour
 {
@@ -25,15 +26,13 @@ public class AutoTest : MonoBehaviour
     [SerializeField] AudioSource[] judgeSounds;
     [SerializeField] AudioSource[] judgeLongSounds;
     [SerializeField] Material[] materials;
-    [SerializeField] UnityEngine.UI.Button[] buttons;
+    [SerializeField] TMP_InputField[] inputFields;
 
     private const string judgeEffectTrigger = "Play";
 
     private void Start()
     {
         MovingField = _MovingField;
-        buttons[0].interactable = true;
-        buttons[1].interactable = false;
 
         //# Space
         inputActions[0].performed += item =>
@@ -96,6 +95,8 @@ public class AutoTest : MonoBehaviour
     {
         if (NoteField.s_noteHolders.Count == 0) { return; }
 
+        foreach (TMP_InputField inputField in s_this.inputFields) { inputField.interactable = false; }
+
         InputManager.EnableInput(false);
         s_this.StartCoroutine(MoveField());
 
@@ -115,14 +116,10 @@ public class AutoTest : MonoBehaviour
     }
     public static void EndTest()
     {
-        s_this.buttons[0].interactable = false;
-        s_this.buttons[1].interactable = true;
         InputManager.EnableInput(true);
         foreach (NoteHolder holder in NoteField.s_noteHolders) { holder.EnableNote(true); }
+        foreach (TMP_InputField inputField in s_this.inputFields) { inputField.interactable = true; }
         s_this.StopAllCoroutines();
-
-        s_this.buttons[0].interactable = true;
-        s_this.buttons[1].interactable = false;
 
         MusicBox.audioSource.Play();
     }
@@ -171,7 +168,6 @@ public class AutoTest : MonoBehaviour
         {
             MovingField[0].localPosition = new Vector3(0, s_posY, 0);
             MovingField[1].localPosition = new Vector3(0, s_posY * (ValueManager.s_GameSpeed / 100f), 0);
-            MovingField[2].localPosition = new Vector3(0, s_Offset[0] * s_bpmValue, 0);
             yield return null;
         }
     }
