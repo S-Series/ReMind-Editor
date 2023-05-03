@@ -1,4 +1,4 @@
-using System.Collections;
+    using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -30,6 +30,10 @@ public class AutoTest : MonoBehaviour
 
     private const string judgeEffectTrigger = "Play";
 
+    private void Awake()
+    {
+        s_this = this;
+    }
     private void Start()
     {
         MovingField = _MovingField;
@@ -91,12 +95,13 @@ public class AutoTest : MonoBehaviour
         }
     }
 
-    public static void StartTest()
+    public static void StartTest(int pos)
     {
         if (NoteField.s_noteHolders.Count == 0) { return; }
 
-        foreach (TMP_InputField inputField in s_this.inputFields) { inputField.interactable = false; }
+        // foreach (TMP_InputField inputField in s_this.inputFields) { inputField.interactable = false; }
 
+        NoteGenerate.Escape();
         InputManager.EnableInput(false);
         s_this.StartCoroutine(MoveField());
 
@@ -157,6 +162,7 @@ public class AutoTest : MonoBehaviour
 
     private static IEnumerator IStartTest(int delay)
     {
+        print("run");
         s_isTesting = true;
         if (delay < 0) { MusicBox.audioSource.time = -delay / 1000f; }
         else { yield return new WaitForSeconds(delay / 1000f); }
@@ -174,7 +180,11 @@ public class AutoTest : MonoBehaviour
 
     public void Btn_StartTest()
     {
-        StartTest();
+        StartTest(0);
+    }
+    public void Btn_MidTest()
+    {
+
     }
     public void Btn_EndTest()
     {
