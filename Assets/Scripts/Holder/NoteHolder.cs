@@ -94,7 +94,7 @@ public class NoteHolder : MonoBehaviour
     }
     public void CheckDestroy()
     {
-        if (normals == new NormalNote[4]{ null, null, null, null}
+        if (normals == new NormalNote[4] { null, null, null, null}
             && airials == new NormalNote[4] { null, null, null, null}
             && bottoms == new NormalNote[2] { null, null }
             && speedNote == null && effectNote == null)

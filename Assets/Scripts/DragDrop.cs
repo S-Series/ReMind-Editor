@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 public class DragDrop : MonoBehaviour
 {
     [SerializeField] InputAction inputAction;
-    [SerializeField] private Camera camera;
+    [SerializeField] private Camera dragCamera;
     private Vector3 velocity = Vector3.zero;
 
     private void OnEnable()
@@ -22,7 +22,7 @@ public class DragDrop : MonoBehaviour
     public void MousePressed(InputAction.CallbackContext context)
     {
         print("run");
-        Ray ray = camera.ScreenPointToRay(Mouse.current.position.ReadValue());
+        Ray ray = dragCamera.ScreenPointToRay(Mouse.current.position.ReadValue());
         RaycastHit hit;
         Physics.Raycast(ray, out hit);
 
@@ -37,11 +37,11 @@ public class DragDrop : MonoBehaviour
         print(clicked.name);
         Ray ray;
         Vector3 pos;
-        float initialDistance = Vector3.Distance(clicked.transform.position, camera.transform.position);
+        float initialDistance = Vector3.Distance(clicked.transform.position, dragCamera.transform.position);
         clicked.TryGetComponent<Rigidbody2D>(out var rb);
         while (inputAction.ReadValue<float>() != 0)
         {
-            ray = camera.ScreenPointToRay(Mouse.current.position.ReadValue());
+            ray = dragCamera.ScreenPointToRay(Mouse.current.position.ReadValue());
             if (rb != null)
             {
                 Vector3 direction = ray.GetPoint(initialDistance) - clicked.transform.position;
