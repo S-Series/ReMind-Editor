@@ -34,6 +34,7 @@ public class SaveManager : MonoBehaviour
         NoteHolder holder;
 
         saveFile.bpm = ValueManager.s_Bpm;
+        saveFile.delay = ValueManager.s_Delay;
         saveFile.editorVersion = s_version;
 
         NoteField.SortNoteHolder();
@@ -152,6 +153,8 @@ public class SaveManager : MonoBehaviour
         }
 
         ValueManager.s_Bpm = saveFile.bpm;
+        ValueManager.s_Delay = saveFile.delay;
+        ValueManager.UpdateInputField();
 
         string[] saveData;
         string[] noteData;
@@ -257,6 +260,7 @@ public class SaveManager : MonoBehaviour
 
 public class SaveFile
 {
+    public int delay = 0;
     public double bpm = 120.0;
     public double editorVersion = 1.0;
 

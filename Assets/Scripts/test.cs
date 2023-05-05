@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,39 +6,41 @@ using UnityEngine.EventSystems;
 
 public class test : MonoBehaviour
 {
-    [SerializeField] Animator anim;
-    private const string animTag = "Crouch";
-    bool isPressed = false;
-    KeyCode KC = KeyCode.F;
-
-    IEnumerator Delay;
+    Action action;
+    A a = new A();
+    B b = new B();
 
     private void Start()
     {
-        Delay = IDoSomething();
+        action += a.Skill;
+        action += b.Skill;
+        Reset();
+        UseSkill();
     }
-
-    private void Update()
+    public void UseSkill() { action?.Invoke(); }
+    private void Reset()
     {
-        if (Input.GetKeyDown(KC))
-        {
-            StartCoroutine(Delay);
-        }
-        if (Input.GetKeyUp(KC))
-        {
-            StopCoroutine(Delay);
-            Delay = IDoSomething();
-        }
+        action = null;
     }
+}
 
-    private IEnumerator IDoSomething()
+public class A : SkillAction
+{
+    public override void Skill()
     {
-        yield return new WaitForSeconds(0.3f);
-        SkillActivate();
+        Debug.Log("01");
     }
+}
 
-    private void SkillActivate()
+public class B : SkillAction
+{
+    public override void Skill()
     {
-
+        Debug.Log("02");
     }
+}
+
+public abstract class SkillAction
+{
+    public abstract void Skill();
 }

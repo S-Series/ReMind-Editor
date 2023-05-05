@@ -34,8 +34,8 @@ public class ValueBox : MonoBehaviour, IPointerClickHandler
     {
         int data;
         try { data = System.Convert.ToInt32(inputFields[1].text); }
-        catch { inputFields[1].text = ValueManager.s_delay.ToString(); return; }
-        ValueManager.s_delay = data;
+        catch { inputFields[1].text = ValueManager.s_Delay.ToString(); return; }
+        ValueManager.s_Delay = data;
     }
 
     public void OnPointerClick(PointerEventData eventData)

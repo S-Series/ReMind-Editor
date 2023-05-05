@@ -9,7 +9,7 @@ public class AutoTest : MonoBehaviour
 {
     private static AutoTest s_this;
 
-    private static readonly string[] judgeEffectTrigger = {"Play", "Start", "End"};
+    private static readonly string[] judgeEffectTrigger = {"100", "Start", "End"};
 
     public static int s_Index, s_Ms, s_TargetMs;
     public static NoteHolder s_TargetHolder;
@@ -21,8 +21,8 @@ public class AutoTest : MonoBehaviour
     private static bool[] isTestAlive = {false};
     private static float s_posY, s_bpm, s_bpmValue;
 
-    private static Transform[] MovingField; //# 艾式式式式式式式式式式式式忖
-    [SerializeField] private Transform[] _MovingField; //# 式式戎
+    private static Transform[] MovingField; //# <-----------<
+    [SerializeField] private Transform[] _MovingField; //#--<
 
     [SerializeField] private InputAction[] inputActions;
 
@@ -46,7 +46,7 @@ public class AutoTest : MonoBehaviour
             if (s_isPause)
             {
                 float _time;
-                _time = s_Ms + ValueManager.s_delay;
+                _time = s_Ms + ValueManager.s_Delay;
                 if (_time < 0)
                 {
                     s_Ms += (int)(_time);
@@ -139,14 +139,15 @@ public class AutoTest : MonoBehaviour
         }
         s_TargetMs = s_TargetHolder.stdMs;
             
-        s_Ms = ValueManager.s_delay;
+        s_Ms = ValueManager.s_Delay;
         s_bpm = System.Convert.ToSingle(ValueManager.s_Bpm);
         s_bpmValue = s_bpm / 150f;
 
-        s_this.StartCoroutine(IStartTest(ValueManager.s_delay));
+        s_this.StartCoroutine(IStartTest(ValueManager.s_Delay));
     }
     public static void EndTest()
     {
+        s_isTesting = false;
         InputManager.EnableInput(true);
         for (int i = 0; i < isTestAlive.Length; i++) { isTestAlive[i] = false; }
         foreach (NoteHolder holder in NoteField.s_noteHolders) { holder.EnableNote(true); }
@@ -175,14 +176,25 @@ public class AutoTest : MonoBehaviour
             print("Not Available");
         }
 
-        if (s_Index == s_holders.Count) { s_TargetHolder = null; isTestAlive[0] = false; }
-        else { s_TargetHolder = s_holders[s_Index]; }
+        if (s_Index == s_holders.Count)
+        {
+            s_TargetHolder = null;
+            isTestAlive[0] = false;
+        }
+        else
+        {
+            s_TargetHolder = s_holders[s_Index];
+            s_TargetMs = s_TargetHolder.stdMs;
+        }
     }
     private static void JudgeEffect(NormalNote note)
     {
         if (note == null) { return; }
 
         if (note.legnth != 1) { s_this.StartCoroutine(ILongJudgeEfect(note)); }
+
+        s_this.judgeSounds[note.line - 1].Play();
+        s_this.judgeEffects[note.line - 1].SetTrigger(judgeEffectTrigger[0]);
     }
 
     private static IEnumerator IStartTest(int delay)

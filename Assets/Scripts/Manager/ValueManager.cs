@@ -1,14 +1,18 @@
+using System;
 using System.IO;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class ValueManager : MonoBehaviour
 {
-    //$ UnSave Value
-    public static int s_delay = 0;
-    public static double s_Bpm = 120.0;
+    private static ValueManager s_this;
+    [SerializeField] TMP_InputField[] ValueInputField;
 
+    //$ UnSave Value
+    public static int s_Delay = 0;
+    public static double s_Bpm = 120.0;
     public static bool s_isTest = false;
     public static bool s_isPause = false;
 
@@ -17,6 +21,10 @@ public class ValueManager : MonoBehaviour
     public static int s_JudgeOffset = 0;    //$ [1]
     public static int s_GameSpeed = 100;    //$ [2]
 
+    private void Awake()
+    {
+        s_this = this;
+    }
     public static void SaveValue()
     {
         UserValue userValue = new UserValue();
@@ -31,7 +39,6 @@ public class ValueManager : MonoBehaviour
 
         File.WriteAllText(path, jsonData);
     }
-
     public static void LoadValue()
     {
         UserValue userValue = new UserValue();
@@ -47,6 +54,25 @@ public class ValueManager : MonoBehaviour
             s_GameSpeed = 100;
             return;
         }
+    }
+    public static void UpdateInputField()
+    {
+        s_this.ValueInputField[0].text = s_Bpm.ToString();
+        s_this.ValueInputField[1].text = s_Delay.ToString();
+    }
+
+    public void Input_Bpm()
+    {
+        float value;
+        value = Convert.ToSingle(ValueInputField[0].text);
+        value = Mathf.RoundToInt(value * 100) / 100f;
+        if (value > 0) { s_Bpm = value; }
+        ValueInputField[0].text = s_Bpm.ToString();
+    }
+    public void Input_Delay()
+    {
+        s_Delay = Convert.ToInt32(ValueInputField[1].text);
+        ValueInputField[1].text = s_Delay.ToString();
     }
 }
 
