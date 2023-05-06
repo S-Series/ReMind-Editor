@@ -64,14 +64,16 @@ public class ValueManager : MonoBehaviour
     public void Input_Bpm()
     {
         float value;
-        value = Convert.ToSingle(ValueInputField[0].text);
+        try { value = Convert.ToSingle(ValueInputField[0].text); }
+        catch { value = 120.0f; }
         value = Mathf.RoundToInt(value * 100) / 100f;
         if (value > 0) { s_Bpm = value; }
         ValueInputField[0].text = s_Bpm.ToString();
     }
     public void Input_Delay()
     {
-        s_Delay = Convert.ToInt32(ValueInputField[1].text);
+        try { s_Delay = Convert.ToInt32(ValueInputField[1].text); }
+        catch { s_Delay = 0; }
         ValueInputField[1].text = s_Delay.ToString();
     }
 }

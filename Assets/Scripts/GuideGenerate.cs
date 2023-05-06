@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class GuideGenerate : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class GuideGenerate : MonoBehaviour
 
     [SerializeField] GameObject ColliderPrefab;
     [SerializeField] Transform ColliderField;
+    [SerializeField] TMP_InputField InputGuideCount;
 
     private void Awake() { s_this = this; Generate(8); }
 
@@ -81,5 +83,14 @@ public class GuideGenerate : MonoBehaviour
         {
             holder.ReSizeLineRenderer(invertScale);
         }
+    }
+
+    public void Input_Guide()
+    {
+        int _count;
+        try { _count = System.Convert.ToInt32(InputGuideCount.text); }
+        catch { _count = 1; }
+        if (_count <= 0) { _count = 1; }
+        Generate(_count);
     }
 }
