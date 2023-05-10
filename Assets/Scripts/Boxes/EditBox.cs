@@ -51,7 +51,6 @@ public class EditBox : MonoBehaviour
                 s_this.UpdateBox(4);
             }
         }
-
         UpdateRenderer();
     }
 
@@ -70,7 +69,7 @@ public class EditBox : MonoBehaviour
     private void UpdateBox(int index)
     {
         editBoxes[index].SetActive(true);
-        editBoxes[index].GetComponent<NoteChange>().UpdateInfoFields();
+        NoteChange.UpdateInfoFields();
 
         /*Vector3 position;
         position = editBoxes[index].transform.localPosition;

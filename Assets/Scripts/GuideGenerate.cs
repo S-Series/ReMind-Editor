@@ -14,7 +14,8 @@ public class GuideGenerate : MonoBehaviour
     [SerializeField] Transform ColliderField;
     [SerializeField] TMP_InputField InputGuideCount;
 
-    private void Awake() { s_this = this; Generate(8); }
+    private void Awake() { s_this = this; }
+    private void Start() { Generate(8); }
 
     public static void Generate(int count)
     {

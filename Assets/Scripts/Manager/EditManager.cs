@@ -170,7 +170,7 @@ public class EditManager : MonoBehaviour
 
     public static void PosNote(int editPos)
     {
-        editPos = 1600 * s_page + s_posY;
+        editPos = 1600 * s_page + editPos;
 
         NoteHolder targetHolder;
         GameObject targetObject;
