@@ -6,16 +6,18 @@ using UnityEngine.InputSystem;
 public class EditBox : MonoBehaviour
 {
     private static EditBox s_this;
-    private static LineRenderer lineRenderer = null;
+    private static LineRenderer s_lineRenderer = null;
     private static int nowIndex = -1, pos = 0;
     private static Vector3[] vector = new Vector3[3]
         {new Vector3(), new Vector3(), new Vector3()};
 
-    [SerializeField] GameObject[] editBoxes;
+    [SerializeField] private GameObject[] editBoxes;
+    [SerializeField] private LineRenderer _lineRenderer;
 
     private void Awake()
     {
         s_this = this;
+        s_lineRenderer = _lineRenderer;
     }
 
     public static void PopUpBox(GameObject gameObject)
@@ -25,17 +27,16 @@ public class EditBox : MonoBehaviour
         foreach (GameObject obj in s_this.editBoxes)
         {
             obj.SetActive(false);
-            obj.GetComponent<LineRenderer>().enabled = false;
         }
 
         if (gameObject.transform.parent.CompareTag("Normal")
             || gameObject.transform.parent.CompareTag("Airial"))
         {
-            s_this.UpdateBox(0);
+            s_this.UpdateBox(1);
         }
         else if (gameObject.transform.parent.CompareTag("Bottom"))
         {
-            s_this.UpdateBox(1);
+            s_this.UpdateBox(2);
         }
         else
         {
@@ -43,11 +44,11 @@ public class EditBox : MonoBehaviour
 
             if (holder != null)
             {
-                s_this.UpdateBox(2);    
+                s_this.UpdateBox(3);
             }
             else
             {
-                s_this.UpdateBox(3);
+                s_this.UpdateBox(4);
             }
         }
 
@@ -57,43 +58,31 @@ public class EditBox : MonoBehaviour
     public static void Deselect()
     {
         if (nowIndex == -1) { return; }
-        s_this.editBoxes[nowIndex].SetActive(false);
-        s_this.editBoxes[nowIndex].GetComponent<LineRenderer>().enabled = false;
+        foreach (GameObject obj in s_this.editBoxes)
+        {
+            obj.SetActive(false);
+        }
+        s_this.editBoxes[0].SetActive(true);
         nowIndex = -1;
-    }
-
-    public void UpdageInfo(int index)
-    {
-
+        UpdateRenderer();
     }
 
     private void UpdateBox(int index)
     {
         editBoxes[index].SetActive(true);
-
-        lineRenderer = editBoxes[index].GetComponent<LineRenderer>();
-        lineRenderer.enabled = true;
-
         editBoxes[index].GetComponent<NoteChange>().UpdateInfoFields();
 
-        Vector3 position;
+        /*Vector3 position;
         position = editBoxes[index].transform.localPosition;
-        if (Mathf.Abs(position.x) > 10 || Mathf.Abs(position.y) > 4.5)
-        { editBoxes[index].transform.localPosition = new Vector3(-5.75f, 0, 0); }
+         if (Mathf.Abs(position.x) > 10 || Mathf.Abs(position.y) > 4.5)
+        { editBoxes[index].transform.localPosition = new Vector3(-5.75f, 0, 0); }*/
 
         nowIndex = index;
     }
 
     public static void UpdateRenderer()
     {
-        if (nowIndex == -1) { return; }
-        if (lineRenderer == null) { return; }
-
-        vector[0] = EditManager.s_SelectedObject.transform.position;
-        vector[1] = s_this.editBoxes[nowIndex].transform.localPosition;
-        vector[2] = (vector[0] - vector[1]) / 1.1f;
-        vector[2].z = 0;
-
-        lineRenderer.SetPosition(1, vector[2]);
+        if (nowIndex == -1) { s_lineRenderer.SetPosition(1, new Vector3(-5.25f, 2.7875f, 10f)); }
+        else { s_lineRenderer.SetPosition(1, EditManager.s_SelectedObject.transform.position); }
     }
 }

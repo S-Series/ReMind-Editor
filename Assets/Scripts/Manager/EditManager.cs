@@ -16,7 +16,7 @@ public class EditManager : MonoBehaviour
     public static bool s_isAirial = false;
     private static bool s_shift = false, s_ctrl = false;
 
-    private static readonly string[] noteTag = { "Normal", "Airial", "Bottom" };
+    private static readonly string[] noteTag = { "Normal", "Bottom", "Airial" };
 
     [SerializeField] InputAction[] actions;
 
@@ -96,7 +96,7 @@ public class EditManager : MonoBehaviour
         {
             s_isAirial = false;
             s_line = Convert.ToInt32(obj.tag);
-            s_legnth = s_SelectNoteHolder.bottoms[s_line - 4 - 1].legnth;
+            s_legnth = s_SelectNoteHolder.bottoms[s_line - 1].legnth;
             s_soundIndex = s_SelectNoteHolder.bottoms[s_line - 1].SoundIndex;
         }
         else if (obj.transform.parent.CompareTag(noteTag[2]))
