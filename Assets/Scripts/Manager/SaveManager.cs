@@ -47,18 +47,18 @@ public class SaveManager : MonoBehaviour
             saveData += string.Format("|{0:D11}|__", holder.stdMs);
             saveData += string.Format("|{0:D11}|__", holder.stdPos);
             saveData += string.Format("|{0:D2}|{1:D2}|{2:D2}|{3:D2}|__",
-                holder.normals[0] == null ? 0 : holder.normals[0].legnth,
-                holder.normals[1] == null ? 0 : holder.normals[1].legnth,
-                holder.normals[2] == null ? 0 : holder.normals[2].legnth,
-                holder.normals[3] == null ? 0 : holder.normals[3].legnth);
+                holder.normals[0] == null ? 0 : holder.normals[0].length,
+                holder.normals[1] == null ? 0 : holder.normals[1].length,
+                holder.normals[2] == null ? 0 : holder.normals[2].length,
+                holder.normals[3] == null ? 0 : holder.normals[3].length);
             saveData += string.Format("|{0:D2}|{1:D2}|{2:D2}|{3:D2}|__",
-                holder.airials[0] == null ? 0 : holder.airials[0].legnth,
-                holder.airials[1] == null ? 0 : holder.airials[1].legnth,
-                holder.airials[2] == null ? 0 : holder.airials[2].legnth,
-                holder.airials[3] == null ? 0 : holder.airials[3].legnth);
+                holder.airials[0] == null ? 0 : holder.airials[0].length,
+                holder.airials[1] == null ? 0 : holder.airials[1].length,
+                holder.airials[2] == null ? 0 : holder.airials[2].length,
+                holder.airials[3] == null ? 0 : holder.airials[3].length);
             saveData += string.Format("|{0:D2}|{1:D2}|{2:D2}|{3:D2}|__",
-                holder.bottoms[0] == null ? 0 : holder.bottoms[0].legnth,
-                holder.bottoms[1] == null ? 0 : holder.bottoms[1].legnth,
+                holder.bottoms[0] == null ? 0 : holder.bottoms[0].length,
+                holder.bottoms[1] == null ? 0 : holder.bottoms[1].length,
                 holder.bottoms[0] == null ? 0 : holder.bottoms[0].SoundIndex,
                 holder.bottoms[1] == null ? 0 : holder.bottoms[1].SoundIndex);
             saveData += string.Format("|{0}|{1}|{2:D5}|__",
@@ -184,7 +184,7 @@ public class SaveManager : MonoBehaviour
                     normal.line = j + 1;
                     normal.holder = copyHolder;
                     normal.SoundIndex = 0;
-                    normal.legnth = Convert.ToInt32(noteData[j]);
+                    normal.length = Convert.ToInt32(noteData[j]);
                     copyHolder.normals[j] = normal;
                 }
             }
@@ -201,7 +201,7 @@ public class SaveManager : MonoBehaviour
                     normal.pos = copyHolder.stdPos;
                     normal.line = j + 1;
                     normal.holder = copyHolder;
-                    normal.legnth = 0;
+                    normal.length = 0;
                     normal.SoundIndex = 0;
                     copyHolder.airials[j] = normal;
                 }
@@ -218,7 +218,7 @@ public class SaveManager : MonoBehaviour
                     normal.pos = copyHolder.stdPos;
                     normal.line = j + 1 + 4;
                     normal.holder = copyHolder;
-                    normal.legnth = Convert.ToInt32(noteData[j]);
+                    normal.length = Convert.ToInt32(noteData[j]);
                     normal.SoundIndex = Convert.ToInt32(noteData[j + 2]);
                     copyHolder.bottoms[j] = normal;
                 }

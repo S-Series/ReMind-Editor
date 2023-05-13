@@ -89,14 +89,14 @@ public class EditManager : MonoBehaviour
         {
             s_isAirial = false;
             s_line = Convert.ToInt32(obj.tag);
-            s_legnth = s_SelectNoteHolder.normals[s_line - 1].legnth;
+            s_legnth = s_SelectNoteHolder.normals[s_line - 1].length;
             s_soundIndex = s_SelectNoteHolder.normals[s_line - 1].SoundIndex;
         }
         else if (obj.transform.parent.CompareTag(noteTag[1]))
         {
             s_isAirial = false;
             s_line = Convert.ToInt32(obj.tag);
-            s_legnth = s_SelectNoteHolder.bottoms[s_line - 1].legnth;
+            s_legnth = s_SelectNoteHolder.bottoms[s_line - 1].length;
             s_soundIndex = s_SelectNoteHolder.bottoms[s_line - 1].SoundIndex;
         }
         else if (obj.transform.parent.CompareTag(noteTag[2]))
@@ -443,7 +443,7 @@ public class EditManager : MonoBehaviour
             NormalNote note;
             note = s_SelectNoteHolder.normals[Convert.ToInt32(s_SelectedObject.tag) - 1];
 
-            note.legnth = editLegnth;
+            note.length = editLegnth;
             s_SelectNoteHolder.UpdateNote();
         }
         else if (s_SelectNoteHolder.transform.parent.CompareTag("Bottom"))
@@ -451,7 +451,7 @@ public class EditManager : MonoBehaviour
             NormalNote note;
             note = s_SelectNoteHolder.bottoms[Convert.ToInt32(s_SelectedObject.tag) - 1];
 
-            note.legnth = editLegnth;
+            note.length = editLegnth;
             s_SelectNoteHolder.UpdateNote();
         }
     }

@@ -191,7 +191,7 @@ public class AutoTest : MonoBehaviour
     {
         if (note == null) { return; }
 
-        if (note.legnth != 1) { s_this.StartCoroutine(ILongJudgeEfect(note)); }
+        if (note.length != 1) { s_this.StartCoroutine(ILongJudgeEfect(note)); }
 
         s_this.judgeSounds[note.line - 1].Play();
         s_this.judgeEffects[note.line - 1].SetTrigger(judgeEffectTrigger[0]);
@@ -220,7 +220,7 @@ public class AutoTest : MonoBehaviour
         ms = note.ms + Mathf.RoundToInt(30000 / s_bpm);
         index = note.line;
         s_this.judgeEffects[index].SetTrigger(judgeEffectTrigger[1]);
-        for (int i = 1; i < note.legnth; i++)
+        for (int i = 1; i < note.length; i++)
         {
             while (true)
             {

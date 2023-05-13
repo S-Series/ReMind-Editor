@@ -33,38 +33,42 @@ public class NoteChange : MonoBehaviour
         GameObject noteObject;
         holder = EditManager.s_SelectNoteHolder;
         noteObject = EditManager.s_SelectedObject;
+        
+        string selectNoteTag;
+        selectNoteTag = noteObject.transform.parent.tag;
+
 
         if (holder == null || noteObject == null) { return; }
 
         TMP_InputField[] inputFields;
 
-        if (noteObject.CompareTag(noteTag[0]) || noteObject.CompareTag(noteTag[1]))
+        print(noteObject.tag);
+
+        if (selectNoteTag == noteTag[0] || selectNoteTag == noteTag[1])
         {
             inputFields = s_this.NormalInputs;
-            noteObject.TryGetComponent<NormalNote>(out var note);
 
-            inputFields[0].text = (holder.stdPos % 1600).ToString();
-            inputFields[1].text = Mathf.FloorToInt(holder.stdPos / 1600f).ToString();
+            inputFields[0].text = EditManager.s_posY.ToString();
+            inputFields[1].text = EditManager.s_page.ToString();
 
-            s_this.NormalToggles[note.line - 1].isOn = true;
-            if (note.isAir)
+            s_this.NormalToggles[EditManager.s_line - 1].isOn = true;
+            if (EditManager.s_isAirial)
             {
                 inputFields[2].text = "- - -";
                 s_this.NormalToggles[4].isOn = true;
             }
             else
             {
-                inputFields[2].text = note.legnth.ToString();
+                inputFields[2].text = EditManager.s_legnth.ToString();
                 s_this.NormalToggles[4].isOn = false;
             }
         }
-        else if (noteObject.CompareTag(noteTag[2]))
+        else if (selectNoteTag == noteTag[2])
         {
-
+            
         }
         else
         {
-
         }
     }
 
