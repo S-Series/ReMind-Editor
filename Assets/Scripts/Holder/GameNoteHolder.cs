@@ -15,7 +15,11 @@ public class GameNoteHolder : MonoBehaviour
         for (int i = 0; i < 4; i++)
         {
             if (holder.normals[i] == null) { normalObjects[i].SetActive(false); }
-            else { normalObjects[i].SetActive(true); }
+            else
+            {
+                normalObjects[i].SetActive(true);
+                normalObjects[i].GetComponent<NoteLength>().Length(holder.normals[i].length);
+            }
 
             if (holder.airials[i] == null) { airialObjects[i].SetActive(false); }
             else
@@ -44,7 +48,11 @@ public class GameNoteHolder : MonoBehaviour
         for (int i = 0; i < 2; i++)
         {
             if (holder.bottoms[i] == null) { bottomObjects[i].SetActive(false); }
-            else { bottomObjects[i].SetActive(true); }
+            else
+            {
+                bottomObjects[i].SetActive(true);
+                bottomObjects[i].GetComponent<NoteLength>().Length(holder.bottoms[i].length);
+            }
         }
     }
     public void UpdateScale()

@@ -120,11 +120,11 @@ public class NoteHolder : MonoBehaviour
     {
         foreach (GameObject gameObject in ParentObjects) { gameObject.SetActive(isEnable); }
     }   
-    public GameObject Normal(int index) { return normalObjects[index]; }
-    public GameObject Airial(int index) { return airialObjects[index]; }
-    public GameObject Bottom(int index) { return bottomObjects[index]; }
-    public GameObject Speed() { return speedObject; }
-    public GameObject Effect() { return effectObject; }
+    public GameObject getNormal(int index) { return normalObjects[index]; }
+    public GameObject getAirial(int index) { return airialObjects[index]; }
+    public GameObject getBottom(int index) { return bottomObjects[index]; }
+    public GameObject getSpeed() { return speedObject; }
+    public GameObject getEffect() { return effectObject; }
 
     /*public static NoteHolder GenerateNoteHolder()
     {

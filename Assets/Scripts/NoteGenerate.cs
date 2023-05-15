@@ -146,6 +146,7 @@ public class NoteGenerate : MonoBehaviour
         }
 
         NoteField.SortNoteHolder();
+        InfoField.UpdateInfoField();
     }
     public static NoteHolder GenerateNoteManual(int pos)
     {

@@ -21127,11 +21127,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1b94b72697d4084f93986b132b2bde4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  renderer_01: []
-  slider_02: []
-  tmp_02: []
-  slider_03: {fileID: 0}
-  tmp_03: {fileID: 0}
+  renderer_01:
+  - {fileID: 1164355611}
+  - {fileID: 1444445125}
+  - {fileID: 127475058}
+  - {fileID: 798534444}
+  - {fileID: 182146737}
+  - {fileID: 1018386054}
+  - {fileID: 538939401}
+  - {fileID: 34026207}
+  - {fileID: 434624718}
+  - {fileID: 1421567610}
+  slider_02:
+  - {fileID: 1832873064}
+  - {fileID: 1371308393}
+  - {fileID: 1891231980}
+  - {fileID: 997769935}
+  tmp_02:
+  - {fileID: 481762779}
+  - {fileID: 1772934986}
+  - {fileID: 1050176481}
+  - {fileID: 999679938}
+  - {fileID: 1003457754}
+  - {fileID: 422123431}
+  - {fileID: 2042592128}
+  - {fileID: 570376309}
+  slider_03:
+  - {fileID: 755994981}
+  - {fileID: 1965205974}
+  tmp_03:
+  - {fileID: 1070482929}
+  - {fileID: 172344939}
 --- !u!1 &995057599
 GameObject:
   m_ObjectHideFlags: 0

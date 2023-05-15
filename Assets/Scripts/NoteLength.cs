@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class NoteLength : MonoBehaviour
 {
+    [SerializeField] private bool isGameNote;
     [SerializeField] private Transform[] LongNotes;
 
     public void Length(int length)
@@ -24,8 +25,25 @@ public class NoteLength : MonoBehaviour
             LongNotes[2].gameObject.SetActive(true);
             LongNotes[3].gameObject.SetActive(true);
 
-            LongNotes[1].localScale = new Vector3(95, length * 10, 95);
-            LongNotes[3].localPosition = new Vector3(0, 100 * length, 0);
+            if (isGameNote)
+            {
+                if (transform.parent.CompareTag("Normal"))
+                {
+                    LongNotes[1].localScale = new Vector3(1, length * 0.05683594f, 1);
+                    LongNotes[3].localPosition = new Vector3(0, length * 0.5681819f, 0);
+                }
+                else
+                {
+                    LongNotes[1].localScale = new Vector3(1, length * 0.05209961f, 1);
+                    LongNotes[3].localPosition = new Vector3(0, length * 0.5208334f, 0);
+                }
+
+            }
+            else
+            {
+                LongNotes[1].localScale = new Vector3(95, length * 10, 95);
+                LongNotes[3].localPosition = new Vector3(0, 100 * length, 0);
+            }
         }
     }
 

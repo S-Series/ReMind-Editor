@@ -22,10 +22,14 @@ public class NoteChange : MonoBehaviour
     [SerializeField] TMP_InputField[] SpeedInputs;
     [SerializeField] TMP_InputField[] EffectInputs;
 
-
+    [SerializeField] 
     private void Awake()
     {
         s_this = this;
+    }
+    private void Update()
+    {   
+
     }
     public static void UpdateInfoFields()
     {
@@ -70,6 +74,7 @@ public class NoteChange : MonoBehaviour
         else
         {
         }
+        InfoField.UpdateInfoField();
     }
 
     public void InputPos(TMP_InputField input)
