@@ -200,7 +200,6 @@ public class NoteGenerate : MonoBehaviour
     }
     public static void Escape()
     {
-        print("Escaped");
         s_isGenerating = false;
 
         foreach (GameObject gameObject in s_this.previews) { gameObject.SetActive(false); }

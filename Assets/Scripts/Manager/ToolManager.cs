@@ -9,11 +9,6 @@ public class ToolManager : MonoBehaviour
     public enum NoteType { Null, Normal, Speed, Effect };
     public static NoteType noteType = NoteType.Null;
 
-    public static class EraseManager
-    {
-
-    }
-
     public void Awake()
     {
         s_this = this;

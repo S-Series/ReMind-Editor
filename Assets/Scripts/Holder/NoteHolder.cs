@@ -75,16 +75,16 @@ public class NoteHolder : MonoBehaviour
         {
             for (int i = 0; i < obj.transform.childCount; i++)
             {
-                obj.TryGetComponent<BoxCollider2D>(out var collider2D);
-                if (collider2D != null) { collider2D.enabled = isTrue; }
+                obj.transform.GetChild(i).TryGetComponent<BoxCollider2D>(out var collider);
+                collider.enabled = isTrue;
             }
         }
         foreach (GameObject obj in bottomObjects)
         {
             for (int i = 0; i < obj.transform.childCount; i++)
             {
-                obj.TryGetComponent<BoxCollider2D>(out var collider2D);
-                if (collider2D != null) { collider2D.enabled = isTrue; }
+                obj.transform.GetChild(i).TryGetComponent<BoxCollider2D>(out var collider);
+                if (collider != null) { collider.enabled = isTrue; }
             }
         }
         foreach (GameObject obj in airialObjects) { obj.GetComponent<BoxCollider2D>().enabled = isTrue; }
@@ -120,25 +120,10 @@ public class NoteHolder : MonoBehaviour
     {
         foreach (GameObject gameObject in ParentObjects) { gameObject.SetActive(isEnable); }
     }   
+    
     public GameObject getNormal(int index) { return normalObjects[index]; }
     public GameObject getAirial(int index) { return airialObjects[index]; }
     public GameObject getBottom(int index) { return bottomObjects[index]; }
     public GameObject getSpeed() { return speedObject; }
     public GameObject getEffect() { return effectObject; }
-
-    /*public static NoteHolder GenerateNoteHolder()
-    {
-        NoteHolder ret;
-        ret = new NoteHolder();
-        ret.normals = new NormalNote[4] { null, null, null, null };
-        ret.airials = new NormalNote[4] { null, null, null, null };
-        ret.bottoms = new NormalNote[2] { null, null };
-        ret.speedNote = null;
-        ret.effectNote = null;
-        ret.UpdateNote();
-
-        NoteField.s_noteHolders.Add(ret);
-
-        return ret;
-    }*/
 }

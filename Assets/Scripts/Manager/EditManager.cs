@@ -38,7 +38,6 @@ public class EditManager : MonoBehaviour
             else { action.Disable(); }
         }
     }
-
     public static void Select(GameObject obj)
     {
         int _count;
@@ -138,7 +137,52 @@ public class EditManager : MonoBehaviour
         }
         NoteField.s_this.UpdateField(); 
     }
+    public static void Delete()
+    {
+        if (s_SelectNoteHolder == null) { return; }
 
+        string selectNoteTag;
+        selectNoteTag = s_SelectedObject.tag;
+        if (selectNoteTag == noteTag[0])
+        {
+            NormalNote note;
+            note = s_SelectNoteHolder.normals[s_line - 1];
+            NoteClass.s_NormalNotes.RemoveAll(item => item == note);
+            s_SelectNoteHolder.normals[s_line - 1] = null;
+        }
+        else if (selectNoteTag == noteTag[1])
+        {
+            NormalNote note;
+            note = s_SelectNoteHolder.bottoms[s_line - 1];
+            NoteClass.s_NormalNotes.RemoveAll(item => item == note);
+            s_SelectNoteHolder.bottoms[s_line - 1] = null;
+        }
+        else if (selectNoteTag == noteTag[2])
+        {
+            NormalNote note;
+            note = s_SelectNoteHolder.airials[s_line - 1];
+            NoteClass.s_NormalNotes.RemoveAll(item => item == note);
+            s_SelectNoteHolder.airials[s_line - 1] = null;
+        }
+        else
+        {
+            s_SelectNoteHolder.TryGetComponent<SpeedNote>(out var speed);
+            if (speed != null)
+            {
+                NoteClass.s_SpeedNotes.RemoveAll(item => item == speed);
+                s_SelectNoteHolder.speedNote = null;
+            }
+            else
+            {
+                s_SelectNoteHolder.TryGetComponent<EffectNote>(out var effect);
+                NoteClass.s_EffectNotes.RemoveAll(item => item == effect);
+                s_SelectNoteHolder.effectNote = null;
+            }
+        }
+        NoteClass.SortAll();
+        s_SelectNoteHolder.UpdateNote();
+        Escape();
+    }
     public static void Escape()
     {
         if (s_SelectedObject != null)
@@ -456,6 +500,32 @@ public class EditManager : MonoBehaviour
         }
         InfoField.UpdateInfoField();
     }
+    public static void SwitchNote(bool? isAirial)
+    {
+        if (s_SelectedObject.CompareTag(noteTag[0]))
+        {
+            if (isAirial.HasValue)
+            {
+
+            }
+            else if (s_SelectNoteHolder.airials[s_line - 1] == null)
+            {
+                NormalNote note;
+                note = s_SelectNoteHolder.normals[s_line - 1];
+                s_SelectNoteHolder.normals[s_line - 1] = null;
+                s_SelectNoteHolder.airials[s_line = 1] = note;
+                note.isAir = true;
+                s_SelectNoteHolder.UpdateNote();
+                Select(s_SelectNoteHolder.getAirial(s_line - 1));
+            }
+            else { Select(s_SelectNoteHolder.getAirial(s_line - 1)); }
+        }
+        else if (s_SelectedObject.CompareTag(noteTag[2]))
+        {
+
+        }
+        else { return; }
+    }
 
     public static void MoveNoteInput(bool isUp)
     {
@@ -555,5 +625,11 @@ public class EditManager : MonoBehaviour
 
         LineNote(editLine);
         InfoField.UpdateInfoField();
+    }
+
+    public bool CoolFunSexy(bool isTrue)
+    {
+        if (isTrue) return true;
+        else return false;
     }
 }

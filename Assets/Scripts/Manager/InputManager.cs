@@ -58,7 +58,7 @@ public class InputManager : MonoBehaviour
         //# Delete
         inputActions.Edit.Delete.performed += item =>
         {
-
+            EditManager.Delete();
         };
         //# Esc
         inputActions.Edit.Escape.performed += item =>

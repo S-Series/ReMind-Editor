@@ -525,7 +525,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -5018583
   m_SortingLayer: 2
-  m_SortingOrder: 3
+  m_SortingOrder: 6
   m_Sprite: {fileID: -1677781707, guid: 624625bc074718e46abc0b16327e87e3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -650,7 +650,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -5018583
   m_SortingLayer: 2
-  m_SortingOrder: 3
+  m_SortingOrder: 6
   m_Sprite: {fileID: -1677781707, guid: 624625bc074718e46abc0b16327e87e3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -846,7 +846,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -5018583
   m_SortingLayer: 2
-  m_SortingOrder: 3
+  m_SortingOrder: 6
   m_Sprite: {fileID: -1677781707, guid: 624625bc074718e46abc0b16327e87e3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -1189,7 +1189,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c6c24f4d72b4d0488b0292739e7b5c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pos: 0
+  isGameNote: 0
   LongNotes:
   - {fileID: 6367677639661719740}
   - {fileID: 7551551545512213703}
@@ -1243,7 +1243,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c6c24f4d72b4d0488b0292739e7b5c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pos: 0
+  isGameNote: 0
   LongNotes:
   - {fileID: 1073895570222186878}
   - {fileID: 4308344621587217157}
@@ -1323,7 +1323,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -5018583
   m_SortingLayer: 2
-  m_SortingOrder: 3
+  m_SortingOrder: 6
   m_Sprite: {fileID: -1677781707, guid: 624625bc074718e46abc0b16327e87e3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -1756,7 +1756,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c6c24f4d72b4d0488b0292739e7b5c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pos: 0
+  isGameNote: 0
   LongNotes:
   - {fileID: 5947220050963065232}
   - {fileID: 960421230317310202}
@@ -2269,7 +2269,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c6c24f4d72b4d0488b0292739e7b5c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pos: 0
+  isGameNote: 0
   LongNotes:
   - {fileID: 7766297029861084699}
   - {fileID: 7058394466337378535}
@@ -2448,7 +2448,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c6c24f4d72b4d0488b0292739e7b5c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pos: 0
+  isGameNote: 0
   LongNotes:
   - {fileID: 6367677638190123140}
   - {fileID: 2527323828120297044}
@@ -3574,7 +3574,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c6c24f4d72b4d0488b0292739e7b5c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pos: 0
+  isGameNote: 0
   LongNotes:
   - {fileID: 7571251816288876811}
   - {fileID: 3852316856839826116}
