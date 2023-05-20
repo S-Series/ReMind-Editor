@@ -10,8 +10,9 @@ public class EditManager : MonoBehaviour
 {
     private static EditManager s_this;
 
-    public static NoteHolder s_SelectNoteHolder;
-    public static GameObject s_SelectedObject;
+    public static List<NoteHolder> s_SelectNoteHolder;
+    public static List<GameObject> s_SelectedObject;
+    public static List<GameObject> s_SelectedSaving;
     public static int s_page, s_posY, s_line, s_legnth, s_soundIndex;
     public static bool s_isAirial = false;
     private static bool s_shift = false, s_ctrl = false;
@@ -41,23 +42,26 @@ public class EditManager : MonoBehaviour
     public static void Select(GameObject obj)
     {
         int _count;
-        if (s_SelectedObject != null)
+        if (s_SelectedObject.Count != 0)
         {
-            _count = s_SelectedObject.transform.childCount;
-            if (_count == 0)
+            for (int i = 0; i < s_SelectedObject.Count; i++)
             {
-                s_SelectedObject.transform.GetComponent<BoxCollider2D>().enabled = true;
-                s_SelectedObject.transform.GetComponent<SpriteRenderer>().color = Color.white;
-            }
-            else
-            {
-                for (int i = 0; i < _count; i++)
+                _count = s_SelectedObject[i].transform.childCount;
+                if (_count == 0)
                 {
-                    s_SelectedObject.transform.GetChild(i)
-                        .TryGetComponent<BoxCollider2D>(out var collider2D);
-                    s_SelectedObject.transform.GetChild(i)
-                        .GetComponent<SpriteRenderer>().color = Color.white;
-                    if (collider2D != null) { collider2D.enabled = true; }
+                    s_SelectedObject[i].transform.GetComponent<BoxCollider2D>().enabled = true;
+                    s_SelectedObject[i].transform.GetComponent<SpriteRenderer>().color = Color.white;
+                }
+                else
+                {
+                    for (int j = 0; j < _count; j++)
+                    {
+                        s_SelectedObject[i].transform.GetChild(j)
+                            .TryGetComponent<BoxCollider2D>(out var collider2D);
+                        s_SelectedObject[i].transform.GetChild(j)
+                            .GetComponent<SpriteRenderer>().color = Color.white;
+                        if (collider2D != null) { collider2D.enabled = true; }
+                    }
                 }
             }
         }
@@ -78,39 +82,40 @@ public class EditManager : MonoBehaviour
             }
         }
 
-        s_SelectNoteHolder = obj.GetComponentInParent<NoteHolder>();
-        s_SelectedObject = obj;
+        s_SelectedObject = new List<GameObject>();
+        s_SelectNoteHolder = new List<NoteHolder>();
 
-        s_posY = s_SelectNoteHolder.stdPos % 1600;
-        s_page = Mathf.FloorToInt(s_SelectNoteHolder.stdPos / 1600f);
+        s_SelectedObject.Add(obj);
+        s_SelectNoteHolder.Add(obj.GetComponentInParent<NoteHolder>());
+
+        s_posY = s_SelectNoteHolder[0].stdPos % 1600;
+        s_page = Mathf.FloorToInt(s_SelectNoteHolder[0].stdPos / 1600f);
 
         if (obj.transform.parent.CompareTag(noteTag[0]))
         {
             s_isAirial = false;
             s_line = Convert.ToInt32(obj.tag);
-            s_legnth = s_SelectNoteHolder.normals[s_line - 1].length;
-            s_soundIndex = s_SelectNoteHolder.normals[s_line - 1].SoundIndex;
+            s_legnth = s_SelectNoteHolder[0].normals[s_line - 1].length;
+            s_soundIndex = s_SelectNoteHolder[0].normals[s_line - 1].SoundIndex;
         }
         else if (obj.transform.parent.CompareTag(noteTag[1]))
         {
             s_isAirial = false;
             s_line = Convert.ToInt32(obj.tag);
-            s_legnth = s_SelectNoteHolder.bottoms[s_line - 1].length;
-            s_soundIndex = s_SelectNoteHolder.bottoms[s_line - 1].SoundIndex;
+            s_legnth = s_SelectNoteHolder[0].bottoms[s_line - 1].length;
+            s_soundIndex = s_SelectNoteHolder[0].bottoms[s_line - 1].SoundIndex;
         }
         else if (obj.transform.parent.CompareTag(noteTag[2]))
         {
             s_isAirial = true;
             s_line = Convert.ToInt32(obj.tag);
             s_legnth = 0;
-            s_soundIndex = s_SelectNoteHolder.airials[s_line - 1].SoundIndex;
-            // obj.GetComponent<SpriteRenderer>().color = new Color32(255, 255, 000, 255);
+            s_soundIndex = s_SelectNoteHolder[0].airials[s_line - 1].SoundIndex;
         }
         else
         {
             s_line = 0;
             s_legnth = 0;
-            // obj.GetComponent<SpriteRenderer>().color = new Color32(100, 255, 100, 255);
         }
 
         InputManager.Editing(true);
@@ -119,7 +124,7 @@ public class EditManager : MonoBehaviour
         int pagePos, startPos, endPos;
         startPos = NoteField.s_StartPos;
         endPos = NoteField.s_StartPos + Mathf.FloorToInt(1600 * (NoteField.s_Zoom / 10f));
-        pagePos = s_SelectNoteHolder.stdPos;
+        pagePos = s_SelectNoteHolder[0].stdPos;
 
         while (pagePos < startPos)
         {
@@ -135,345 +140,358 @@ public class EditManager : MonoBehaviour
                + Mathf.FloorToInt(1600f * (10f / NoteField.s_Zoom));
             print(NoteField.s_Zoom);
         }
-        NoteField.s_this.UpdateField(); 
+        NoteField.s_this.UpdateField();
     }
     public static void Delete()
     {
-        if (s_SelectNoteHolder == null) { return; }
-
-        string selectNoteTag;
-        selectNoteTag = s_SelectedObject.tag;
-        if (selectNoteTag == noteTag[0])
+        for (int i = 0; i < s_SelectedObject.Count; i++)
         {
-            NormalNote note;
-            note = s_SelectNoteHolder.normals[s_line - 1];
-            NoteClass.s_NormalNotes.RemoveAll(item => item == note);
-            s_SelectNoteHolder.normals[s_line - 1] = null;
-        }
-        else if (selectNoteTag == noteTag[1])
-        {
-            NormalNote note;
-            note = s_SelectNoteHolder.bottoms[s_line - 1];
-            NoteClass.s_NormalNotes.RemoveAll(item => item == note);
-            s_SelectNoteHolder.bottoms[s_line - 1] = null;
-        }
-        else if (selectNoteTag == noteTag[2])
-        {
-            NormalNote note;
-            note = s_SelectNoteHolder.airials[s_line - 1];
-            NoteClass.s_NormalNotes.RemoveAll(item => item == note);
-            s_SelectNoteHolder.airials[s_line - 1] = null;
-        }
-        else
-        {
-            s_SelectNoteHolder.TryGetComponent<SpeedNote>(out var speed);
-            if (speed != null)
+            string selectNoteTag;
+            selectNoteTag = s_SelectedObject[i].tag;
+            if (selectNoteTag == noteTag[0])
             {
-                NoteClass.s_SpeedNotes.RemoveAll(item => item == speed);
-                s_SelectNoteHolder.speedNote = null;
+                NormalNote note;
+                note = s_SelectNoteHolder[i].normals[s_line - 1];
+                NoteClass.s_NormalNotes.RemoveAll(item => item == note);
+                s_SelectNoteHolder[i].normals[s_line - 1] = null;
+            }
+            else if (selectNoteTag == noteTag[1])
+            {
+                NormalNote note;
+                note = s_SelectNoteHolder[i].bottoms[s_line - 1];
+                NoteClass.s_NormalNotes.RemoveAll(item => item == note);
+                s_SelectNoteHolder[i].bottoms[s_line - 1] = null;
+            }
+            else if (selectNoteTag == noteTag[2])
+            {
+                NormalNote note;
+                note = s_SelectNoteHolder[i].airials[s_line - 1];
+                NoteClass.s_NormalNotes.RemoveAll(item => item == note);
+                s_SelectNoteHolder[i].airials[s_line - 1] = null;
             }
             else
             {
-                s_SelectNoteHolder.TryGetComponent<EffectNote>(out var effect);
-                NoteClass.s_EffectNotes.RemoveAll(item => item == effect);
-                s_SelectNoteHolder.effectNote = null;
+                s_SelectNoteHolder[i].TryGetComponent<SpeedNote>(out var speed);
+                if (speed != null)
+                {
+                    NoteClass.s_SpeedNotes.RemoveAll(item => item == speed);
+                    s_SelectNoteHolder[i].speedNote = null;
+                }
+                else
+                {
+                    s_SelectNoteHolder[i].TryGetComponent<EffectNote>(out var effect);
+                    NoteClass.s_EffectNotes.RemoveAll(item => item == effect);
+                    s_SelectNoteHolder[i].effectNote = null;
+                }
             }
+            NoteClass.SortAll();
+            s_SelectNoteHolder[i].UpdateNote();
         }
-        NoteClass.SortAll();
-        s_SelectNoteHolder.UpdateNote();
         Escape();
     }
     public static void Escape()
     {
-        if (s_SelectedObject != null)
+        for (int i = 0; i < s_SelectedObject.Count; i++)
         {
-            int _count;
-            _count = s_SelectedObject.transform.childCount;
-            if (_count == 0)
+            if (s_SelectedObject != null)
             {
-                s_SelectedObject.transform.GetComponent<BoxCollider2D>().enabled = true;
-                s_SelectedObject.transform.GetComponent<SpriteRenderer>().color = Color.white;
-            }
-            else
-            {
-                for (int i = 0; i < _count; i++)
+                int _count;
+                _count = s_SelectedObject[i].transform.childCount;
+                if (_count == 0)
                 {
-                    s_SelectedObject.transform.GetChild(i)
-                        .TryGetComponent<BoxCollider2D>(out var collider2D);
-                    s_SelectedObject.transform.GetChild(i)
-                        .GetComponent<SpriteRenderer>().color = Color.white;
-                    if (collider2D != null) { collider2D.enabled = true; }
+                    s_SelectedObject[i].transform.GetComponent<BoxCollider2D>().enabled = true;
+                    s_SelectedObject[i].transform.GetComponent<SpriteRenderer>().color = Color.white;
+                }
+                else
+                {
+                    for (int i = 0; i < _count; i++)
+                    {
+                        s_SelectedObject[i].transform.GetChild(i)
+                            .TryGetComponent<BoxCollider2D>(out var collider2D);
+                        s_SelectedObject[i].transform.GetChild(i)
+                            .GetComponent<SpriteRenderer>().color = Color.white;
+                        if (collider2D != null) { collider2D.enabled = true; }
+                    }
                 }
             }
-        }
 
-        foreach (NoteHolder holder in NoteField.s_noteHolders) { holder.EditMode(true); }
-        InputManager.Editing(false);
-        EditBox.Deselect();
+            foreach (NoteHolder holder in NoteField.s_noteHolders) { holder.EditMode(true); }
+            InputManager.Editing(false);
+            EditBox.Deselect();
+        }
     }
 
-    public static void PosNote(int editPos)
+    public static void PosNote(int[] editPos)
     {
-        editPos = 1600 * s_page + editPos;
-
-        NoteHolder targetHolder;
-        GameObject targetObject;
-        targetHolder = NoteField.s_noteHolders.Find(item => item.stdPos == editPos);
-
-        if (targetHolder == null) { targetHolder = NoteGenerate.GenerateNoteManual(editPos); }
-
-        if (s_SelectedObject.transform.parent.CompareTag(noteTag[0]))
+        s_SelectedSaving = new List<GameObject>();
+        for (int i = 0; i < s_SelectedObject.Count; i++)
         {
-            if (targetHolder.normals[s_line - 1] != null)
-                { Select(targetHolder.getNormal(s_line - 1)); }
+            editPos[i] = 1600 * s_page + editPos[i];
+
+            NoteHolder targetHolder;
+            GameObject targetObject;
+            targetHolder = NoteField.s_noteHolders.Find(item => item.stdPos == editPos[i]);
+
+            if (targetHolder == null) { targetHolder = NoteGenerate.GenerateNoteManual(editPos[i]); }
+
+            if (s_SelectedObject[i].transform.parent.CompareTag(noteTag[0]))
+            {
+                if (targetHolder.normals[s_line - 1] != null)
+                { s_SelectedSaving.Add(targetHolder.getNormal(s_line - 1)); }
+                else
+                {
+                    NormalNote note;
+                    note = s_SelectNoteHolder[i].normals[s_line - 1];
+
+                    targetHolder.normals[note.line - 1] = note;
+                    s_SelectNoteHolder[i].normals[note.line - 1] = null;
+                    note.pos = editPos[i];
+
+                    targetObject = targetHolder.getNormal(note.line - 1);
+                    targetHolder.UpdateNote();
+                    s_SelectNoteHolder[i].UpdateNote();
+                    s_SelectedSaving.Add(targetObject);
+                }
+            }
+            else if (s_SelectedObject[i].transform.parent.CompareTag(noteTag[1]))
+            {
+                if (targetHolder.airials[s_line - 1] != null)
+                { s_SelectedSaving.Add(targetHolder.getAirial(s_line - 1)); }
+                else
+                {
+                    NormalNote note;
+                    note = s_SelectNoteHolder[i].airials[Convert.ToInt32(s_SelectedObject[i].tag) - 1];
+
+                    targetHolder.airials[note.line - 1] = note;
+                    s_SelectNoteHolder[i].airials[note.line - 1] = null;
+                    note.pos = editPos[i];
+
+                    targetObject = targetHolder.getAirial(note.line - 1);
+                    targetHolder.UpdateNote();
+                    s_SelectNoteHolder[i].UpdateNote();
+                    s_SelectedSaving.Add(targetObject);
+                }
+            }
+            else if (s_SelectedObject[i].transform.parent.CompareTag(noteTag[2]))
+            {
+                if (targetHolder.bottoms[s_line - 1] != null)
+                { s_SelectedSaving.Add(targetHolder.getBottom(s_line - 1)); }
+                else
+                {
+                    NormalNote note;
+                    note = s_SelectNoteHolder[i].bottoms[Convert.ToInt32(s_SelectedObject.tag) - 1];
+
+                    targetHolder.bottoms[note.line - 5] = note;
+                    s_SelectNoteHolder[i].bottoms[note.line - 5] = null;
+                    note.pos = editPos[i];
+
+                    targetObject = targetHolder.getBottom(note.line - 1);
+                    targetHolder.UpdateNote();
+                    s_SelectNoteHolder[i].UpdateNote();
+                    s_SelectedSaving.Add(targetObject);
+                }
+            }
+            else if (s_SelectedObject[i].CompareTag("01"))
+            {
+                if (targetHolder.speedNote != null)
+                { s_SelectedSaving.Add(targetHolder.getSpeed()); }
+                else
+                {
+                    SpeedNote note;
+                    note = s_SelectNoteHolder[i].speedNote;
+
+                    targetHolder.speedNote = note;
+                    s_SelectNoteHolder[i].speedNote = null;
+
+                    targetObject = targetHolder.getSpeed();
+                    targetHolder.UpdateNote();
+                    s_SelectNoteHolder[i].UpdateNote();
+                    s_SelectedSaving.Add(targetObject);
+                }
+            }
             else
             {
-                NormalNote note;
-                note = s_SelectNoteHolder.normals[s_line - 1];
+                if (targetHolder.effectNote != null)
+                { s_SelectedSaving.Add(targetHolder.getEffect()); }
+                else
+                {
+                    EffectNote note;
+                    note = s_SelectNoteHolder[i].effectNote;
 
-                targetHolder.normals[note.line - 1] = note;
-                s_SelectNoteHolder.normals[note.line - 1] = null;
-                note.pos = editPos;
+                    targetHolder.effectNote = note;
+                    s_SelectNoteHolder[i].effectNote = null;
 
-                targetObject = targetHolder.getNormal(note.line - 1);
-                targetHolder.UpdateNote();
-                s_SelectNoteHolder.UpdateNote();
-                Select(targetObject);
+                    targetObject = targetHolder.getEffect();
+                    targetHolder.UpdateNote();
+                    s_SelectNoteHolder[i].UpdateNote();
+                    s_SelectedSaving.Add(targetObject);
+                }
             }
+
+            targetHolder.UpdateNote();
+            s_SelectNoteHolder[i].UpdateNote();
+            s_SelectNoteHolder[i].CheckDestroy();
         }
-        else if (s_SelectedObject.transform.parent.CompareTag(noteTag[1]))
-        {
-            if (targetHolder.airials[s_line - 1] != null)
-            { Select(targetHolder.getAirial(s_line - 1)); }
-            else
-            {
-                NormalNote note;
-                note = s_SelectNoteHolder.airials[Convert.ToInt32(s_SelectedObject.tag) - 1];
-
-                targetHolder.airials[note.line - 1] = note;
-                s_SelectNoteHolder.airials[note.line - 1] = null;
-                note.pos = editPos;
-
-                targetObject = targetHolder.getAirial(note.line - 1);
-                targetHolder.UpdateNote();
-                s_SelectNoteHolder.UpdateNote();
-                Select(targetObject);
-            }
-        }
-        else if (s_SelectedObject.transform.parent.CompareTag(noteTag[2]))
-        {
-            if (targetHolder.bottoms[s_line - 1] != null)
-            { Select(targetHolder.getBottom(s_line - 1)); }
-            else
-            {
-                NormalNote note;
-                note = s_SelectNoteHolder.bottoms[Convert.ToInt32(s_SelectedObject.tag) - 1];
-
-                targetHolder.bottoms[note.line - 5] = note;
-                s_SelectNoteHolder.bottoms[note.line - 5] = null;
-                note.pos = editPos;
-
-                targetObject = targetHolder.getBottom(note.line - 1);
-                targetHolder.UpdateNote();
-                s_SelectNoteHolder.UpdateNote();
-                Select(targetObject);
-            }
-        }
-        else if (s_SelectedObject.CompareTag("01"))
-        {
-            if (targetHolder.speedNote != null)
-            { Select(targetHolder.getSpeed()); }
-            else
-            {
-                SpeedNote note;
-                note = s_SelectNoteHolder.speedNote;
-
-                targetHolder.speedNote = note;
-                s_SelectNoteHolder.speedNote = null;
-
-                targetObject = targetHolder.getSpeed();
-                targetHolder.UpdateNote();
-                s_SelectNoteHolder.UpdateNote();
-                Select(targetObject);
-            }
-        }
-        else
-        {
-            if (targetHolder.effectNote != null)
-            { Select(targetHolder.getEffect()); }
-            else
-            {
-                EffectNote note;
-                note = s_SelectNoteHolder.effectNote;
-
-                targetHolder.effectNote = note;
-                s_SelectNoteHolder.effectNote = null;
-
-                targetObject = targetHolder.getEffect();
-                targetHolder.UpdateNote();
-                s_SelectNoteHolder.UpdateNote();
-                Select(targetObject);
-            }
-        }
-
-        targetHolder.UpdateNote();
-        s_SelectNoteHolder.UpdateNote();
-        s_SelectNoteHolder.CheckDestroy();
     }
-    public static void PageNote(int editPage)
+    public static void PageNote(int[] editPage)
     {
-        int editPos;
-        editPos = editPage * 1600 + s_SelectNoteHolder.stdPos % 1600;
-
-        NoteHolder targetHolder;
-        targetHolder = NoteField.s_noteHolders.Find(item => item.stdPos == editPos);
-        if (targetHolder == null) { targetHolder = NoteGenerate.GenerateNoteManual(editPos); }
-
-        if (s_SelectedObject.transform.parent.CompareTag(noteTag[0]))
+        s_SelectedSaving = new List<GameObject>();
+        int[] editPos = new int[editPage.Length];
+        for (int i = 0; i < s_SelectedObject.Count; i++)
         {
-            if (targetHolder.normals[s_line - 1] != null)
-                { Select(targetHolder.getNormal(s_line - 1)); }
-            else
+            editPos[i] = editPage[i] * 1600 + s_SelectNoteHolder[i].stdPos % 1600;
+
+            NoteHolder targetHolder;
+            targetHolder = NoteField.s_noteHolders.Find(item => item.stdPos == editPos[i]);
+            if (targetHolder == null) { targetHolder = NoteGenerate.GenerateNoteManual(editPos[i]); }
+
+            if (s_SelectedObject[i].transform.parent.CompareTag(noteTag[0]))
             {
-                NormalNote note;
-                note = s_SelectNoteHolder.normals[s_line - 1];
+                if (targetHolder.normals[s_line - 1] != null)
+                { s_SelectedSaving.Add(targetHolder.getNormal(s_line - 1)); }
+                else
+                {
+                    NormalNote note;
+                    note = s_SelectNoteHolder[i].normals[s_line - 1];
 
-                targetHolder.normals[note.line - 1] = note;
-                s_SelectNoteHolder.normals[note.line - 1] = null;
-                note.pos = editPos;
+                    targetHolder.normals[note.line - 1] = note;
+                    s_SelectNoteHolder[i].normals[note.line - 1] = null;
+                    note.pos = editPos[i];
 
-                targetHolder.UpdateNote();
-                s_SelectNoteHolder.UpdateNote();
-                Select(targetHolder.getNormal(note.line - 1));
+                    targetHolder.UpdateNote();
+                    s_SelectNoteHolder[i].UpdateNote();
+                    s_SelectedSaving.Add(targetHolder.getNormal(note.line - 1));
+                }
             }
-        }
-        else if (s_SelectedObject.transform.parent.CompareTag(noteTag[1]))
-        {
-            if (targetHolder.airials[s_line - 1] != null)
-            { Select(targetHolder.getAirial(s_line - 1)); }
-            else
+            else if (s_SelectedObject[i].transform.parent.CompareTag(noteTag[1]))
             {
-                NormalNote note;
-                note = s_SelectNoteHolder.airials[Convert.ToInt32(s_SelectedObject.tag) - 1];
+                if (targetHolder.airials[s_line - 1] != null)
+                { s_SelectedSaving.Add(targetHolder.getAirial(s_line - 1)); }
+                else
+                {
+                    NormalNote note;
+                    note = s_SelectNoteHolder[i].airials[Convert.ToInt32(s_SelectedObject.tag) - 1];
 
-                targetHolder.airials[note.line - 1] = note;
-                s_SelectNoteHolder.airials[note.line - 1] = null;
-                note.pos = editPos;
+                    targetHolder.airials[note.line - 1] = note;
+                    s_SelectNoteHolder[i].airials[note.line - 1] = null;
+                    note.pos = editPos[i];
 
-                targetHolder.UpdateNote();
-                s_SelectNoteHolder.UpdateNote();
-                Select(targetHolder.getAirial(note.line - 1));
+                    targetHolder.UpdateNote();
+                    s_SelectNoteHolder[i].UpdateNote();
+                    s_SelectedSaving.Add(targetHolder.getAirial(note.line - 1));
+                }
             }
-        }
-        else if (s_SelectedObject.transform.parent.CompareTag(noteTag[2]))
-        {
-            if (targetHolder.bottoms[s_line - 1] != null)
-            { Select(targetHolder.getBottom(s_line - 1)); }
-            else
+            else if (s_SelectedObject[i].transform.parent.CompareTag(noteTag[2]))
             {
-                NormalNote note;
-                note = s_SelectNoteHolder.bottoms[Convert.ToInt32(s_SelectedObject.tag) - 1];
+                if (targetHolder.bottoms[s_line - 1] != null)
+                { s_SelectedSaving.Add(targetHolder.getBottom(s_line - 1)); }
+                else
+                {
+                    NormalNote note;
+                    note = s_SelectNoteHolder[i].bottoms[Convert.ToInt32(s_SelectedObject.tag) - 1];
 
-                targetHolder.bottoms[note.line - 5] = note;
-                s_SelectNoteHolder.bottoms[note.line - 5] = null;
-                note.pos = editPos;
+                    targetHolder.bottoms[note.line - 5] = note;
+                    s_SelectNoteHolder[i].bottoms[note.line - 5] = null;
+                    note.pos = editPos[i];
 
-                targetHolder.UpdateNote();
-                s_SelectNoteHolder.UpdateNote();
-                Select(targetHolder.getBottom(note.line - 4 - 1));
+                    targetHolder.UpdateNote();
+                    s_SelectNoteHolder[i].UpdateNote();
+                    s_SelectedSaving.Add(targetHolder.getBottom(note.line - 4 - 1));
+                }
             }
-        }
-        else if (s_SelectedObject.CompareTag("01"))
-        {
-            if (targetHolder.speedNote != null)
-            { Select(targetHolder.getSpeed()); }
-            else
+            else if (s_SelectedObject[i].CompareTag("01"))
             {
-                SpeedNote note;
-                note = s_SelectNoteHolder.speedNote;
+                if (targetHolder.speedNote != null)
+                { s_SelectedSaving.Add(targetHolder.getSpeed()); }
+                else
+                {
+                    SpeedNote note;
+                    note = s_SelectNoteHolder[i].speedNote;
 
-                targetHolder.speedNote = note;
-                s_SelectNoteHolder.speedNote = null;
-                Select(targetHolder.getSpeed());
+                    targetHolder.speedNote = note;
+                    s_SelectNoteHolder[i].speedNote = null;
+                    s_SelectedSaving.Add(targetHolder.getSpeed());
 
-                targetHolder.UpdateNote();
-                s_SelectNoteHolder.UpdateNote();
-                Select(targetHolder.getSpeed());
+                    targetHolder.UpdateNote();
+                    s_SelectNoteHolder[i].UpdateNote();
+                    s_SelectedSaving.Add(targetHolder.getSpeed());
+                }
             }
-        }
-        else
-        {
-            if (targetHolder.effectNote != null)
-            { Select(targetHolder.getEffect()); }
             else
             {
-                EffectNote note;
-                note = s_SelectNoteHolder.effectNote;
+                if (targetHolder.effectNote != null)
+                { s_SelectedSaving.Add(targetHolder.getEffect()); }
+                else
+                {
+                    EffectNote note;
+                    note = s_SelectNoteHolder[i].effectNote;
 
-                targetHolder.effectNote = note;
-                s_SelectNoteHolder.effectNote = null;
-                Select(targetHolder.getEffect());
+                    targetHolder.effectNote = note;
+                    s_SelectNoteHolder[i].effectNote = null;
+                    s_SelectedSaving.Add(targetHolder.getEffect());
 
-                targetHolder.UpdateNote();
-                s_SelectNoteHolder.UpdateNote();
-                Select(targetHolder.getEffect());
+                    targetHolder.UpdateNote();
+                    s_SelectNoteHolder[i].UpdateNote();
+                    s_SelectedSaving.Add(targetHolder.getEffect());
+                }
             }
         }
     }
     public static void LineNote(int editLine)
     {
+        if (s_SelectedObject.Count != 1) { return; }
         NormalNote editNormal;
 
         if (editLine < 1 || editLine > 4) { return; }
 
-        if (s_SelectedObject.transform.parent.CompareTag(noteTag[0]))
+        if (s_SelectedObject[0].transform.parent.CompareTag(noteTag[0]))
         {
-            if (s_SelectNoteHolder.normals[editLine - 1] != null)
-            { Select(s_SelectNoteHolder.getNormal(editLine - 1)); }
+            if (s_SelectNoteHolder[0].normals[editLine - 1] != null)
+            { Select(s_SelectNoteHolder[0].getNormal(editLine - 1)); }
             else
             {
-                editNormal = s_SelectNoteHolder.normals[s_line - 1];
+                editNormal = s_SelectNoteHolder[0].normals[s_line - 1];
                 editNormal.line = editLine;
 
-                s_SelectNoteHolder.normals[s_line - 1] = null;
-                s_SelectNoteHolder.normals[editLine - 1] = editNormal;
+                s_SelectNoteHolder[0].normals[s_line - 1] = null;
+                s_SelectNoteHolder[0].normals[editLine - 1] = editNormal;
 
-                s_SelectNoteHolder.UpdateNote();
-                Select(s_SelectNoteHolder.getNormal(editLine - 1));
+                s_SelectNoteHolder[0].UpdateNote();
+                Select(s_SelectNoteHolder[0].getNormal(editLine - 1));
             }
         }
-        else if (s_SelectedObject.transform.parent.CompareTag(noteTag[1]))
+        else if (s_SelectedObject[0].transform.parent.CompareTag(noteTag[1]))
         {
-            if (s_SelectNoteHolder.airials[editLine - 1] != null)
-            { Select(s_SelectNoteHolder.getAirial(editLine - 1)); }
+            if (s_SelectNoteHolder[0].airials[editLine - 1] != null)
+            { Select(s_SelectNoteHolder[0].getAirial(editLine - 1)); }
             else
             {
-                editNormal = s_SelectNoteHolder.airials[s_line - 1];
+                editNormal = s_SelectNoteHolder[0].airials[s_line - 1];
                 editNormal.line = editLine;
 
-                s_SelectNoteHolder.airials[s_line - 1] = null;
-                s_SelectNoteHolder.airials[editLine - 1] = editNormal;
+                s_SelectNoteHolder[0].airials[s_line - 1] = null;
+                s_SelectNoteHolder[0].airials[editLine - 1] = editNormal;
 
-                s_SelectNoteHolder.UpdateNote();
-                Select(s_SelectNoteHolder.getAirial(editLine - 1));
+                s_SelectNoteHolder[0].UpdateNote();
+                Select(s_SelectNoteHolder[0].getAirial(editLine - 1));
             }
         }
         else
         {
             if (editLine > 2) { return; }
 
-            if (s_SelectNoteHolder.bottoms[editLine - 1] != null)
-            { Select(s_SelectNoteHolder.getBottom(editLine - 1)); }
+            if (s_SelectNoteHolder[0].bottoms[editLine - 1] != null)
+            { Select(s_SelectNoteHolder[0].getBottom(editLine - 1)); }
             else
             {
-                editNormal = s_SelectNoteHolder.bottoms[s_line - 4 - 1];
+                editNormal = s_SelectNoteHolder[0].bottoms[s_line - 4 - 1];
                 editNormal.line = editLine + 4;
 
-                s_SelectNoteHolder.bottoms[s_line - 4 - 1] = null;
-                s_SelectNoteHolder.bottoms[editLine - 1] = editNormal;
+                s_SelectNoteHolder[0].bottoms[s_line - 4 - 1] = null;
+                s_SelectNoteHolder[0].bottoms[editLine - 1] = editNormal;
 
-                s_SelectNoteHolder.UpdateNote();
-                Select(s_SelectNoteHolder.getBottom(editLine - 1));
+                s_SelectNoteHolder[0].UpdateNote();
+                Select(s_SelectNoteHolder[0].getBottom(editLine - 1));
             }
         }
     }
