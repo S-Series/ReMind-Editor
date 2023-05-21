@@ -2,31 +2,52 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.EventSystems;
 
-public class DragSelect : MonoBehaviour, IPointerUpHandler, IPointerDownHandler, IPointerMoveHandler
+public class DragSelect : MonoBehaviour
 {
-    public static bool s_isMultySelect = false;
+    private static bool isDrag = false;
+    public static List<GameObject> s_DragSelectObject;
 
-    [SerializeField] private InputAction inputAction;
+    private bool isShift = false;
+    [SerializeField] private InputAction[] inputAction;
+    [SerializeField] private InputAction[] shiftAction;
     [SerializeField] private Camera dragCamera;
-    [SerializeField] private GameObject dragObject;
+    [SerializeField] private Transform dragObject;
+
     private Vector3[] posValue = new Vector3[2];
 
-    public void OnPointerDown(PointerEventData eventData)
+    private void Awake()
     {
-        Vector3 start;
-        start = RetouceVector(Input.mousePosition);
-        print(start);
-        posValue[0] = start;
-    }
-    public void OnPointerMove(PointerEventData eventData)
-    {
+        inputAction[0].performed += item =>
+        {
+            isDrag = true;
+            if (!isShift) { s_DragSelectObject = new List<GameObject>(); }
+            posValue[0] = RetouceVector(Input.mousePosition);
+            StartCoroutine(IDragBox());
+        };
+        inputAction[1].performed += item =>
+        {
+            isDrag = false;
+            StopAllCoroutines();
+        };
+        shiftAction[0].performed += item => { isShift = true; };
+        shiftAction[1].performed += item => { isShift = false; };
 
+        s_DragSelectObject = new List<GameObject>();
     }
-    public void OnPointerUp(PointerEventData eventData)
-    {
 
+    private IEnumerator IDragBox()
+    {
+        while(true)
+        {
+            posValue[1] = RetouceVector(Input.mousePosition);
+
+            dragObject.localPosition = new Vector3(
+                Mathf.Lerp(posValue[0].x, posValue[1].x, 0.5f),
+                Mathf.Lerp(posValue[0].y, posValue[1].y, 0.5f), 0);
+
+            yield return null;
+        }
     }
     private Vector3 RetouceVector(Vector3 _value)
     {

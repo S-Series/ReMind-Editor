@@ -9,10 +9,11 @@ using GameNote;
 public class EditManager : MonoBehaviour
 {
     private static EditManager s_this;
+    
 
     #region //$ MultyEditing
-    private static int standardIndex = -1;
-    private static bool isMultyEditing = false;
+    private static int s_stdIndex = -1;
+    public static bool s_isMultyEditing = false;
     private static List<NoteHolder> s_MultyHolder;
     private static List<GameObject> s_MultyObject;
     private static List<int> s_MultyPage;
@@ -21,10 +22,11 @@ public class EditManager : MonoBehaviour
     private static List<int> s_MultyLegnth;
     private static List<int> s_MultySoundIndex;
     private static List<bool> s_MultyAirial;
+
     private static void ResetMultyEdit()
     {
-        standardIndex = -1;
-        isMultyEditing = false;
+        s_stdIndex = -1;
+        s_isMultyEditing = false;
         s_MultyHolder = new List<NoteHolder>();
         s_MultyObject = new List<GameObject>();
         s_MultyPage = new List<int>();
@@ -33,8 +35,152 @@ public class EditManager : MonoBehaviour
         s_MultyLegnth = new List<int>();
         s_MultySoundIndex = new List<int>();
         s_MultyAirial = new List<bool>();
-    } 
-    
+    }
+    private static void AddMultyNote(GameObject @object)
+    {
+        if (s_MultyObject.Exists(item => item == @object))
+        {
+            int index;
+            int _count;
+            index = s_MultyObject.FindIndex(item => item == @object);
+            _count = s_MultyObject[index].transform.childCount;
+
+            if (_count == 0)
+            {
+                s_MultyObject[index].transform.GetComponent<BoxCollider2D>().enabled = true;
+                s_MultyObject[index].transform.GetComponent<SpriteRenderer>().color = Color.white;
+            }
+            else
+            {
+                for (int i = 0; i < _count; i++)
+                {
+                    s_MultyObject[index].transform.GetChild(i)
+                        .TryGetComponent<BoxCollider2D>(out var collider2D);
+                    s_MultyObject[index].transform.GetChild(i)
+                        .GetComponent<SpriteRenderer>().color = Color.white;
+                    if (collider2D != null) { collider2D.enabled = true; }
+                }
+            }
+
+            s_MultyHolder.RemoveAt(index);
+            s_MultyObject.RemoveAt(index);
+            s_MultyPage.RemoveAt(index);
+            s_MultyPosY.RemoveAt(index);
+            s_MultyLine.RemoveAt(index);
+            s_MultyLegnth.RemoveAt(index);
+            s_MultySoundIndex.RemoveAt(index);
+            s_MultyAirial.RemoveAt(index);
+
+            if (index == s_stdIndex)
+            {
+                int _stdIndex = 0, posValue = 2147483647; //# 2 ^ 31 - 1
+                for (int i = 0; i < s_MultyHolder.Count; i++)
+                {
+                    if (s_MultyHolder[i].stdPos < posValue)
+                    {
+                        _stdIndex = i;
+                        posValue = s_MultyHolder[i].stdPos;
+                    }
+                }
+                s_stdIndex = _stdIndex;
+            }
+        }
+        else
+        {
+            s_isMultyEditing = true;
+            NoteHolder objectHolder;
+            int _count;
+            _count = @object.transform.childCount;
+
+            if (_count == 0)
+            {
+                @object.transform.GetComponent<BoxCollider2D>().enabled = false;
+                @object.transform.GetComponent<SpriteRenderer>().color = Color.yellow;
+            }
+            else
+            {
+                for (int i = 0; i < _count; i++)
+                {
+                    @object.transform.GetChild(i).TryGetComponent<BoxCollider2D>(out var collider2D);
+                    @object.transform.GetChild(i).GetComponent<SpriteRenderer>().color = Color.yellow;
+                    if (collider2D != null) { collider2D.enabled = false; }
+                }
+            }
+
+            objectHolder = @object.GetComponentInParent<NoteHolder>();
+            s_MultyObject.Add(@object);
+            s_MultyHolder.Add(objectHolder);
+
+            s_MultyPosY.Add(objectHolder.stdPos % 1600);
+            s_MultyPage.Add(Mathf.FloorToInt(objectHolder.stdPos / 1600f));
+
+            if (@object.transform.parent.CompareTag(noteTag[0]))
+            {
+                s_MultyAirial.Add(false);
+                s_MultyLine.Add(Convert.ToInt32(@object.tag));
+                s_MultyLegnth.Add(objectHolder.normals[s_line - 1].length);
+                s_MultySoundIndex.Add(objectHolder.normals[s_line - 1].SoundIndex);
+            }
+            else if (@object.transform.parent.CompareTag(noteTag[1]))
+            {
+                s_MultyAirial.Add(false);
+                s_MultyLine.Add(Convert.ToInt32(@object.tag));
+                s_MultyLegnth.Add(objectHolder.bottoms[s_line - 1].length);
+                s_MultySoundIndex.Add(objectHolder.bottoms[s_line - 1].SoundIndex);
+            }
+            else if (@object.transform.parent.CompareTag(noteTag[2]))
+            {
+                s_MultyAirial.Add(true);
+                s_MultyLine.Add(Convert.ToInt32(@object.tag));
+                s_MultyLegnth.Add(0);
+                s_MultySoundIndex.Add(objectHolder.airials[s_line - 1].SoundIndex);
+            }
+            else
+            {
+                s_MultyAirial.Add(false);
+                s_MultyLine.Add(0);
+                s_MultyLegnth.Add(0);
+                s_MultySoundIndex.Add(0);
+            }
+
+            int _stdIndex = 0, posValue = 2147483647; //# 2 ^ 31 - 1
+            for (int i = 0; i < s_MultyHolder.Count; i++)
+            {
+                if (s_MultyHolder[i].stdPos < posValue)
+                {
+                    _stdIndex = i;
+                    posValue = s_MultyHolder[i].stdPos;
+                }
+            }
+            s_stdIndex = _stdIndex;
+        }
+    }
+    private static void MultyEscape()
+    {
+        int _count;
+        for (int i = 0; i < s_MultyObject.Count; i++)
+        {
+            _count = s_MultyObject[i].transform.childCount;
+            if (_count == 0)
+            {
+                s_MultyObject[i].transform.GetComponent<BoxCollider2D>().enabled = true;
+                s_MultyObject[i].transform.GetComponent<SpriteRenderer>().color = Color.white;
+            }
+            else
+            {
+                for (int j = 0; j < _count; j++)
+                {
+                    s_MultyObject[i].transform.GetChild(j)
+                        .TryGetComponent<BoxCollider2D>(out var collider2D);
+                    s_MultyObject[i].transform.GetChild(j)
+                        .GetComponent<SpriteRenderer>().color = Color.white;
+                    if (collider2D != null) { collider2D.enabled = true; }
+                }
+            }
+        }
+        ResetMultyEdit();
+    }
+
     #endregion //$ 
 
     public static NoteHolder s_SelectNoteHolder;
@@ -54,6 +200,7 @@ public class EditManager : MonoBehaviour
         actions[1].performed += item => { s_shift = false; };
         actions[2].performed += item => { s_ctrl = true; };
         actions[3].performed += item => { s_ctrl = false; };
+        ResetMultyEdit();
         InputEnable(true);
     }
 
@@ -74,7 +221,8 @@ public class EditManager : MonoBehaviour
             if (_count == 0)
             {
                 s_SelectedObject.transform.GetComponent<BoxCollider2D>().enabled = true;
-                s_SelectedObject.transform.GetComponent<SpriteRenderer>().color = Color.white;
+                if (s_ctrl) { AddMultyNote(s_SelectedObject); }
+                else { s_SelectedObject.transform.GetComponent<SpriteRenderer>().color = Color.white; }
             }
             else
             {
@@ -162,7 +310,16 @@ public class EditManager : MonoBehaviour
                + Mathf.FloorToInt(1600f * (10f / NoteField.s_Zoom));
             print(NoteField.s_Zoom);
         }
-        NoteField.s_this.UpdateField(); 
+        NoteField.s_this.UpdateField();
+    }
+    public static void MultySelect(GameObject[] objects)
+    {
+        Escape();
+        for (int i = 0; i < objects.Length; i++)
+        {
+            AddMultyNote(objects[i]);
+        }
+        Select(s_MultyObject[s_stdIndex]);
     }
     public static void Escape()
     {
@@ -189,6 +346,7 @@ public class EditManager : MonoBehaviour
         }
 
         foreach (NoteHolder holder in NoteField.s_noteHolders) { holder.EditMode(true); }
+        MultyEscape();
         InputManager.Editing(false);
         EditBox.Deselect();
     }
@@ -237,9 +395,11 @@ public class EditManager : MonoBehaviour
         s_SelectNoteHolder.UpdateNote();
         Escape();
     }
-    
+
     public static void PosNote(int editPos)
     {
+        if (s_isMultyEditing) { return; }
+
         editPos = 1600 * s_page + editPos;
 
         NoteHolder targetHolder;
@@ -251,7 +411,7 @@ public class EditManager : MonoBehaviour
         if (s_SelectedObject.transform.parent.CompareTag(noteTag[0]))
         {
             if (targetHolder.normals[s_line - 1] != null)
-                { Select(targetHolder.getNormal(s_line - 1)); }
+            { Select(targetHolder.getNormal(s_line - 1)); }
             else
             {
                 NormalNote note;
@@ -348,6 +508,8 @@ public class EditManager : MonoBehaviour
     }
     public static void PageNote(int editPage)
     {
+        if (s_isMultyEditing) { return; }
+        
         int editPos;
         editPos = editPage * 1600 + s_SelectNoteHolder.stdPos % 1600;
 
@@ -358,7 +520,7 @@ public class EditManager : MonoBehaviour
         if (s_SelectedObject.transform.parent.CompareTag(noteTag[0]))
         {
             if (targetHolder.normals[s_line - 1] != null)
-                { Select(targetHolder.getNormal(s_line - 1)); }
+            { Select(targetHolder.getNormal(s_line - 1)); }
             else
             {
                 NormalNote note;
@@ -448,6 +610,8 @@ public class EditManager : MonoBehaviour
     }
     public static void LineNote(int editLine)
     {
+        if (s_isMultyEditing) { return; }
+        
         NormalNote editNormal;
 
         if (editLine < 1 || editLine > 4) { return; }
@@ -505,6 +669,8 @@ public class EditManager : MonoBehaviour
     }
     public static void LegnthNote(int editLegnth)
     {
+        if (s_isMultyEditing) { return; }
+       
         if (editLegnth < 1) { editLegnth = 1; }
 
 
