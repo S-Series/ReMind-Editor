@@ -22,6 +22,8 @@ public class EditBox : MonoBehaviour
 
     public static void PopUpBox(GameObject gameObject)
     {
+        if (EditManager.s_isMultyEditing) { Deselect(); }
+
         pos = gameObject.GetComponentInParent<NoteHolder>().stdPos;
 
         foreach (GameObject obj in s_this.editBoxes)

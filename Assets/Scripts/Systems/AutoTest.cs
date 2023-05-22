@@ -143,6 +143,9 @@ public class AutoTest : MonoBehaviour
         s_bpm = System.Convert.ToSingle(ValueManager.s_Bpm);
         s_bpmValue = s_bpm / 150f;
 
+        NoteField.s_Zoom = 10;
+        NoteField.s_this.UpdateField();
+
         s_this.StartCoroutine(IStartTest(ValueManager.s_Delay));
     }
     public static void EndTest()
@@ -217,17 +220,18 @@ public class AutoTest : MonoBehaviour
     private static IEnumerator ILongJudgeEfect(NormalNote note)
     {
         int ms, index;
-        ms = note.ms + Mathf.RoundToInt(30000 / s_bpm);
-        index = note.line;
-        s_this.judgeEffects[index].SetTrigger(judgeEffectTrigger[1]);
+        ms = note.ms + Mathf.RoundToInt(15000 / s_bpm);
+        index = note.line - 1;
+        s_this.judgeEffects[index].SetTrigger(judgeEffectTrigger[0]);
         for (int i = 1; i < note.length; i++)
         {
             while (true)
             {
                 if (s_Ms >= ms)
                 {
-                    ms += Mathf.RoundToInt(30000 / s_bpm);
+                    ms += Mathf.RoundToInt(15000 / s_bpm);
                     s_this.judgeLongSounds[index].Play();
+                    s_this.judgeEffects[index].SetTrigger(judgeEffectTrigger[0]);
                     break;
                 }
                 yield return null;

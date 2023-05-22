@@ -89,20 +89,21 @@ public class EditManager : MonoBehaviour
         {
             s_isMultyEditing = true;
             NoteHolder objectHolder;
-            int _count;
+            int _line, _count;
+            _line = Convert.ToInt32(@object.tag);
             _count = @object.transform.childCount;
 
             if (_count == 0)
             {
                 @object.transform.GetComponent<BoxCollider2D>().enabled = false;
-                @object.transform.GetComponent<SpriteRenderer>().color = Color.yellow;
+                @object.transform.GetComponent<SpriteRenderer>().color = Color.green;
             }
             else
             {
                 for (int i = 0; i < _count; i++)
                 {
                     @object.transform.GetChild(i).TryGetComponent<BoxCollider2D>(out var collider2D);
-                    @object.transform.GetChild(i).GetComponent<SpriteRenderer>().color = Color.yellow;
+                    @object.transform.GetChild(i).GetComponent<SpriteRenderer>().color = Color.green;
                     if (collider2D != null) { collider2D.enabled = false; }
                 }
             }
@@ -117,23 +118,23 @@ public class EditManager : MonoBehaviour
             if (@object.transform.parent.CompareTag(noteTag[0]))
             {
                 s_MultyAirial.Add(false);
-                s_MultyLine.Add(Convert.ToInt32(@object.tag));
-                s_MultyLegnth.Add(objectHolder.normals[s_line - 1].length);
-                s_MultySoundIndex.Add(objectHolder.normals[s_line - 1].SoundIndex);
+                s_MultyLine.Add(_line);
+                s_MultyLegnth.Add(objectHolder.normals[_line - 1].length);
+                s_MultySoundIndex.Add(objectHolder.normals[_line - 1].SoundIndex);
             }
             else if (@object.transform.parent.CompareTag(noteTag[1]))
             {
                 s_MultyAirial.Add(false);
-                s_MultyLine.Add(Convert.ToInt32(@object.tag));
-                s_MultyLegnth.Add(objectHolder.bottoms[s_line - 1].length);
-                s_MultySoundIndex.Add(objectHolder.bottoms[s_line - 1].SoundIndex);
+                s_MultyLine.Add(_line);
+                s_MultyLegnth.Add(objectHolder.bottoms[_line - 1].length);
+                s_MultySoundIndex.Add(objectHolder.bottoms[_line - 1].SoundIndex);
             }
             else if (@object.transform.parent.CompareTag(noteTag[2]))
             {
                 s_MultyAirial.Add(true);
-                s_MultyLine.Add(Convert.ToInt32(@object.tag));
+                s_MultyLine.Add(_line);
                 s_MultyLegnth.Add(0);
-                s_MultySoundIndex.Add(objectHolder.airials[s_line - 1].SoundIndex);
+                s_MultySoundIndex.Add(objectHolder.airials[_line - 1].SoundIndex);
             }
             else
             {
@@ -241,14 +242,14 @@ public class EditManager : MonoBehaviour
         if (_count == 0)
         {
             obj.transform.GetComponent<BoxCollider2D>().enabled = false;
-            obj.transform.GetComponent<SpriteRenderer>().color = Color.yellow;
+            obj.transform.GetComponent<SpriteRenderer>().color = Color.green;
         }
         else
         {
             for (int i = 0; i < _count; i++)
             {
                 obj.transform.GetChild(i).TryGetComponent<BoxCollider2D>(out var collider2D);
-                obj.transform.GetChild(i).GetComponent<SpriteRenderer>().color = Color.yellow;
+                obj.transform.GetChild(i).GetComponent<SpriteRenderer>().color = Color.green;
                 if (collider2D != null) { collider2D.enabled = false; }
             }
         }
@@ -314,6 +315,8 @@ public class EditManager : MonoBehaviour
     }
     public static void MultySelect(GameObject[] objects)
     {
+        if (objects.Length == 0) { return; }
+        
         Escape();
         for (int i = 0; i < objects.Length; i++)
         {
@@ -427,14 +430,14 @@ public class EditManager : MonoBehaviour
                 Select(targetObject);
             }
         }
-        else if (s_SelectedObject.transform.parent.CompareTag(noteTag[1]))
+        else if (s_SelectedObject.transform.parent.CompareTag(noteTag[2]))
         {
             if (targetHolder.airials[s_line - 1] != null)
             { Select(targetHolder.getAirial(s_line - 1)); }
             else
             {
                 NormalNote note;
-                note = s_SelectNoteHolder.airials[Convert.ToInt32(s_SelectedObject.tag) - 1];
+                note = s_SelectNoteHolder.airials[s_line - 1];
 
                 targetHolder.airials[note.line - 1] = note;
                 s_SelectNoteHolder.airials[note.line - 1] = null;
@@ -446,17 +449,18 @@ public class EditManager : MonoBehaviour
                 Select(targetObject);
             }
         }
-        else if (s_SelectedObject.transform.parent.CompareTag(noteTag[2]))
+        else if (s_SelectedObject.transform.parent.CompareTag(noteTag[1]))
         {
             if (targetHolder.bottoms[s_line - 1] != null)
-            { Select(targetHolder.getBottom(s_line - 1)); }
+                { Select(targetHolder.getBottom(s_line - 1)); }
             else
             {
                 NormalNote note;
-                note = s_SelectNoteHolder.bottoms[Convert.ToInt32(s_SelectedObject.tag) - 1];
+                note = s_SelectNoteHolder.bottoms[s_line - 1];
 
-                targetHolder.bottoms[note.line - 5] = note;
-                s_SelectNoteHolder.bottoms[note.line - 5] = null;
+                print(note.line);
+                targetHolder.bottoms[note.line - 1] = note;
+                s_SelectNoteHolder.bottoms[note.line - 1] = null;
                 note.pos = editPos;
 
                 targetObject = targetHolder.getBottom(note.line - 1);
@@ -535,7 +539,7 @@ public class EditManager : MonoBehaviour
                 Select(targetHolder.getNormal(note.line - 1));
             }
         }
-        else if (s_SelectedObject.transform.parent.CompareTag(noteTag[1]))
+        else if (s_SelectedObject.transform.parent.CompareTag(noteTag[2]))
         {
             if (targetHolder.airials[s_line - 1] != null)
             { Select(targetHolder.getAirial(s_line - 1)); }
@@ -553,7 +557,7 @@ public class EditManager : MonoBehaviour
                 Select(targetHolder.getAirial(note.line - 1));
             }
         }
-        else if (s_SelectedObject.transform.parent.CompareTag(noteTag[2]))
+        else if (s_SelectedObject.transform.parent.CompareTag(noteTag[1]))
         {
             if (targetHolder.bottoms[s_line - 1] != null)
             { Select(targetHolder.getBottom(s_line - 1)); }
@@ -562,13 +566,13 @@ public class EditManager : MonoBehaviour
                 NormalNote note;
                 note = s_SelectNoteHolder.bottoms[Convert.ToInt32(s_SelectedObject.tag) - 1];
 
-                targetHolder.bottoms[note.line - 5] = note;
-                s_SelectNoteHolder.bottoms[note.line - 5] = null;
+                targetHolder.bottoms[note.line - 1] = note;
+                s_SelectNoteHolder.bottoms[note.line - 1] = null;
                 note.pos = editPos;
 
                 targetHolder.UpdateNote();
                 s_SelectNoteHolder.UpdateNote();
-                Select(targetHolder.getBottom(note.line - 4 - 1));
+                Select(targetHolder.getBottom(note.line - 1));
             }
         }
         else if (s_SelectedObject.CompareTag("01"))
@@ -632,14 +636,14 @@ public class EditManager : MonoBehaviour
                 Select(s_SelectNoteHolder.getNormal(editLine - 1));
             }
         }
-        else if (s_SelectedObject.transform.parent.CompareTag(noteTag[1]))
+        else if (s_SelectedObject.transform.parent.CompareTag(noteTag[2]))
         {
             if (s_SelectNoteHolder.airials[editLine - 1] != null)
             { Select(s_SelectNoteHolder.getAirial(editLine - 1)); }
             else
             {
                 editNormal = s_SelectNoteHolder.airials[s_line - 1];
-                editNormal.line = editLine;
+                editNormal.line = editLine - 1;
 
                 s_SelectNoteHolder.airials[s_line - 1] = null;
                 s_SelectNoteHolder.airials[editLine - 1] = editNormal;
@@ -656,10 +660,10 @@ public class EditManager : MonoBehaviour
             { Select(s_SelectNoteHolder.getBottom(editLine - 1)); }
             else
             {
-                editNormal = s_SelectNoteHolder.bottoms[s_line - 4 - 1];
-                editNormal.line = editLine + 4;
+                editNormal = s_SelectNoteHolder.bottoms[s_line - 1];
+                editNormal.line = editLine;
 
-                s_SelectNoteHolder.bottoms[s_line - 4 - 1] = null;
+                s_SelectNoteHolder.bottoms[s_line - 1] = null;
                 s_SelectNoteHolder.bottoms[editLine - 1] = editNormal;
 
                 s_SelectNoteHolder.UpdateNote();

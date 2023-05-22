@@ -6,41 +6,8 @@ using UnityEngine.EventSystems;
 
 public class test : MonoBehaviour
 {
-    Action action;
-    A a = new A();
-    B b = new B();
-
-    private void Start()
+    void OnTriggerEnter2D(Collider2D other)
     {
-        action += a.Skill;
-        action += b.Skill;
-        Reset();
-        UseSkill();
+        print("Triggered");
     }
-    public void UseSkill() { action?.Invoke(); }
-    private void Reset()
-    {
-        action = null;
-    }
-}
-
-public class A : SkillAction
-{
-    public override void Skill()
-    {
-        Debug.Log("01");
-    }
-}
-
-public class B : SkillAction
-{
-    public override void Skill()
-    {
-        Debug.Log("02");
-    }
-}
-
-public abstract class SkillAction
-{
-    public abstract void Skill();
 }

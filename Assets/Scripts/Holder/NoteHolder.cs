@@ -76,7 +76,8 @@ public class NoteHolder : MonoBehaviour
             for (int i = 0; i < obj.transform.childCount; i++)
             {
                 obj.transform.GetChild(i).TryGetComponent<BoxCollider2D>(out var collider);
-                collider.enabled = isTrue;
+                if (collider != null) { collider.enabled = isTrue; }
+
             }
         }
         foreach (GameObject obj in bottomObjects)

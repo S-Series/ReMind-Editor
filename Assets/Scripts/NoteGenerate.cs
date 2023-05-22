@@ -102,7 +102,11 @@ public class NoteGenerate : MonoBehaviour
                 normal.isAir = s_previewIndex == 3 ? true : false;
 
                 if (s_previewIndex == 3) { holder.airials[s_Line - 1] = normal; }
-                else if (s_previewIndex == 1) { holder.bottoms[s_Line < 3 ? 0 : 1] = normal; }
+                else if (s_previewIndex == 1)
+                { 
+                    normal.line = s_Line < 3 ? 1 : 2;
+                    holder.bottoms[s_Line < 3 ? 0 : 1] = normal;
+                }
                 else { holder.normals[s_Line - 1] = normal; }
 
                 holder.UpdateNote();

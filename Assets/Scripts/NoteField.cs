@@ -2,6 +2,7 @@ using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using GameNote;
 
 public class NoteField : MonoBehaviour
@@ -15,7 +16,10 @@ public class NoteField : MonoBehaviour
     public static int s_Scroll = 0;
     public static int s_Zoom = 10;
     public static int s_StartPos = 0;
+    private static bool s_isCtrl = false;
 
+    [SerializeField] InputAction[] CtrlAction;
+    [SerializeField] InputAction ScrollAction;
     [SerializeField] GameObject LinePrefab;
     [SerializeField] Transform[] DrawField;
 
@@ -38,25 +42,38 @@ public class NoteField : MonoBehaviour
             s_holders.Add(_holder);
         }
     }
-
-    private void Update()
+    private void Start()
     {
-        if (!s_isFieldMovable) { return; }
+        CtrlAction[0].performed += item => { s_isCtrl = true; };
+        CtrlAction[1].performed += item => { s_isCtrl = false; };
+        CtrlAction[0].Enable();
+        CtrlAction[1].Enable();
 
-        //$ Mouse Up
-        if (Input.GetAxis("Mouse ScrollWheel") > 0)
+        //$ Mouse Up & Down
+        ScrollAction.performed += item =>
         {
-            if (Input.GetKey(KeyCode.LeftControl)) { s_Zoom++; }
-            else { s_Scroll++; }
-            UpdateField();
-        }
-        //$ Mouse Down
-        if (Input.GetAxis("Mouse ScrollWheel") < 0)
-        {
-            if (Input.GetKey(KeyCode.LeftControl)) { s_Zoom--; }
-            else { s_Scroll--; }
-            UpdateField();
-        }
+            print("run");
+            if (!s_isFieldMovable) { return; }
+            
+            float z;
+            z = ScrollAction.ReadValue<float>();
+            
+            //$ Mouse Scroll Up
+            if (z > 0)
+            {
+                if (s_isCtrl) { s_Zoom++; }
+                else { s_Scroll++; }
+                UpdateField();
+            }
+            //$ Mouse Scroll Down
+            else if (z < 0)
+            {
+                if (s_isCtrl) { s_Zoom--; }
+                else { s_Scroll--; }
+                UpdateField();
+            }
+        };
+        ScrollAction.Enable();
     }
 
     public NoteHolder FindMultyHolder(NormalNote note)
