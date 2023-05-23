@@ -27,7 +27,11 @@ public class DragSelect : MonoBehaviour
         inputAction[0].performed += item =>
         {
             isDrag = true;
-            if (!isShift) { s_DragSelectObject = new List<GameObject>(); }
+            if (!isShift)
+            {
+                EditManager.Escape();
+                s_DragSelectObject = new List<GameObject>();
+            }
             
             Vector3 mousePos = Mouse.current.position.ReadValue();
             mousePos.z = Camera.main.nearClipPlane;
@@ -46,8 +50,8 @@ public class DragSelect : MonoBehaviour
             dragObject.gameObject.SetActive(false);
         };
 
-        shiftAction[0].performed += item => { isShift = true; };
-        shiftAction[1].performed += item => { isShift = false; };
+        shiftAction[0].performed += item => { isShift = true; print(isShift); };
+        shiftAction[1].performed += item => { isShift = false; print(isShift); };
 
         inputAction[0].Enable();
         inputAction[1].Enable();

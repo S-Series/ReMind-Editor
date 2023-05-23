@@ -9,17 +9,20 @@ using GameNote;
 public class EditManager : MonoBehaviour
 {
     private static EditManager s_this;
-    
+
+    private static readonly string[] noteTag = { "Normal", "Bottom", "Airial" };
 
     #region //$ MultyEditing
     private static int s_stdIndex = -1;
     public static bool s_isMultyEditing = false;
+
     private static List<NoteHolder> s_MultyHolder;
     private static List<GameObject> s_MultyObject;
+
     private static List<int> s_MultyPage;
     private static List<int> s_MultyPosY;
     private static List<int> s_MultyLine;
-    private static List<int> s_MultyLegnth;
+    private static List<int> s_MultyLength;
     private static List<int> s_MultySoundIndex;
     private static List<bool> s_MultyAirial;
 
@@ -32,7 +35,7 @@ public class EditManager : MonoBehaviour
         s_MultyPage = new List<int>();
         s_MultyPosY = new List<int>();
         s_MultyLine = new List<int>();
-        s_MultyLegnth = new List<int>();
+        s_MultyLength = new List<int>();
         s_MultySoundIndex = new List<int>();
         s_MultyAirial = new List<bool>();
     }
@@ -67,7 +70,7 @@ public class EditManager : MonoBehaviour
             s_MultyPage.RemoveAt(index);
             s_MultyPosY.RemoveAt(index);
             s_MultyLine.RemoveAt(index);
-            s_MultyLegnth.RemoveAt(index);
+            s_MultyLength.RemoveAt(index);
             s_MultySoundIndex.RemoveAt(index);
             s_MultyAirial.RemoveAt(index);
 
@@ -119,28 +122,28 @@ public class EditManager : MonoBehaviour
             {
                 s_MultyAirial.Add(false);
                 s_MultyLine.Add(_line);
-                s_MultyLegnth.Add(objectHolder.normals[_line - 1].length);
+                s_MultyLength.Add(objectHolder.normals[_line - 1].length);
                 s_MultySoundIndex.Add(objectHolder.normals[_line - 1].SoundIndex);
             }
             else if (@object.transform.parent.CompareTag(noteTag[1]))
             {
                 s_MultyAirial.Add(false);
                 s_MultyLine.Add(_line);
-                s_MultyLegnth.Add(objectHolder.bottoms[_line - 1].length);
+                s_MultyLength.Add(objectHolder.bottoms[_line - 1].length);
                 s_MultySoundIndex.Add(objectHolder.bottoms[_line - 1].SoundIndex);
             }
             else if (@object.transform.parent.CompareTag(noteTag[2]))
             {
                 s_MultyAirial.Add(true);
                 s_MultyLine.Add(_line);
-                s_MultyLegnth.Add(0);
+                s_MultyLength.Add(0);
                 s_MultySoundIndex.Add(objectHolder.airials[_line - 1].SoundIndex);
             }
             else
             {
                 s_MultyAirial.Add(false);
                 s_MultyLine.Add(0);
-                s_MultyLegnth.Add(0);
+                s_MultyLength.Add(0);
                 s_MultySoundIndex.Add(0);
             }
 
@@ -183,16 +186,36 @@ public class EditManager : MonoBehaviour
     }
     private static void MultyNoteMove(int value)
     {
-        if (value < 0)
-        {
-            
-        }
-        else if (value > 0)
-        {
+        if (value == 0) { return; }
 
-        }
-        else { return; }
+        string selectNoteTag;
+        for (int i = 0; i < s_MultyHolder.Count; i++)
+        {
+            selectNoteTag = s_MultyObject[i].transform.parent.tag;
 
+            //$ Normal Note
+            if (selectNoteTag == noteTag[0])
+            {
+
+            }
+            //$ Bottom Note
+            else if (selectNoteTag == noteTag[1])
+            {
+
+            }
+            //$ Airial Note
+            else if (selectNoteTag == noteTag[2])
+            {
+
+            }
+            else
+            {
+
+            }
+        }
+    }
+    private static void MultyLengthNote()
+    {
 
     }
 
@@ -204,7 +227,6 @@ public class EditManager : MonoBehaviour
     public static bool s_isAirial = false;
     private static bool s_shift = false, s_ctrl = false;
 
-    private static readonly string[] noteTag = { "Normal", "Bottom", "Airial" };
 
     [SerializeField] InputAction[] actions;
 
@@ -331,7 +353,6 @@ public class EditManager : MonoBehaviour
     {
         if (objects.Length == 0) { return; }
         
-        Escape();
         for (int i = 0; i < objects.Length; i++)
         {
             AddMultyNote(objects[i]);
