@@ -181,8 +181,22 @@ public class EditManager : MonoBehaviour
         }
         ResetMultyEdit();
     }
+    private static void MultyNoteMove(int value)
+    {
+        if (value < 0)
+        {
+            
+        }
+        else if (value > 0)
+        {
 
-    #endregion //$ 
+        }
+        else { return; }
+
+
+    }
+
+    #endregion //$ End MultyEditing
 
     public static NoteHolder s_SelectNoteHolder;
     public static GameObject s_SelectedObject;
@@ -357,7 +371,7 @@ public class EditManager : MonoBehaviour
     {
         if (s_SelectNoteHolder == null) { return; }
         string selectNoteTag;
-        selectNoteTag = s_SelectedObject.tag;
+        selectNoteTag = s_SelectedObject.transform.parent.tag;
         if (selectNoteTag == noteTag[0])
         {
             NormalNote note;
@@ -401,8 +415,6 @@ public class EditManager : MonoBehaviour
 
     public static void PosNote(int editPos)
     {
-        if (s_isMultyEditing) { return; }
-
         editPos = 1600 * s_page + editPos;
 
         NoteHolder targetHolder;
@@ -512,8 +524,6 @@ public class EditManager : MonoBehaviour
     }
     public static void PageNote(int editPage)
     {
-        if (s_isMultyEditing) { return; }
-        
         int editPos;
         editPos = editPage * 1600 + s_SelectNoteHolder.stdPos % 1600;
 
