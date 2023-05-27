@@ -51,11 +51,11 @@ public class SaveManager : MonoBehaviour
                 holder.normals[1] == null ? 0 : holder.normals[1].length,
                 holder.normals[2] == null ? 0 : holder.normals[2].length,
                 holder.normals[3] == null ? 0 : holder.normals[3].length);
-            saveData += string.Format("|{0:D2}|{1:D2}|{2:D2}|{3:D2}|__",
-                holder.airials[0] == null ? 0 : holder.airials[0].airValue,
-                holder.airials[1] == null ? 0 : holder.airials[1].airValue,
-                holder.airials[2] == null ? 0 : holder.airials[2].airValue,
-                holder.airials[3] == null ? 0 : holder.airials[3].airValue);
+            saveData += string.Format("|{0}|{1}|{2}|{3}|__",
+                holder.airials[0] == null ? "--" : string.Format("{0:D2}", holder.airials[0].length - 1),
+                holder.airials[1] == null ? "--" : string.Format("{0:D2}", holder.airials[1].length - 1),
+                holder.airials[2] == null ? "--" : string.Format("{0:D2}", holder.airials[2].length - 1),
+                holder.airials[3] == null ? "--" : string.Format("{0:D2}", holder.airials[3].length - 1));
             saveData += string.Format("|{0:D2}|{1:D2}|{2:D2}|{3:D2}|__",
                 holder.bottoms[0] == null ? 0 : holder.bottoms[0].length,
                 holder.bottoms[1] == null ? 0 : holder.bottoms[1].length,
@@ -183,7 +183,6 @@ public class SaveManager : MonoBehaviour
                     normal.pos = copyHolder.stdPos;
                     normal.line = j + 1;
                     normal.holder = copyHolder;
-                    normal.airValue = 0;
                     normal.SoundIndex = 0;
                     normal.length = Convert.ToInt32(noteData[j]);
                     copyHolder.normals[j] = normal;
@@ -193,7 +192,7 @@ public class SaveManager : MonoBehaviour
             noteData = saveData[3].Split('|', StringSplitOptions.RemoveEmptyEntries);
             for (int j = 0; j < 4; j++)
             {
-                if (noteData[j] == "00") { copyHolder.airials[j] = null; }
+                if (noteData[j] == "--") { copyHolder.airials[j] = null; }
                 else
                 {
                     normal = NormalNote.Generate();
@@ -202,9 +201,8 @@ public class SaveManager : MonoBehaviour
                     normal.pos = copyHolder.stdPos;
                     normal.line = j + 1;
                     normal.holder = copyHolder;
-                    normal.length = 0;
                     normal.SoundIndex = 0;
-                    normal.airValue = Convert.ToInt32(noteData[j]);
+                    normal.length = Convert.ToInt32(noteData[j]);
                     copyHolder.airials[j] = normal;
                 }
             }

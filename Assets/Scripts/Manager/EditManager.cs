@@ -26,18 +26,15 @@ public class EditManager : MonoBehaviour
     private static List<int> s_MultySoundIndex;
     private static List<bool> s_MultyAirial;
 
-    private static void ResetMultyEdit()
+    public static void MultySelect(GameObject[] objects)
     {
-        s_stdIndex = -1;
-        s_isMultyEditing = false;
-        s_MultyHolder = new List<NoteHolder>();
-        s_MultyObject = new List<GameObject>();
-        s_MultyPage = new List<int>();
-        s_MultyPosY = new List<int>();
-        s_MultyLine = new List<int>();
-        s_MultyLength = new List<int>();
-        s_MultySoundIndex = new List<int>();
-        s_MultyAirial = new List<bool>();
+        if (objects.Length == 0) { return; }
+
+        for (int i = 0; i < objects.Length; i++)
+        {
+            AddMultyNote(objects[i]);
+        }
+        Select(s_MultyObject[s_stdIndex]);
     }
     private static void AddMultyNote(GameObject @object)
     {
@@ -159,6 +156,19 @@ public class EditManager : MonoBehaviour
             s_stdIndex = _stdIndex;
         }
     }
+    private static void ResetMultyEdit()
+    {
+        s_stdIndex = -1;
+        s_isMultyEditing = false;
+        s_MultyHolder = new List<NoteHolder>();
+        s_MultyObject = new List<GameObject>();
+        s_MultyPage = new List<int>();
+        s_MultyPosY = new List<int>();
+        s_MultyLine = new List<int>();
+        s_MultyLength = new List<int>();
+        s_MultySoundIndex = new List<int>();
+        s_MultyAirial = new List<bool>();
+    }
     private static void MultyEscape()
     {
         int _count;
@@ -214,9 +224,65 @@ public class EditManager : MonoBehaviour
             }
         }
     }
-    private static void MultyLengthNote()
+    private static void MultyLengthNote(bool isIncrease)
     {
+        for (int i = 0; i < s_MultyObject.Count; i++)
+        {
 
+        }
+    }
+    private static void MultyDelete()
+    {
+        string selectNoteTag;
+        NoteHolder selectHolder;
+        for (int i = 0; i < s_MultyObject.Count; i++)
+        {
+            selectHolder = s_MultyHolder[i];
+            selectNoteTag = s_MultyObject[i].transform.parent.tag;
+
+            if (selectNoteTag == noteTag[0])
+            {
+                NormalNote note;
+                note = selectHolder.normals[s_line - 1];
+                NoteClass.s_NormalNotes.RemoveAll(item => item == note);
+                selectHolder.normals[s_line - 1] = null;
+            }
+            else if (selectNoteTag == noteTag[1])
+            {
+                NormalNote note;
+                note = selectHolder.bottoms[s_line - 1];
+                NoteClass.s_NormalNotes.RemoveAll(item => item == note);
+                selectHolder.bottoms[s_line - 1] = null;
+            }
+            else if (selectNoteTag == noteTag[2])
+            {
+                NormalNote note;
+                note = selectHolder.airials[s_line - 1];
+                NoteClass.s_NormalNotes.RemoveAll(item => item == note);
+                selectHolder.airials[s_line - 1] = null;
+            }
+            else
+            {
+                selectHolder.TryGetComponent<SpeedNote>(out var speed);
+                if (speed != null)
+                {
+                    NoteClass.s_SpeedNotes.RemoveAll(item => item == speed);
+                    selectHolder.speedNote = null;
+                }
+                else
+                {
+                    selectHolder.TryGetComponent<EffectNote>(out var effect);
+                    NoteClass.s_EffectNotes.RemoveAll(item => item == effect);
+                    selectHolder.effectNote = null;
+                }
+            }
+            selectHolder.UpdateNote();
+        }
+        NoteClass.SortAll();
+        Escape();
+
+        //# Contain At Escape();
+        //$ MultyEscape();
     }
 
     #endregion //$ End MultyEditing
@@ -349,16 +415,6 @@ public class EditManager : MonoBehaviour
         }
         NoteField.s_this.UpdateField();
     }
-    public static void MultySelect(GameObject[] objects)
-    {
-        if (objects.Length == 0) { return; }
-        
-        for (int i = 0; i < objects.Length; i++)
-        {
-            AddMultyNote(objects[i]);
-        }
-        Select(s_MultyObject[s_stdIndex]);
-    }
     public static void Escape()
     {
         if (s_SelectedObject != null)
@@ -391,6 +447,9 @@ public class EditManager : MonoBehaviour
     public static void Delete()
     {
         if (s_SelectNoteHolder == null) { return; }
+
+        if (s_isMultyEditing) { MultyDelete(); return; }
+
         string selectNoteTag;
         selectNoteTag = s_SelectedObject.transform.parent.tag;
         if (selectNoteTag == noteTag[0])
@@ -437,6 +496,8 @@ public class EditManager : MonoBehaviour
     public static void PosNote(int editPos)
     {
         editPos = 1600 * s_page + editPos;
+
+        if (s_isMultyEditing) { MultyNoteMove(editPos - s_SelectNoteHolder.stdPos); return; }
 
         NoteHolder targetHolder;
         GameObject targetObject;
@@ -485,7 +546,7 @@ public class EditManager : MonoBehaviour
         else if (s_SelectedObject.transform.parent.CompareTag(noteTag[1]))
         {
             if (targetHolder.bottoms[s_line - 1] != null)
-                { Select(targetHolder.getBottom(s_line - 1)); }
+            { Select(targetHolder.getBottom(s_line - 1)); }
             else
             {
                 NormalNote note;
@@ -646,7 +707,7 @@ public class EditManager : MonoBehaviour
     public static void LineNote(int editLine)
     {
         if (s_isMultyEditing) { return; }
-        
+
         NormalNote editNormal;
 
         if (editLine < 1 || editLine > 4) { return; }
@@ -705,9 +766,8 @@ public class EditManager : MonoBehaviour
     public static void LegnthNote(int editLegnth)
     {
         if (s_isMultyEditing) { return; }
-       
-        if (editLegnth < 1) { editLegnth = 1; }
 
+        if (editLegnth < 1) { editLegnth = 1; }
 
         if (s_SelectedObject.transform.parent.CompareTag("Normal"))
         {
@@ -740,7 +800,8 @@ public class EditManager : MonoBehaviour
             if (s_page < 0) { s_page = 0; }
             if (s_page > 998) { s_page = 998; }
 
-            PageNote(s_page);
+            if (s_isMultyEditing) { MultyNoteMove(isUp ? 1600 : -1600); }
+            else { PageNote(s_page); }
         }
         //$ Legnth Change
         else if (s_shift)
