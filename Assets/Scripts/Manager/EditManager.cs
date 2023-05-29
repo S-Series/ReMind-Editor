@@ -198,23 +198,32 @@ public class EditManager : MonoBehaviour
     {
         if (value == 0) { return; }
 
-        string selectNoteTag;
+        List<GameObject> targetObjects = new List<GameObject>();
+        int targetPos, targetIndex;
+        string targetNoteTag;
+        NoteHolder targetHolder;
+
         for (int i = 0; i < s_MultyHolder.Count; i++)
         {
-            selectNoteTag = s_MultyObject[i].transform.parent.tag;
+            targetIndex = s_MultyLine[i] - 1;
+            targetPos = s_MultyHolder[i].stdPos + value;
+            targetNoteTag = s_MultyObject[i].transform.parent.tag;
+
+            targetHolder = NoteField.s_noteHolders.Find(item => item.stdPos == targetPos);
+            if (targetHolder == null) { targetHolder = NoteGenerate.GenerateNoteManual(targetPos); }
 
             //$ Normal Note
-            if (selectNoteTag == noteTag[0])
+            if (targetNoteTag == noteTag[0])
             {
-
+                
             }
             //$ Bottom Note
-            else if (selectNoteTag == noteTag[1])
+            else if (targetNoteTag == noteTag[1])
             {
 
             }
             //$ Airial Note
-            else if (selectNoteTag == noteTag[2])
+            else if (targetNoteTag == noteTag[2])
             {
 
             }
