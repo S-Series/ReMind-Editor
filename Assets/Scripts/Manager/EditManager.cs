@@ -201,12 +201,17 @@ public class EditManager : MonoBehaviour
         List<GameObject> targetObjects = new List<GameObject>();
         int targetPos, targetIndex;
         string targetNoteTag;
-        NoteHolder targetHolder;
+        NoteHolder targetHolder, thisHolder;
+
+        NormalNote normalNote;
+        SpeedNote speedNote;
+        EffectNote effectNote;
 
         for (int i = 0; i < s_MultyHolder.Count; i++)
         {
+            thisHolder = s_MultyHolder[i];
             targetIndex = s_MultyLine[i] - 1;
-            targetPos = s_MultyHolder[i].stdPos + value;
+            targetPos = thisHolder.stdPos + value;
             targetNoteTag = s_MultyObject[i].transform.parent.tag;
 
             targetHolder = NoteField.s_noteHolders.Find(item => item.stdPos == targetPos);
@@ -215,29 +220,113 @@ public class EditManager : MonoBehaviour
             //$ Normal Note
             if (targetNoteTag == noteTag[0])
             {
-                
+                normalNote = thisHolder.normals[targetIndex];
+                normalNote.pos = targetPos;
+
+                if (targetHolder.normals[targetIndex] == null)
+                {
+                    thisHolder.normals[targetIndex] = null;
+                }
+                else
+                {
+                    targetHolder.normals[targetIndex].pos = thisHolder.stdPos;
+                    thisHolder.normals[targetIndex] = targetHolder.normals[targetIndex];
+                }
+                targetHolder.normals[targetIndex] = normalNote;
+                targetObjects.Add(targetHolder.getNormal(targetIndex));
+            }
+            //$ Bottom Note
+            else if (targetNoteTag == noteTag[1])
+            {
+                normalNote = thisHolder.bottoms[targetIndex];
+                normalNote.pos = targetPos;
+
+                if (targetHolder.bottoms[targetIndex] == null)
+                {
+                    thisHolder.bottoms[targetIndex] = null;
+                }
+                else
+                {
+                    targetHolder.bottoms[targetIndex].pos = thisHolder.stdPos;
+                    thisHolder.bottoms[targetIndex] = targetHolder.bottoms[targetIndex];
+                }
+                targetHolder.bottoms[targetIndex] = normalNote;
+                targetObjects.Add(targetHolder.getBottom(targetIndex));
+            }
+            //$ Airial Note
+            else if (targetNoteTag == noteTag[2])
+            {
+                normalNote = thisHolder.airials[targetIndex];
+                normalNote.pos = targetPos;
+
+                if (targetHolder.airials[targetIndex] == null)
+                {
+                    thisHolder.airials[targetIndex] = null;
+                }
+                else
+                {
+                    targetHolder.airials[targetIndex].pos = thisHolder.stdPos;
+                    thisHolder.airials[targetIndex] = targetHolder.airials[targetIndex];
+                }
+                targetHolder.airials[targetIndex] = normalNote;
+                targetObjects.Add(targetHolder.getAirial(targetIndex));
+            }
+            //$ Speed Note
+            else if (s_MultyObject[i].CompareTag("01"))
+            {
+                speedNote = thisHolder.speedNote;
+                speedNote.pos = targetPos;
+                if (targetHolder.speedNote == null)
+                {
+                    thisHolder.speedNote = null;
+                }
+                else
+                {
+                    targetHolder.speedNote.pos = thisHolder.stdPos;
+                    thisHolder.speedNote = targetHolder.speedNote;
+                }
+                targetHolder.speedNote = speedNote;
+                targetObjects.Add(targetHolder.getSpeed());
+            }
+            //$ Effect Note
+            else if (s_MultyObject[i].CompareTag("02"))
+            {
+                effectNote = thisHolder.effectNote;
+                effectNote.pos = targetPos;
+                if (targetHolder.effectNote == null)
+                {
+                    thisHolder.effectNote = null;
+                }
+                else
+                {
+                    targetHolder.effectNote.pos = thisHolder.stdPos;
+                    thisHolder.effectNote = targetHolder.effectNote;
+                }
+                targetHolder.effectNote = effectNote;
+                targetObjects.Add(targetHolder.getEffect());
+            }
+            //# System Exception
+            else { throw new Exception("UnAvailable Note Type!!!"); }
+        }
+    }
+    private static void MultyLengthNote(bool isIncrease)
+    {
+        string targetNoteTag;
+        for (int i = 0; i < s_MultyObject.Count; i++)
+        {
+            targetNoteTag = s_MultyObject[i].transform.parent.tag;
+
+            //$ Normal Note
+            if (targetNoteTag == noteTag[0])
+            {
+
             }
             //$ Bottom Note
             else if (targetNoteTag == noteTag[1])
             {
 
             }
-            //$ Airial Note
-            else if (targetNoteTag == noteTag[2])
-            {
-
-            }
-            else
-            {
-
-            }
-        }
-    }
-    private static void MultyLengthNote(bool isIncrease)
-    {
-        for (int i = 0; i < s_MultyObject.Count; i++)
-        {
-
+            //$ Airial Note || else if (targetNoteTag == noteTag[2])
         }
     }
     private static void MultyDelete()
