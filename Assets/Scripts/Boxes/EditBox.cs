@@ -22,7 +22,7 @@ public class EditBox : MonoBehaviour
 
     public static void PopUpBox(GameObject gameObject)
     {
-        if (EditManager.s_isMultyEditing) { Deselect(); }
+        if (EditManager.s_isMultyEditing) { MultyEditMode(); return; }
 
         pos = gameObject.GetComponentInParent<NoteHolder>().stdPos;
 
@@ -53,9 +53,9 @@ public class EditBox : MonoBehaviour
                 s_this.UpdateBox(4);
             }
         }
+        
         UpdateRenderer();
     }
-
     public static void Deselect()
     {
         if (nowIndex == -1) { return; }
@@ -67,7 +67,10 @@ public class EditBox : MonoBehaviour
         nowIndex = -1;
         UpdateRenderer();
     }
-
+    private static void  MultyEditMode()
+    {
+        
+    }
     private void UpdateBox(int index)
     {
         editBoxes[index].SetActive(true);
@@ -80,7 +83,6 @@ public class EditBox : MonoBehaviour
 
         nowIndex = index;
     }
-
     public static void UpdateRenderer()
     {
         if (nowIndex == -1) { s_lineRenderer.SetPosition(1, new Vector3(-5.25f, 2.7875f, 10f)); }

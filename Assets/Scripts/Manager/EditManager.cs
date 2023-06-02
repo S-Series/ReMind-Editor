@@ -34,6 +34,7 @@ public class EditManager : MonoBehaviour
         {
             AddMultyNote(objects[i]);
         }
+        s_isMultyEditing = true;
         Select(s_MultyObject[s_stdIndex]);
     }
     private static void AddMultyNote(GameObject @object)
@@ -308,6 +309,8 @@ public class EditManager : MonoBehaviour
             //# System Exception
             else { throw new Exception("UnAvailable Note Type!!!"); }
         }
+        MultyEscape();
+        MultySelect(targetObjects.ToArray());
     }
     private static void MultyLengthNote(bool isIncrease)
     {
@@ -319,14 +322,14 @@ public class EditManager : MonoBehaviour
             //$ Normal Note
             if (targetNoteTag == noteTag[0])
             {
-
+                
             }
             //$ Bottom Note
             else if (targetNoteTag == noteTag[1])
             {
 
             }
-            //$ Airial Note || else if (targetNoteTag == noteTag[2])
+            //# Other Notes
         }
     }
     private static void MultyDelete()
