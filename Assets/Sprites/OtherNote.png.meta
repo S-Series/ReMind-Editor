@@ -105,13 +105,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Untitled-1_0
+      name: OtherNote_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 50
-        width: 700
-        height: 50
+        y: 1300
+        width: 9000
+        height: 1300
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -119,20 +119,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 56255036d95524446bdf4bcbab71bd8d
-      internalID: -787340600
+      spriteID: d4526ef6e883eaf47baeeeea80dc6eaa
+      internalID: -1008805868
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Untitled-1_1
+      name: OtherNote_1
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 700
-        height: 50
+        width: 9000
+        height: 1300
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -140,8 +140,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8e668b92636909540ac07fa529843c21
-      internalID: -1764216804
+      spriteID: 95ef355a98a8a684a9d371db8bc21cc3
+      internalID: 305013110
       vertices: []
       indices: 
       edges: []
@@ -157,8 +157,8 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Untitled-1_0: -787340600
-      Untitled-1_1: -1764216804
+      OtherNote_1: 305013110
+      OtherNote_0: -1008805868
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
