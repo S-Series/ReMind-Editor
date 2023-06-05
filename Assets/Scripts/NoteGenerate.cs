@@ -100,8 +100,15 @@ public class NoteGenerate : MonoBehaviour
                 normal.pos = holder.stdPos;
                 normal.line = s_Line;
                 normal.isAir = s_previewIndex == 3 ? true : false;
+                normal.length = 1;
+                normal.isGuideLeft = s_Line < 3 ? true : false;
 
-                if (s_previewIndex == 3) { holder.airials[s_Line - 1] = normal; }
+                if (s_previewIndex == 3)
+                { 
+                    holder.airials[s_Line - 1] = normal;
+                    holder.getAirial(s_Line - 1).GetComponent<SpriteRenderer>().material 
+                        = s_Line < 3 ? NoteField.GetNoteMaterial(2) : NoteField.GetNoteMaterial(3);
+                }
                 else if (s_previewIndex == 1)
                 { 
                     normal.line = s_Line < 3 ? 1 : 2;
@@ -141,8 +148,28 @@ public class NoteGenerate : MonoBehaviour
                 break;
             #endregion
 
-            #region //$ Effect Note Generate || Not Definded
+            #region //$ Effect Note Generate
             case ToolManager.NoteType.Effect:
+
+                EffectNote effect;
+                EffectHolder effectHolder;
+
+                //$ Init EffectNote
+                effect = new EffectNote();
+                effect.ms = 0;
+                effect.pos = pos;
+                effect.value = 0;
+                effect.effectIndex = 0;
+
+                //$ Init EffectHolder
+                copyObject = Instantiate(s_this.GeneratePrefabs[2], s_this.GenerateField[0], false);
+                effectHolder = copyObject.GetComponent<EffectHolder>();
+
+                NoteClass.s_EffectNotes.Add(effect);
+                NoteClass.InitAll();
+                effect.holder = effectHolder;
+                effectHolder.noteClass = effect;
+
                 break;
             #endregion
 

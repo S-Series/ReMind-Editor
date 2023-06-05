@@ -41,7 +41,15 @@ public class NoteHolder : MonoBehaviour
             }
 
             if (airials[i] == null) { airialObjects[i].SetActive(false); }
-            else { airialObjects[i].SetActive(true); }
+            else
+            {
+                airialObjects[i].SetActive(true);
+                if (airials[i].isGuideLeft)
+                {
+                    airialObjects[i].GetComponent<SpriteRenderer>().material = NoteField.GetNoteMaterial(2);
+                }
+                else { airialObjects[i].GetComponent<SpriteRenderer>().material = NoteField.GetNoteMaterial(3); }
+            }
         }
 
         for (int i = 0; i < 2; i++)
@@ -77,7 +85,6 @@ public class NoteHolder : MonoBehaviour
             {
                 obj.transform.GetChild(i).TryGetComponent<BoxCollider2D>(out var collider);
                 if (collider != null) { collider.enabled = isTrue; }
-
             }
         }
         foreach (GameObject obj in bottomObjects)

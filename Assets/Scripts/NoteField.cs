@@ -23,6 +23,8 @@ public class NoteField : MonoBehaviour
     [SerializeField] GameObject LinePrefab;
     [SerializeField] Transform[] DrawField;
 
+    [SerializeField] Material[] noteMaterials;
+
     private void Awake()
     {
         s_this = this;
@@ -179,5 +181,11 @@ public class NoteField : MonoBehaviour
         if (EditManager.s_SelectNoteHolder == null) { return; }
 
         
+    }
+
+    public static Material GetNoteMaterial(int index)
+    {
+        try { return s_this.noteMaterials[index]; }
+        catch { return null; }
     }
 }

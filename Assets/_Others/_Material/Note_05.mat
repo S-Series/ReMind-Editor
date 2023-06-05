@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Note_04
+  m_Name: Note_05
   m_Shader: {fileID: -6465566751694194690, guid: 11c9cafec2636b844a0ae88eefce9659, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
@@ -57,8 +57,8 @@ Material:
     - _EnableExternalAlpha: 0
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _Color_A: {r: 0.89588344, g: 0, b: 3.5648696, a: 0}
-    - _Color_B: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 0}
+    - _Color_A: {r: 0.7490196, g: 0.18431373, b: 0, a: 0}
+    - _Color_B: {r: 0.23529412, g: 0.39215687, b: 0, a: 0}
     - _Flip: {r: 1, g: 1, b: 1, a: 1}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []

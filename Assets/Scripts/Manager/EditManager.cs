@@ -390,8 +390,8 @@ public class EditManager : MonoBehaviour
 
     public static NoteHolder s_SelectNoteHolder;
     public static GameObject s_SelectedObject;
-    public static int s_page, s_posY, s_line, s_legnth, s_soundIndex;
-    public static bool s_isAirial = false;
+    public static int s_page, s_posY, s_line, s_length, s_soundIndex;
+    public static bool s_isAirial = false, s_isGuideLeft = true;
     private static bool s_shift = false, s_ctrl = false;
 
 
@@ -467,28 +467,28 @@ public class EditManager : MonoBehaviour
         {
             s_isAirial = false;
             s_line = Convert.ToInt32(obj.tag);
-            s_legnth = s_SelectNoteHolder.normals[s_line - 1].length;
+            s_length = s_SelectNoteHolder.normals[s_line - 1].length;
             s_soundIndex = s_SelectNoteHolder.normals[s_line - 1].SoundIndex;
         }
         else if (obj.transform.parent.CompareTag(noteTag[1]))
         {
             s_isAirial = false;
             s_line = Convert.ToInt32(obj.tag);
-            s_legnth = s_SelectNoteHolder.bottoms[s_line - 1].length;
+            s_length = s_SelectNoteHolder.bottoms[s_line - 1].length;
             s_soundIndex = s_SelectNoteHolder.bottoms[s_line - 1].SoundIndex;
         }
         else if (obj.transform.parent.CompareTag(noteTag[2]))
         {
             s_isAirial = true;
             s_line = Convert.ToInt32(obj.tag);
-            s_legnth = 0;
+            s_length = 0;
             s_soundIndex = s_SelectNoteHolder.airials[s_line - 1].SoundIndex;
             // obj.GetComponent<SpriteRenderer>().color = new Color32(255, 255, 000, 255);
         }
         else
         {
             s_line = 0;
-            s_legnth = 0;
+            s_length = 0;
             // obj.GetComponent<SpriteRenderer>().color = new Color32(100, 255, 100, 255);
         }
 
@@ -907,14 +907,14 @@ public class EditManager : MonoBehaviour
         //$ Legnth Change
         else if (s_shift)
         {
-            if (s_legnth == 0) { return; }
+            if (s_length == 0) { return; }
 
-            s_legnth = isUp ? s_legnth + 1 : s_legnth - 1;
+            s_length = isUp ? s_length + 1 : s_length - 1;
 
-            if (s_legnth < 01) { s_legnth = 01; }
-            if (s_legnth > 99) { s_legnth = 99; }
+            if (s_length < 01) { s_length = 01; }
+            if (s_length > 99) { s_length = 99; }
 
-            LegnthNote(s_legnth);
+            LegnthNote(s_length);
         }
         //$ Pos Movement
         else

@@ -12,6 +12,8 @@ public class NoteChange : MonoBehaviour
     private static readonly string[] noteTag = { "Normal", "Airial", "Bottom" };
     private const string NoteTag = "";
 
+    [SerializeField] TextMeshPro[] InfoTmps;
+
     [SerializeField] TMP_InputField[] NormalInputs;
     [SerializeField] Toggle[] NormalToggles;
 
@@ -21,58 +23,100 @@ public class NoteChange : MonoBehaviour
 
     [SerializeField] TMP_InputField[] SpeedInputs;
     [SerializeField] TMP_InputField[] EffectInputs;
+    [SerializeField] TMP_Dropdown EffectDropdown;
 
-    [SerializeField] 
     private void Awake()
     {
         s_this = this;
     }
-    private void Update()
-    {   
-
-    }
     public static void UpdateInfoFields()
     {
+        if (EditManager.s_isMultyEditing) { return; }
+
         NoteHolder holder;
         GameObject noteObject;
         holder = EditManager.s_SelectNoteHolder;
         noteObject = EditManager.s_SelectedObject;
         
+        if (holder == null || noteObject == null) { return; }
+
         string selectNoteTag;
         selectNoteTag = noteObject.transform.parent.tag;
 
-
-        if (holder == null || noteObject == null) { return; }
-
+        NormalNote normalNote;
         TMP_InputField[] inputFields;
 
-        print(noteObject.tag);
-
+        //$ Normal Note & Airial Note
         if (selectNoteTag == noteTag[0] || selectNoteTag == noteTag[1])
         {
             inputFields = s_this.NormalInputs;
+            normalNote = EditManager.s_isAirial
+                ? EditManager.s_SelectNoteHolder.airials[EditManager.s_line - 1]
+                : EditManager.s_SelectNoteHolder.normals[EditManager.s_line - 1];
 
             inputFields[0].text = EditManager.s_posY.ToString();
             inputFields[1].text = EditManager.s_page.ToString();
-
+            inputFields[2].text = EditManager.s_length.ToString();
             s_this.NormalToggles[EditManager.s_line - 1].isOn = true;
+            s_this.NormalToggles[5].isOn = EditManager.s_isGuideLeft;
+
             if (EditManager.s_isAirial)
             {
-                inputFields[2].text = "- - -";
+                s_this.InfoTmps[0].text = "Note Heigth";
                 s_this.NormalToggles[4].isOn = true;
             }
             else
             {
-                inputFields[2].text = EditManager.s_legnth.ToString();
+                s_this.InfoTmps[0].text = "Note Length";
                 s_this.NormalToggles[4].isOn = false;
             }
         }
+        //$ Floor Note
         else if (selectNoteTag == noteTag[2])
         {
-            
+            inputFields = s_this.FloorInputs;
+            normalNote = EditManager.s_SelectNoteHolder.bottoms[EditManager.s_line - 1];
+
+            inputFields[0].text = EditManager.s_posY.ToString();
+            inputFields[1].text = EditManager.s_page.ToString();
+            inputFields[2].text = normalNote.length.ToString();
+
+            s_this.FloorToggles[0].isOn = normalNote.line == 1 ? true : false;
+            if (normalNote.SoundIndex == -1)
+            {
+                s_this.FloorToggles[1].isOn = false;
+                s_this.FloorDropdown.interactable = false;
+                s_this.FloorDropdown.value = 0;
+            }
+            else
+            {
+                s_this.FloorToggles[1].isOn = true;
+                s_this.FloorDropdown.interactable = true;
+                s_this.FloorDropdown.value = normalNote.SoundIndex;
+            }
         }
         else
         {
+            //$ Speed Note
+            if (noteObject.CompareTag("01"))
+            {
+                SpeedNote speed;
+                speed = EditManager.s_SelectNoteHolder.speedNote;
+
+                inputFields = s_this.SpeedInputs;
+                inputFields[0].text = EditManager.s_posY.ToString();
+                inputFields[1].text = EditManager.s_page.ToString();
+                inputFields[2].text = speed.bpm.ToString();
+                inputFields[3].text = speed.multiple.ToString();
+                inputFields[4].text = String.Format("{0:F2}", speed.bpm * speed.multiple);
+            }
+            //$ Effect Note
+            else if (noteObject.CompareTag("02"))
+            {
+
+            }
+            //$ System Exception
+            else { new Exception("Note Information Update Failed"); }
         }
         InfoField.UpdateInfoField();
     }
