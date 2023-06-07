@@ -25,6 +25,8 @@ public class NoteHolder : MonoBehaviour
 
     [SerializeField] private GameObject[] ParentObjects;
 
+    [SerializeField] private TMPro.TextMeshPro[] InfoTmps;
+
     public void UpdateNote()
     {
         transform.localPosition = new Vector3(0, stdPos * 2, 0);
@@ -69,6 +71,13 @@ public class NoteHolder : MonoBehaviour
 
         if (effectNote == null) { effectObject.SetActive(false); }
         else { effectObject.SetActive(true); }
+
+        InfoTmps[0].text = speedNote == null ?
+            "" : string.Format("BPM : {0:F2} X {1:F1} = {2:F2}",
+            speedNote.bpm, speedNote.multiple, speedNote.bpm * speedNote.multiple);
+        InfoTmps[1].text = effectNote == null ?
+            "" : string.Format("Effect : {0} || Value : {1:D4}",
+            "None", effectNote.value);
 
         gameNoteHolder.UpdateNote(this);
     }
