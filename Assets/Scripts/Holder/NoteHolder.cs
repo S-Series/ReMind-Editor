@@ -48,9 +48,9 @@ public class NoteHolder : MonoBehaviour
                 airialObjects[i].SetActive(true);
                 if (airials[i].isGuideLeft)
                 {
-                    airialObjects[i].GetComponent<SpriteRenderer>().material = NoteField.GetNoteMaterial(2);
+                    airialObjects[i].GetComponent<SpriteRenderer>().material = NoteField.GetNoteMaterial(4);
                 }
-                else { airialObjects[i].GetComponent<SpriteRenderer>().material = NoteField.GetNoteMaterial(3); }
+                else { airialObjects[i].GetComponent<SpriteRenderer>().material = NoteField.GetNoteMaterial(5); }
             }
         }
 

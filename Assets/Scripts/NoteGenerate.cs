@@ -167,8 +167,6 @@ public class NoteGenerate : MonoBehaviour
     }
     public static NoteHolder GenerateNoteManual(int pos)
     {
-        print(string.Format("Generate to {0}.", pos));
-
         NoteHolder ret;
         GameObject copyObject;
 
