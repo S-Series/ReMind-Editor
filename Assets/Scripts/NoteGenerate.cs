@@ -39,7 +39,7 @@ public class NoteGenerate : MonoBehaviour
             if (s_Line <= 2) { posX = -240; }
             else { posX = 240; }
         }
-        else if (s_previewIndex == 4 || s_previewIndex == 5) { posX = -1121; }
+        else if (s_previewIndex == 3 || s_previewIndex == 4) { posX = -1121; }
         else if (s_Line == 0) { posX = -360; }
 
         previews[s_previewIndex].transform.localPosition
@@ -59,19 +59,19 @@ public class NoteGenerate : MonoBehaviour
 
         if (holder != null)
         {
-            if (s_previewIndex == 1) 
-                { if (holder.bottoms[s_Line < 3 ? 0 : 1] != null) { return; } }
+            if (s_previewIndex == 1)
+            { if (holder.bottoms[s_Line < 3 ? 0 : 1] != null) { return; } }
 
-            else if (s_previewIndex == 3) 
-                { if (holder.airials[s_Line - 1] != null) { return; } }
+            else if (s_previewIndex == 2)
+            { if (holder.airials[s_Line - 1] != null) { return; } }
 
-            else if (s_previewIndex == 4) 
-                { if (holder.speedNote != null) { return; } }
+            else if (s_previewIndex == 3)
+            { if (holder.speedNote != null) { return; } }
 
-            else if (s_previewIndex == 5) 
-                { if (holder.effectNote != null) { return; } }
-
-            else { if (holder.normals[s_Line - 1] != null) { return; } }
+            else if (s_previewIndex == 4)
+            { if (holder.effectNote != null) { return; } }
+            else
+            { if (holder.normals[s_Line - 1] != null) { return; } }
         }
         else
         {
@@ -93,7 +93,7 @@ public class NoteGenerate : MonoBehaviour
             #region //$ Normal Note Generate
             case ToolManager.NoteType.Normal:
 
-                //$ Init NormalNote
+                //# Init NormalNote
                 NormalNote normal;
                 normal = NormalNote.Generate();
                 normal.ms = holder.stdMs;
@@ -104,13 +104,13 @@ public class NoteGenerate : MonoBehaviour
                 normal.isGuideLeft = s_Line < 3 ? true : false;
 
                 if (s_previewIndex == 3)
-                { 
+                {
                     holder.airials[s_Line - 1] = normal;
-                    holder.getAirial(s_Line - 1).GetComponent<SpriteRenderer>().material 
+                    holder.getAirial(s_Line - 1).GetComponent<SpriteRenderer>().material
                         = s_Line < 3 ? NoteField.GetNoteMaterial(2) : NoteField.GetNoteMaterial(3);
                 }
                 else if (s_previewIndex == 1)
-                { 
+                {
                     normal.line = s_Line < 3 ? 1 : 2;
                     holder.bottoms[s_Line < 3 ? 0 : 1] = normal;
                 }
@@ -127,24 +127,17 @@ public class NoteGenerate : MonoBehaviour
             case ToolManager.NoteType.Speed:
 
                 SpeedNote speed;
-                SpeedHolder speedHolder;
+                //SpeedHolder speedHolder;
 
-                //$ Init SpeedNote
+                //# Init SpeedNote
                 speed = new SpeedNote();
                 speed.ms = 0;
                 speed.pos = pos;
                 speed.bpm = ValueManager.s_Bpm;
                 speed.multiple = 1.0;
 
-                //$ Init SpeedHolder
-                copyObject = Instantiate(s_this.GeneratePrefabs[1], s_this.GenerateField[0], false);
-                speedHolder = copyObject.GetComponent<SpeedHolder>();
-
-                NoteClass.s_SpeedNotes.Add(speed);
-                NoteClass.InitAll();
-                speed.holder = speedHolder;
-                speedHolder.noteClass = speed;
-
+                //# Init SpeedHolder
+                holder.speedNote = speed;
                 break;
             #endregion
 
@@ -152,23 +145,16 @@ public class NoteGenerate : MonoBehaviour
             case ToolManager.NoteType.Effect:
 
                 EffectNote effect;
-                EffectHolder effectHolder;
+                //EffectHolder effectHolder;
 
-                //$ Init EffectNote
+                //# Init EffectNote
                 effect = new EffectNote();
                 effect.ms = 0;
                 effect.pos = pos;
                 effect.value = 0;
                 effect.effectIndex = 0;
 
-                //$ Init EffectHolder
-                copyObject = Instantiate(s_this.GeneratePrefabs[2], s_this.GenerateField[0], false);
-                effectHolder = copyObject.GetComponent<EffectHolder>();
-
-                NoteClass.s_EffectNotes.Add(effect);
-                NoteClass.InitAll();
-                effect.holder = effectHolder;
-                effectHolder.noteClass = effect;
+                //# Init EffectHolder
 
                 break;
             #endregion
@@ -207,7 +193,7 @@ public class NoteGenerate : MonoBehaviour
     {
         foreach (GameObject gameObject in s_this.previews) { gameObject.SetActive(false); }
 
-        if (index == 4 && s_previewIndex == 4) { index = 5; }
+        if (index == 3 && s_previewIndex == 3) { index = 4; }
 
         if (index < 0 || index >= s_this.previews.Length)
         {
@@ -217,10 +203,9 @@ public class NoteGenerate : MonoBehaviour
         }
         else { s_isGenerating = true; }
 
-        if (index == 2) { ToolManager.noteType = ToolManager.NoteType.Null; }
-        else if (index < 4) { ToolManager.noteType = ToolManager.NoteType.Normal; }
-        else if (index == 4) { ToolManager.noteType = ToolManager.NoteType.Speed; }
-        else if (index == 5) { ToolManager.noteType = ToolManager.NoteType.Effect; }
+        if (index < 3) { ToolManager.noteType = ToolManager.NoteType.Normal; }
+        else if (index == 3) { ToolManager.noteType = ToolManager.NoteType.Speed; }
+        else if (index == 4) { ToolManager.noteType = ToolManager.NoteType.Effect; }
         else { throw new System.Exception("Wrong Note Index"); }
 
         s_previewIndex = index;

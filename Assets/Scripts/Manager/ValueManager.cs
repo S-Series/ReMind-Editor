@@ -85,4 +85,3 @@ public class UserValue
     public List<string> saveString = new List<string>();
     public List<double> saveDouble = new List<double>();
 }
-

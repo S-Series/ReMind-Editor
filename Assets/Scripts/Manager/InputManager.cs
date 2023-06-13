@@ -79,7 +79,7 @@ public class InputManager : MonoBehaviour
             ToolManager.Tool(1);
         };
         //# Keycode E
-        inputActions.Tools.Eraser.performed += item =>
+        inputActions.Tools.Airial.performed += item =>
         {
             ToolManager.Tool(2);
         };

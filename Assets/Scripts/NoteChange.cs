@@ -113,7 +113,7 @@ public class NoteChange : MonoBehaviour
             //$ Effect Note
             else if (noteObject.CompareTag("02"))
             {
-
+                
             }
             //$ System Exception
             else { new Exception("Note Information Update Failed"); }

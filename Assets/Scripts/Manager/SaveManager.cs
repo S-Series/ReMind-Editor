@@ -18,6 +18,7 @@ public class SaveManager : MonoBehaviour
     void Awake()
     {
         s_this = this;
+        print(Convert.ToInt32(Char.Parse("Z")) - 64);
     }
     public static void SaveNoteFile()
     {
@@ -47,15 +48,15 @@ public class SaveManager : MonoBehaviour
             saveData += string.Format("|{0:D11}|__", holder.stdMs);
             saveData += string.Format("|{0:D11}|__", holder.stdPos);
             saveData += string.Format("|{0:D2}|{1:D2}|{2:D2}|{3:D2}|__",
-                holder.normals[0] == null ? 0 : holder.normals[0].length,
-                holder.normals[1] == null ? 0 : holder.normals[1].length,
-                holder.normals[2] == null ? 0 : holder.normals[2].length,
-                holder.normals[3] == null ? 0 : holder.normals[3].length);
+                holder.normals[0] == null ? 0 : LengthToString(holder.normals[0].length),
+                holder.normals[1] == null ? 0 : LengthToString(holder.normals[1].length),
+                holder.normals[2] == null ? 0 : LengthToString(holder.normals[2].length),
+                holder.normals[3] == null ? 0 : LengthToString(holder.normals[3].length));
             saveData += string.Format("|{0}|{1}|{2}|{3}|__",
-                holder.airials[0] == null ? "--" : string.Format("{0:D2}", holder.airials[0].length - 1),
-                holder.airials[1] == null ? "--" : string.Format("{0:D2}", holder.airials[1].length - 1),
-                holder.airials[2] == null ? "--" : string.Format("{0:D2}", holder.airials[2].length - 1),
-                holder.airials[3] == null ? "--" : string.Format("{0:D2}", holder.airials[3].length - 1));
+                holder.airials[0] == null ? "--" : LengthToString(holder.airials[0].length),
+                holder.airials[1] == null ? "--" : LengthToString(holder.airials[1].length),
+                holder.airials[2] == null ? "--" : LengthToString(holder.airials[2].length),
+                holder.airials[3] == null ? "--" : LengthToString(holder.airials[3].length));
             saveData += string.Format("|{0}{1}|{2}{3}|{4}{5}|{6}{7}|__",
                 holder.normals[0] == null ? "-" : holder.normals[0].isGuideLeft ? 1 : 0,
                 holder.airials[0] == null ? "-" : holder.airials[0].isGuideLeft ? 1 : 0,
@@ -273,6 +274,21 @@ public class SaveManager : MonoBehaviour
         InputManager.EnableInput(true);
 
         print(ValueManager.s_Bpm);
+    }
+
+    private static string LengthToString(int value)
+    {
+        if (value < 1) { return "--"; }
+        else if (value > 259) { return "--"; }
+        char c;
+        c = (char)(Mathf.FloorToInt(value / 10.0f) + 63);
+        return String.Format("{0}{1}", c, value % 10);
+    }
+    private static Int32 StringToLength(string value)
+    {
+        char[] cArr;
+        cArr = value.ToCharArray();
+        return (Convert.ToInt32(cArr[0]) - 63) * 10 + (int)Char.GetNumericValue(cArr[1]);
     }
 
     public void ConfirmButton(bool pass)

@@ -314,6 +314,8 @@ public class EditManager : MonoBehaviour
     }
     private static void MultyLengthNote(bool isIncrease)
     {
+        int length;
+        NormalNote normal;
         string targetNoteTag;
         for (int i = 0; i < s_MultyObject.Count; i++)
         {
@@ -322,14 +324,23 @@ public class EditManager : MonoBehaviour
             //$ Normal Note
             if (targetNoteTag == noteTag[0])
             {
-                
+                normal = s_MultyHolder[i].normals[s_MultyLine[i] - 1];
             }
             //$ Bottom Note
             else if (targetNoteTag == noteTag[1])
             {
-
+                normal = s_MultyHolder[i].bottoms[s_MultyLine[i] - 1];
             }
             //# Other Notes
+            else { normal = null; }
+
+            if (normal != null)
+            {
+                length = normal.length;
+                length += isIncrease ? 1 : -1;
+                if (length < 1) {length = 1;}
+                else if (length > 99) { length = 99; }
+            }
         }
     }
     private static void MultyDelete()
@@ -911,8 +922,8 @@ public class EditManager : MonoBehaviour
 
             s_length = isUp ? s_length + 1 : s_length - 1;
 
-            if (s_length < 01) { s_length = 01; }
-            if (s_length > 99) { s_length = 99; }
+            if (s_length < 001) { s_length = 001; }
+            if (s_length > 259) { s_length = 259; }
 
             LegnthNote(s_length);
         }

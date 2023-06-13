@@ -7,8 +7,6 @@ public class MouseOver : MonoBehaviour, IPointerEnterHandler, IPointerClickHandl
 {
     public void OnPointerEnter(PointerEventData eventData)
     {
-        print("Overed");
-
         if (!NoteGenerate.s_isGenerating) { return; }
 
         NoteGenerate.posY = transform.parent.GetComponent<GuideHolder>().posY;

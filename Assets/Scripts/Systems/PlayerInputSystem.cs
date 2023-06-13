@@ -328,7 +328,7 @@ public partial class @PlayerInputSystem : IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Eraser"",
+                    ""name"": ""Airial"",
                     ""type"": ""Button"",
                     ""id"": ""207cfa21-646a-4cd1-a0c6-7dcc296d1ee9"",
                     ""expectedControlType"": ""Button"",
@@ -394,7 +394,7 @@ public partial class @PlayerInputSystem : IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
-                    ""action"": ""Eraser"",
+                    ""action"": ""Airial"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -515,7 +515,7 @@ public partial class @PlayerInputSystem : IInputActionCollection2, IDisposable
         m_Tools = asset.FindActionMap("Tools", throwIfNotFound: true);
         m_Tools_NormalNote = m_Tools.FindAction("NormalNote", throwIfNotFound: true);
         m_Tools_BottomNote = m_Tools.FindAction("BottomNote", throwIfNotFound: true);
-        m_Tools_Eraser = m_Tools.FindAction("Eraser", throwIfNotFound: true);
+        m_Tools_Airial = m_Tools.FindAction("Airial", throwIfNotFound: true);
         m_Tools_Special = m_Tools.FindAction("Special", throwIfNotFound: true);
         m_Tools_Change = m_Tools.FindAction("Change", throwIfNotFound: true);
         m_Tools_Escape = m_Tools.FindAction("Escape", throwIfNotFound: true);
@@ -710,7 +710,7 @@ public partial class @PlayerInputSystem : IInputActionCollection2, IDisposable
     private IToolsActions m_ToolsActionsCallbackInterface;
     private readonly InputAction m_Tools_NormalNote;
     private readonly InputAction m_Tools_BottomNote;
-    private readonly InputAction m_Tools_Eraser;
+    private readonly InputAction m_Tools_Airial;
     private readonly InputAction m_Tools_Special;
     private readonly InputAction m_Tools_Change;
     private readonly InputAction m_Tools_Escape;
@@ -720,7 +720,7 @@ public partial class @PlayerInputSystem : IInputActionCollection2, IDisposable
         public ToolsActions(@PlayerInputSystem wrapper) { m_Wrapper = wrapper; }
         public InputAction @NormalNote => m_Wrapper.m_Tools_NormalNote;
         public InputAction @BottomNote => m_Wrapper.m_Tools_BottomNote;
-        public InputAction @Eraser => m_Wrapper.m_Tools_Eraser;
+        public InputAction @Airial => m_Wrapper.m_Tools_Airial;
         public InputAction @Special => m_Wrapper.m_Tools_Special;
         public InputAction @Change => m_Wrapper.m_Tools_Change;
         public InputAction @Escape => m_Wrapper.m_Tools_Escape;
@@ -739,9 +739,9 @@ public partial class @PlayerInputSystem : IInputActionCollection2, IDisposable
                 @BottomNote.started -= m_Wrapper.m_ToolsActionsCallbackInterface.OnBottomNote;
                 @BottomNote.performed -= m_Wrapper.m_ToolsActionsCallbackInterface.OnBottomNote;
                 @BottomNote.canceled -= m_Wrapper.m_ToolsActionsCallbackInterface.OnBottomNote;
-                @Eraser.started -= m_Wrapper.m_ToolsActionsCallbackInterface.OnEraser;
-                @Eraser.performed -= m_Wrapper.m_ToolsActionsCallbackInterface.OnEraser;
-                @Eraser.canceled -= m_Wrapper.m_ToolsActionsCallbackInterface.OnEraser;
+                @Airial.started -= m_Wrapper.m_ToolsActionsCallbackInterface.OnAirial;
+                @Airial.performed -= m_Wrapper.m_ToolsActionsCallbackInterface.OnAirial;
+                @Airial.canceled -= m_Wrapper.m_ToolsActionsCallbackInterface.OnAirial;
                 @Special.started -= m_Wrapper.m_ToolsActionsCallbackInterface.OnSpecial;
                 @Special.performed -= m_Wrapper.m_ToolsActionsCallbackInterface.OnSpecial;
                 @Special.canceled -= m_Wrapper.m_ToolsActionsCallbackInterface.OnSpecial;
@@ -761,9 +761,9 @@ public partial class @PlayerInputSystem : IInputActionCollection2, IDisposable
                 @BottomNote.started += instance.OnBottomNote;
                 @BottomNote.performed += instance.OnBottomNote;
                 @BottomNote.canceled += instance.OnBottomNote;
-                @Eraser.started += instance.OnEraser;
-                @Eraser.performed += instance.OnEraser;
-                @Eraser.canceled += instance.OnEraser;
+                @Airial.started += instance.OnAirial;
+                @Airial.performed += instance.OnAirial;
+                @Airial.canceled += instance.OnAirial;
                 @Special.started += instance.OnSpecial;
                 @Special.performed += instance.OnSpecial;
                 @Special.canceled += instance.OnSpecial;
@@ -842,7 +842,7 @@ public partial class @PlayerInputSystem : IInputActionCollection2, IDisposable
     {
         void OnNormalNote(InputAction.CallbackContext context);
         void OnBottomNote(InputAction.CallbackContext context);
-        void OnEraser(InputAction.CallbackContext context);
+        void OnAirial(InputAction.CallbackContext context);
         void OnSpecial(InputAction.CallbackContext context);
         void OnChange(InputAction.CallbackContext context);
         void OnEscape(InputAction.CallbackContext context);

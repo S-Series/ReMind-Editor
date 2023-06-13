@@ -306,7 +306,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Eraser",
+                    "name": "Airial",
                     "type": "Button",
                     "id": "207cfa21-646a-4cd1-a0c6-7dcc296d1ee9",
                     "expectedControlType": "Button",
@@ -372,7 +372,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
-                    "action": "Eraser",
+                    "action": "Airial",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
