@@ -86,7 +86,7 @@ public class NoteHolder : MonoBehaviour
         transform.localScale = new Vector3(1, 1f / (NoteField.s_Zoom / 10f), 1);
         gameNoteHolder.UpdateScale();
     }
-    public void EditMode(bool isTrue)
+    public void EnableCollider(bool isTrue)
     {
         foreach (GameObject obj in normalObjects)
         {

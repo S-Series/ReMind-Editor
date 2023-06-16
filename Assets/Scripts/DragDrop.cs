@@ -21,7 +21,6 @@ public class DragDrop : MonoBehaviour
     }
     public void MousePressed(InputAction.CallbackContext context)
     {
-        print("run");
         Ray ray = dragCamera.ScreenPointToRay(Mouse.current.position.ReadValue());
         RaycastHit hit;
         Physics.Raycast(ray, out hit);

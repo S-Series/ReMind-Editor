@@ -67,7 +67,7 @@ public class GuideGenerate : MonoBehaviour
         }
         foreach (NoteHolder holder in NoteField.s_noteHolders)
         {
-            holder.EditMode(true);
+            holder.EnableCollider(true);
         }
     }
     public static void UpdateGuideColor()

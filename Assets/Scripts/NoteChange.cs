@@ -12,7 +12,7 @@ public class NoteChange : MonoBehaviour
     private static readonly string[] noteTag = { "Normal", "Airial", "Bottom" };
     private const string NoteTag = "";
 
-    [SerializeField] TextMeshPro[] InfoTmps;
+    [SerializeField] TextMeshProUGUI[] InfoTmps;
 
     [SerializeField] TMP_InputField[] NormalInputs;
     [SerializeField] Toggle[] NormalToggles;
@@ -144,9 +144,15 @@ public class NoteChange : MonoBehaviour
         if (value < 1) { value = 1; input.text = "1"; }
         EditManager.LegnthNote(value);
     }
-    public void ToggleLine(Toggle toggle, int line)
+    public void ToggleLine()
     {
-        if (!toggle.isOn) { return; }
-
+        for (int i = 0; i < 4; i++)
+        {
+            if (NormalToggles[i].isOn)
+            {
+                EditManager.LineNote(i + 1);
+                break;
+            }
+        }
     }
 }

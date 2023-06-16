@@ -27,11 +27,7 @@ public class DragSelect : MonoBehaviour
         inputAction[0].performed += item =>
         {
             isDrag = true;
-            if (!isShift)
-            {
-                EditManager.Escape();
-                s_DragSelectObject = new List<GameObject>();
-            }
+            s_DragSelectObject = new List<GameObject>();
             
             Vector3 mousePos = Mouse.current.position.ReadValue();
             mousePos.z = Camera.main.nearClipPlane;
@@ -45,8 +41,13 @@ public class DragSelect : MonoBehaviour
         inputAction[1].performed += item =>
         {
             isDrag = false;
+            bool isNull;
+            isNull = EditManager.s_SelectNoteHolder == null ? true : false;
+
             StopCoroutine(boxCoroutine);
-            EditManager.MultySelect(s_DragSelectObject.ToArray());
+
+            if (s_DragSelectObject.Count != 0)
+                { EditManager.MultySelect(s_DragSelectObject.ToArray(), !isShift); }
             dragObject.gameObject.SetActive(false);
         };
 

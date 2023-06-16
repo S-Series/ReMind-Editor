@@ -80,7 +80,7 @@ public class NoteGenerate : MonoBehaviour
             holder.name = "Pos : " + pos.ToString();
             holder.stdMs = NoteClass.CalMs(pos);
             holder.stdPos = pos;
-            holder.EditMode(false);
+            holder.EnableCollider(false);
 
             copyObject = Instantiate(s_this.GeneratePrefabs[1], s_this.GenerateField[1], false);
             holder.gameNoteHolder = copyObject.GetComponent<GameNoteHolder>();
@@ -118,7 +118,7 @@ public class NoteGenerate : MonoBehaviour
 
                 holder.UpdateNote();
                 holder.UpdateScale();
-                holder.EditMode(false);
+                holder.EnableCollider(false);
 
                 break;
             #endregion
@@ -181,7 +181,7 @@ public class NoteGenerate : MonoBehaviour
         ret.name = "Pos : " + pos.ToString();
         ret.stdMs = NoteClass.CalMs(pos);
         ret.stdPos = pos;
-        ret.EditMode(false);
+        ret.EnableCollider(false);
 
         copyObject = Instantiate(s_this.GeneratePrefabs[1], s_this.GenerateField[1], false);
         ret.gameNoteHolder = copyObject.GetComponent<GameNoteHolder>();
@@ -212,7 +212,7 @@ public class NoteGenerate : MonoBehaviour
         s_this.previews[index].SetActive(true);
 
         GuideGenerate.EnableGuideCollider(true);
-        foreach (NoteHolder holder in NoteField.s_noteHolders) { holder.EditMode(false); }
+        foreach (NoteHolder holder in NoteField.s_noteHolders) { holder.EnableCollider(false); }
     }
     public static void Escape()
     {
@@ -221,6 +221,6 @@ public class NoteGenerate : MonoBehaviour
         foreach (GameObject gameObject in s_this.previews) { gameObject.SetActive(false); }
 
         GuideGenerate.EnableGuideCollider(false);
-        foreach (NoteHolder holder in NoteField.s_noteHolders) { holder.EditMode(true); }
+        foreach (NoteHolder holder in NoteField.s_noteHolders) { holder.EnableCollider(true); }
     }
 }

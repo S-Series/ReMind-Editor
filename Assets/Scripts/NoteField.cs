@@ -51,7 +51,7 @@ public class NoteField : MonoBehaviour
         CtrlAction[0].Enable();
         CtrlAction[1].Enable();
 
-        //$ Mouse Up & Down
+        //$ Mouse Scroll Up & Down
         ScrollAction.performed += item =>
         {
             print("run");

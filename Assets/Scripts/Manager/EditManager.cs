@@ -26,10 +26,12 @@ public class EditManager : MonoBehaviour
     private static List<int> s_MultySoundIndex;
     private static List<bool> s_MultyAirial;
 
-    public static void MultySelect(GameObject[] objects)
+    public static void MultySelect(GameObject[] objects, bool isReset)
     {
         if (objects.Length == 0) { return; }
 
+        if (isReset) { s_MultyObject = new List<GameObject>(); Escape(); }
+        
         for (int i = 0; i < objects.Length; i++)
         {
             AddMultyNote(objects[i]);
@@ -310,7 +312,7 @@ public class EditManager : MonoBehaviour
             else { throw new Exception("UnAvailable Note Type!!!"); }
         }
         MultyEscape();
-        MultySelect(targetObjects.ToArray());
+        MultySelect(targetObjects.ToArray(), false);
     }
     private static void MultyLengthNote(bool isIncrease)
     {
@@ -404,9 +406,9 @@ public class EditManager : MonoBehaviour
     public static int s_page, s_posY, s_line, s_length, s_soundIndex;
     public static bool s_isAirial = false, s_isGuideLeft = true;
     private static bool s_shift = false, s_ctrl = false;
-
-
     [SerializeField] InputAction[] actions;
+    [SerializeField] GameObject p_DragSelectHelper;
+    private static GameObject DragSelectHelper;
 
     private void Awake()
     {
@@ -417,6 +419,8 @@ public class EditManager : MonoBehaviour
         actions[3].performed += item => { s_ctrl = false; };
         ResetMultyEdit();
         InputEnable(true);
+        DragSelectHelper = p_DragSelectHelper;
+        p_DragSelectHelper = null;
     }
 
     public static void InputEnable(bool isEnable)
@@ -505,6 +509,7 @@ public class EditManager : MonoBehaviour
 
         InputManager.Editing(true);
         EditBox.PopUpBox(obj);
+        HelperUpdate(true);
 
         int pagePos, startPos, endPos;
         startPos = NoteField.s_StartPos;
@@ -551,10 +556,12 @@ public class EditManager : MonoBehaviour
             }
         }
 
-        foreach (NoteHolder holder in NoteField.s_noteHolders) { holder.EditMode(true); }
+
+        foreach (NoteHolder holder in NoteField.s_noteHolders) { holder.EnableCollider(true); }
         MultyEscape();
         InputManager.Editing(false);
         EditBox.Deselect();
+        HelperUpdate(false);
     }
     public static void Delete()
     {
@@ -898,6 +905,7 @@ public class EditManager : MonoBehaviour
             s_SelectNoteHolder.UpdateNote();
         }
         InfoField.UpdateInfoField();
+        NoteChange.UpdateInfoFields();
     }
 
     public static void MoveNoteInput(bool isUp)
@@ -999,5 +1007,40 @@ public class EditManager : MonoBehaviour
 
         LineNote(editLine);
         InfoField.UpdateInfoField();
+    }
+
+    private static void HelperUpdate(bool Enable)
+    {
+        if (Enable)
+        {
+            string p_tag;
+            p_tag = s_SelectedObject.transform.parent.tag;
+
+            DragSelectHelper.SetActive(true);
+            DragSelectHelper.transform.position = s_SelectedObject.transform.position;
+
+            if (p_tag == noteTag[0])
+            {
+                DragSelectHelper.GetComponent<DragSelectHelper>().Resize(190, 55);
+            }
+            else if (p_tag == noteTag[1])
+            {
+                DragSelectHelper.GetComponent<DragSelectHelper>().Resize(480, 55);
+            }
+            else if (p_tag == noteTag[2])
+            {
+                DragSelectHelper.GetComponent<DragSelectHelper>().Resize(240, 55);
+            }
+            else
+            {
+                DragSelectHelper.transform.position = new Vector3
+                    (-746, s_SelectedObject.transform.position.y, 0);
+                DragSelectHelper.GetComponent<DragSelectHelper>().Resize(100, 130);
+            }
+        }
+        else
+        {
+            DragSelectHelper.SetActive(false);
+        }
     }
 }
