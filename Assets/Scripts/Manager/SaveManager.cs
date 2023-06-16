@@ -9,6 +9,8 @@ using GameNote;
 public class SaveManager : MonoBehaviour
 {
     private static SaveManager s_this;
+    private static string s_noteFileName;
+    private static bool isLoadable = false;
     private const double s_version = 1.0;
     private bool isActive, isPassed;
     [SerializeField] GameObject[] PopUpObjects;
@@ -18,10 +20,11 @@ public class SaveManager : MonoBehaviour
     void Awake()
     {
         s_this = this;
-        print(Convert.ToInt32(Char.Parse("Z")) - 64);
     }
     public static void SaveNoteFile()
     {
+        if (!isLoadable) { return; }
+
         string fileName;
         fileName = s_this.noteFileInput.text;
         if (fileName == "") { return; }
@@ -193,7 +196,7 @@ public class SaveManager : MonoBehaviour
                     normal.line = j + 1;
                     normal.holder = copyHolder;
                     normal.SoundIndex = 0;
-                    normal.length = Convert.ToInt32(noteData[j]);
+                    normal.length = StringToLength(noteData[j]);
                     copyHolder.normals[j] = normal;
                 }
             }
@@ -211,7 +214,7 @@ public class SaveManager : MonoBehaviour
                     normal.line = j + 1;
                     normal.holder = copyHolder;
                     normal.SoundIndex = 0;
-                    normal.length = Convert.ToInt32(noteData[j]);
+                    normal.length = StringToLength(noteData[j]);
                     copyHolder.airials[j] = normal;
                 }
             }
@@ -223,11 +226,26 @@ public class SaveManager : MonoBehaviour
                 {
                     if (noteData[j][0] == '-')
                     {
-                        
+                        copyHolder.normals[j].isGuideLeft =
+                            copyHolder.normals[j].line < 3 ? true : false;
                     }
                     else
                     {
-
+                        copyHolder.normals[j].isGuideLeft =
+                            noteData[j][0] == '1' ? true : false;
+                    }
+                }
+                if (copyHolder.airials[j] != null)
+                {
+                    if (noteData[j][1] == '-')
+                    {
+                        copyHolder.airials[j].isGuideLeft =
+                            copyHolder.airials[j].line < 3 ? true : false;
+                    }
+                    else
+                    {
+                        copyHolder.airials[j].isGuideLeft =
+                            noteData[j][1] == '1' ? true : false;
                     }
                 }
             }
@@ -241,9 +259,9 @@ public class SaveManager : MonoBehaviour
                     normal = NormalNote.Generate();
                     normal.ms = copyHolder.stdMs;
                     normal.pos = copyHolder.stdPos;
-                    normal.line = j + 1 + 4;
+                    normal.line = j + 1;
                     normal.holder = copyHolder;
-                    normal.length = Convert.ToInt32(noteData[j]);
+                    normal.length = StringToLength(noteData[j]);
                     normal.SoundIndex = Convert.ToInt32(noteData[j + 2]);
                     copyHolder.bottoms[j] = normal;
                 }
@@ -291,10 +309,55 @@ public class SaveManager : MonoBehaviour
         return (Convert.ToInt32(cArr[0]) - 63) * 10 + (int)Char.GetNumericValue(cArr[1]);
     }
 
+    public void SelectInputFileName(bool select)
+    {
+        if (select)
+        {
+            noteFileInput.textComponent.color = new Color32(000, 000, 000, 255);
+        }
+        else
+        {
+            s_noteFileName = noteFileInput.text;
+
+            if (s_noteFileName.Contains('!')) { DisableLoad(); return; }
+            else if (s_noteFileName.Contains('@')) { DisableLoad(); return; }
+            else if (s_noteFileName.Contains('#')) { DisableLoad(); return; }
+            else if (s_noteFileName.Contains('$')) { DisableLoad(); return; }
+            else if (s_noteFileName.Contains('%')) { DisableLoad(); return; }
+            else if (s_noteFileName.Contains('^')) { DisableLoad(); return; }
+            else if (s_noteFileName.Contains('&')) { DisableLoad(); return; }
+            else if (s_noteFileName.Contains('*')) { DisableLoad(); return; }
+            else if (s_noteFileName.Contains('+')) { DisableLoad(); return; }
+            else if (s_noteFileName.Contains('=')) { DisableLoad(); return; }
+            else if (s_noteFileName.Contains('`')) { DisableLoad(); return; }
+            else if (s_noteFileName.Contains(',')) { DisableLoad(); return; }
+            else if (s_noteFileName.Contains('.')) { DisableLoad(); return; }
+            else if (s_noteFileName.Contains('/')) { DisableLoad(); return; }
+            else if (s_noteFileName.Contains('?')) { DisableLoad(); return; }
+            else if (s_noteFileName.Contains(':')) { DisableLoad(); return; }
+            else if (s_noteFileName.Contains(';')) { DisableLoad(); return; }
+            else if (s_noteFileName.Contains('<')) { DisableLoad(); return; }
+            else if (s_noteFileName.Contains('>')) { DisableLoad(); return; }
+            else if (s_noteFileName.Contains('\'')) { DisableLoad(); return; }
+            else if (s_noteFileName.Contains('\"')) { DisableLoad(); return; }
+            else if (s_noteFileName.Contains('\\')) { DisableLoad(); return; }
+
+            isLoadable = true;
+            s_noteFileName.Replace(' ', '_');
+            noteFileInput.text = s_noteFileName;
+            noteFileInput.textComponent.color = new Color32(065, 180, 000, 255);
+        }
+    }
     public void ConfirmButton(bool pass)
     {
         isActive = true;
         isPassed = pass;
+    }
+
+    private void DisableLoad()
+    {
+        isLoadable = false;
+        noteFileInput.textComponent.color = new Color32(220, 025, 000, 255);
     }
 }
 
