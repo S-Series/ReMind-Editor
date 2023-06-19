@@ -106,8 +106,8 @@ public class NoteHolder : MonoBehaviour
         }
         foreach (GameObject obj in airialObjects) { obj.GetComponent<BoxCollider2D>().enabled = isTrue; }
 
-        speedObject.GetComponent<BoxCollider2D>().enabled = false;
-        effectObject.GetComponent<BoxCollider2D>().enabled = false;
+        speedObject.GetComponent<BoxCollider2D>().enabled = isTrue;
+        effectObject.GetComponent<BoxCollider2D>().enabled = isTrue;
     }
     public void CheckDestroy()
     {

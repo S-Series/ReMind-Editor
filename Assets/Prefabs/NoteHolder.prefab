@@ -3086,7 +3086,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 10.008105, y: 0.79}
+  m_Size: {x: 5, y: 0.5}
   m_EdgeRadius: 0
 --- !u!1 &6427081553931998116
 GameObject:
@@ -3560,7 +3560,7 @@ GameObject:
   - component: {fileID: 27168108730190036}
   m_Layer: 0
   m_Name: Others
-  m_TagString: Untagged
+  m_TagString: Special
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3873,7 +3873,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 10.008105, y: 0.79}
+  m_Size: {x: 5, y: 0.5}
   m_EdgeRadius: 0
 --- !u!1 &8752690644191517927
 GameObject:

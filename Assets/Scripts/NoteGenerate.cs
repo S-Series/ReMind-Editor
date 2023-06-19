@@ -115,11 +115,6 @@ public class NoteGenerate : MonoBehaviour
                     holder.bottoms[s_Line < 3 ? 0 : 1] = normal;
                 }
                 else { holder.normals[s_Line - 1] = normal; }
-
-                holder.UpdateNote();
-                holder.UpdateScale();
-                holder.EnableCollider(false);
-
                 break;
             #endregion
 
@@ -155,12 +150,16 @@ public class NoteGenerate : MonoBehaviour
                 effect.effectIndex = 0;
 
                 //# Init EffectHolder
-
+                holder.effectNote = effect;
                 break;
             #endregion
 
             default: print("returned"); return;
         }
+
+        holder.UpdateNote();
+        holder.UpdateScale();
+        holder.EnableCollider(false);
 
         NoteField.SortNoteHolder();
         InfoField.UpdateInfoField();

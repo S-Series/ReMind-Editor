@@ -146,6 +146,9 @@ public class NoteChange : MonoBehaviour
     }
     public void ToggleLine()
     {
+        if (EditManager.s_SelectedObject == null) { return; }
+        if (EditManager.s_SelectNoteHolder == null) { return; }
+
         for (int i = 0; i < 4; i++)
         {
             if (NormalToggles[i].isOn)
@@ -154,5 +157,14 @@ public class NoteChange : MonoBehaviour
                 break;
             }
         }
+    }
+
+    public void ToggleAirial()
+    {
+        
+    }
+    public void ToggleGuideColor()
+    {
+
     }
 }

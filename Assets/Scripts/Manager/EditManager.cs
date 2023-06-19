@@ -433,6 +433,8 @@ public class EditManager : MonoBehaviour
     }
     public static void Select(GameObject obj)
     {
+        print("clicked");
+
         int _count;
         if (s_SelectedObject != null)
         {
@@ -442,6 +444,11 @@ public class EditManager : MonoBehaviour
                 s_SelectedObject.transform.GetComponent<BoxCollider2D>().enabled = true;
                 if (s_ctrl) { AddMultyNote(s_SelectedObject); }
                 else { s_SelectedObject.transform.GetComponent<SpriteRenderer>().color = Color.white; }
+            }
+            else if (s_SelectedObject.transform.parent.CompareTag("Special"))
+            {
+                s_SelectedObject.GetComponent<BoxCollider2D>().enabled = true;
+                s_SelectedObject.GetComponent<SpriteRenderer>().color = new Color32(255, 255, 255, 255);
             }
             else
             {
@@ -461,6 +468,11 @@ public class EditManager : MonoBehaviour
         {
             obj.transform.GetComponent<BoxCollider2D>().enabled = false;
             obj.transform.GetComponent<SpriteRenderer>().color = Color.green;
+        }
+        else if (obj.transform.parent.CompareTag("Special"))
+        {
+            obj.GetComponent<BoxCollider2D>().enabled = false;
+            obj.GetComponent<SpriteRenderer>().color = new Color32(255, 0, 0, 255);
         }
         else
         {
@@ -502,9 +514,17 @@ public class EditManager : MonoBehaviour
         }
         else
         {
-            s_line = 0;
-            s_length = 0;
-            // obj.GetComponent<SpriteRenderer>().color = new Color32(100, 255, 100, 255);
+            //# Speed Note
+            if (obj.CompareTag("01"))
+            {
+                print("speed Note");
+            }
+            //# Effect Note
+            else if (obj.CompareTag("02"))
+            {
+                print("effect Note");
+            }
+            else { new Exception("Selected Note Type Error"); }
         }
 
         InputManager.Editing(true);
@@ -542,6 +562,11 @@ public class EditManager : MonoBehaviour
             {
                 s_SelectedObject.transform.GetComponent<BoxCollider2D>().enabled = true;
                 s_SelectedObject.transform.GetComponent<SpriteRenderer>().color = Color.white;
+            }
+            else if (s_SelectedObject.transform.parent.CompareTag("Special"))
+            {
+                s_SelectedObject.GetComponent<BoxCollider2D>().enabled = true;
+                s_SelectedObject.GetComponent<SpriteRenderer>().color = new Color32(255, 255, 255, 255);
             }
             else
             {

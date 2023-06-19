@@ -42,9 +42,7 @@ public class EditBox : MonoBehaviour
         }
         else
         {
-            gameObject.TryGetComponent<SpeedHolder>(out var holder);
-
-            if (holder != null)
+            if (gameObject.CompareTag("01"))
             {
                 s_this.UpdateBox(3);
             }

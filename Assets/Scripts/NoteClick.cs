@@ -16,7 +16,6 @@ public class NoteClick : MonoBehaviour, IPointerClickHandler
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        print("Entered");
         if (!other.gameObject.CompareTag("Draggable")) { return; }
 
         if (!isNoteParent) { DragSelect.AddObject(this.gameObject); }
@@ -24,7 +23,6 @@ public class NoteClick : MonoBehaviour, IPointerClickHandler
     }
     void OnTriggerExit2D(Collider2D other)
     {
-        print("Exited");
         if (!other.gameObject.CompareTag("Draggable")) { return; }
 
         if (!isNoteParent) { DragSelect.RemoveObject(this.gameObject); }

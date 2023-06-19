@@ -54,7 +54,6 @@ public class NoteField : MonoBehaviour
         //$ Mouse Scroll Up & Down
         ScrollAction.performed += item =>
         {
-            print("run");
             if (!s_isFieldMovable) { return; }
             
             float z;
