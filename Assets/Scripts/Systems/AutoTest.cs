@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,13 +14,13 @@ public class AutoTest : MonoBehaviour
 
     public static int s_Index, s_Ms, s_TargetMs;
     public static NoteHolder s_TargetHolder;
-    public static bool s_isTesting = false, s_isPause = false;
+    public static bool s_isTesting = false, s_isPause = false, s_isEffect = false;
 
     private static List<NoteHolder> s_holders;
     private static int s_SpeedMs, s_SpeedPos, s_EffectMs, s_EffectPos, s_OffsetMs;
     private static int[] s_Offset = new int[2];
     private static bool[] isTestAlive = {false};
-    private static float s_posY, s_bpm, s_bpmValue;
+    private static float s_posY, s_bpm, s_bpmValue, s_EffectPosY;
 
     private static Transform[] MovingField; //# <-----------<
     [SerializeField] private Transform[] _MovingField; //#--<
@@ -87,8 +88,12 @@ public class AutoTest : MonoBehaviour
         s_OffsetMs = s_Ms - s_Offset[1]; //$ Judge Offset Ms
 
         //# Note Field Movement
-        s_posY = (s_SpeedPos + s_EffectPos
-            + (s_OffsetMs - s_SpeedMs - s_EffectMs) * s_bpmValue) / 160f;
+        if (s_isEffect) { s_posY = s_EffectPosY; }
+        else 
+        {
+            s_posY = (s_SpeedPos + s_EffectPos
+                + (s_OffsetMs - s_SpeedMs - s_EffectMs) * s_bpmValue) / 160f; 
+        }
 
         //# Note Judge
         if (isTestAlive[0])
@@ -143,6 +148,9 @@ public class AutoTest : MonoBehaviour
         s_bpm = System.Convert.ToSingle(ValueManager.s_Bpm);
         s_bpmValue = s_bpm / 150f;
 
+        s_posY = 0.0f;
+        s_EffectPosY = 0.0f;
+
         NoteField.s_Zoom = 10;
         NoteField.s_this.UpdateField();
 
@@ -161,23 +169,17 @@ public class AutoTest : MonoBehaviour
     }
     private static void JudgeApply(NoteHolder holder)
     {
+        //# NormalNoteApply(normal & airial)
         for (int i = 0; i < 4; i++)
         {
-            JudgeEffect(holder.normals[i]);
-            JudgeEffect(holder.airials[i]);
+            NormalNoteApply(holder.normals[i]);
+            NormalNoteApply(holder.airials[i]);
         }
+        NormalNoteApply(holder.bottoms[0]);
+        NormalNoteApply(holder.bottoms[1]);
 
-        JudgeEffect(holder.bottoms[0]);
-        JudgeEffect(holder.bottoms[1]);
-
-        if (holder.speedNote != null)
-        {
-            s_bpm = System.Convert.ToSingle(holder.speedNote.bpm * holder.speedNote.multiple);
-        }
-        if (holder.effectNote != null)
-        {
-            print("Not Available");
-        }
+        SppedNoteApply(holder.speedNote);
+        EffectNoteApply(holder.effectNote);
 
         if (s_Index == s_holders.Count)
         {
@@ -190,7 +192,7 @@ public class AutoTest : MonoBehaviour
             s_TargetMs = s_TargetHolder.stdMs;
         }
     }
-    private static void JudgeEffect(NormalNote note)
+    private static void NormalNoteApply(NormalNote note)
     {
         if (note == null) { return; }
 
@@ -198,6 +200,19 @@ public class AutoTest : MonoBehaviour
 
         s_this.judgeSounds[note.line - 1].Play();
         s_this.judgeEffects[note.line - 1].SetTrigger(judgeEffectTrigger[0]);
+    }
+    private static void SppedNoteApply(SpeedNote note)
+    {
+        if (note == null) { return; }
+        
+        s_SpeedMs = note.ms;
+        s_SpeedPos = note.pos;
+        s_bpm = Convert.ToSingle(note.bpm * note.multiple);
+    }
+    private static void EffectNoteApply(EffectNote note)
+    {
+        if (note == null) { return; }
+
     }
 
     private static IEnumerator IStartTest(int delay)
@@ -220,7 +235,7 @@ public class AutoTest : MonoBehaviour
     private static IEnumerator ILongJudgeEfect(NormalNote note)
     {
         int ms, index;
-        ms = note.ms + Mathf.RoundToInt(15000 / s_bpm);
+        ms = note.ms + Mathf.RoundToInt(7500 / s_bpm);
         index = note.line - 1;
         s_this.judgeEffects[index].SetTrigger(judgeEffectTrigger[0]);
         for (int i = 1; i < note.length; i++)
@@ -229,7 +244,8 @@ public class AutoTest : MonoBehaviour
             {
                 if (s_Ms >= ms)
                 {
-                    ms += Mathf.RoundToInt(15000 / s_bpm);
+                    print(String.Format("{0} : {1}", ms, s_Ms));
+                    ms += Mathf.RoundToInt(7500 / s_bpm);
                     s_this.judgeLongSounds[index].Play();
                     s_this.judgeEffects[index].SetTrigger(judgeEffectTrigger[0]);
                     break;

@@ -159,7 +159,7 @@ public class NoteField : MonoBehaviour
     }
     public static void SortNoteHolder()
     {
-        s_noteHolders.OrderBy(item => item.stdMs);
+        s_noteHolders = s_noteHolders.OrderBy(item => item.stdPos).ToList();
     }
     public static IEnumerator IResetHolderList()
     {

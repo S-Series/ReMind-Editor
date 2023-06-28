@@ -299,14 +299,14 @@ public class SaveManager : MonoBehaviour
         if (value < 1) { return "--"; }
         else if (value > 259) { return "--"; }
         char c;
-        c = (char)(Mathf.FloorToInt(value / 10.0f) + 63);
+        c = (char)(Mathf.FloorToInt(value / 10.0f) + 65);
         return String.Format("{0}{1}", c, value % 10);
     }
     private static Int32 StringToLength(string value)
     {
         char[] cArr;
         cArr = value.ToCharArray();
-        return (Convert.ToInt32(cArr[0]) - 63) * 10 + (int)Char.GetNumericValue(cArr[1]);
+        return (Convert.ToInt32(cArr[0]) - 65) * 10 + (int)Char.GetNumericValue(cArr[1]);
     }
 
     public void SelectInputFileName(bool select)
