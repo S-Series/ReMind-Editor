@@ -48,19 +48,19 @@ public class SaveManager : MonoBehaviour
             saveData = "";
             holder = NoteField.s_noteHolders[i];
 
-            saveData += string.Format("|{0:D11}|__", holder.stdMs);
-            saveData += string.Format("|{0:D11}|__", holder.stdPos);
-            saveData += string.Format("|{0:D2}|{1:D2}|{2:D2}|{3:D2}|__",
+            saveData += string.Format("|{0:D11}|#", holder.stdMs);
+            saveData += string.Format("|{0:D11}|#", holder.stdPos);
+            saveData += string.Format("|{0:D2}|{1:D2}|{2:D2}|{3:D2}|#",
                 holder.normals[0] == null ? 0 : LengthToString(holder.normals[0].length),
                 holder.normals[1] == null ? 0 : LengthToString(holder.normals[1].length),
                 holder.normals[2] == null ? 0 : LengthToString(holder.normals[2].length),
                 holder.normals[3] == null ? 0 : LengthToString(holder.normals[3].length));
-            saveData += string.Format("|{0}|{1}|{2}|{3}|__",
+            saveData += string.Format("|{0}|{1}|{2}|{3}|#",
                 holder.airials[0] == null ? "--" : LengthToString(holder.airials[0].length),
                 holder.airials[1] == null ? "--" : LengthToString(holder.airials[1].length),
                 holder.airials[2] == null ? "--" : LengthToString(holder.airials[2].length),
                 holder.airials[3] == null ? "--" : LengthToString(holder.airials[3].length));
-            saveData += string.Format("|{0}{1}|{2}{3}|{4}{5}|{6}{7}|__",
+            saveData += string.Format("|{0}{1}|{2}{3}|{4}{5}|{6}{7}|#",
                 holder.normals[0] == null ? "-" : holder.normals[0].isGuideLeft ? 1 : 0,
                 holder.airials[0] == null ? "-" : holder.airials[0].isGuideLeft ? 1 : 0,
                 holder.normals[1] == null ? "-" : holder.normals[1].isGuideLeft ? 1 : 0,
@@ -69,12 +69,12 @@ public class SaveManager : MonoBehaviour
                 holder.airials[2] == null ? "-" : holder.airials[2].isGuideLeft ? 1 : 0,
                 holder.normals[3] == null ? "-" : holder.normals[3].isGuideLeft ? 1 : 0,
                 holder.airials[3] == null ? "-" : holder.airials[3].isGuideLeft ? 1 : 0);
-            saveData += string.Format("|{0:D2}|{1:D2}|{2:D2}|{3:D2}|__",
+            saveData += string.Format("|{0:D2}|{1:D2}|{2:D2}|{3:D2}|#",
                 holder.bottoms[0] == null ? 0 : holder.bottoms[0].length,
                 holder.bottoms[1] == null ? 0 : holder.bottoms[1].length,
                 holder.bottoms[0] == null ? 0 : holder.bottoms[0].SoundIndex,
                 holder.bottoms[1] == null ? 0 : holder.bottoms[1].SoundIndex);
-            saveData += string.Format("|{0}|{1}|{2:D5}|__",
+            saveData += string.Format("|{0}|{1}|{2:D5}|#",
                 holder.speedNote == null ? "00" : "01",
                 holder.effectNote == null ? "-1" : string.Format("{0:D2}", holder.effectNote.effectIndex),
                 holder.effectNote == null ? 0 : holder.effectNote.value);
@@ -178,7 +178,7 @@ public class SaveManager : MonoBehaviour
 
         for (int i = 0; i < saveFile.noteDatas.Count; i++)
         {
-            saveData = saveFile.noteDatas[i].Split("__", StringSplitOptions.RemoveEmptyEntries);
+            saveData = saveFile.noteDatas[i].Split("#", StringSplitOptions.RemoveEmptyEntries);
 
             copyHolder = NoteGenerate.GenerateNoteManual(Convert.ToInt32(saveData[1].Replace("|", "")));
             copyHolder.stdMs = Convert.ToInt32(saveData[0].Replace("|", ""));

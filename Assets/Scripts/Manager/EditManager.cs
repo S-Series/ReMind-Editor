@@ -778,7 +778,7 @@ public class EditManager : MonoBehaviour
         else if (s_SelectedObject.transform.parent.CompareTag(noteTag[2]))
         {
             if (targetHolder.airials[s_line - 1] != null)
-            { Select(targetHolder.getAirial(s_line - 1)); }
+                { Select(targetHolder.getAirial(s_line - 1)); }
             else
             {
                 NormalNote note;
@@ -796,7 +796,7 @@ public class EditManager : MonoBehaviour
         else if (s_SelectedObject.transform.parent.CompareTag(noteTag[1]))
         {
             if (targetHolder.bottoms[s_line - 1] != null)
-            { Select(targetHolder.getBottom(s_line - 1)); }
+                { Select(targetHolder.getBottom(s_line - 1)); }
             else
             {
                 NormalNote note;
@@ -814,7 +814,7 @@ public class EditManager : MonoBehaviour
         else if (s_SelectedObject.CompareTag("01"))
         {
             if (targetHolder.speedNote != null)
-            { Select(targetHolder.getSpeed()); }
+                { Select(targetHolder.getSpeed()); }
             else
             {
                 SpeedNote note;
@@ -832,7 +832,7 @@ public class EditManager : MonoBehaviour
         else
         {
             if (targetHolder.effectNote != null)
-            { Select(targetHolder.getEffect()); }
+                { Select(targetHolder.getEffect()); }
             else
             {
                 EffectNote note;
@@ -859,7 +859,7 @@ public class EditManager : MonoBehaviour
         if (s_SelectedObject.transform.parent.CompareTag(noteTag[0]))
         {
             if (s_SelectNoteHolder.normals[editLine - 1] != null)
-            { Select(s_SelectNoteHolder.getNormal(editLine - 1)); }
+                { Select(s_SelectNoteHolder.getNormal(editLine - 1)); }
             else
             {
                 editNormal = s_SelectNoteHolder.normals[s_line - 1];
@@ -875,7 +875,7 @@ public class EditManager : MonoBehaviour
         else if (s_SelectedObject.transform.parent.CompareTag(noteTag[2]))
         {
             if (s_SelectNoteHolder.airials[editLine - 1] != null)
-            { Select(s_SelectNoteHolder.getAirial(editLine - 1)); }
+                { Select(s_SelectNoteHolder.getAirial(editLine - 1)); }
             else
             {
                 editNormal = s_SelectNoteHolder.airials[s_line - 1];
@@ -893,7 +893,7 @@ public class EditManager : MonoBehaviour
             if (editLine > 2) { return; }
 
             if (s_SelectNoteHolder.bottoms[editLine - 1] != null)
-            { Select(s_SelectNoteHolder.getBottom(editLine - 1)); }
+                { Select(s_SelectNoteHolder.getBottom(editLine - 1)); }
             else
             {
                 editNormal = s_SelectNoteHolder.bottoms[s_line - 1];
