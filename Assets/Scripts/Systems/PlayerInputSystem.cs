@@ -438,7 +438,7 @@ public partial class @PlayerInputSystem : IInputActionCollection2, IDisposable
             ""id"": ""2cccc955-80cb-44e2-81c5-1136ef92dbf9"",
             ""actions"": [
                 {
-                    ""name"": ""Line01"",
+                    ""name"": ""Line01-A"",
                     ""type"": ""Button"",
                     ""id"": ""539bea16-c598-416c-af20-f0cf90d3b8da"",
                     ""expectedControlType"": ""Button"",
@@ -447,7 +447,7 @@ public partial class @PlayerInputSystem : IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Line02"",
+                    ""name"": ""Line02-A"",
                     ""type"": ""Button"",
                     ""id"": ""49436b1b-93b3-4a62-9c76-95bea7ae7aed"",
                     ""expectedControlType"": ""Button"",
@@ -456,7 +456,7 @@ public partial class @PlayerInputSystem : IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Line03"",
+                    ""name"": ""Line03-A"",
                     ""type"": ""Button"",
                     ""id"": ""c3a39fc8-8bcf-49f9-aab5-d689243bc0e4"",
                     ""expectedControlType"": ""Button"",
@@ -465,7 +465,7 @@ public partial class @PlayerInputSystem : IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Line04"",
+                    ""name"": ""Line04-A"",
                     ""type"": ""Button"",
                     ""id"": ""04f297e0-2500-4901-afcf-119d9b98e68a"",
                     ""expectedControlType"": ""Button"",
@@ -474,7 +474,7 @@ public partial class @PlayerInputSystem : IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Line_01"",
+                    ""name"": ""Line01-B"",
                     ""type"": ""Button"",
                     ""id"": ""b1ab66f0-c332-477a-82cb-d6496731d87e"",
                     ""expectedControlType"": ""Button"",
@@ -483,7 +483,7 @@ public partial class @PlayerInputSystem : IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Line_02"",
+                    ""name"": ""Line02-B"",
                     ""type"": ""Button"",
                     ""id"": ""b4ecbb8c-d3dd-4f54-acca-883b9537675d"",
                     ""expectedControlType"": ""Button"",
@@ -492,7 +492,7 @@ public partial class @PlayerInputSystem : IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Line_03"",
+                    ""name"": ""Line03-B"",
                     ""type"": ""Button"",
                     ""id"": ""7aef22a0-0ae1-4b0c-a8a2-95da79453ab6"",
                     ""expectedControlType"": ""Button"",
@@ -501,9 +501,27 @@ public partial class @PlayerInputSystem : IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Line_04"",
+                    ""name"": ""Line04-B"",
                     ""type"": ""Button"",
                     ""id"": ""c6e404b5-5e83-4a5b-8dbf-33a782072a6b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Bottom-L"",
+                    ""type"": ""Button"",
+                    ""id"": ""46ffe0b5-2b77-4e65-951d-a743b2b3a18c"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Bottom-R"",
+                    ""type"": ""Button"",
+                    ""id"": ""04c8e7ae-2020-4038-a144-052c3ec77f9a"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -514,88 +532,110 @@ public partial class @PlayerInputSystem : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""19d7ed8f-a2db-4726-9653-dfb59972e54a"",
-                    ""path"": """",
+                    ""path"": ""<Keyboard>/z"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Line01"",
+                    ""action"": ""Line01-A"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
                     ""id"": ""5261d52d-8a88-47b6-ae13-4a4e451e395b"",
-                    ""path"": """",
+                    ""path"": ""<Keyboard>/x"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Line02"",
+                    ""action"": ""Line02-A"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
                     ""id"": ""cd0f61a4-7c42-4267-bae3-4d6c24785262"",
-                    ""path"": """",
+                    ""path"": ""<Keyboard>/c"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Line03"",
+                    ""action"": ""Line03-A"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
                     ""id"": ""767ad07b-2cd3-4535-98a3-fd927a3ac524"",
-                    ""path"": """",
+                    ""path"": ""<Keyboard>/v"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Line04"",
+                    ""action"": ""Line04-A"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
                     ""id"": ""8d78dc57-8c38-4886-a246-8e91dd1cd94c"",
-                    ""path"": """",
+                    ""path"": ""<Keyboard>/period"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Line_03"",
+                    ""action"": ""Line03-B"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
                     ""id"": ""5ebf5a71-b9f0-4988-a28d-d7c81b74e95b"",
-                    ""path"": """",
+                    ""path"": ""<Keyboard>/comma"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Line_02"",
+                    ""action"": ""Line02-B"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
                     ""id"": ""d2153a2b-d36e-47f9-9927-eed7ce219b7b"",
-                    ""path"": """",
+                    ""path"": ""<Keyboard>/m"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Line_01"",
+                    ""action"": ""Line01-B"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
                     ""id"": ""333fa802-db09-4907-882d-d16a24a0eef3"",
-                    ""path"": """",
+                    ""path"": ""<Keyboard>/slash"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Line_04"",
+                    ""action"": ""Line04-B"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5aaa8507-5149-42c6-83c8-6f24de8b67fe"",
+                    ""path"": ""<Keyboard>/leftShift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Bottom-L"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""008f0974-59b2-4e44-9ced-f32d194dcf37"",
+                    ""path"": ""<Keyboard>/rightShift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Bottom-R"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -689,14 +729,16 @@ public partial class @PlayerInputSystem : IInputActionCollection2, IDisposable
         m_Tools_Escape = m_Tools.FindAction("Escape", throwIfNotFound: true);
         // GamePlay
         m_GamePlay = asset.FindActionMap("GamePlay", throwIfNotFound: true);
-        m_GamePlay_Line01 = m_GamePlay.FindAction("Line01", throwIfNotFound: true);
-        m_GamePlay_Line02 = m_GamePlay.FindAction("Line02", throwIfNotFound: true);
-        m_GamePlay_Line03 = m_GamePlay.FindAction("Line03", throwIfNotFound: true);
-        m_GamePlay_Line04 = m_GamePlay.FindAction("Line04", throwIfNotFound: true);
-        m_GamePlay_Line_01 = m_GamePlay.FindAction("Line_01", throwIfNotFound: true);
-        m_GamePlay_Line_02 = m_GamePlay.FindAction("Line_02", throwIfNotFound: true);
-        m_GamePlay_Line_03 = m_GamePlay.FindAction("Line_03", throwIfNotFound: true);
-        m_GamePlay_Line_04 = m_GamePlay.FindAction("Line_04", throwIfNotFound: true);
+        m_GamePlay_Line01A = m_GamePlay.FindAction("Line01-A", throwIfNotFound: true);
+        m_GamePlay_Line02A = m_GamePlay.FindAction("Line02-A", throwIfNotFound: true);
+        m_GamePlay_Line03A = m_GamePlay.FindAction("Line03-A", throwIfNotFound: true);
+        m_GamePlay_Line04A = m_GamePlay.FindAction("Line04-A", throwIfNotFound: true);
+        m_GamePlay_Line01B = m_GamePlay.FindAction("Line01-B", throwIfNotFound: true);
+        m_GamePlay_Line02B = m_GamePlay.FindAction("Line02-B", throwIfNotFound: true);
+        m_GamePlay_Line03B = m_GamePlay.FindAction("Line03-B", throwIfNotFound: true);
+        m_GamePlay_Line04B = m_GamePlay.FindAction("Line04-B", throwIfNotFound: true);
+        m_GamePlay_BottomL = m_GamePlay.FindAction("Bottom-L", throwIfNotFound: true);
+        m_GamePlay_BottomR = m_GamePlay.FindAction("Bottom-R", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -959,26 +1001,30 @@ public partial class @PlayerInputSystem : IInputActionCollection2, IDisposable
     // GamePlay
     private readonly InputActionMap m_GamePlay;
     private IGamePlayActions m_GamePlayActionsCallbackInterface;
-    private readonly InputAction m_GamePlay_Line01;
-    private readonly InputAction m_GamePlay_Line02;
-    private readonly InputAction m_GamePlay_Line03;
-    private readonly InputAction m_GamePlay_Line04;
-    private readonly InputAction m_GamePlay_Line_01;
-    private readonly InputAction m_GamePlay_Line_02;
-    private readonly InputAction m_GamePlay_Line_03;
-    private readonly InputAction m_GamePlay_Line_04;
+    private readonly InputAction m_GamePlay_Line01A;
+    private readonly InputAction m_GamePlay_Line02A;
+    private readonly InputAction m_GamePlay_Line03A;
+    private readonly InputAction m_GamePlay_Line04A;
+    private readonly InputAction m_GamePlay_Line01B;
+    private readonly InputAction m_GamePlay_Line02B;
+    private readonly InputAction m_GamePlay_Line03B;
+    private readonly InputAction m_GamePlay_Line04B;
+    private readonly InputAction m_GamePlay_BottomL;
+    private readonly InputAction m_GamePlay_BottomR;
     public struct GamePlayActions
     {
         private @PlayerInputSystem m_Wrapper;
         public GamePlayActions(@PlayerInputSystem wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Line01 => m_Wrapper.m_GamePlay_Line01;
-        public InputAction @Line02 => m_Wrapper.m_GamePlay_Line02;
-        public InputAction @Line03 => m_Wrapper.m_GamePlay_Line03;
-        public InputAction @Line04 => m_Wrapper.m_GamePlay_Line04;
-        public InputAction @Line_01 => m_Wrapper.m_GamePlay_Line_01;
-        public InputAction @Line_02 => m_Wrapper.m_GamePlay_Line_02;
-        public InputAction @Line_03 => m_Wrapper.m_GamePlay_Line_03;
-        public InputAction @Line_04 => m_Wrapper.m_GamePlay_Line_04;
+        public InputAction @Line01A => m_Wrapper.m_GamePlay_Line01A;
+        public InputAction @Line02A => m_Wrapper.m_GamePlay_Line02A;
+        public InputAction @Line03A => m_Wrapper.m_GamePlay_Line03A;
+        public InputAction @Line04A => m_Wrapper.m_GamePlay_Line04A;
+        public InputAction @Line01B => m_Wrapper.m_GamePlay_Line01B;
+        public InputAction @Line02B => m_Wrapper.m_GamePlay_Line02B;
+        public InputAction @Line03B => m_Wrapper.m_GamePlay_Line03B;
+        public InputAction @Line04B => m_Wrapper.m_GamePlay_Line04B;
+        public InputAction @BottomL => m_Wrapper.m_GamePlay_BottomL;
+        public InputAction @BottomR => m_Wrapper.m_GamePlay_BottomR;
         public InputActionMap Get() { return m_Wrapper.m_GamePlay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -988,58 +1034,70 @@ public partial class @PlayerInputSystem : IInputActionCollection2, IDisposable
         {
             if (m_Wrapper.m_GamePlayActionsCallbackInterface != null)
             {
-                @Line01.started -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnLine01;
-                @Line01.performed -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnLine01;
-                @Line01.canceled -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnLine01;
-                @Line02.started -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnLine02;
-                @Line02.performed -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnLine02;
-                @Line02.canceled -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnLine02;
-                @Line03.started -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnLine03;
-                @Line03.performed -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnLine03;
-                @Line03.canceled -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnLine03;
-                @Line04.started -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnLine04;
-                @Line04.performed -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnLine04;
-                @Line04.canceled -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnLine04;
-                @Line_01.started -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnLine_01;
-                @Line_01.performed -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnLine_01;
-                @Line_01.canceled -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnLine_01;
-                @Line_02.started -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnLine_02;
-                @Line_02.performed -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnLine_02;
-                @Line_02.canceled -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnLine_02;
-                @Line_03.started -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnLine_03;
-                @Line_03.performed -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnLine_03;
-                @Line_03.canceled -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnLine_03;
-                @Line_04.started -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnLine_04;
-                @Line_04.performed -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnLine_04;
-                @Line_04.canceled -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnLine_04;
+                @Line01A.started -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnLine01A;
+                @Line01A.performed -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnLine01A;
+                @Line01A.canceled -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnLine01A;
+                @Line02A.started -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnLine02A;
+                @Line02A.performed -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnLine02A;
+                @Line02A.canceled -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnLine02A;
+                @Line03A.started -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnLine03A;
+                @Line03A.performed -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnLine03A;
+                @Line03A.canceled -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnLine03A;
+                @Line04A.started -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnLine04A;
+                @Line04A.performed -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnLine04A;
+                @Line04A.canceled -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnLine04A;
+                @Line01B.started -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnLine01B;
+                @Line01B.performed -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnLine01B;
+                @Line01B.canceled -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnLine01B;
+                @Line02B.started -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnLine02B;
+                @Line02B.performed -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnLine02B;
+                @Line02B.canceled -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnLine02B;
+                @Line03B.started -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnLine03B;
+                @Line03B.performed -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnLine03B;
+                @Line03B.canceled -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnLine03B;
+                @Line04B.started -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnLine04B;
+                @Line04B.performed -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnLine04B;
+                @Line04B.canceled -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnLine04B;
+                @BottomL.started -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnBottomL;
+                @BottomL.performed -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnBottomL;
+                @BottomL.canceled -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnBottomL;
+                @BottomR.started -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnBottomR;
+                @BottomR.performed -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnBottomR;
+                @BottomR.canceled -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnBottomR;
             }
             m_Wrapper.m_GamePlayActionsCallbackInterface = instance;
             if (instance != null)
             {
-                @Line01.started += instance.OnLine01;
-                @Line01.performed += instance.OnLine01;
-                @Line01.canceled += instance.OnLine01;
-                @Line02.started += instance.OnLine02;
-                @Line02.performed += instance.OnLine02;
-                @Line02.canceled += instance.OnLine02;
-                @Line03.started += instance.OnLine03;
-                @Line03.performed += instance.OnLine03;
-                @Line03.canceled += instance.OnLine03;
-                @Line04.started += instance.OnLine04;
-                @Line04.performed += instance.OnLine04;
-                @Line04.canceled += instance.OnLine04;
-                @Line_01.started += instance.OnLine_01;
-                @Line_01.performed += instance.OnLine_01;
-                @Line_01.canceled += instance.OnLine_01;
-                @Line_02.started += instance.OnLine_02;
-                @Line_02.performed += instance.OnLine_02;
-                @Line_02.canceled += instance.OnLine_02;
-                @Line_03.started += instance.OnLine_03;
-                @Line_03.performed += instance.OnLine_03;
-                @Line_03.canceled += instance.OnLine_03;
-                @Line_04.started += instance.OnLine_04;
-                @Line_04.performed += instance.OnLine_04;
-                @Line_04.canceled += instance.OnLine_04;
+                @Line01A.started += instance.OnLine01A;
+                @Line01A.performed += instance.OnLine01A;
+                @Line01A.canceled += instance.OnLine01A;
+                @Line02A.started += instance.OnLine02A;
+                @Line02A.performed += instance.OnLine02A;
+                @Line02A.canceled += instance.OnLine02A;
+                @Line03A.started += instance.OnLine03A;
+                @Line03A.performed += instance.OnLine03A;
+                @Line03A.canceled += instance.OnLine03A;
+                @Line04A.started += instance.OnLine04A;
+                @Line04A.performed += instance.OnLine04A;
+                @Line04A.canceled += instance.OnLine04A;
+                @Line01B.started += instance.OnLine01B;
+                @Line01B.performed += instance.OnLine01B;
+                @Line01B.canceled += instance.OnLine01B;
+                @Line02B.started += instance.OnLine02B;
+                @Line02B.performed += instance.OnLine02B;
+                @Line02B.canceled += instance.OnLine02B;
+                @Line03B.started += instance.OnLine03B;
+                @Line03B.performed += instance.OnLine03B;
+                @Line03B.canceled += instance.OnLine03B;
+                @Line04B.started += instance.OnLine04B;
+                @Line04B.performed += instance.OnLine04B;
+                @Line04B.canceled += instance.OnLine04B;
+                @BottomL.started += instance.OnBottomL;
+                @BottomL.performed += instance.OnBottomL;
+                @BottomL.canceled += instance.OnBottomL;
+                @BottomR.started += instance.OnBottomR;
+                @BottomR.performed += instance.OnBottomR;
+                @BottomR.canceled += instance.OnBottomR;
             }
         }
     }
@@ -1116,13 +1174,15 @@ public partial class @PlayerInputSystem : IInputActionCollection2, IDisposable
     }
     public interface IGamePlayActions
     {
-        void OnLine01(InputAction.CallbackContext context);
-        void OnLine02(InputAction.CallbackContext context);
-        void OnLine03(InputAction.CallbackContext context);
-        void OnLine04(InputAction.CallbackContext context);
-        void OnLine_01(InputAction.CallbackContext context);
-        void OnLine_02(InputAction.CallbackContext context);
-        void OnLine_03(InputAction.CallbackContext context);
-        void OnLine_04(InputAction.CallbackContext context);
+        void OnLine01A(InputAction.CallbackContext context);
+        void OnLine02A(InputAction.CallbackContext context);
+        void OnLine03A(InputAction.CallbackContext context);
+        void OnLine04A(InputAction.CallbackContext context);
+        void OnLine01B(InputAction.CallbackContext context);
+        void OnLine02B(InputAction.CallbackContext context);
+        void OnLine03B(InputAction.CallbackContext context);
+        void OnLine04B(InputAction.CallbackContext context);
+        void OnBottomL(InputAction.CallbackContext context);
+        void OnBottomR(InputAction.CallbackContext context);
     }
 }

@@ -85,6 +85,7 @@ public class InfoField : MonoBehaviour
                 = new Vector3(0.005f, (floorCount[1] / maxCount) * 0.28f, 1);
         }
         #endregion
+        
         #region Sector 02
         for (int i = 0; i < 4; i++)
         {
@@ -106,6 +107,7 @@ public class InfoField : MonoBehaviour
             }
         }
         #endregion
+        
         #region Sector 03
         if (noteCount == 0)
         {

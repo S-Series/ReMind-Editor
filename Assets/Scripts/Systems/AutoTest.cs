@@ -12,15 +12,18 @@ public class AutoTest : MonoBehaviour
 
     private static readonly string[] judgeEffectTrigger = {"100", "Start", "End"};
 
-    public static int s_Index, s_Ms, s_TargetMs;
+    public static int s_Index, s_Delay, s_TargetMs;
+    public static float s_Ms, s_Timer;
     public static NoteHolder s_TargetHolder;
     public static bool s_isTesting = false, s_isPause = false, s_isEffect = false;
 
     private static List<NoteHolder> s_holders;
-    private static int s_SpeedMs, s_SpeedPos, s_EffectMs, s_EffectPos, s_OffsetMs;
+    private static float s_posY, s_bpm, s_bpmValue, s_EffectPosY;
+    private static float s_SpeedMs, s_SpeedPos, s_OffsetMs;
     private static int[] s_Offset = new int[2];
     private static bool[] isTestAlive = {false};
-    private static float s_posY, s_bpm, s_bpmValue, s_EffectPosY;
+
+    private static IEnumerator TestCoroutine;
 
     private static Transform[] MovingField; //# <-----------<
     [SerializeField] private Transform[] _MovingField; //#--<
@@ -28,6 +31,7 @@ public class AutoTest : MonoBehaviour
     [SerializeField] private InputAction[] inputActions;
 
     [SerializeField] private Animator[] judgeEffects;
+    [SerializeField] private AudioSource guideSound;
     [SerializeField] private AudioSource[] judgeSounds;
     [SerializeField] private AudioSource[] judgeLongSounds;
     [SerializeField] private Material[] materials;
@@ -36,6 +40,7 @@ public class AutoTest : MonoBehaviour
     private void Awake()
     {
         s_this = this;
+        TestCoroutine = IStartTest();
     }
     private void Start()
     {
@@ -76,24 +81,13 @@ public class AutoTest : MonoBehaviour
             s_Ms -= 100;
         };
     }
-    private void FixedUpdate()
-    {
-        if (!s_isTesting) { return; }
-        if (s_isPause) { return; }
-        s_Ms++;
-    }
     private void Update()
     {
         if (!s_isTesting) { return; }
-        s_OffsetMs = s_Ms - s_Offset[1]; //$ Judge Offset Ms
 
-        //# Note Field Movement
-        if (s_isEffect) { s_posY = s_EffectPosY; }
-        else 
-        {
-            s_posY = (s_SpeedPos + s_EffectPos
-                + (s_OffsetMs - s_SpeedMs - s_EffectMs) * s_bpmValue) / 160f; 
-        }
+        s_Timer += Time.deltaTime * 1000;
+        s_Ms = s_Timer + s_Delay;
+        s_posY = (s_SpeedPos + (s_Ms - s_Offset[1] - s_SpeedMs) * s_bpmValue) / 160f;
 
         //# Note Judge
         if (isTestAlive[0])
@@ -115,7 +109,7 @@ public class AutoTest : MonoBehaviour
 
         NoteGenerate.Escape();
         InputManager.EnableInput(false);
-        s_this.StartCoroutine(MoveField());
+        s_this.StartCoroutine(IMoveField());
 
         NoteField.SortNoteHolder();
         s_holders = new List<NoteHolder>();
@@ -144,8 +138,8 @@ public class AutoTest : MonoBehaviour
         }
         s_TargetMs = s_TargetHolder.stdMs;
             
-        s_Ms = ValueManager.s_Delay;
         s_bpm = System.Convert.ToSingle(ValueManager.s_Bpm);
+        s_Delay = ValueManager.s_Delay;
         s_bpmValue = s_bpm / 150f;
 
         s_posY = 0.0f;
@@ -153,8 +147,9 @@ public class AutoTest : MonoBehaviour
 
         NoteField.s_Zoom = 10;
         NoteField.s_this.UpdateField();
-
-        s_this.StartCoroutine(IStartTest(ValueManager.s_Delay));
+        s_this.StopCoroutine(TestCoroutine);
+        TestCoroutine = IStartTest();
+        s_this.StartCoroutine(TestCoroutine);
     }
     public static void EndTest()
     {
@@ -192,6 +187,7 @@ public class AutoTest : MonoBehaviour
             s_TargetMs = s_TargetHolder.stdMs;
         }
     }
+    
     private static void NormalNoteApply(NormalNote note)
     {
         if (note == null) { return; }
@@ -215,20 +211,36 @@ public class AutoTest : MonoBehaviour
 
     }
 
-    private static IEnumerator IStartTest(int delay)
+    private static IEnumerator IStartTest()
     {
-        print("run");
+        s_Timer = 0.0f;
+        var wait = new WaitForSeconds(60000 / s_bpm);
+        MusicBox.audioSource.Stop();
+        MusicBox.audioSource.time = 0.0f;
+
+        yield return null;
+
+        for (int i = 0; i < 4; i++)
+        {
+            s_this.guideSound.Play();
+            yield return wait;
+        }
         s_isTesting = true;
-        if (delay < 0) { MusicBox.audioSource.time = -delay / 1000f; }
-        else { yield return new WaitForSeconds(delay / 1000f); }
         MusicBox.audioSource.Play();
+        yield return null;
+        s_Timer = 0.0f;
     }
-    private static IEnumerator MoveField()
+    private static IEnumerator IMoveField()
     {
         while (true)
         {
-            MovingField[0].localPosition = new Vector3(-.5f, -5 - s_posY, 0);
-            MovingField[1].localPosition = new Vector3(25, -31.3f, -19 - s_posY);
+            if (s_isEffect) { s_posY = s_EffectPosY; }
+            else {  }
+
+            MovingField[0].localPosition 
+                = new Vector3(-.5f, -5 - (s_isEffect ? s_EffectPosY : s_posY), 0);
+            MovingField[1].localPosition 
+                = new Vector3(25f, -31.3f, -19 - (s_isEffect ? s_EffectPosY : s_posY));
             yield return null;
         }
     }
@@ -255,7 +267,7 @@ public class AutoTest : MonoBehaviour
         }
         s_this.judgeEffects[index].SetTrigger(judgeEffectTrigger[2]);
     }
-
+    
     public void Btn_StartTest()
     {
         if (s_isTesting) { EndTest(); }
