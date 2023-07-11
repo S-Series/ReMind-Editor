@@ -6,7 +6,6 @@ public class TestPlay : MonoBehaviour
 {
     private static TestPlay s_this;
     private static int s_score, Perfect;
-    private static int[] Pures = new int[2], Nears = new int[2], Losts = new int[2];
     private static float s_bpm, s_testMs;
     [SerializeField] Animator ChangeAnimator;
     [SerializeField] Transform GameNoteGenerateField;
@@ -32,13 +31,5 @@ public class TestPlay : MonoBehaviour
         {
             copyObject = Instantiate(GameNoteHolderPrefab, GameNoteGenerateField, false);
         }
-    }
-    public static void ResetGamePlay()
-    {
-        s_score = 0;
-        Perfect = 0;
-        Pures = new int[2] { 0, 0 };
-        Nears = new int[2] { 0, 0 };
-        Losts = new int[2] { 0, 0 };
     }
 }
