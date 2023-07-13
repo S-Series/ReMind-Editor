@@ -182,6 +182,12 @@ public class NoteField : MonoBehaviour
         
     }
 
+    public static List<TestJudge> SortJudgeSystem(List<TestJudge> data)
+    {
+        if (data.Count != 6) { return null; }
+        data = data.OrderBy(item => item.JudgeSystemLine).ToList();
+        return data;
+    }
     public static Material GetNoteMaterial(int index)
     {
         try { return s_this.noteMaterials[index]; }

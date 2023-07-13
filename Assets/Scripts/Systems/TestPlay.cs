@@ -5,9 +5,6 @@ using UnityEngine;
 public class TestPlay : MonoBehaviour
 {
     private static TestPlay s_this;
-    private static int s_score, Perfect;
-    private static float s_bpm, s_testMs;
-    [SerializeField] Animator ChangeAnimator;
     [SerializeField] Transform GameNoteGenerateField;
     [SerializeField] GameObject GameNoteHolderPrefab;
 
@@ -23,9 +20,12 @@ public class TestPlay : MonoBehaviour
 
     public void LoadMusicFile()
     {
+        Transform copyField;
         GameObject copyObject;
         List<NoteHolder> holders;
+
         NoteField.SortNoteHolder();
+        copyField = Instantiate(new GameObject(""), GameNoteGenerateField, false).transform;
         holders = NoteField.s_noteHolders;
         for (int i = 0; i < holders.Count; i++)
         {
