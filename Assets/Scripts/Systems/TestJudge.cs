@@ -37,9 +37,13 @@ public class TestJudge : MonoBehaviour
         noteMs = normals.Count == 0 ? Mathf.Infinity : normals[0].ms;
     }
 
-    private static void JudgeApply(int system, float dif)
+    private TestPlay.Judgetype JudgeCheck(float dif)
     {
-
+        return TestPlay.Judgetype.None;
+    }
+    private static void JudgeApply(int system)
+    {
+         
     }
     public void LoadNextNote()
     {

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class TestPlay : MonoBehaviour
 {
+    public enum Judgetype { Perfect, Pure, Near, Lost, None };
+
     private static TestPlay s_this;
     [SerializeField] Transform GameNoteGenerateField;
     [SerializeField] GameObject GameNoteHolderPrefab;
