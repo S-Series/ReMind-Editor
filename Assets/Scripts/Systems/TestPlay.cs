@@ -7,6 +7,7 @@ public class TestPlay : MonoBehaviour
     public enum Judgetype { Perfect, Pure, Near, Lost, None };
 
     private static TestPlay s_this;
+    public static float s_TestMs = 0.0f;
     [SerializeField] Transform GameNoteGenerateField;
     [SerializeField] GameObject GameNoteHolderPrefab;
 
