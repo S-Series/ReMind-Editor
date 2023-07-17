@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Judge;
 using GameNote;
 
 public class TestJudge : MonoBehaviour
@@ -38,31 +39,31 @@ public class TestJudge : MonoBehaviour
         noteMs = normals.Count == 0 ? Mathf.Infinity : normals[0].ms;
     }
 
-    private TestPlay.Judgetype JudgeCheck(float dif)
+    private Judgetype JudgeCheck(float dif)
     {
-        return TestPlay.Judgetype.None;
+        return Judgetype.None;
     }
-    private void JudgeApply(bool isPositive, TestPlay.Judgetype type)
+    private void JudgeApply(bool isPositive, Judgetype type)
     {
         switch (type)
         {
             //# if (type == None) return;
-            case TestPlay.Judgetype.None:
+            case Judgetype.None:
                 return;
 
-            case TestPlay.Judgetype.Perfect:
+            case Judgetype.Perfect:
                 judgeEffect.SetTrigger(noteAnimateTag[0]);
                 break;
 
-            case TestPlay.Judgetype.Pure:
+            case Judgetype.Pure:
                 judgeEffect.SetTrigger(noteAnimateTag[1]);
                 break;
 
-            case TestPlay.Judgetype.Near:
+            case Judgetype.Near:
                 judgeEffect.SetTrigger(noteAnimateTag[2]);
                 break;
 
-            case TestPlay.Judgetype.Lost:
+            case Judgetype.Lost:
                 judgeEffect.SetTrigger(noteAnimateTag[3]);
                 break;
         }

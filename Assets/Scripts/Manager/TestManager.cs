@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Judge;
 using GameNote;
 
 public class TestManager : MonoBehaviour
@@ -24,8 +25,10 @@ public class TestManager : MonoBehaviour
         s_bpm = 120.0f;
         s_multiple = 1.0f;
     }
-    public static void AddJudge()
+    public static void AddJudge(Judgetype type)
     {
+
+
         Score = Mathf.RoundToInt((Perfect + Pure[0] + Pure[1] 
             + (Near[0] + Near[1]) * 0.5f) / MaxCount * 10000000);
     }
