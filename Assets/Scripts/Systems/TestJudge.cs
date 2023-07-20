@@ -41,32 +41,27 @@ public class TestJudge : MonoBehaviour
 
     private Judgetype JudgeCheck(float dif)
     {
-        return Judgetype.None;
-    }
-    private void JudgeApply(bool isPositive, Judgetype type)
-    {
-        switch (type)
+        if (dif < noteJudgeRange[0])
         {
-            //# if (type == None) return;
-            case Judgetype.None:
-                return;
-
-            case Judgetype.Perfect:
-                judgeEffect.SetTrigger(noteAnimateTag[0]);
-                break;
-
-            case Judgetype.Pure:
-                judgeEffect.SetTrigger(noteAnimateTag[1]);
-                break;
-
-            case Judgetype.Near:
-                judgeEffect.SetTrigger(noteAnimateTag[2]);
-                break;
-
-            case Judgetype.Lost:
-                judgeEffect.SetTrigger(noteAnimateTag[3]);
-                break;
+            judgeEffect.SetTrigger(noteAnimateTag[0]);
+            return Judgetype.Perfect;
         }
+        else if (dif < noteJudgeRange[1])
+        { 
+            judgeEffect.SetTrigger(noteAnimateTag[1]);
+            return Judgetype.Pure; 
+        }
+        else if (dif < noteJudgeRange[2])
+        { 
+            judgeEffect.SetTrigger(noteAnimateTag[2]);
+            return Judgetype.Near; 
+        }
+        else if (dif < noteJudgeRange[3])
+        { 
+            judgeEffect.SetTrigger(noteAnimateTag[3]);
+            return Judgetype.Lost; 
+        }
+        else { return Judgetype.None; }
     }
     public void LoadNextNote()
     {
@@ -87,8 +82,7 @@ public class TestJudge : MonoBehaviour
     {
         float dif;
         dif = TestPlay.s_TestMs - noteMs;
-        JudgeApply(dif > 0 ? true : false, JudgeCheck(dif)); 
-
+        TestManager.JudgeApply(dif > 0 ? true : false, JudgeCheck(dif)); 
         if (isMain) { isPressed = true; }
         else { isMultiple = true; }
     }

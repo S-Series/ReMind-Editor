@@ -4,13 +4,7 @@ using UnityEngine;
 
 namespace  Judge
 {
-    public enum Judgetype { 
-        Perfect = 0,
-        Pure = 1,
-        Near = 2,
-        Lost = 3,
-        None = 4
-    };
+    public enum Judgetype { Perfect, Pure, Near, Lost, None };
 }
 
 public class TestPlay : MonoBehaviour

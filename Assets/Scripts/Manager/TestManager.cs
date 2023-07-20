@@ -25,9 +25,9 @@ public class TestManager : MonoBehaviour
         s_bpm = 120.0f;
         s_multiple = 1.0f;
     }
-    public static void AddJudge(Judgetype type)
+    public static void JudgeApply(bool isPlus, Judgetype type)
     {
-
+        if (type == Judgetype.None) { return; }
 
         Score = Mathf.RoundToInt((Perfect + Pure[0] + Pure[1] 
             + (Near[0] + Near[1]) * 0.5f) / MaxCount * 10000000);
