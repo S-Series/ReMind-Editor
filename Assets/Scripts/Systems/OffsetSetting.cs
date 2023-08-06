@@ -9,15 +9,19 @@ public class OffsetSetting : MonoBehaviour
     private float drawMs, judgeMs;
     private IEnumerator DisplayCoroutine;
     [SerializeField] AudioSource[] audioSources;
-    [SerializeField] InputAction input;
+    [SerializeField] InputAction[] input;
     [SerializeField] GameObject[] inputObjects;
     [SerializeField] TMPro.TextMeshPro outputTmp;
 
     private void Awake()
     {
-        input.performed += item =>
+        input[0].performed += item =>
         {
             DisplayInput();
+        };
+        input[1].performed += item =>
+        {
+            SettingBox.Disable();
         };
         DisplayCoroutine = IDisplay(0);
         gameObject.SetActive(false);
@@ -28,12 +32,14 @@ public class OffsetSetting : MonoBehaviour
         DisplayCoroutine = IDisplay(0);
         outputTmp.color = new Color32(150, 150, 150, 255);
         outputTmp.text = "";
-        input.Enable();
+        input[0].Enable();
+        input[1].Enable();
     }
     private void OnDisable()
     {
         StopCoroutine(DisplayCoroutine);
-        input.Disable();
+        input[0].Disable();
+        input[1].Disable();
     }
     
     private void FixedUpdate()

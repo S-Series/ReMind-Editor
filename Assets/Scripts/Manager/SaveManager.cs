@@ -5,29 +5,73 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using GameNote;
+using AESWithJava.Con;
+using Ookii.Dialogs;
+using System.Windows.Forms;
 
 public class SaveManager : MonoBehaviour
 {
     private static SaveManager s_this;
-    private static string s_noteFileName;
-    private static bool isLoadable = false;
+    private const string key = "SSeries000923";
     private const double s_version = 1.0;
+    private static string s_LoadedPath = "", s_noteFileName;
+    private static bool isAlt = false, isLoaded = false, isLoadable = true;
     private bool isActive, isPassed;
     [SerializeField] GameObject[] PopUpObjects;
+    [SerializeField] InputAction[] AltAction;
     [SerializeField] TMPro.TMP_InputField noteFileInput;
     [SerializeField] UnityEngine.UI.Button[] fileButtons;
 
-    void Awake()
+    private void Awake()
     {
         s_this = this;
+        AltAction[0].performed += item => { isAlt = true; };
+        AltAction[1].performed += item => { isAlt = false; };
+        AltAction[0].Enable();
+        AltAction[1].Enable();
+    }
+    private void Start()
+    {
+
     }
     public static void SaveNoteFile()
     {
         if (!isLoadable) { return; }
 
-        string fileName;
-        fileName = s_this.noteFileInput.text;
-        if (fileName == "") { return; }
+        string path = "";
+        if (isAlt || !isLoaded)
+        {
+            VistaSaveFileDialog dialog;
+            dialog = new VistaSaveFileDialog();
+            dialog.Filter = "nd files (*.nd)|*.nd";
+            dialog.FilterIndex = 1;
+            dialog.Title = "Save Data";
+            dialog.InitialDirectory = Environment.CurrentDirectory + @"\Assets\_DataBox\";
+            dialog.RestoreDirectory = true;
+
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                Stream stream;
+                if ((stream = dialog.OpenFile()) != null)
+                {
+                    path = dialog.FileName;
+                    stream.Close();
+                }
+                else { return; }
+            }
+            else { return; }
+        }
+        else { path = s_LoadedPath; }
+
+        if (path == "") { return; }
+
+        string strPath;
+        strPath = path.ToString();
+
+        if (strPath.Length < 3) { path = path + ".nd"; }
+        else if (strPath.Substring(strPath.Length - 3) != ".nd") { path = path + ".nd"; }
+
+        print(path);
 
         SaveFile saveFile;
         saveFile = new SaveFile();
@@ -86,33 +130,53 @@ public class SaveManager : MonoBehaviour
             print(saveData);
             saveFile.noteDatas.Add(saveData);
         }
-        s_this.StartCoroutine(s_this.IWriteFile(saveFile, fileName));
+        s_this.StartCoroutine(s_this.IWriteFile(saveFile, path));
     }
     public static void LoadNoteFile()
     {
-        string fileName;
-        fileName = s_this.noteFileInput.text;
-        if (fileName == "") { return; }
+        string path;
+        path = "";
 
-        s_this.StartCoroutine(s_this.IReadFile(fileName));
+        VistaOpenFileDialog dialog;
+        dialog = new VistaOpenFileDialog();
+        dialog.Filter = "nd files (*.nd)|*.nd";
+        dialog.FilterIndex = 1;
+        dialog.Title = "Open Data";
+        dialog.InitialDirectory = Environment.CurrentDirectory + @"\Assets\_DataBox\";
+        dialog.RestoreDirectory = true;
+
+        if (dialog.ShowDialog() == DialogResult.OK)
+        {
+            Stream stream;
+            if ((stream = dialog.OpenFile()) != null)
+            {
+                stream.Close();
+                path = dialog.FileName;
+            }
+            else { return; }
+        }
+        else { return; }
+
+        print (path);
+        if (path == "") { return; }
+
+        s_this.StartCoroutine(s_this.IReadFile(path));
     }
 
-    private IEnumerator IWriteFile(SaveFile saveFile, string fileName)
+    private IEnumerator IWriteFile(SaveFile saveFile, string path)
     {
-
-        string path, jsonData;
-        path = Application.dataPath + "/_DataBox/" + fileName + ".json";
+        string jsonData;
         jsonData = JsonUtility.ToJson(saveFile, true);
 
         yield return null;
 
-        File.WriteAllText(path, jsonData);
+        File.WriteAllText(path, JsonAES.Encrypt(jsonData, key));
 
         yield return null;
 
         InputManager.EnableInput(true);
     }
-    private IEnumerator IReadFile(string fileName)
+    private IEnumerator IReadFile(string path)
     {
         InputManager.EnableInput(false);
 
@@ -137,13 +201,21 @@ public class SaveManager : MonoBehaviour
 
         yield return NoteField.IResetHolderList();
 
-        string path;
-        path = Application.dataPath + "/_DataBox/" + fileName + ".json";
-
         SaveFile saveFile;
         saveFile = new SaveFile();
-
-        saveFile = JsonUtility.FromJson<SaveFile>(File.ReadAllText(path));
+        
+        try 
+        {
+            saveFile = JsonUtility.FromJson<SaveFile>(JsonAES.Decrypt(File.ReadAllText(path), key));
+        }
+        catch
+        {
+            try
+            {
+                saveFile = JsonUtility.FromJson<SaveFile>(File.ReadAllText(path));
+            }
+            catch { yield break; }
+        }
 
         //$ Check Old Version File
         if (saveFile.editorVersion < s_version)
@@ -290,8 +362,8 @@ public class SaveManager : MonoBehaviour
         }
     
         InputManager.EnableInput(true);
-
-        print(ValueManager.s_Bpm);
+        isLoaded = true;
+        s_LoadedPath = path;
     }
 
     private static string LengthToString(int value)

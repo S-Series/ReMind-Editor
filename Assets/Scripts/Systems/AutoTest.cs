@@ -18,7 +18,7 @@ public class AutoTest : MonoBehaviour
     public static bool s_isTesting = false, s_isPause = false, s_isEffect = false;
 
     private static List<NoteHolder> s_holders;
-    private static float s_posY, s_bpm, s_bpmValue, s_EffectPosY;
+    private static float s_posY, s_bpm, s_bpmValue, s_EffectPosY, s_testSpeed = 1.0f;
     private static float s_SpeedMs, s_SpeedPos, s_OffsetMs;
     private static int[] s_Offset = new int[2];
     private static bool[] isTestAlive = {false};
@@ -86,13 +86,13 @@ public class AutoTest : MonoBehaviour
         if (!s_isTesting) { return; }
 
         s_Timer += Time.deltaTime * 1000;
-        s_Ms = s_Timer + s_Delay;
+        s_Ms = s_Timer * s_testSpeed + s_Delay;
         s_posY = (s_SpeedPos + (s_Ms - s_Offset[1] - s_SpeedMs) * s_bpmValue) / 160f;
 
         //# Note Judge
         if (isTestAlive[0])
         {
-            if (s_TargetMs <= s_OffsetMs)
+            if (s_TargetMs <= s_Ms)
             {
                 s_Index++;
                 JudgeApply(s_TargetHolder);
@@ -117,6 +117,7 @@ public class AutoTest : MonoBehaviour
 
         if (pos == 0)
         {
+            s_Ms = -5000;
             s_Index = 0;
             s_TargetHolder = s_holders[0];
         }
@@ -211,24 +212,51 @@ public class AutoTest : MonoBehaviour
 
     }
 
+    private static void ChangeTestSpeed(float multiple)
+    {
+        s_testSpeed = multiple;
+        MusicBox.audioSource.pitch = multiple;
+    }
+
     private static IEnumerator IStartTest()
     {
-        s_Timer = 0.0f;
-        var wait = new WaitForSeconds(60000 / s_bpm);
-        MusicBox.audioSource.Stop();
-        MusicBox.audioSource.time = 0.0f;
+        s_isTesting = true;     //$ Start Ms = -5000;
 
-        yield return null;
-
+        float[] guideCount = new float[4];
         for (int i = 0; i < 4; i++)
         {
-            s_this.guideSound.Play();
-            yield return wait;
+            guideCount[i] = (60000f / s_bpm) * (4 - i);
         }
-        s_isTesting = true;
-        MusicBox.audioSource.Play();
-        yield return null;
-        s_Timer = 0.0f;
+
+        int index = 0;
+        while (true)
+        {
+            if (guideCount[index] <= s_Ms)
+            {
+                index++;
+                s_this.guideSound.Play();
+                if (index == 4) { break; }
+            }
+            yield return null;
+        }
+
+        // s_Timer = 0.0f;
+        // print(60.000f / s_bpm);
+        // var wait = new WaitForSeconds(60.000f / s_bpm);
+        // MusicBox.audioSource.Stop();
+        // MusicBox.audioSource.time = 0.0f;
+        // 
+        // yield return null;
+        // 
+        // for (int i = 0; i < 4; i++)
+        // {
+        //     s_this.guideSound.Play();
+        //     yield return wait;
+        // }
+        // s_isTesting = true;
+        // MusicBox.audioSource.Play();
+        // yield return null;
+        // s_Timer = 0.0f;
     }
     private static IEnumerator IMoveField()
     {
@@ -276,7 +304,7 @@ public class AutoTest : MonoBehaviour
     public void Btn_MidTest()
     {
         if (s_isTesting) { EndTest(); }
-        else { StartTest(0); }
+        else { StartTest(NoteField.s_StartPos); }
     }
     public void Btn_TestPlay()
     {

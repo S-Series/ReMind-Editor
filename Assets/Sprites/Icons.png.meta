@@ -109,11 +109,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 480
-        width: 160
-        height: 160
+        y: 3584
+        width: 512
+        height: 512
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -129,12 +129,12 @@ TextureImporter:
       name: Icons_1
       rect:
         serializedVersion: 2
-        x: 160
-        y: 480
-        width: 160
-        height: 160
+        x: 512
+        y: 3584
+        width: 512
+        height: 512
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -150,12 +150,12 @@ TextureImporter:
       name: Icons_2
       rect:
         serializedVersion: 2
-        x: 320
-        y: 480
-        width: 160
-        height: 160
+        x: 1024
+        y: 3584
+        width: 512
+        height: 512
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -171,12 +171,12 @@ TextureImporter:
       name: Icons_3
       rect:
         serializedVersion: 2
-        x: 480
-        y: 480
-        width: 160
-        height: 160
+        x: 1536
+        y: 3584
+        width: 512
+        height: 512
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -192,12 +192,12 @@ TextureImporter:
       name: Icons_4
       rect:
         serializedVersion: 2
-        x: 0
-        y: 320
-        width: 160
-        height: 160
+        x: 2048
+        y: 3584
+        width: 512
+        height: 512
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -213,12 +213,12 @@ TextureImporter:
       name: Icons_5
       rect:
         serializedVersion: 2
-        x: 160
-        y: 320
-        width: 160
-        height: 160
+        x: 2560
+        y: 3584
+        width: 512
+        height: 512
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -234,12 +234,12 @@ TextureImporter:
       name: Icons_6
       rect:
         serializedVersion: 2
-        x: 0
-        y: 24
-        width: 160
-        height: 100
+        x: 3584
+        y: 3584
+        width: 512
+        height: 512
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -247,6 +247,48 @@ TextureImporter:
       bones: []
       spriteID: fc540fa7648d5c342b0f3a6daeec2fc6
       internalID: 232468605
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Icons_7
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 3072
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 785beb00b93de0747ad4cb562d0d16a3
+      internalID: -1550647703
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Icons_8
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 30b2dca768642184d86c079511a2be1f
+      internalID: -606644175
       vertices: []
       indices: 
       edges: []
@@ -264,10 +306,12 @@ TextureImporter:
     nameFileIdTable:
       Icons_5: -1091510731
       Icons_1: 660570941
+      Icons_8: -606644175
       Icons_4: -1409686926
       Icons_6: 232468605
       Icons_3: -389603263
       Icons_2: 15181360
+      Icons_7: -1550647703
       Icons_0: 1483338691
   spritePackingTag: 
   pSDRemoveMatte: 0

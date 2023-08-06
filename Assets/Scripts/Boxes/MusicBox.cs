@@ -1,77 +1,76 @@
+using System;
 using System.IO;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Networking;
 using UnityEngine.EventSystems;
 using TMPro;
+using Ookii.Dialogs;
+using System.Windows.Forms;
 
-public class MusicBox : MonoBehaviour, IPointerClickHandler
+public class MusicBox : MonoBehaviour
 {
     private static MusicBox s_this;
     private bool isUp = false;
     public static AudioSource audioSource;
-    [SerializeField] Toggle isWav;
-    [SerializeField] TMP_InputField inputField;
-    [SerializeField] Button loadBtn;
-    [SerializeField] Slider slider;
+    [SerializeField] private TextMeshPro MusicFileName;
+    [SerializeField] private UnityEngine.UI.Button loadBtn;
+    [SerializeField] private Slider slider;
 
     private void Start()
     {
         audioSource = GetComponent<AudioSource>();
-        if (!Directory.Exists(Application.dataPath + "/_DataBox/_MusicFile/"))
+        if (!Directory.Exists(UnityEngine.Application.dataPath + "/_DataBox/_MusicFile/"))
         {
-            Directory.CreateDirectory(Application.dataPath + "/_DataBox/_MusicFile/");
+            Directory.CreateDirectory(UnityEngine.Application.dataPath + "/_DataBox/_MusicFile/");
         }
-        else { inputField.text = PlayerPrefs.GetString("musicName"); StartCoroutine(ILoadMusic()); }
-    }
-
-    public void OnPointerClick(PointerEventData eventData)
-    {
-        if (isUp) { GetComponent<Animator>().SetTrigger("PlayDown"); }
-        else { GetComponent<Animator>().SetTrigger("PlayUp"); }
-        isUp = !isUp;
     }
     public void OnLoadBtn()
     {
-        isWav.interactable = false;
-        inputField.interactable = false;
+        string path;
+        path = "";
+
+        VistaOpenFileDialog dialog;
+        dialog = new VistaOpenFileDialog();
+        dialog.Filter = "mp3 files (*.mp3)|*.mp3|wav files (*.wav)|*.wav";
+        dialog.FilterIndex = 2;
+        dialog.Title = "Open Music File";
+        dialog.InitialDirectory = Environment.CurrentDirectory + @"\Assets\_DataBox\_MusicFile\";
+        dialog.RestoreDirectory = true;
+
+        if (dialog.ShowDialog() == DialogResult.OK)
+        {
+            Stream stream;
+            if ((stream = dialog.OpenFile()) != null)
+            {
+                stream.Close();
+                path = dialog.FileName;
+            }
+        }
+        else { return; }
+
         loadBtn.interactable = false;
-        StartCoroutine(ILoadMusic());
+        StartCoroutine(ILoadMusic(path));
     }
     public void OnVolumeChange()
     {
         audioSource.volume = slider.value / 10.0f;
     }
-    public IEnumerator ILoadMusic()
+    public IEnumerator ILoadMusic(string path)
     {
-        string path = "";
-        string name = inputField.text;
-
-        if (name == "")
-        {
-            isWav.interactable = true;
-            inputField.interactable = true;
-            loadBtn.interactable = true;
-            yield break;
-        }
-        if (isWav.isOn) { path = Application.dataPath + "/_DataBox/_MusicFile/" + name + ".wav"; }
-        else { path = Application.dataPath + "/_DataBox/_MusicFile/" + name + ".mp3"; }
-
-        print(path);
+        if (path == "") { yield break; }
+        if (path.ToString().Length < 3) { yield break; }
 
         using (UnityWebRequest www = UnityWebRequestMultimedia
-            .GetAudioClip(path, isWav.isOn ? AudioType.WAV : AudioType.MPEG))
+            .GetAudioClip(path, path.ToString().Substring(path.ToString().Length - 3) 
+            == ".wav" ? AudioType.WAV : AudioType.MPEG))
         {
             yield return www.SendWebRequest();
 
             if (www.result == UnityWebRequest.Result.ConnectionError)
             {
                 audioSource.clip = null;
-                PlayerPrefs.SetString("SongName", "");
-                isWav.interactable = true;
-                inputField.interactable = true;
                 loadBtn.interactable = true;
                 yield break;
             }
@@ -80,11 +79,8 @@ public class MusicBox : MonoBehaviour, IPointerClickHandler
                 try
                 {
                     audioSource.clip = DownloadHandlerAudioClip.GetContent(www);
-                    PlayerPrefs.SetString("SongName", name);
                 }
                 catch { }
-                isWav.interactable = true;
-                inputField.interactable = true;
                 loadBtn.interactable = true;
             }
         }

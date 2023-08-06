@@ -5,50 +5,23 @@ using UnityEngine.InputSystem;
 
 public class SettingBox : MonoBehaviour
 {
-    [SerializeField] GameObject[] SettingObjects;
-    [SerializeField] InputAction[] Actions;
-    [SerializeField] OffsetSetting offset;
-
-    private static int offsetMs = 0;
-    private static bool isSetting = false;
-
-    private void Awake()
+    public static bool[] isEnabled = new bool[2] { false, false };
+    [SerializeField] GameObject[] _SettingObjects;
+    private static GameObject[] SettingObjects;
+    
+    private void Awake() { SettingObjects = _SettingObjects; }
+    public static void EnableSettingBox(int index)
     {
-        //# Space
-        Actions[0].performed += item =>
-        {
-            StartCoroutine(IOffsetRunning());
-        };
-        //# Escape
-        Actions[1].performed += item =>
-        {
-            if (!isSetting) { return; }
+        if (isEnabled[0] || isEnabled[1]) { return; }
+        if (index != 0 && index != 1) { return; }
 
-
-        };
-
-        Actions[0].Enable();
-        Actions[1].Disable();
+        isEnabled[index] = true;
+        SettingObjects[index].SetActive(true);
     }
-    private void FixedUpdate()
+    public static void Disable()
     {
-        offsetMs++;
-    }
-
-    public void EnableSetting(bool isGameSetting)
-    {
-
-    }
-
-    private IEnumerator IOffsetRunning()
-    {
-        float testMs = 0;
-        offsetMs = 0;
-        while (true)
-        {
-            testMs += Time.deltaTime * 1000;
-            print(string.Format("{0} : {1}", testMs, offsetMs));
-            yield return null;
-        }
+        SettingObjects[0].SetActive(false);
+        SettingObjects[1].SetActive(false);
+        isEnabled = new bool[2] { false, false };
     }
 }

@@ -1,6 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+//# Plugins
+
+//# Name Spaces
 using GameNote;
 
 public class ToolManager : MonoBehaviour
