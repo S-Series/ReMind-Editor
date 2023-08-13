@@ -5,106 +5,119 @@ using UnityEngine.InputSystem;
 
 public class OffsetSetting : MonoBehaviour
 {
-    private int getMs, testMs, index;
-    private float drawMs, judgeMs;
-    private IEnumerator DisplayCoroutine;
-    [SerializeField] AudioSource[] audioSources;
-    [SerializeField] InputAction[] input;
-    [SerializeField] GameObject[] inputObjects;
-    [SerializeField] TMPro.TextMeshPro outputTmp;
+    private InputAction[] actions;
+    private float[] OffsetMs = { 0, 0 };
+    private bool isActing = false, isActThisFrame = false;
+    private IEnumerator[] timerCoroutine = { null, null };
+    private IEnumerator[] offsetCoroutine = { null, null };
+
+    [SerializeField] AudioSource[] GuideSounds;
+    [SerializeField] GameObject[] GuideSticks;
+    [SerializeField] GameObject[] SubGuideSticks;
+    private Animator[] GuideStickBlink;
 
     private void Awake()
     {
-        input[0].performed += item =>
+        actions[0].performed += item => CheckMs();
+        actions[1].performed += item =>
         {
-            DisplayInput();
+            if (isActing) { EndAllCoroutine(); }
+            else { SettingBox.DisableSetting(); }
         };
-        input[1].performed += item =>
-        {
-            SettingBox.Disable();
-        };
-        DisplayCoroutine = IDisplay(0);
-        gameObject.SetActive(false);
+        
+        offsetCoroutine[0] = IDrawOffset();
+        offsetCoroutine[1] = ISoundOffset();
+
+        timerCoroutine[0] = ITimer(0);
+        timerCoroutine[1] = ISound();
+
+        GuideStickBlink[0] = GuideSticks[0].GetComponent<Animator>();
+        GuideStickBlink[1] = GuideSticks[1].GetComponent<Animator>();
     }
     private void OnEnable()
     {
-        testMs = 0;
-        DisplayCoroutine = IDisplay(0);
-        outputTmp.color = new Color32(150, 150, 150, 255);
-        outputTmp.text = "";
-        input[0].Enable();
-        input[1].Enable();
+        actions[0].Enable();
+        actions[1].Enable();
     }
     private void OnDisable()
     {
-        StopCoroutine(DisplayCoroutine);
-        input[0].Disable();
-        input[1].Disable();
-    }
-    
-    private void FixedUpdate()
-    {
-        testMs++;
-    }
-    private void Update()
-    {
-        getMs = testMs;
-        drawMs = getMs % 2000 + ValueManager.s_DrawOffset;
-        judgeMs = getMs + ValueManager.s_JudgeOffset;
-
-        if (drawMs > 2000) { drawMs -= 2000; }
-        else if (drawMs < 0) { drawMs += 2000; }
-
-        inputObjects[0].transform.localPosition
-            = new Vector3(Mathf.Lerp(-1100f, 1100f, drawMs >= 1000
-            ? (drawMs - 1000) / 2000f : (drawMs + 1000) / 2000f), 0, 0);
-
-        if (judgeMs >= 500 * (index))
-        {
-            if (index % 4 == 0) { audioSources[0].Play(); }
-            else { audioSources[1].Play(); }
-
-            index++;
-        }
-    }
-    
-    private void DisplayInput()
-    {
-        inputObjects[1].transform.localPosition = inputObjects[0].transform.localPosition;
-        StopCoroutine(DisplayCoroutine);
-        DisplayCoroutine = IDisplay(testMs);
-        StartCoroutine(DisplayCoroutine);
+        actions[0].Disable();
+        actions[1].Disable();
     }
 
-    IEnumerator IDisplay(int judgeMs)
+    private void CheckMs()
     {
-        judgeMs = (judgeMs + ValueManager.s_JudgeOffset) % 2000;
+        isActThisFrame = true;
+    }
 
+    public void DrawOffset_btn()
+    {
+        if (isActing) { return; }
+    }
+    public void SoundOffset_btn()
+    {
+
+    }
+    private void EndAllCoroutine()
+    {
+
+    }
+
+    private IEnumerator ITimer(int index)
+    {
         float timer = 0.0f;
-
-        SpriteRenderer renderer;
-        renderer = inputObjects[1].GetComponent<SpriteRenderer>();
-        renderer.color = new Color32(255, 235, 0, 255);
-
-        if (judgeMs == 0)
-        {
-            outputTmp.text = "<color=#FFFF64>��0ms</color>";
-        }
-        else
-        {
-            outputTmp.text = judgeMs > 1000 ?
-                string.Format("<color=#6464FF>Fast</color>    -{0:D4}ms", 2000 - judgeMs) :
-                string.Format("<color=#FF6464>Late</color>    +{0:D4}ms", judgeMs);
-        }
-
-        yield return new WaitForSeconds(0.25f);
+        isActThisFrame = false;
 
         while (true)
         {
             timer += Time.deltaTime;
-            renderer.color = new Color32(255, 235, 0, (byte)(Mathf.Lerp(0, 255, 1 - timer / 0.5f)));
-            if (timer >= 0.5f) { break; }
-            yield return null;
+            if (timer >= 1.0f) { timer -= 1.0f; }
+            OffsetMs[0] = timer * 1000f;
+
+
+
+            return null;
+        }
+    }
+    private IEnumerator ISound()
+    {
+        while (true)
+        {
+            GuideSounds[0].Play();
+
+            yield return new WaitWhile(() => OffsetMs[0] >= 250);
+            
+            GuideSounds[1].Play();
+
+            yield return new WaitWhile(() => OffsetMs[0] >= 500);
+            
+            GuideSounds[1].Play();
+
+            yield return new WaitWhile(() => OffsetMs[0] >= 750);
+            
+            GuideSounds[1].Play();
+
+            yield return new WaitWhile(() => OffsetMs[0] <= 250);
+        }
+    }
+    private IEnumerator IDrawOffset()
+    {
+        while (true)
+        {
+            yield return new WaitWhile(() => isActThisFrame);
+
+            GuideSticks[0].transform.localPosition 
+                = SubGuideSticks[1].transform.localPosition;
+            isActThisFrame = false;
+        }
+    }
+    private IEnumerator ISoundOffset()
+    {
+        while (true)
+        {
+            yield return new WaitWhile(() => isActThisFrame);
+
+            isActThisFrame = false;
         }
     }
 }
