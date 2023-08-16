@@ -4832,12 +4832,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de5f6cf5cf0ab5246bd442355e79d7f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioSources:
-  - {fileID: 0}
-  - {fileID: 0}
-  input: []
-  inputObjects: []
-  outputTmp: {fileID: 0}
+  GuideSounds: []
+  GuideSticks: []
+  SubGuideSticks: []
 --- !u!1 &172344937
 GameObject:
   m_ObjectHideFlags: 0
@@ -20374,14 +20371,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de5f6cf5cf0ab5246bd442355e79d7f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioSources:
-  - {fileID: 1890024128}
-  - {fileID: 1819739962}
-  input: []
-  inputObjects:
-  - {fileID: 242861183}
-  - {fileID: 1731097035}
-  outputTmp: {fileID: 128401026}
+  GuideSounds: []
+  GuideSticks: []
+  SubGuideSticks: []
 --- !u!1 &783499380
 GameObject:
   m_ObjectHideFlags: 0
@@ -30138,6 +30130,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a72e2057551ed14e9f57aa826dece8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MusicFileName: {fileID: 0}
   loadBtn: {fileID: 1518165523}
   slider: {fileID: 0}
 --- !u!82 &1221249303
@@ -38482,6 +38475,7 @@ GameObject:
   - component: {fileID: 1565003368}
   - component: {fileID: 1565003367}
   - component: {fileID: 1565003371}
+  - component: {fileID: 1565003374}
   - component: {fileID: 1565003365}
   m_Layer: 0
   m_Name: Managers
@@ -38722,6 +38716,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3254a56d90b99fa4ea2121d4df6f3c4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1565003374
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1565003364}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2cfa3debeffd16c45966fc8c9b5181fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  jsonDataURL: 
 --- !u!1 &1576052049
 GameObject:
   m_ObjectHideFlags: 0
