@@ -81,12 +81,17 @@ public class AutoTest : MonoBehaviour
             s_Ms -= 100;
         };
     }
+    private void FixedUpdate()
+    {
+        if (!s_isTesting) { return; }
+
+        s_Timer += Time.fixedDeltaTime * 1000;
+        s_Ms = s_Timer * s_testSpeed + s_Delay;
+    }
     private void Update()
     {
         if (!s_isTesting) { return; }
 
-        s_Timer += Time.deltaTime * 1000;
-        s_Ms = s_Timer * s_testSpeed + s_Delay;
         s_posY = (s_SpeedPos + (s_Ms - s_Offset[1] - s_SpeedMs) * s_bpmValue) / 160f;
 
         //# Note Judge

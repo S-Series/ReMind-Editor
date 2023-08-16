@@ -6,30 +6,27 @@ using UnityEngine.InputSystem;
 public class OffsetSetting : MonoBehaviour
 {
     private InputAction[] actions;
-    private float[] OffsetMs = { 0, 0 };
+    private float[] OffsetMs = { 0, 0, 0 };
     private bool isActing = false, isActThisFrame = false;
-    private IEnumerator[] timerCoroutine = { null, null };
     private IEnumerator[] offsetCoroutine = { null, null };
 
     [SerializeField] AudioSource[] GuideSounds;
     [SerializeField] GameObject[] GuideSticks;
     [SerializeField] GameObject[] SubGuideSticks;
+    [SerializeField] UnityEngine.UI.Button[] buttons;
     private Animator[] GuideStickBlink;
 
-    private void Awake()
+    private void Awake()    
     {
         actions[0].performed += item => CheckMs();
         actions[1].performed += item =>
         {
-            if (isActing) { EndAllCoroutine(); }
+            if (isActing) { ResetSystem(); }
             else { SettingBox.DisableSetting(); }
         };
         
         offsetCoroutine[0] = IDrawOffset();
-        offsetCoroutine[1] = ISoundOffset();
-
-        timerCoroutine[0] = ITimer(0);
-        timerCoroutine[1] = ISound();
+        offsetCoroutine[1] = IJudgeOffset();
 
         GuideStickBlink[0] = GuideSticks[0].GetComponent<Animator>();
         GuideStickBlink[1] = GuideSticks[1].GetComponent<Animator>();
@@ -45,6 +42,13 @@ public class OffsetSetting : MonoBehaviour
         actions[1].Disable();
     }
 
+    private void FixedUpdate()
+    {
+        if (!isActing) { return; }
+
+        OffsetMs[0] += Time.fixedDeltaTime * 1000f;
+    }
+
     private void CheckMs()
     {
         isActThisFrame = true;
@@ -52,72 +56,68 @@ public class OffsetSetting : MonoBehaviour
 
     public void DrawOffset_btn()
     {
-        if (isActing) { return; }
+        if (isActing) { ResetSystem(); return; }
+
+        OffsetMs[0] = 0;
+        isActing = true;
+        buttons[1].interactable = false;
+
+        StopCoroutine(offsetCoroutine[0]);
+        offsetCoroutine[0] = IDrawOffset();
+        StartCoroutine(offsetCoroutine[0]);
     }
     public void SoundOffset_btn()
     {
+        if (isActing) { ResetSystem(); return; }
 
+        OffsetMs[0] = 0;
+        isActing = true;
+        buttons[0].interactable = false;
+
+        StopCoroutine(offsetCoroutine[1]);
+        offsetCoroutine[1] = IDrawOffset();
+        StartCoroutine(offsetCoroutine[1]);
     }
-    private void EndAllCoroutine()
+    private void ResetSystem()
     {
-
+        OffsetMs[0] = 0;
+        StopCoroutine(offsetCoroutine[0]);
+        StopCoroutine(offsetCoroutine[1]);
     }
 
-    private IEnumerator ITimer(int index)
-    {
-        float timer = 0.0f;
-        isActThisFrame = false;
-
-        while (true)
-        {
-            timer += Time.deltaTime;
-            if (timer >= 1.0f) { timer -= 1.0f; }
-            OffsetMs[0] = timer * 1000f;
-
-
-
-            return null;
-        }
-    }
     private IEnumerator ISound()
     {
-        while (true)
+        for (int i = 0; true; i++)
         {
+            yield return new WaitWhile(() => OffsetMs[0] >= 1000 * i);
             GuideSounds[0].Play();
-
-            yield return new WaitWhile(() => OffsetMs[0] >= 250);
-            
+            yield return new WaitWhile(() => OffsetMs[0] >= 250 + (1000 * i));
             GuideSounds[1].Play();
-
-            yield return new WaitWhile(() => OffsetMs[0] >= 500);
-            
+            yield return new WaitWhile(() => OffsetMs[0] >= 500 + (1000 * i));
             GuideSounds[1].Play();
-
-            yield return new WaitWhile(() => OffsetMs[0] >= 750);
-            
+            yield return new WaitWhile(() => OffsetMs[0] >= 750 + (1000 * i));
             GuideSounds[1].Play();
-
-            yield return new WaitWhile(() => OffsetMs[0] <= 250);
         }
     }
+    //# Display Delay
     private IEnumerator IDrawOffset()
     {
-        while (true)
+        for (int i = 0; true; i++)
         {
-            yield return new WaitWhile(() => isActThisFrame);
-
-            GuideSticks[0].transform.localPosition 
-                = SubGuideSticks[1].transform.localPosition;
-            isActThisFrame = false;
+            yield return new WaitWhile(() => OffsetMs[0] + OffsetMs[1] >= 1000 * i);
+            //DoSomething();
         }
     }
-    private IEnumerator ISoundOffset()
+    //# Input Delay
+    private IEnumerator IJudgeOffset()
     {
         while (true)
         {
             yield return new WaitWhile(() => isActThisFrame);
-
             isActThisFrame = false;
+            float dif;
+            dif = (OffsetMs[0] + OffsetMs[2]) % 1000;
+            dif = dif > 500 ? dif - 1000 : dif;
         }
     }
 }
