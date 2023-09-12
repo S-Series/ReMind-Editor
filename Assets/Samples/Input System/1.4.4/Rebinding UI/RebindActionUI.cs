@@ -202,6 +202,7 @@ namespace UnityEngine.InputSystem.Samples.RebindUI
             }
 
             if (displayString == "Shift") { displayString = "L-Shift"; }
+            else if (displayString == "Left Shift") { displayString = "L-Shift"; }
             if (displayString == "Right Shift") { displayString = "R-Shift"; }
 
             // Set on label (if any).
