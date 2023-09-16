@@ -58,13 +58,13 @@ public class AutoTest : MonoBehaviour
                     s_Ms += (int)(_time);
                     _time += _time;
                 }
-                MusicBox.audioSource.time = _time;
-                MusicBox.audioSource.Play();
+                MusicLoader.audioSource.time = _time;
+                MusicLoader.audioSource.Play();
                 s_isPause = false;
             }
             else
             {
-                MusicBox.audioSource.Stop();
+                MusicLoader.audioSource.Stop();
                 s_isPause = true;
             }
         };
@@ -166,7 +166,7 @@ public class AutoTest : MonoBehaviour
         foreach (TMP_InputField inputField in s_this.inputFields) { inputField.interactable = true; }
         s_this.StopAllCoroutines();
 
-        MusicBox.audioSource.Play();
+        MusicLoader.audioSource.Play();
     }
     private static void JudgeApply(NoteHolder holder)
     {
@@ -220,7 +220,7 @@ public class AutoTest : MonoBehaviour
     private static void ChangeTestSpeed(float multiple)
     {
         s_testSpeed = multiple;
-        MusicBox.audioSource.pitch = multiple;
+        MusicLoader.audioSource.pitch = multiple;
     }
 
     private static IEnumerator IStartTest()

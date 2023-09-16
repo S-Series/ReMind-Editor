@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 
 public class DragSelect : MonoBehaviour
 {
+    public static bool isDraggable = true;
     private static bool isDrag = false;
     public static List<GameObject> s_DragSelectObject;
 
@@ -26,6 +27,8 @@ public class DragSelect : MonoBehaviour
         //$ Mouse Input
         inputAction[0].performed += item =>
         {
+            if (!isDraggable) { return; }
+
             isDrag = true;
             s_DragSelectObject = new List<GameObject>();
             
@@ -40,6 +43,8 @@ public class DragSelect : MonoBehaviour
         //$ Mouse Output
         inputAction[1].performed += item =>
         {
+            if (!isDraggable) { return; }
+            
             isDrag = false;
             bool isNull;
             isNull = EditManager.s_SelectNoteHolder == null ? true : false;
