@@ -7,6 +7,13 @@ public class GuideHolder : MonoBehaviour
 {
     public int index = 0;
     public int posY = 0;
+    private static Color32[] color32s =
+    {
+        new Color32(255, 255, 255, 025),    // Normal
+        new Color32(255, 000, 255, 025),    // third
+        new Color32(000, 255, 185, 025),    // fourth
+        new Color32(255, 255, 255, 255)     // BPM Guide
+    };
 
     [SerializeField] SpriteRenderer guideLineRenderer;
     [SerializeField] BoxCollider2D[] guideColliders;
@@ -37,13 +44,14 @@ public class GuideHolder : MonoBehaviour
         }
     }
 
-    public void UpdateLineColor(int count, int index)
+    public void UpdateLineColor(bool third, bool fourth)
     {
-        int _pos;
-        _pos = Mathf.RoundToInt(1600f / count * (index + this.index));
-        if (_pos % 1600 == 0) { guideLineRenderer.color = new Color32(255, 255, 255, 255); }
-        else if (_pos % 400 == 0) { guideLineRenderer.color = new Color32(60, 242, 187, 50); }
-        // else if (_pos == 533 || posY == 1067 ) { guideLineRenderer.color = new Color32(242, 60, 187, 50); }
-        else { guideLineRenderer.color = new Color32(255, 255, 255, 25); }
+        if (third)
+        {
+            if (fourth) { guideLineRenderer.color = color32s[3]; }
+            else { guideLineRenderer.color = color32s[1]; }
+        }
+        else if (fourth) { guideLineRenderer.color = color32s[2]; }
+        else { guideLineRenderer.color = color32s[0]; }
     }
 }

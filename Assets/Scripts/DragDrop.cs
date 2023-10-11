@@ -5,19 +5,21 @@ using UnityEngine.InputSystem;
 
 public class DragDrop : MonoBehaviour
 {
+    private static DragDrop s_this;
     [SerializeField] InputAction inputAction;
     [SerializeField] private Camera dragCamera;
     private Vector3 velocity = Vector3.zero;
 
-    private void OnEnable()
+    private void Start()
     {
+        s_this = this;
         inputAction.performed += MousePressed;
         inputAction.Enable();
     }
-    private void OnDisable()
+    public static void DragActionControl(bool isEnable)
     {
-        inputAction.performed -= MousePressed;
-        inputAction.Disable();
+        if (isEnable) { s_this.inputAction.Enable(); }
+        else { s_this.inputAction.Disable(); }
     }
     public void MousePressed(InputAction.CallbackContext context)
     {

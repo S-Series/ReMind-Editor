@@ -23,6 +23,7 @@ public class ScreenSetting : MonoBehaviour
         {
             drops[i].value = s_Values[i];
         }
+        UpdateScreen();
     }
 
     public void ScreenResolutionValue(TMP_Dropdown dropdown)
@@ -63,6 +64,7 @@ public class ScreenSetting : MonoBehaviour
         else if (value == 3) { Application.targetFrameRate = 120; }
         else if (value == 4) { Application.targetFrameRate = 180; }
         else if (value == 5) { Application.targetFrameRate = 240; }
+        else if (value == 6) { Application.targetFrameRate = -1;}
         else { Application.targetFrameRate = 60; } //# value == 2
     }
     

@@ -8,6 +8,8 @@ public class GuideGenerate : MonoBehaviour
     private static GuideGenerate s_this;
     public static int s_guideCount = 1;
     public static int[] s_guidePos = new int[1] { 0 };
+    public static bool[] s_Accent = new bool[2] { false, true };
+    private static bool[] s_HasAccent = new bool[2] { false, true };
     private static List<GuideHolder> holders = new List<GuideHolder>();
 
     [SerializeField] GameObject ColliderPrefab;
@@ -34,6 +36,9 @@ public class GuideGenerate : MonoBehaviour
 
         NoteField.s_Scroll = Mathf.FloorToInt(1.0f * NoteField.s_Scroll * count / s_guideCount);
         NoteField.s_this.UpdateField();
+
+        //s_HasAccent[0] = count % 3 == 0 ? true : false;
+        //s_HasAccent[1] = count % 4 == 0 ? true : false;
 
         s_guideCount = count;
 
@@ -72,9 +77,24 @@ public class GuideGenerate : MonoBehaviour
     }
     public static void UpdateGuideColor()
     {
-        foreach(GuideHolder holder in holders)
+        bool third, fourth;
+        int scroll = NoteField.s_Scroll;
+
+        for (int i = 0; i < holders.Count; i++)
         {
-            holder.UpdateLineColor(s_guideCount, NoteField.s_Scroll);
+            if ((i + scroll) % s_guideCount == 0)
+            {
+                third = true;
+                fourth = true;
+            }
+            else
+            {
+                third = s_Accent[0] ?
+                     ((i + scroll) % (s_guideCount / 3.0f) == 0 ? true : false) : false;
+                fourth = s_Accent[1] ?
+                     ((i + scroll) % (s_guideCount / 4.0f) == 0 ? true : false) : false;
+            }
+            holders[i].UpdateLineColor(third, fourth);
         }
     }
     public static void GuideFieldSize(Vector3 scale, float invertScale)
@@ -93,5 +113,12 @@ public class GuideGenerate : MonoBehaviour
         catch { _count = 1; }
         if (_count <= 0) { _count = 1; }
         Generate(_count);
+    }
+
+    public void AccentToggle(UnityEngine.UI.Toggle toggle)
+    {
+        if (toggle.gameObject.CompareTag("01")) { s_Accent[1] = toggle.isOn; }
+        else { s_Accent[0] = toggle.isOn; }
+        UpdateGuideColor();
     }
 }

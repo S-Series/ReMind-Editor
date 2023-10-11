@@ -132,5 +132,7 @@ public class InfoField : MonoBehaviour
                 Mathf.RoundToInt(value[1] / noteCount * 10000) / 100f, value[1], noteCount);
         }
         #endregion
+    
+        SystemInfo.noteCount = noteCount;
     }
 }
