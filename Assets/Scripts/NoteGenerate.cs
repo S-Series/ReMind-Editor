@@ -36,8 +36,8 @@ public class NoteGenerate : MonoBehaviour
 
         if (s_previewIndex == 1)
         {
-            if (s_Line <= 2) { posX = -240; }
-            else { posX = 240; }
+            if (s_Line <= 2) { posX = -480; }
+            else { posX = 0; }
         }
         else if (s_previewIndex == 3 || s_previewIndex == 4) { posX = -1121; }
         else if (s_Line == 0) { posX = -360; }

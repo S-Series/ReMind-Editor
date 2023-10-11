@@ -290,14 +290,58 @@ namespace UnityEngine.InputSystem.Samples.RebindUI
                 m_RebindOperation = null;
             }
 
+            bool wasEnabled = action.enabled;
+            action.Disable();
+
             // Configure the rebind.
             m_RebindOperation = action.PerformInteractiveRebinding(bindingIndex)
-                .WithControlsExcluding("<Mouse>")
+                //.WithControlsExcluding("")
+            #region //$ Mouse Action
+                .WithControlsExcluding("<Mouse>")               
+                .WithControlsExcluding("<Mouse>/leftbutton")
+                .WithControlsExcluding("<Mouse>/middleButton")
+                .WithControlsExcluding("<Mouse>/rightbutton")
+            #endregion
+                .WithControlsExcluding("<Keyboard>/enter")
+            #region //$ Modifier Key Exclude shift
+                .WithControlsExcluding("<Keyboard>/ctrl")
+                .WithControlsExcluding("<Keyboard>/leftCtrl")
+                .WithControlsExcluding("<Keyboard>/rightCtrl")
+                .WithControlsExcluding("<Keyboard>/alt")
+                .WithControlsExcluding("<Keyboard>/leftAlt")
+                .WithControlsExcluding("<Keyboard>/rightAlt")
+            #endregion
+                .WithControlsExcluding("<Keyboard>/leftMeta")   //$ Window Key
+                .WithControlsExcluding("<Keyboard>/rightMeta")
+            #region //$ F1 ~ F12
+                .WithControlsExcluding("<Keyboard>/f1")
+                .WithControlsExcluding("<Keyboard>/f2")
+                .WithControlsExcluding("<Keyboard>/f3")
+                .WithControlsExcluding("<Keyboard>/f4")
+                .WithControlsExcluding("<Keyboard>/f5")
+                .WithControlsExcluding("<Keyboard>/f6")
+                .WithControlsExcluding("<Keyboard>/f7")
+                .WithControlsExcluding("<Keyboard>/f8")
+                .WithControlsExcluding("<Keyboard>/f9")
+                .WithControlsExcluding("<Keyboard>/f10")
+                .WithControlsExcluding("<Keyboard>/f11")
+                .WithControlsExcluding("<Keyboard>/f12")
+            #endregion
+                .WithControlsExcluding("<Keyboard>/")
+            #region //$ Special Key
+                .WithControlsExcluding("<Keyboard>/pageUp")     
+                .WithControlsExcluding("<Keyboard>/pageDown")
+                .WithControlsExcluding("<Keyboard>/home")
+                .WithControlsExcluding("<Keyboard>/end")
+                .WithControlsExcluding("<Keyboard>/delete")
+                .WithControlsExcluding("<Keyboard>/insert")
+            #endregion
+                .WithControlsExcluding("<Keyboard>/anyKey")
                 .WithCancelingThrough("<Keyboard>/escape")
-                .WithCancelingThrough("<Keyboard>/return")
                 .OnCancel(
                     operation =>
                     {
+                        if (wasEnabled) { action.Enable(); }
                         m_RebindStopEvent?.Invoke(this, operation);
                         m_RebindOverlay?.SetActive(false);
                         UpdateBindingDisplay();
@@ -306,6 +350,7 @@ namespace UnityEngine.InputSystem.Samples.RebindUI
                 .OnComplete(
                     operation =>
                     {
+                        if (wasEnabled) { action.Enable(); }
                         m_RebindOverlay?.SetActive(false);
                         m_RebindStopEvent?.Invoke(this, operation);
 
@@ -475,14 +520,14 @@ namespace UnityEngine.InputSystem.Samples.RebindUI
 
         // We want the label for the action name to update in edit mode, too, so
         // we kick that off from here.
-        #if UNITY_EDITOR
+#if UNITY_EDITOR
         protected void OnValidate()
         {
             UpdateActionLabel();
             UpdateBindingDisplay();
         }
 
-        #endif
+#endif
 
         private void UpdateActionLabel()
         {

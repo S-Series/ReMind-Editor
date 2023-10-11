@@ -4,5 +4,15 @@ using UnityEngine;
 
 public class VersionManager : MonoBehaviour
 {
-    public static int s_Version = 1, s_Release = 0, s_Fatch = 0;
+    public static int s_Season = 1, s_Release = 0, s_Fatch = 0;
+
+    public static void CheckVersion()
+    {
+        if (Application.internetReachability == NetworkReachability.NotReachable) 
+        { 
+            return;
+        }
+
+
+    }
 }

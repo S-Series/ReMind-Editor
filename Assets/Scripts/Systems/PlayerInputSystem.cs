@@ -443,7 +443,7 @@ public partial class @PlayerInputSystem : IInputActionCollection2, IDisposable
                     ""id"": ""539bea16-c598-416c-af20-f0cf90d3b8da"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """",
+                    ""interactions"": ""Press"",
                     ""initialStateCheck"": false
                 },
                 {
@@ -452,7 +452,7 @@ public partial class @PlayerInputSystem : IInputActionCollection2, IDisposable
                     ""id"": ""49436b1b-93b3-4a62-9c76-95bea7ae7aed"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """",
+                    ""interactions"": ""Press"",
                     ""initialStateCheck"": false
                 },
                 {
@@ -461,7 +461,7 @@ public partial class @PlayerInputSystem : IInputActionCollection2, IDisposable
                     ""id"": ""c3a39fc8-8bcf-49f9-aab5-d689243bc0e4"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """",
+                    ""interactions"": ""Press"",
                     ""initialStateCheck"": false
                 },
                 {
@@ -470,7 +470,7 @@ public partial class @PlayerInputSystem : IInputActionCollection2, IDisposable
                     ""id"": ""04f297e0-2500-4901-afcf-119d9b98e68a"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """",
+                    ""interactions"": ""Press"",
                     ""initialStateCheck"": false
                 },
                 {
@@ -479,7 +479,7 @@ public partial class @PlayerInputSystem : IInputActionCollection2, IDisposable
                     ""id"": ""b1ab66f0-c332-477a-82cb-d6496731d87e"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """",
+                    ""interactions"": ""Press"",
                     ""initialStateCheck"": false
                 },
                 {
@@ -488,7 +488,7 @@ public partial class @PlayerInputSystem : IInputActionCollection2, IDisposable
                     ""id"": ""b4ecbb8c-d3dd-4f54-acca-883b9537675d"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """",
+                    ""interactions"": ""Press"",
                     ""initialStateCheck"": false
                 },
                 {
@@ -497,7 +497,7 @@ public partial class @PlayerInputSystem : IInputActionCollection2, IDisposable
                     ""id"": ""7aef22a0-0ae1-4b0c-a8a2-95da79453ab6"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """",
+                    ""interactions"": ""Press"",
                     ""initialStateCheck"": false
                 },
                 {
@@ -506,7 +506,7 @@ public partial class @PlayerInputSystem : IInputActionCollection2, IDisposable
                     ""id"": ""c6e404b5-5e83-4a5b-8dbf-33a782072a6b"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """",
+                    ""interactions"": ""Press"",
                     ""initialStateCheck"": false
                 },
                 {
@@ -515,7 +515,7 @@ public partial class @PlayerInputSystem : IInputActionCollection2, IDisposable
                     ""id"": ""46ffe0b5-2b77-4e65-951d-a743b2b3a18c"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """",
+                    ""interactions"": ""Press"",
                     ""initialStateCheck"": false
                 },
                 {
@@ -524,7 +524,7 @@ public partial class @PlayerInputSystem : IInputActionCollection2, IDisposable
                     ""id"": ""04c8e7ae-2020-4038-a144-052c3ec77f9a"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """",
+                    ""interactions"": ""Press"",
                     ""initialStateCheck"": false
                 }
             ],
@@ -533,7 +533,7 @@ public partial class @PlayerInputSystem : IInputActionCollection2, IDisposable
                     ""name"": """",
                     ""id"": ""19d7ed8f-a2db-4726-9653-dfb59972e54a"",
                     ""path"": ""<Keyboard>/z"",
-                    ""interactions"": ""Press"",
+                    ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Line01-A"",
@@ -544,7 +544,7 @@ public partial class @PlayerInputSystem : IInputActionCollection2, IDisposable
                     ""name"": """",
                     ""id"": ""5261d52d-8a88-47b6-ae13-4a4e451e395b"",
                     ""path"": ""<Keyboard>/x"",
-                    ""interactions"": ""Press"",
+                    ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Line02-A"",
@@ -555,7 +555,7 @@ public partial class @PlayerInputSystem : IInputActionCollection2, IDisposable
                     ""name"": """",
                     ""id"": ""cd0f61a4-7c42-4267-bae3-4d6c24785262"",
                     ""path"": ""<Keyboard>/c"",
-                    ""interactions"": ""Press"",
+                    ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Line03-A"",
@@ -566,7 +566,7 @@ public partial class @PlayerInputSystem : IInputActionCollection2, IDisposable
                     ""name"": """",
                     ""id"": ""767ad07b-2cd3-4535-98a3-fd927a3ac524"",
                     ""path"": ""<Keyboard>/v"",
-                    ""interactions"": ""Press"",
+                    ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Line04-A"",
@@ -577,7 +577,7 @@ public partial class @PlayerInputSystem : IInputActionCollection2, IDisposable
                     ""name"": """",
                     ""id"": ""8d78dc57-8c38-4886-a246-8e91dd1cd94c"",
                     ""path"": ""<Keyboard>/period"",
-                    ""interactions"": ""Press"",
+                    ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Line03-B"",
@@ -588,7 +588,7 @@ public partial class @PlayerInputSystem : IInputActionCollection2, IDisposable
                     ""name"": """",
                     ""id"": ""5ebf5a71-b9f0-4988-a28d-d7c81b74e95b"",
                     ""path"": ""<Keyboard>/comma"",
-                    ""interactions"": ""Press"",
+                    ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Line02-B"",
@@ -599,7 +599,7 @@ public partial class @PlayerInputSystem : IInputActionCollection2, IDisposable
                     ""name"": """",
                     ""id"": ""d2153a2b-d36e-47f9-9927-eed7ce219b7b"",
                     ""path"": ""<Keyboard>/m"",
-                    ""interactions"": ""Press"",
+                    ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Line01-B"",
@@ -610,7 +610,7 @@ public partial class @PlayerInputSystem : IInputActionCollection2, IDisposable
                     ""name"": """",
                     ""id"": ""333fa802-db09-4907-882d-d16a24a0eef3"",
                     ""path"": ""<Keyboard>/slash"",
-                    ""interactions"": ""Press"",
+                    ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Line04-B"",
@@ -621,7 +621,7 @@ public partial class @PlayerInputSystem : IInputActionCollection2, IDisposable
                     ""name"": """",
                     ""id"": ""5aaa8507-5149-42c6-83c8-6f24de8b67fe"",
                     ""path"": ""<Keyboard>/leftShift"",
-                    ""interactions"": ""Press"",
+                    ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Bottom-L"",
@@ -632,7 +632,7 @@ public partial class @PlayerInputSystem : IInputActionCollection2, IDisposable
                     ""name"": """",
                     ""id"": ""008f0974-59b2-4e44-9ced-f32d194dcf37"",
                     ""path"": ""<Keyboard>/rightShift"",
-                    ""interactions"": ""Press"",
+                    ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Bottom-R"",

@@ -98,56 +98,8 @@ public class InputManager : MonoBehaviour
             NoteGenerate.Escape();
         };
         #endregion
-
-        #region //# GamePlay Actions
-        //$ Line - A
-        inputActions.GamePlay.Line01A.performed += item =>
-        {
-
-        };
-        inputActions.GamePlay.Line02A.performed += item =>
-        {
-
-        };
-        inputActions.GamePlay.Line03A.performed += item =>
-        {
-
-        };
-        inputActions.GamePlay.Line04A.performed += item =>
-        {
-
-        };
-        //$ Line - B
-        inputActions.GamePlay.Line01B.performed += item =>
-        {
-
-        };
-        inputActions.GamePlay.Line02B.performed += item =>
-        {
-
-        };
-        inputActions.GamePlay.Line03B.performed += item =>
-        {
-
-        };
-        inputActions.GamePlay.Line04B.performed += item =>
-        {
-
-        };
-        //$ Bottom
-        inputActions.GamePlay.BottomL.performed += item =>
-        {
-
-        };
-        inputActions.GamePlay.BottomR.performed += item =>
-        {
-
-        };
-        #endregion
-
         General(true);
         Editing(false);
-        PlayMode(false);
     }
 
     public static void EnableInput(bool isEnable)
@@ -172,10 +124,5 @@ public class InputManager : MonoBehaviour
             inputActions.Edit.Disable();
             inputActions.Tools.Enable();
         }
-    }
-    public static void PlayMode(bool isPlay)
-    {
-        if (isPlay) { inputActions.GamePlay.Enable(); }
-        else { inputActions.GamePlay.Disable(); }
     }
 }
