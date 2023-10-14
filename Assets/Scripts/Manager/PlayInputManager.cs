@@ -7,20 +7,18 @@ public class PlayInputManager : MonoBehaviour
 {
     public static PlayInputManager s_PlayInputManager;
 
-    public bool[] Line_A { get; private set; } = new bool[4];
-    public bool[] Line_B { get; private set; } = new bool[4];
-    public bool[] Side { get; private set; } = new bool[2];
-
-    private PlayerInput _playerInput;
-
-    private InputAction[] A_LineAction = new InputAction[4];
-    private InputAction[] B_LineAction = new InputAction[4];
-    private InputAction[] SideAction = new InputAction[2];
+    private PlayerInput playerInput;
+    private readonly string[] ActionMap 
+        = {"Preset01", "Preset02", "Preset03", "Preset04", "User"};
+    [SerializeField] InputPlay test;
 
     private void Awake()
     {
         s_PlayInputManager = this;
-        _playerInput = GetComponent<PlayerInput>();
+        playerInput = GetComponent<PlayerInput>();
+    }
+    private void Start()
+    {
         SetupInputAction();
     }
     private void Update()
@@ -30,22 +28,29 @@ public class PlayInputManager : MonoBehaviour
 
     private void SetupInputAction()
     {
-        for (int i = 0; i < 4; i++)
+        playerInput.DeactivateInput();
+        for (int i = 0; i < ActionMap.Length; i++)
         {
-            A_LineAction[i] = _playerInput.actions[string.Format("Line A 0{0}", i + 1)];
-            B_LineAction[i] = _playerInput.actions[string.Format("Line B 0{0}", i + 1)];
+            playerInput.SwitchCurrentActionMap(ActionMap[i]);
+            for (int j = 0; j < 4; j++)
+            {
+                playerInput.actions[string.Format("Line A 0{0}", j + 1)].performed
+                    += item => { JudgeAction(j + 1); };
+                playerInput.actions[string.Format("Line B 0{0}", j + 1)].performed
+                    += item => { JudgeAction(j + 1); };
+            }
+            playerInput.actions["Side - L"].performed += item => { JudgeAction(5); };
+            playerInput.actions["Side - R"].performed += item => { JudgeAction(6); };
         }
-        SideAction[0] = _playerInput.actions["Side - L"];
-        SideAction[1] = _playerInput.actions["Side - R"];
+        playerInput.ActivateInput();
     }
     private void UpdateInputAction()
     {
-        for (int i = 0; i < 4; i++)
-        {
-            Line_A[i] = A_LineAction[i].WasPressedThisFrame();
-            Line_B[i] = B_LineAction[i].WasPressedThisFrame();
-        }
-        Side[0] = SideAction[0].WasPressedThisFrame();
-        Side[1] = SideAction[1].WasPressedThisFrame();
+
+    }
+
+    private void JudgeAction(int line)
+    {
+        print(line);
     }
 }
