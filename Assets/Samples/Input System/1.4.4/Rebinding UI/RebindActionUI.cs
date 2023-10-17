@@ -302,7 +302,6 @@ namespace UnityEngine.InputSystem.Samples.RebindUI
                 .WithControlsExcluding("<Mouse>/middleButton")
                 .WithControlsExcluding("<Mouse>/rightbutton")
             #endregion
-                .WithControlsExcluding("<Keyboard>/enter")
             #region //$ Modifier Key Exclude shift
                 .WithControlsExcluding("<Keyboard>/ctrl")
                 .WithControlsExcluding("<Keyboard>/leftCtrl")
@@ -311,8 +310,10 @@ namespace UnityEngine.InputSystem.Samples.RebindUI
                 .WithControlsExcluding("<Keyboard>/leftAlt")
                 .WithControlsExcluding("<Keyboard>/rightAlt")
             #endregion
+            #region //$ Window Keys
                 .WithControlsExcluding("<Keyboard>/leftMeta")   //$ Window Key
                 .WithControlsExcluding("<Keyboard>/rightMeta")
+            #endregion
             #region //$ F1 ~ F12
                 .WithControlsExcluding("<Keyboard>/f1")
                 .WithControlsExcluding("<Keyboard>/f2")
@@ -327,8 +328,13 @@ namespace UnityEngine.InputSystem.Samples.RebindUI
                 .WithControlsExcluding("<Keyboard>/f11")
                 .WithControlsExcluding("<Keyboard>/f12")
             #endregion
-                .WithControlsExcluding("<Keyboard>/")
-            #region //$ Special Key
+            #region //$ Arrow Keys
+                .WithControlsExcluding("<Keyboard>/leftArrow")
+                .WithControlsExcluding("<Keyboard>/rightArrow")
+                .WithControlsExcluding("<Keyboard>/upArrow")
+                .WithControlsExcluding("<Keyboard>/downArrow")
+            #endregion
+            #region //$ Special Keys
                 .WithControlsExcluding("<Keyboard>/pageUp")     
                 .WithControlsExcluding("<Keyboard>/pageDown")
                 .WithControlsExcluding("<Keyboard>/home")
@@ -336,6 +342,7 @@ namespace UnityEngine.InputSystem.Samples.RebindUI
                 .WithControlsExcluding("<Keyboard>/delete")
                 .WithControlsExcluding("<Keyboard>/insert")
             #endregion
+                .WithControlsExcluding("<Keyboard>/enter")
                 .WithControlsExcluding("<Keyboard>/anyKey")
                 .WithCancelingThrough("<Keyboard>/escape")
                 .OnCancel(

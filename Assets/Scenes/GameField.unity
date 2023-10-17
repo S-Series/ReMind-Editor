@@ -5152,7 +5152,7 @@ GameObject:
   - component: {fileID: 118829511}
   - component: {fileID: 118829510}
   m_Layer: 0
-  m_Name: InfoText_02
+  m_Name: SubInfo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5198,7 +5198,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Max FPS : 120\n\n\n\n\n<size=1>Login : <color=#09ff00>UserName Here</color>'
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -9531,7 +9531,7 @@ GameObject:
   m_Component:
   - component: {fileID: 199457255}
   m_Layer: 0
-  m_Name: '{Sector} 03'
+  m_Name: '[Sector] 03'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -18085,7 +18085,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 387239156}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.1}
+  m_LocalPosition: {x: 0.05, y: 0.26, z: 0.1}
   m_LocalScale: {x: 3.2375, y: 1.825, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -22563,8 +22563,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2cfa3debeffd16c45966fc8c9b5181fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PopUpObjects: []
-  jsonDataURL: 
 --- !u!1 &481762777
 GameObject:
   m_ObjectHideFlags: 0
@@ -24124,7 +24122,7 @@ GameObject:
   m_Component:
   - component: {fileID: 526620015}
   m_Layer: 0
-  m_Name: '{Sector} 01'
+  m_Name: '[Sector] 01'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -34953,7 +34951,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 782074449}
-  - component: {fileID: 782074450}
   m_Layer: 0
   m_Name: JudgeSetting
   m_TagString: Untagged
@@ -34990,18 +34987,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -400}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &782074450
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 782074448}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: de5f6cf5cf0ab5246bd442355e79d7f4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &783499380
 GameObject:
   m_ObjectHideFlags: 0
@@ -59253,7 +59238,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1358810933
 RectTransform:
   m_ObjectHideFlags: 0
@@ -69129,7 +69114,7 @@ GameObject:
   - component: {fileID: 1626234433}
   - component: {fileID: 1626234434}
   m_Layer: 0
-  m_Name: '{Sector} 04'
+  m_Name: '[Sector] 04'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -69170,9 +69155,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e50cdae11c9731f46b50e40f14a1e44a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tmps:
-  - {fileID: 1910078217}
-  - {fileID: 118829510}
+  infoTmpsObject:
+  - {fileID: 1910078215}
+  - {fileID: 118829508}
 --- !u!1 &1629966295
 GameObject:
   m_ObjectHideFlags: 0
@@ -76134,8 +76119,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1801460674}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 4.75, y: 0.5, z: -0.00049972534}
-  m_LocalScale: {x: 6, y: 10, z: 6}
+  m_LocalPosition: {x: 4.81, y: 0.32, z: -0.00049972534}
+  m_LocalScale: {x: 6.0257998, y: 10, z: 6}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 143954412}
@@ -81308,7 +81293,7 @@ GameObject:
   - component: {fileID: 1910078218}
   - component: {fileID: 1910078217}
   m_Layer: 0
-  m_Name: InfoText_01
+  m_Name: MainInfo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -81354,8 +81339,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'FPS : 60\nOffset : [ +00 | +00 ]\nMusic Length : [ 00:00 ]\nNote Count
-    : [ 0000 ]\nSaved : <color=#FF0000> UnSaved</color>\n<size=1>Version : 1.0.0'
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -86111,7 +86095,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2007317816}
   m_Layer: 0
-  m_Name: '{Sector} 02'
+  m_Name: '[Sector] 02'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
