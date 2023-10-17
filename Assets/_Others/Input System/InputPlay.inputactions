@@ -3,214 +3,6 @@
     "maps": [
         {
             "name": "Preset01",
-            "id": "65cc014e-6ae8-4afe-a739-05356880ef07",
-            "actions": [
-                {
-                    "name": "Line A 01",
-                    "type": "Button",
-                    "id": "8f74dbc4-64a4-40d6-8adf-09d48d510918",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "Press",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Line A 02",
-                    "type": "Button",
-                    "id": "9f2c9349-7da7-42f4-8af1-8f15a27cb6a0",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "Press",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Line A 03",
-                    "type": "Button",
-                    "id": "41161cca-858a-44e1-950a-acaa05715761",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "Press",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Line A 04",
-                    "type": "Button",
-                    "id": "cb2328d3-52b3-4232-b5df-335d88ad8d14",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "Press",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Line B 01",
-                    "type": "Button",
-                    "id": "2f7965da-5246-469d-acf3-edb98ff28847",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "Press",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Line B 02",
-                    "type": "Button",
-                    "id": "9eefb62e-10f3-4d21-afe9-47832a6bab19",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "Press",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Line B 03",
-                    "type": "Button",
-                    "id": "ebe58f30-ac29-4e59-bfdc-bc9738804811",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "Press",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Line B 04",
-                    "type": "Button",
-                    "id": "82770b30-192d-4dd1-aae6-a1c6a628b2fb",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "Press",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Side - L",
-                    "type": "Button",
-                    "id": "199a2ee1-63a3-4294-a8a9-52df885498bb",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "Press",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Side - R",
-                    "type": "Button",
-                    "id": "307fc084-0810-4ded-a096-d0c6d263f459",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "Press",
-                    "initialStateCheck": false
-                }
-            ],
-            "bindings": [
-                {
-                    "name": "",
-                    "id": "ddb2d717-fb86-4654-8cbc-1f4fe56cc59a",
-                    "path": "<Keyboard>/1",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Line A 01",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "baf2a132-c688-44ad-b9f6-5366d8da093d",
-                    "path": "<Keyboard>/m",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Line B 01",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "a6220284-f2a6-496d-a7d5-62170c1dcdc5",
-                    "path": "<Keyboard>/x",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Line A 02",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "85224b62-9c4b-4fb0-be4c-6bd238838d1d",
-                    "path": "<Keyboard>/c",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Line A 03",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "5ee15ba1-0338-4cfa-ade0-4cafba60b9e2",
-                    "path": "<Keyboard>/v",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Line A 04",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "723d6f4a-f56c-4a92-bfac-7d50d9661905",
-                    "path": "<Keyboard>/comma",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Line B 02",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "67f2eb69-698c-4526-8db6-ac38b2a6b560",
-                    "path": "<Keyboard>/period",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Line B 03",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "5b9d1c38-5a65-4dc1-bf43-5a1b15c0844e",
-                    "path": "<Keyboard>/slash",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Line B 04",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "45b162c1-28eb-4bff-b5a8-f69b6d8f4d53",
-                    "path": "<Keyboard>/leftShift",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Side - L",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "409e1493-3d74-47c7-851b-97eb0df14cc0",
-                    "path": "<Keyboard>/rightShift",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Side - R",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                }
-            ]
-        },
-        {
-            "name": "Preset02",
             "id": "15f931f2-c276-4d50-9ff2-2ffe5fa710e4",
             "actions": [
                 {
@@ -308,7 +100,7 @@
                 {
                     "name": "",
                     "id": "357d28de-eab2-4b7d-b7d7-255b1aca254f",
-                    "path": "<Keyboard>/2",
+                    "path": "<Keyboard>/z",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -407,6 +199,214 @@
                 {
                     "name": "",
                     "id": "35b4fe2c-df4a-4340-a716-8fa36d5fc2dc",
+                    "path": "<Keyboard>/rightShift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Side - R",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "Preset02",
+            "id": "65cc014e-6ae8-4afe-a739-05356880ef07",
+            "actions": [
+                {
+                    "name": "Line A 01",
+                    "type": "Button",
+                    "id": "8f74dbc4-64a4-40d6-8adf-09d48d510918",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Line A 02",
+                    "type": "Button",
+                    "id": "9f2c9349-7da7-42f4-8af1-8f15a27cb6a0",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Line A 03",
+                    "type": "Button",
+                    "id": "41161cca-858a-44e1-950a-acaa05715761",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Line A 04",
+                    "type": "Button",
+                    "id": "cb2328d3-52b3-4232-b5df-335d88ad8d14",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Line B 01",
+                    "type": "Button",
+                    "id": "2f7965da-5246-469d-acf3-edb98ff28847",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Line B 02",
+                    "type": "Button",
+                    "id": "9eefb62e-10f3-4d21-afe9-47832a6bab19",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Line B 03",
+                    "type": "Button",
+                    "id": "ebe58f30-ac29-4e59-bfdc-bc9738804811",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Line B 04",
+                    "type": "Button",
+                    "id": "82770b30-192d-4dd1-aae6-a1c6a628b2fb",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Side - L",
+                    "type": "Button",
+                    "id": "199a2ee1-63a3-4294-a8a9-52df885498bb",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Side - R",
+                    "type": "Button",
+                    "id": "307fc084-0810-4ded-a096-d0c6d263f459",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "ddb2d717-fb86-4654-8cbc-1f4fe56cc59a",
+                    "path": "<Keyboard>/a",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Line A 01",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "baf2a132-c688-44ad-b9f6-5366d8da093d",
+                    "path": "<Keyboard>/k",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Line B 01",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a6220284-f2a6-496d-a7d5-62170c1dcdc5",
+                    "path": "<Keyboard>/s",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Line A 02",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "85224b62-9c4b-4fb0-be4c-6bd238838d1d",
+                    "path": "<Keyboard>/d",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Line A 03",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5ee15ba1-0338-4cfa-ade0-4cafba60b9e2",
+                    "path": "<Keyboard>/f",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Line A 04",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "723d6f4a-f56c-4a92-bfac-7d50d9661905",
+                    "path": "<Keyboard>/l",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Line B 02",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "67f2eb69-698c-4526-8db6-ac38b2a6b560",
+                    "path": "<Keyboard>/semicolon",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Line B 03",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5b9d1c38-5a65-4dc1-bf43-5a1b15c0844e",
+                    "path": "<Keyboard>/quote",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Line B 04",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "45b162c1-28eb-4bff-b5a8-f69b6d8f4d53",
+                    "path": "<Keyboard>/leftShift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Side - L",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "409e1493-3d74-47c7-851b-97eb0df14cc0",
                     "path": "<Keyboard>/rightShift",
                     "interactions": "",
                     "processors": "",
