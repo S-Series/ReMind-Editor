@@ -433,8 +433,6 @@ public class EditManager : MonoBehaviour
     }
     public static void Select(GameObject obj)
     {
-        print("clicked");
-
         int _count;
         if (s_SelectedObject != null)
         {
