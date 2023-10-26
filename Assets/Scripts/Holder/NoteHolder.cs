@@ -20,6 +20,7 @@ public class NoteHolder : MonoBehaviour
     [SerializeField] private GameObject[] normalObjects;
     [SerializeField] private GameObject[] airialObjects;
     [SerializeField] private GameObject[] bottomObjects;
+    [SerializeField] private GameObject[] AlertObjects;
     [SerializeField] private GameObject speedObject;
     [SerializeField] private GameObject effectObject;
 
@@ -137,7 +138,11 @@ public class NoteHolder : MonoBehaviour
     {
         foreach (GameObject gameObject in ParentObjects) { gameObject.SetActive(isEnable); }
     }   
-    
+    public void CheckNote()
+    {
+        
+    }
+
     public GameObject getNormal(int index) { return normalObjects[index]; }
     public GameObject getAirial(int index) { return airialObjects[index]; }
     public GameObject getBottom(int index) { return bottomObjects[index]; }
