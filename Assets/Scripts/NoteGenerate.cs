@@ -39,7 +39,7 @@ public class NoteGenerate : MonoBehaviour
             if (s_Line <= 2) { posX = -480; }
             else { posX = 0; }
         }
-        else if (s_previewIndex == 3 || s_previewIndex == 4) { posX = -1121; }
+        else if (s_previewIndex == 3 || s_previewIndex == 4) { posX = -1050; }
         else if (s_Line == 0) { posX = -360; }
 
         previews[s_previewIndex].transform.localPosition
@@ -99,15 +99,12 @@ public class NoteGenerate : MonoBehaviour
                 normal.ms = holder.stdMs;
                 normal.pos = holder.stdPos;
                 normal.line = s_Line;
-                normal.isAir = s_previewIndex == 3 ? true : false;
+                normal.isAir = s_previewIndex == 2 ? true : false;
                 normal.length = 1;
-                normal.isGuideLeft = s_Line < 3 ? true : false;
 
-                if (s_previewIndex == 3)
+                if (s_previewIndex == 2)
                 {
                     holder.airials[s_Line - 1] = normal;
-                    holder.getAirial(s_Line - 1).GetComponent<SpriteRenderer>().material
-                        = s_Line < 3 ? NoteField.GetNoteMaterial(2) : NoteField.GetNoteMaterial(3);
                 }
                 else if (s_previewIndex == 1)
                 {

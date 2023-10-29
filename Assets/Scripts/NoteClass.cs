@@ -100,7 +100,7 @@ namespace GameNote
     public class NormalNote:Note
     {
         public int line, length = 1, SoundIndex = 0;
-        public bool isAir, isGuideLeft = false;
+        public bool isAir;
         public NoteHolder holder;
 
         public static NormalNote Generate()

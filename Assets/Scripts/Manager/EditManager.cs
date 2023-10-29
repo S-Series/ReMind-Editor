@@ -506,7 +506,7 @@ public class EditManager : MonoBehaviour
         {
             s_isAirial = true;
             s_line = Convert.ToInt32(obj.tag);
-            s_length = 0;
+            s_length = s_SelectNoteHolder.airials[s_line - 1].length;
             s_soundIndex = s_SelectNoteHolder.airials[s_line - 1].SoundIndex;
             // obj.GetComponent<SpriteRenderer>().color = new Color32(255, 255, 000, 255);
         }
@@ -923,6 +923,16 @@ public class EditManager : MonoBehaviour
         {
             NormalNote note;
             note = s_SelectNoteHolder.bottoms[Convert.ToInt32(s_SelectedObject.tag) - 1];
+
+            note.length = editLegnth;
+            s_SelectNoteHolder.UpdateNote();
+        }
+        else if (s_SelectedObject.transform.parent.CompareTag("Airial"))
+        {
+            if (editLegnth > 100) { editLegnth = 100; }
+
+            NormalNote note;
+            note = s_SelectNoteHolder.airials[Convert.ToInt32(s_SelectedObject.tag) - 1];
 
             note.length = editLegnth;
             s_SelectNoteHolder.UpdateNote();

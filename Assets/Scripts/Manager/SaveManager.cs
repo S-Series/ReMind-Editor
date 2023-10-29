@@ -104,15 +104,6 @@ public class SaveManager : MonoBehaviour
                 holder.airials[1] == null ? "--" : LengthToString(holder.airials[1].length),
                 holder.airials[2] == null ? "--" : LengthToString(holder.airials[2].length),
                 holder.airials[3] == null ? "--" : LengthToString(holder.airials[3].length));
-            saveData += string.Format("|{0}{1}|{2}{3}|{4}{5}|{6}{7}|#",
-                holder.normals[0] == null ? "-" : holder.normals[0].isGuideLeft ? 1 : 0,
-                holder.airials[0] == null ? "-" : holder.airials[0].isGuideLeft ? 1 : 0,
-                holder.normals[1] == null ? "-" : holder.normals[1].isGuideLeft ? 1 : 0,
-                holder.airials[1] == null ? "-" : holder.airials[1].isGuideLeft ? 1 : 0,
-                holder.normals[2] == null ? "-" : holder.normals[2].isGuideLeft ? 1 : 0,
-                holder.airials[2] == null ? "-" : holder.airials[2].isGuideLeft ? 1 : 0,
-                holder.normals[3] == null ? "-" : holder.normals[3].isGuideLeft ? 1 : 0,
-                holder.airials[3] == null ? "-" : holder.airials[3].isGuideLeft ? 1 : 0);
             saveData += string.Format("|{0:D2}|{1:D2}|{2:D2}|{3:D2}|#",
                 holder.bottoms[0] == null ? 0 : holder.bottoms[0].length,
                 holder.bottoms[1] == null ? 0 : holder.bottoms[1].length,
@@ -250,12 +241,14 @@ public class SaveManager : MonoBehaviour
 
         for (int i = 0; i < saveFile.noteDatas.Count; i++)
         {
+            int dataIndex = 1;
             saveData = saveFile.noteDatas[i].Split("#", StringSplitOptions.RemoveEmptyEntries);
 
-            copyHolder = NoteGenerate.GenerateNoteManual(Convert.ToInt32(saveData[1].Replace("|", "")));
-            copyHolder.stdMs = Convert.ToInt32(saveData[0].Replace("|", ""));
+            copyHolder = NoteGenerate.GenerateNoteManual(Convert.ToInt32(saveData[dataIndex].Replace("|", "")));
+            copyHolder.stdMs = Convert.ToInt32(saveData[dataIndex - 1].Replace("|", ""));
 
-            noteData = saveData[2].Split('|', StringSplitOptions.RemoveEmptyEntries);
+            dataIndex++; //$ == 2
+            noteData = saveData[dataIndex].Split('|', StringSplitOptions.RemoveEmptyEntries);
             for (int j = 0; j < 4; j++)
             {
                 if (noteData[j] == "00") { copyHolder.normals[j] = null; }
@@ -273,7 +266,8 @@ public class SaveManager : MonoBehaviour
                 }
             }
 
-            noteData = saveData[3].Split('|', StringSplitOptions.RemoveEmptyEntries);
+            dataIndex++; //$ == 3
+            noteData = saveData[dataIndex].Split('|', StringSplitOptions.RemoveEmptyEntries);
             for (int j = 0; j < 4; j++)
             {
                 if (noteData[j] == "--") { copyHolder.airials[j] = null; }
@@ -291,38 +285,8 @@ public class SaveManager : MonoBehaviour
                 }
             }
             
-            noteData = saveData[4].Split('|', StringSplitOptions.RemoveEmptyEntries);
-            for (int j = 0; j < 4; j++)
-            {
-                if (copyHolder.normals[j] != null)
-                {
-                    if (noteData[j][0] == '-')
-                    {
-                        copyHolder.normals[j].isGuideLeft =
-                            copyHolder.normals[j].line < 3 ? true : false;
-                    }
-                    else
-                    {
-                        copyHolder.normals[j].isGuideLeft =
-                            noteData[j][0] == '1' ? true : false;
-                    }
-                }
-                if (copyHolder.airials[j] != null)
-                {
-                    if (noteData[j][1] == '-')
-                    {
-                        copyHolder.airials[j].isGuideLeft =
-                            copyHolder.airials[j].line < 3 ? true : false;
-                    }
-                    else
-                    {
-                        copyHolder.airials[j].isGuideLeft =
-                            noteData[j][1] == '1' ? true : false;
-                    }
-                }
-            }
-
-            noteData = saveData[5].Split('|', StringSplitOptions.RemoveEmptyEntries);
+            dataIndex++; //$ == 4
+            noteData = saveData[dataIndex].Split('|', StringSplitOptions.RemoveEmptyEntries);
             for (int j = 0; j < 2; j++)
             {
                 if (noteData[j] == "00") { copyHolder.bottoms[j] = null; }
@@ -339,7 +303,8 @@ public class SaveManager : MonoBehaviour
                 }
             }
 
-            noteData = saveData[6].Split('|', StringSplitOptions.RemoveEmptyEntries);
+            dataIndex++; //$ == 5
+            noteData = saveData[dataIndex].Split('|', StringSplitOptions.RemoveEmptyEntries);
             if (noteData[1] != "-1")
             {
                 effect = EffectNote.Generate();
@@ -348,7 +313,7 @@ public class SaveManager : MonoBehaviour
             }
             if (noteData[0] == "01")
             {
-                noteData = saveData[6].Split('|', StringSplitOptions.RemoveEmptyEntries);
+                noteData = saveData[dataIndex + 1].Split('|', StringSplitOptions.RemoveEmptyEntries);
                 speed = SpeedNote.Generate();
                 speed.ms = copyHolder.stdMs;
                 speed.pos = copyHolder.stdPos;

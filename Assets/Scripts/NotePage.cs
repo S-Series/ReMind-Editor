@@ -1,9 +1,16 @@
+//------------------------------------------------------------------------------
+// <Unuse-Code>
+//     
+// </Unuse-Code>
+//------------------------------------------------------------------------------
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class NotePage : MonoBehaviour
 {
+
     public static bool isPageControl = false;
     public static double ZoomValue = 1.0;
     public static double ViewPage = 1.0;

@@ -36,12 +36,17 @@ public class GameNoteHolder : MonoBehaviour
                     if (holder.normals[j] != null)
                     {
                         lineRenderer.positionCount += 2;
-                        lineRenderer.SetPosition(index, new Vector3(240f * (j - i), 0, 350));
+                        lineRenderer.SetPosition(index, 
+                            new Vector3(240f * (j - i), 0, 3.6f * holder.airials[i].length));
                         lineRenderer.SetPosition(index + 1, new Vector3(0, 0, 0));
                         index += 2;
                     }
                 }
                 if (lineRenderer.positionCount == 1) { lineRenderer.enabled = false; }
+
+                NoteAirial airial;
+                airial = airialObjects[i].GetComponent<NoteAirial>();
+                airial.UpdatePosition(holder.airials[i].length);
             }
         }
 

@@ -13,6 +13,7 @@ public class ScreenSetting : MonoBehaviour
 
     void Start()
     {
+        print(gameObject.name);
         s_cameras = GameManager.FindAllObjects<Camera>();
         s_Values[0] = PlayerPrefs.GetInt("Screen01");
         s_Values[1] = PlayerPrefs.GetInt("Screen02");

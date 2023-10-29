@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 using GameNote;
 
 [System.Serializable]
 public class NoteHolder : MonoBehaviour
 {
     public static List<NoteHolder> holders = new List<NoteHolder>();
+    public static List<NoteHolder> errorHolders = new List<NoteHolder>();
 
     public int stdMs, stdPos;
     public GameNoteHolder gameNoteHolder;
@@ -26,7 +28,7 @@ public class NoteHolder : MonoBehaviour
 
     [SerializeField] private GameObject[] ParentObjects;
 
-    [SerializeField] private TMPro.TextMeshPro[] InfoTmps;
+    [SerializeField] private TextMeshPro[] InfoTmps;
 
     public void UpdateNote()
     {
@@ -47,11 +49,6 @@ public class NoteHolder : MonoBehaviour
             else
             {
                 airialObjects[i].SetActive(true);
-                if (airials[i].isGuideLeft)
-                {
-                    airialObjects[i].GetComponent<SpriteRenderer>().material = NoteField.GetNoteMaterial(4);
-                }
-                else { airialObjects[i].GetComponent<SpriteRenderer>().material = NoteField.GetNoteMaterial(5); }
             }
         }
 
@@ -138,7 +135,7 @@ public class NoteHolder : MonoBehaviour
     {
         foreach (GameObject gameObject in ParentObjects) { gameObject.SetActive(isEnable); }
     }   
-    public void CheckNote()
+    public void NoteAlert()
     {
         
     }
