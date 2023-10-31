@@ -135,6 +135,10 @@ public class NoteHolder : MonoBehaviour
     {
         foreach (GameObject gameObject in ParentObjects) { gameObject.SetActive(isEnable); }
     }   
+    public void ShowTextInfo(bool isEnable)
+    {
+        
+    }
     public void NoteAlert()
     {
         

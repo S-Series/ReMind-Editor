@@ -8,15 +8,17 @@ using GameNote;
 using AESWithJava.Con;
 using Ookii.Dialogs;
 using System.Windows.Forms;
+using UnityEngine.InputSystem.Layouts;
 
 public class SaveManager : MonoBehaviour
 {
     private static SaveManager s_this;
-    private const string key = "SSeries000923";
     private const double s_version = 1.0;
     private static string s_LoadedPath = "", s_noteFileName;
     private static bool isAlt = false, isLoaded = false, isLoadable = true;
     private bool isActive, isPassed;
+    public static string HiddenKey; //$ Public Hidden Key ------------------------------//
+    [SerializeField] private string _HiddenKey; //$ Hidden Key Setting -----------------//
     [SerializeField] GameObject[] PopUpObjects;
     [SerializeField] InputAction[] AltAction;
     [SerializeField] TMPro.TMP_InputField noteFileInput;
@@ -32,7 +34,7 @@ public class SaveManager : MonoBehaviour
     }
     private void Start()
     {
-
+        HiddenKey = PlayerPrefs.GetString("HiddenKey");
     }
     public static void SaveNoteFile()
     {
@@ -161,7 +163,7 @@ public class SaveManager : MonoBehaviour
 
         yield return null;
 
-        File.WriteAllText(path, JsonAES.Encrypt(jsonData, key));
+        File.WriteAllText(path, JsonAES.Encrypt(jsonData, HiddenKey));
 
         yield return null;
 
@@ -197,7 +199,7 @@ public class SaveManager : MonoBehaviour
         
         try 
         {
-            saveFile = JsonUtility.FromJson<SaveFile>(JsonAES.Decrypt(File.ReadAllText(path), key));
+            saveFile = JsonUtility.FromJson<SaveFile>(JsonAES.Decrypt(File.ReadAllText(path), HiddenKey));
         }
         catch
         {
@@ -396,6 +398,24 @@ public class SaveManager : MonoBehaviour
         isLoadable = false;
         noteFileInput.textComponent.color = new Color32(220, 025, 000, 255);
     }
+
+    #region Setting Hidden Key
+    [UnityEngine.ContextMenu("Saving Hidden Key")]
+    private void SaveHiddenKey()
+    {
+        PlayerPrefs.SetString("HiddenKey", _HiddenKey);
+        _HiddenKey = "";
+        print(PlayerPrefs.GetString("HiddenKey"));
+    }
+    [UnityEngine.ContextMenu("Show Hidden Key")]
+    private void LoadHiddenKey() { StartCoroutine(ILoadHiddenKey()); }
+    private IEnumerator ILoadHiddenKey()
+    {
+        _HiddenKey = PlayerPrefs.GetString("HiddenKey");
+        yield return new WaitForSeconds(0.5f);
+        _HiddenKey = "";
+    }
+    #endregion
 }
 
 public class SaveFile

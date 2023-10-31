@@ -62,7 +62,7 @@ public class NoteChange : MonoBehaviour
 
             if (EditManager.s_isAirial)
             {
-                s_this.InfoTmps[0].text = "Note Heigth";
+                s_this.InfoTmps[0].text = "Note Heigth(%)";
                 s_this.NormalToggles[4].isOn = true;
             }
             else
@@ -159,9 +159,12 @@ public class NoteChange : MonoBehaviour
         }
     }
 
-    public void ToggleAirial()
+    public void ToggleAirial(Toggle toggle)
     {
-        
+        if (EditManager.s_isMultyEditing) { return; }
+
+        NoteHolder holder;
+        holder = EditManager.s_SelectNoteHolder;
     }
     public void ToggleGuideColor()
     {

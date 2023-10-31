@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public static List<T> FindAllObjects<T>() where T : UnityEngine.Component
+    public static List<T> FindAllObjects<T>() where T : Component
     {
         List<T> ret = new List<T>();
         for (int i = 0; i < UnityEngine.SceneManagement.SceneManager.sceneCount; i++)

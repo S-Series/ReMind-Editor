@@ -52,6 +52,5 @@ namespace AESWithJava.Con
             byte[] plainText = Encoding.UTF8.GetBytes(textToEncrypt);
             return Convert.ToBase64String(transform.TransformFinalBlock(plainText, 0, plainText.Length));
         }
- 
     }
 }

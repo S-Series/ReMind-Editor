@@ -14,12 +14,11 @@ public class NoteGenerate : MonoBehaviour
     [SerializeField] GameObject[] GeneratePrefabs;
     [SerializeField] Transform[] GenerateField;
     /// <summary>
-    /// previews[0] = Normal Note   || GeneratePrefabs[0]
-    /// previews[1] = Bottom Note   || GeneratePrefabs[1]
-    /// previews[2] = Eraser        || 
-    /// previews[3] = Airial Note   || GeneratePrefabs[0]
-    /// previews[4] = Speed Note    || GeneratePrefabs[1]
-    /// previews[5] = Effect Note   || GeneratePrefabs[2]
+    /// previews[0] = Normal Note
+    /// previews[1] = Bottom Note
+    /// previews[2] = Airial Note
+    /// previews[3] = Speed Note
+    /// previews[4] = Effect Note
     /// </summary>
 
     void Awake()

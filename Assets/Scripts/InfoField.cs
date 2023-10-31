@@ -39,7 +39,7 @@ public class InfoField : MonoBehaviour
             for (int j = 0; j < 4; j++)
             {
                 normalCount[j] += holder.normals[j] == null ? 0 : holder.normals[j].length;
-                airialCount[j] += holder.airials[j] == null ? 0 : holder.airials[j].length;
+                airialCount[j] += holder.airials[j] == null ? 0 : 1;
             }
             floorCount[0] += holder.bottoms[0] == null ? 0 : holder.bottoms[0].length;
             floorCount[1] += holder.bottoms[1] == null ? 0 : holder.bottoms[1].length;
