@@ -8,12 +8,10 @@ using GameNote;
 using AESWithJava.Con;
 using Ookii.Dialogs;
 using System.Windows.Forms;
-using UnityEngine.InputSystem.Layouts;
 
 public class SaveManager : MonoBehaviour
 {
     private static SaveManager s_this;
-    private const double s_version = 1.0;
     private static string s_LoadedPath = "", s_noteFileName;
     private static bool isAlt = false, isLoaded = false, isLoadable = true;
     private bool isActive, isPassed;
@@ -48,7 +46,7 @@ public class SaveManager : MonoBehaviour
             dialog.Filter = "nd files (*.nd)|*.nd";
             dialog.FilterIndex = 1;
             dialog.Title = "Save Data";
-            dialog.InitialDirectory = Environment.CurrentDirectory + @"\Assets\_DataBox\";
+            dialog.InitialDirectory = (UnityEngine.Application.dataPath + @"\_DataBox").Replace("/", "\\");
             dialog.RestoreDirectory = true;
 
             if (dialog.ShowDialog() == DialogResult.OK)
@@ -85,7 +83,7 @@ public class SaveManager : MonoBehaviour
 
         saveFile.bpm = ValueManager.s_Bpm;
         saveFile.delay = ValueManager.s_Delay;
-        saveFile.editorVersion = s_version;
+        saveFile.version = VersionManager.GetVersion();
 
         NoteField.SortNoteHolder();
 
@@ -135,7 +133,7 @@ public class SaveManager : MonoBehaviour
         dialog.Filter = "nd files (*.nd)|*.nd";
         dialog.FilterIndex = 1;
         dialog.Title = "Open Data";
-        dialog.InitialDirectory = Environment.CurrentDirectory + @"\Assets\_DataBox\";
+        dialog.InitialDirectory = (UnityEngine.Application.dataPath + @"\_DataBox").Replace("/", "\\");
         dialog.RestoreDirectory = true;
 
         if (dialog.ShowDialog() == DialogResult.OK)
@@ -211,7 +209,7 @@ public class SaveManager : MonoBehaviour
         }
 
         //$ Check Old Version File
-        if (saveFile.editorVersion < s_version)
+        if (VersionManager.isVersionMatch(saveFile.version))
         {
             isActive = false;
             isPassed = false;
@@ -421,9 +419,8 @@ public class SaveManager : MonoBehaviour
 public class SaveFile
 {
     public int delay = 0;
+    public int[] version = { 1, 0, 0 };
     public double bpm = 120.0;
-    public double editorVersion = 1.0;
 
-    // StdMs__StdPos__Normals__Airials__Bottom[2]|Sound[2]__Others
     public List<string> noteDatas = new List<string>();
 }

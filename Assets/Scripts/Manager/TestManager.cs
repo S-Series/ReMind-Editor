@@ -1,40 +1,49 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Judge;
 using GameNote;
+
+namespace GameSystem
+{
+    public enum Judgetype 
+    {
+        Perfect = 0, 
+        Pure = 1, 
+        Near = 2, 
+        Lost = 3, 
+        None = 4 
+    };
+    public static class JudgeSystem
+    {
+        private static readonly float[] JudgeRange = { 37.5f, 52.5f, 72.5f, 107.5f };
+
+        public static Judgetype CheckJudge(float value)
+        {
+            Judgetype ret;
+            bool isPositive;
+
+            isPositive = value < 0 ? false : true;
+            if (!isPositive) { value = Mathf.Abs(value); }
+
+            if (value < JudgeRange[0]) { ret = Judgetype.Perfect; }     //$ 100 + 1
+            else if (value < JudgeRange[1]) { ret = Judgetype.Pure; }   //$ 100
+            else if (value < JudgeRange[2]) { ret = Judgetype.Near; }   //$ 50
+            else if (value < JudgeRange[3] && isPositive) { ret = Judgetype.Lost; }
+            else { ret = Judgetype.None; }
+
+            return ret;
+        }
+    }
+}
 
 public class TestManager : MonoBehaviour
 {
-    public static int Perfect = 0, Score = 0, MaxCount = 0;
-    public static int[] Pure = {0, 0}, Near = {0, 0}, Lost = {0, 0};
+    private static TestManager s_this;
 
-    public static float s_bpm = 120.0f, s_multiple = 1.0f;
-
-    private static List<SpeedNote> speedNotes;
-    private static List<EffectNote> effectNotes;
-
-    public static void ResetTest()
+    private void Awake()
     {
-        Perfect = 0;
-        Pure = new int[2] { 0, 0 };
-        Near = new int[2] { 0, 0 };
-        Lost = new int[2] { 0, 0 };
-        Score = 0;
+        if (s_this == null) { s_this = this; }
+    }
 
-        s_bpm = 120.0f;
-        s_multiple = 1.0f;
-    }
-    public static void JudgeApply(bool isPlus, Judgetype type)
-    {
-        if (type == Judgetype.None) { return; }
 
-        Score = Mathf.RoundToInt((Perfect + Pure[0] + Pure[1] 
-            + (Near[0] + Near[1]) * 0.5f) / MaxCount * 10000000);
-    }
-    public static void ApplyNoteList(List<SpeedNote> speeds, List<EffectNote> effects)
-    {
-        speedNotes = speeds;
-        effectNotes = effects;
-    }
 }

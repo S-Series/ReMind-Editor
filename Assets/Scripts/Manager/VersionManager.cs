@@ -25,6 +25,19 @@ public class VersionManager : MonoBehaviour
         }
         else { s_this.StartCoroutine(s_this.IDownloadVersionInfo()); }
     }
+    public static bool isVersionMatch(int[] value)
+    {
+        if (value[0] != s_Season) { return false; }
+        else if (value[1] != s_Release) { return false; }
+        else if (value[2] != s_Fatch) { return false; }
+        else { return true; }
+    }
+    public static int[] GetVersion()
+    {
+        int[] ret;
+        ret = new int[3] { s_Season, s_Release, s_Fatch };
+        return ret;
+    }
 
     private IEnumerator IDownloadVersionInfo()
     {
