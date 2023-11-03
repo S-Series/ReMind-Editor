@@ -15,16 +15,16 @@ public class MusicLoader : MonoBehaviour
     public List<AudioClip> clips = new List<AudioClip>();
     private static string path;
 
-    [SerializeField] TMP_Dropdown dropdown;
+    [SerializeField] TMP_Dropdown[] dropdown;
 
     private void Awake()
     {
         audioSource = GetComponent<AudioSource>();
-        if (!Directory.Exists(Environment.CurrentDirectory + @"\Assets\_DataBox\_MusicFile\"))
+        if (!Directory.Exists(Application.dataPath + @"\_DataBox\_MusicFile\"))
         {
             Directory.CreateDirectory(Environment.CurrentDirectory + @"\Assets\_DataBox\_MusicFile\");
         }
-        path = Environment.CurrentDirectory + @"\Assets\_DataBox\_MusicFile\";
+        path = Application.dataPath + @"\_DataBox\_MusicFile\";
         StartCoroutine(ILoadAllFile(true));
     }
     private IEnumerator ILoadAllFile(bool isStartLoad = false)
@@ -84,20 +84,30 @@ public class MusicLoader : MonoBehaviour
             Options.Add(new TMP_Dropdown.OptionData(clips[i].name));
         }
 
-        dropdown.options = Options;
+        dropdown[0].options = Options;
+        dropdown[1].options = Options;
 
         if (isStartLoad) 
         { 
             int _value;
             _value = Options.FindIndex(item => item.text == PlayerPrefs.GetString("MusicValue"));
-            dropdown.value = _value == -1 ? 0 : _value;
+            dropdown[0].value = _value == -1 ? 0 : _value;
+            dropdown[1].value = _value == -1 ? 0 : _value;
         }
-        else { dropdown.value = 0; }
+        else { dropdown[0].value = 0; dropdown[1].value = 0; }
     }
 
-    public void OnDropdownValueChanged()
+    public void OnDropdownValueChanged(TMP_Dropdown Tdd)
     {
-        PlayerPrefs.SetString("MusicValue", dropdown.options[dropdown.value].text);
-        audioSource.clip = dropdown.value == 0 ? null : clips[dropdown.value - 1];
+        int index;
+        index = Tdd.value;
+        PlayerPrefs.SetString("MusicValue", Tdd.options[index].text);
+        audioSource.clip = Tdd.value == 0 ? null : clips[index - 1];
+        dropdown[0].value = index;
+        dropdown[1].value = index;
+    }
+    public void LoadAllFile()
+    {
+        StartCoroutine(ILoadAllFile());
     }
 }

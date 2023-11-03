@@ -3,8 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using GameNote;
+using GameSystem;
 
-public class NoteTest : MonoBehaviour
+public class MainJudgeSystem : MonoBehaviour
 {
-    
+    public void LoadMusicFile()
+    {
+        
+    }
 }
