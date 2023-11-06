@@ -5,14 +5,29 @@ using GameNote;
 
 namespace GameSystem
 {
-    public enum Judgetype 
+    public enum Judgetype
     {
-        Perfect = 0, 
-        Pure = 1, 
-        Near = 2, 
-        Lost = 3, 
-        None = 4 
+        Perfect = 0,
+        Pure = 1,
+        Near = 2,
+        Lost = 3,
+        None = 4
     };
+    public struct JudgePackage
+    {
+        float JudgeMs;
+        GameNoteHolder holder;
+    }
+    public struct HolderPackage
+    {
+        public NoteHolder noteHolder { get; }
+        public GameNoteHolder gameNoteHolder { get; }
+        public HolderPackage(NoteHolder x, GameNoteHolder y)
+        {
+            noteHolder = x;
+            gameNoteHolder = y;
+        }
+    }
     public static class JudgeSystem
     {
         private static readonly float[] JudgeRange = { 37.5f, 52.5f, 72.5f, 107.5f };
@@ -45,5 +60,5 @@ public class TestManager : MonoBehaviour
         if (s_this == null) { s_this = this; }
     }
 
-    
+
 }

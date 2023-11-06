@@ -7,8 +7,9 @@ using GameSystem;
 
 public class MainJudgeSystem : MonoBehaviour
 {
-    public void LoadMusicFile()
+    public static MainJudgeSystem s_this;
+    void Awake()
     {
-        
+        if (s_this == null) { s_this = this; }
     }
 }
