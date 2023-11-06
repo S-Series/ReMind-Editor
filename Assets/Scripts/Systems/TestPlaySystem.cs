@@ -39,4 +39,8 @@ public class TestPlaySystem : MonoBehaviour
             holderPackages.Add(new HolderPackage(holders[i], copyHolder));
         }
     }
+    public void ChangeNoteFile()
+    {
+
+    }
 }

@@ -11800,6 +11800,8 @@ MonoBehaviour:
   - {fileID: 1446169456}
   - {fileID: 819520660}
   - {fileID: 1388569494}
+  GameNoteFields: []
+  GameNoteHolderPrefab: {fileID: 2368270512563088928, guid: 5f785347313795a4bba87438746e5f69, type: 3}
 --- !u!222 &249140123
 CanvasRenderer:
   m_ObjectHideFlags: 0
