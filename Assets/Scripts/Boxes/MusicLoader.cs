@@ -86,6 +86,7 @@ public class MusicLoader : MonoBehaviour
 
         dropdown[0].options = Options;
         dropdown[1].options = Options;
+        dropdown[2].options = Options;
 
         if (isStartLoad) 
         { 
@@ -93,8 +94,14 @@ public class MusicLoader : MonoBehaviour
             _value = Options.FindIndex(item => item.text == PlayerPrefs.GetString("MusicValue"));
             dropdown[0].value = _value == -1 ? 0 : _value;
             dropdown[1].value = _value == -1 ? 0 : _value;
+            dropdown[2].value = _value == -1 ? 0 : _value;
         }
-        else { dropdown[0].value = 0; dropdown[1].value = 0; }
+        else
+        {
+            dropdown[0].value = 0; 
+            dropdown[1].value = 0; 
+            dropdown[2].value = 0; 
+        }
     }
 
     public void OnDropdownValueChanged(TMP_Dropdown Tdd)
@@ -105,6 +112,7 @@ public class MusicLoader : MonoBehaviour
         audioSource.clip = Tdd.value == 0 ? null : clips[index - 1];
         dropdown[0].value = index;
         dropdown[1].value = index;
+        dropdown[2].value = index;
     }
     public void LoadAllFile()
     {
