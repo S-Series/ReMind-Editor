@@ -109,10 +109,7 @@ public class NoteHolder : MonoBehaviour
     }
     public void CheckDestroy()
     {
-        if (normals == new NormalNote[4] { null, null, null, null}
-            && airials == new NormalNote[4] { null, null, null, null}
-            && bottoms == new NormalNote[2] { null, null }
-            && speedNote == null && effectNote == null)
+        if (isNull())
         {
             NoteField.s_noteHolders.RemoveAll(item => item == this);
             Destroy(gameNoteHolder.gameObject);
@@ -149,4 +146,19 @@ public class NoteHolder : MonoBehaviour
     public GameObject getBottom(int index) { return bottomObjects[index]; }
     public GameObject getSpeed() { return speedObject; }
     public GameObject getEffect() { return effectObject; }
+
+    private bool isNull()
+    {
+        for (int i = 0; i < 4; i++)
+        {
+            if (normals[i] == null) { return false; }
+            if (airials[i] == null) { return false; }
+        }
+        if (bottoms[0] == null) { return false; }
+        if (bottoms[1] == null) { return false; }
+        if (speedNote == null) { return false; }
+        if (effectNote == null) { return false; }
+
+        return true;
+    }
 }

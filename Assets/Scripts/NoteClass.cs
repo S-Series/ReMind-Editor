@@ -34,6 +34,7 @@ namespace GameNote
         public static int CalMs(int pos)
         {
             int _ret = 0;
+            if (pos <= 0) { return _ret; }
 
             int _calMs;
             float _calPos;

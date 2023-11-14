@@ -21016,7 +21016,6 @@ MonoBehaviour:
   - {fileID: 1522925732}
   - {fileID: 600559513}
   - {fileID: 967828062}
-  materials: []
   inputFields:
   - {fileID: 563325079}
   - {fileID: 313495771}
@@ -80935,7 +80934,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 563.58, y: 0}
+  m_AnchoredPosition: {x: -31.985, y: 0}
   m_SizeDelta: {x: 922.01, y: 1163.17}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1940733508
