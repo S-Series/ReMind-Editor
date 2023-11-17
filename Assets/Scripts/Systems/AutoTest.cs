@@ -11,7 +11,7 @@ public class AutoTest : MonoBehaviour
     private static AutoTest s_this;
 
     private static int s_HolderIndex = 0;
-    private static bool s_isTesting = false, s_isPause = false;
+    private static bool s_isTesting = false, s_isPause = false, s_isEffect = false;
     private static float s_Ms = 0.0f;
     private static NoteHolder s_TargetHolder;
 
@@ -74,9 +74,16 @@ public class AutoTest : MonoBehaviour
 
         if (s_TargetHolder == null) { return; }
 
-        if (s_TargetHolder.stdMs >= s_Ms)
+        if (!s_isEffect)
         {
+            if (s_TargetHolder.stdMs >= s_Ms)
+            {
 
+            }
+        }
+        else
+        {
+            
         }
     }
 
