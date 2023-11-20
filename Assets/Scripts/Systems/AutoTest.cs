@@ -12,7 +12,9 @@ public class AutoTest : MonoBehaviour
 
     private static int s_HolderIndex = 0;
     private static bool s_isTesting = false, s_isPause = false, s_isEffect = false;
-    private static float s_Ms = 0.0f;
+    private static float s_Bpm = 120.0f, s_GameSpeed;
+    private static float s_Ms = 0.0f, s_SpeedMs = 0.0f;
+    private static float s_PosY = 0.0f, s_SpeedPosY = 0.0f, s_EffectPosY = 0.0f;
     private static NoteHolder s_TargetHolder;
 
     private static Transform[] MovingField; //# <-----------<
@@ -74,17 +76,17 @@ public class AutoTest : MonoBehaviour
 
         if (s_TargetHolder == null) { return; }
 
-        if (!s_isEffect)
+        if (s_TargetHolder.stdMs >= s_Ms)
         {
-            if (s_TargetHolder.stdMs >= s_Ms)
-            {
+            s_HolderIndex++;
+            Judge(s_TargetHolder);
+            s_TargetHolder = NoteField.s_noteHolders[s_HolderIndex];
+        }
 
-            }
-        }
-        else
-        {
-            
-        }
+        _MovingField[0].localPosition 
+            = new Vector3(0, s_isEffect ? s_EffectPosY : s_PosY, 0);
+        _MovingField[1].localPosition 
+            = new Vector3(0, (s_isEffect ? s_EffectPosY : s_PosY) * s_GameSpeed, 0);
     }
 
     public static void StartTest(int pos)
@@ -102,6 +104,8 @@ public class AutoTest : MonoBehaviour
         s_this.StartCoroutine(ITesting(guideMs));
         s_this.StartCoroutine(ITestGuide(startMs, guideMs));
         s_this.StartCoroutine(IPlayMusic(startMs));
+
+        s_TargetHolder = NoteField.s_noteHolders.Find(item => item.stdMs > startMs);
     }
     public static void EndTest()
     {
@@ -125,6 +129,7 @@ public class AutoTest : MonoBehaviour
         {
             yield return null;
             s_Ms += Time.deltaTime * 1000;
+            s_PosY = (s_Ms - s_SpeedMs) * s_Bpm / 150 + s_SpeedPosY;
         }
     }
     private static IEnumerator ITestGuide(int value, int G)
