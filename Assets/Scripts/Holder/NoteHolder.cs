@@ -13,6 +13,7 @@ public class NoteHolder : MonoBehaviour
     public int stdMs, stdPos;
     public GameNoteHolder gameNoteHolder;
 
+    public int[][] longMs = { new int[0], new int[0], new int[0], new int[0], new int[0], new int[0] };
     public NormalNote[] normals = new NormalNote[4] { null, null, null, null };
     public NormalNote[] airials = new NormalNote[4] { null, null, null, null };
     public NormalNote[] bottoms = new NormalNote[2] { null, null };

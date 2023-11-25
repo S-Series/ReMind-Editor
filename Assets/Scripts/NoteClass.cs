@@ -125,6 +125,11 @@ namespace GameNote
             NoteClass.s_SpeedNotes.Add(ret);
             return ret;
         }
+
+        public double getBpm()
+        {
+            return bpm * multiple;
+        }
     }
 
     public class EffectNote:Note

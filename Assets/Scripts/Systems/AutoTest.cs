@@ -10,7 +10,9 @@ public class AutoTest : MonoBehaviour
 {
     private static AutoTest s_this;
 
-    private static int s_HolderIndex = 0;
+    private readonly static string[] Trigger = {"Play", "Start", "End"};
+
+    private static int s_HolderIndex = 0, s_Combo = 0;
     private static bool s_isTesting = false, s_isPause = false, s_isEffect = false;
     private static float s_Bpm = 120.0f, s_GameSpeed;
     private static float s_Ms = 0.0f, s_SpeedMs = 0.0f;
@@ -23,6 +25,7 @@ public class AutoTest : MonoBehaviour
     [SerializeField] private InputAction[] inputActions;
 
     [SerializeField] private Animator[] judgeEffects;
+    [SerializeField] private Animator[] gameJudgeEffects;
     [SerializeField] private AudioSource guideSound;
     [SerializeField] private AudioSource[] judgeSounds;
     [SerializeField] private AudioSource[] judgeLongSounds;
@@ -117,11 +120,59 @@ public class AutoTest : MonoBehaviour
         MusicLoader.audioSource.Play();
     }
 
-    private static void Judge(NoteHolder holder)
+    private void Judge(NoteHolder holder)
     {
+        for (int i = 0; i < 4; i++)
+        {
+            if (holder.normals[i] != null)
+            {
+                if (holder.normals[i].length == 1)
+                {
+                    s_Combo++;
+                    judgeEffects[i].SetTrigger(Trigger[0]);
+                    gameJudgeEffects[i].SetTrigger(Trigger[0]);
+                }
+                else { StartCoroutine(ILongNote(i, holder.longMs[i])); }
+            }
+            if (holder.airials[i] != null)
+            {
+                s_Combo++;
+                judgeEffects[i].SetTrigger(Trigger[0]);
+                gameJudgeEffects[i + 4].transform.localPosition 
+                    = new Vector3(0, holder.airials[i].length, 0);
+                gameJudgeEffects[i + 4].SetTrigger(Trigger[0]);
+            }
 
+            if (i >= 2) { continue; }
+
+            if (holder.bottoms[i] != null)
+            {
+                if (holder.bottoms[i].length == 1)
+                {
+                    s_Combo++;
+                    judgeEffects[i + 8].SetTrigger(Trigger[0]);
+                    gameJudgeEffects[i + 8].SetTrigger(Trigger[0]);
+                }
+                else
+                {
+
+                }
+            }
+        }
+
+        if (holder.speedNote != null)
+        {
+            s_Bpm = (float)holder.speedNote.getBpm();
+            s_SpeedMs = holder.stdMs;
+            s_SpeedPosY = holder.stdPos;
+        }
+        if (holder.effectNote != null)
+        {
+            s_isEffect = true;
+        }
     }
 
+    //$ Testing Coroutines
     private static IEnumerator ITesting(int value)
     {
         s_Ms = value;
@@ -163,6 +214,37 @@ public class AutoTest : MonoBehaviour
         }
     }
 
+    //$ LongNote, EffectNote, etc... Coroutines
+    private IEnumerator ILongNote(int line, int[] datas)
+    {
+        judgeEffects[line].SetTrigger(Trigger[1]);
+        gameJudgeEffects[line].SetTrigger(Trigger[1]);
+
+        for (int i = 0; i < datas.Length;)
+        {
+            if (s_Ms > datas[i])
+            {
+                s_Combo++;
+                i++;
+            }
+            yield return null;
+        }
+
+        judgeEffects[line].SetTrigger(Trigger[2]);
+        gameJudgeEffects[line].SetTrigger(Trigger[2]);
+    }
+    private IEnumerator IEffect(NoteHolder holder)
+    {
+        int EndMs;
+        EndMs = holder.stdMs + holder.effectNote.value;
+
+        while (s_Ms > EndMs)
+        {
+            yield return null;
+        }
+    }
+
+    //$ Button Actions
     public void Btn_StartTest()
     {
         if (s_isTesting) { EndTest(); }
