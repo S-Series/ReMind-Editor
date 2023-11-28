@@ -10,14 +10,18 @@ public class AutoTest : MonoBehaviour
 {
     private static AutoTest s_this;
 
-    private readonly static string[] Trigger = {"Play", "Start", "End"};
+    private readonly static string[] Trigger = { "Play", "Start", "End" };
 
-    private static int s_HolderIndex = 0, s_Combo = 0;
+    private static int s_HolderIndex = 0;
     private static bool s_isTesting = false, s_isPause = false, s_isEffect = false;
     private static float s_Bpm = 120.0f, s_GameSpeed;
     private static float s_Ms = 0.0f, s_SpeedMs = 0.0f;
     private static float s_PosY = 0.0f, s_SpeedPosY = 0.0f, s_EffectPosY = 0.0f;
     private static NoteHolder s_TargetHolder;
+    
+    //# --------------------------------------------------
+    private int ComboColorIndex;
+    private int[] Combo = new int[4] { 0, 0, 0, 0 };
 
     private static Transform[] MovingField; //# <-----------<
     [SerializeField] private Transform[] _MovingField; //#--<
@@ -29,6 +33,8 @@ public class AutoTest : MonoBehaviour
     [SerializeField] private AudioSource guideSound;
     [SerializeField] private AudioSource[] judgeSounds;
     [SerializeField] private AudioSource[] judgeLongSounds;
+    [SerializeField] private Sprite[] ComboSprite;
+    [SerializeField] private SpriteRenderer[] ComboRenderer;
 
     private void Awake()
     {
@@ -128,7 +134,7 @@ public class AutoTest : MonoBehaviour
             {
                 if (holder.normals[i].length == 1)
                 {
-                    s_Combo++;
+                    AddCombo();
                     judgeEffects[i].SetTrigger(Trigger[0]);
                     gameJudgeEffects[i].SetTrigger(Trigger[0]);
                 }
@@ -136,7 +142,7 @@ public class AutoTest : MonoBehaviour
             }
             if (holder.airials[i] != null)
             {
-                s_Combo++;
+                AddCombo();
                 judgeEffects[i].SetTrigger(Trigger[0]);
                 gameJudgeEffects[i + 4].transform.localPosition 
                     = new Vector3(0, holder.airials[i].length, 0);
@@ -149,7 +155,7 @@ public class AutoTest : MonoBehaviour
             {
                 if (holder.bottoms[i].length == 1)
                 {
-                    s_Combo++;
+                    AddCombo();
                     judgeEffects[i + 8].SetTrigger(Trigger[0]);
                     gameJudgeEffects[i + 8].SetTrigger(Trigger[0]);
                 }
@@ -170,6 +176,26 @@ public class AutoTest : MonoBehaviour
         {
             s_isEffect = true;
         }
+    }
+    private void AddCombo()
+    {
+        Combo[3]++;
+
+        if (Combo[3] > 9) { Combo[3]--; Combo[2]++; }
+        if (Combo[2] > 9) { Combo[2]--; Combo[1]++; }
+        if (Combo[1] > 9) { Combo[1]--; Combo[0]++; }
+
+        for (int i = 0; i < 4; i++)
+        {
+            
+        }
+    }
+    private void ResetCombo()
+    {
+        Combo = new int[4] { 0, 0, 0, 0 };
+        ComboColorIndex = 0;
+        ComboRenderer[0].sprite = ComboSprite[0];
+        ComboRenderer[0].color = new Color32(125, 125, 125, 255);
     }
 
     //$ Testing Coroutines
@@ -224,7 +250,7 @@ public class AutoTest : MonoBehaviour
         {
             if (s_Ms > datas[i])
             {
-                s_Combo++;
+                AddCombo();
                 i++;
             }
             yield return null;
@@ -259,4 +285,5 @@ public class AutoTest : MonoBehaviour
     {
         //# Not Approveds
     }
+
 }
