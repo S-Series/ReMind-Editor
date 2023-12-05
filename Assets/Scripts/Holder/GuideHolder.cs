@@ -9,7 +9,7 @@ public class GuideHolder : MonoBehaviour
     public int posY = 0;
     private static Color32[] color32s =
     {
-        new Color32(255, 255, 255, 025),    // Normal
+        new Color32(200, 200, 200, 025),    // Normal
         new Color32(255, 000, 255, 025),    // third
         new Color32(000, 255, 185, 025),    // fourth
         new Color32(255, 255, 255, 255)     // BPM Guide
@@ -24,15 +24,16 @@ public class GuideHolder : MonoBehaviour
         pos = Mathf.RoundToInt(16.0f / guideCount * index);
 
         transform.localPosition = new Vector3(0, pos * 2, 0);
-        foreach (BoxCollider2D collider in guideColliders)
+        for (int i = 0; i < guideColliders.Length; i++)
         {
-            collider.size = new Vector2(240, Mathf.RoundToInt(3200.0f / GuideGenerate.s_guideCount));
+            guideColliders[i].size = new Vector2
+                (i == 0 ? 630 : 240, Mathf.RoundToInt(3200.0f / GuideGenerate.s_guideCount));
         }
     }
 
     public void ReSizeLineRenderer(float invertScale)
     {
-        guideLineRenderer.transform.localScale = new Vector3(300, 100 / invertScale, 1);
+        guideLineRenderer.transform.localScale = new Vector3(300, 1000 / invertScale, 1);
     }
 
     public void EnableCollider(bool isEnable)

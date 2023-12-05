@@ -62,6 +62,6 @@ public class GameNoteHolder : MonoBehaviour
     }
     public void UpdateScale()
     {
-        transform.localScale = new Vector3(1, 2f / (NoteField.s_Zoom / 10f), 1);
+        transform.localScale = new Vector3(1, 20f / (NoteField.s_Zoom / 10f), 1);
     }
 }

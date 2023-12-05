@@ -82,7 +82,7 @@ public class NoteHolder : MonoBehaviour
     }
     public void UpdateScale()
     {
-        transform.localScale = new Vector3(1, 1f / (NoteField.s_Zoom / 10f), 1);
+        transform.localScale = new Vector3(1, 10f / (10f / NoteField.s_Zoom), 1);
         gameNoteHolder.UpdateScale();
     }
     public void EnableCollider(bool isTrue)

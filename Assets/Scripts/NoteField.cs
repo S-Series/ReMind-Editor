@@ -14,16 +14,15 @@ public class NoteField : MonoBehaviour
     public static List<NoteHolder> s_noteHolders = new List<NoteHolder>();
     public static int s_Page = 0;
     public static int s_Scroll = 0;
-    public static int s_Zoom = 10;
+    public static int s_Zoom = 2;
     public static int s_StartPos = 0;
     private static bool s_isCtrl = false;
 
     [SerializeField] InputAction[] CtrlAction;
     [SerializeField] InputAction ScrollAction;
     [SerializeField] GameObject LinePrefab;
+    [SerializeField] Transform PreviewNoteParent;
     [SerializeField] Transform[] DrawField;
-
-    [SerializeField] Material[] noteMaterials;
 
     private void Awake()
     {
@@ -62,14 +61,14 @@ public class NoteField : MonoBehaviour
             //$ Mouse Scroll Up
             if (z > 0)
             {
-                if (s_isCtrl) { s_Zoom++; }
+                if (s_isCtrl) { s_Zoom--; }
                 else { s_Scroll++; }
                 UpdateField();
             }
             //$ Mouse Scroll Down
             else if (z < 0)
             {
-                if (s_isCtrl) { s_Zoom--; }
+                if (s_isCtrl) { s_Zoom++; }
                 else { s_Scroll--; }
                 UpdateField();
             }
@@ -120,6 +119,7 @@ public class NoteField : MonoBehaviour
         Vector3 _pos;
         Vector3 _scale;
         int _count = GuideGenerate.s_guideCount;
+        float zoomValue;
 
         s_StartPos = s_Page * 1600 + Mathf.RoundToInt(1600f / _count * s_Scroll);
 
@@ -129,19 +129,22 @@ public class NoteField : MonoBehaviour
         if (s_Page < 0) { s_Page = 0; s_Scroll = 0; }
         else if (s_Page > 999) { s_Page = 999; }
 
-        if (s_Zoom < 02) { s_Zoom = 02; }
-        else if (s_Zoom > 40) { s_Zoom = 40; }
+        if (s_Zoom < 01) { s_Zoom = 01; }
+        else if (s_Zoom > 5) { s_Zoom = 5; }
+
+        zoomValue = 10.0f / s_Zoom;
+        print(string.Format("{0} => {1}", s_Zoom, zoomValue));
 
         _pos = new Vector3(-0.5f, ((s_Page * -10)
-            - (10f / GuideGenerate.s_guideCount * s_Scroll)) * s_Zoom / 10 - 5, 0);
-        _scale = new Vector3(0.00312f, s_Zoom * 0.0003125f, 0.00312f);
+            - (10f / GuideGenerate.s_guideCount * s_Scroll)) * zoomValue / 10 - 5, 0);
+        _scale = new Vector3(0.00312f, zoomValue * 0.0003125f, 0.00312f);
 
         DrawField[0].localScale = _scale;
         DrawField[0].localPosition = _pos;
 
-        DrawField[1].localScale = new Vector3(0.00415f, s_Zoom * 0.0003125001f, 0.00415f);
+        DrawField[1].localScale = new Vector3(0.00415f, zoomValue * 0.0003125001f, 0.00415f);
         DrawField[1].localPosition = new Vector3(25, -31.3f, ((s_Page * -10)
-            - (10f / GuideGenerate.s_guideCount * s_Scroll)) * s_Zoom / 10 - 19);
+            - (10f / GuideGenerate.s_guideCount * s_Scroll)) * zoomValue / 10 - 19);
 
         DrawField[2].localScale = _scale;
         DrawField[2].localPosition = _pos;
@@ -149,8 +152,10 @@ public class NoteField : MonoBehaviour
         DrawField[3].localScale = _scale;
         DrawField[3].localPosition = _pos;
 
+        PreviewNoteParent.localScale = new Vector3(0.00312f, 0.00312f, 0.00312f);
+
         GuideGenerate.UpdateGuideColor();
-        GuideGenerate.GuideFieldSize(_scale, s_Zoom / 10.0f);
+        GuideGenerate.GuideFieldSize(_scale, zoomValue);
 
         foreach (NoteHolder holder in s_noteHolders) { holder.UpdateScale(); }
         foreach (LineHolder holder in s_holders) { holder.UpdateScale(); }
@@ -180,11 +185,5 @@ public class NoteField : MonoBehaviour
         if (EditManager.s_SelectNoteHolder == null) { return; }
 
         
-    }
-
-    public static Material GetNoteMaterial(int index)
-    {
-        try { return s_this.noteMaterials[index]; }
-        catch { return null; }
     }
 }

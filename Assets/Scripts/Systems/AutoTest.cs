@@ -85,7 +85,7 @@ public class AutoTest : MonoBehaviour
 
         if (s_TargetHolder == null) { return; }
 
-        if (s_TargetHolder.stdMs >= s_Ms)
+        if (s_Ms >= s_TargetHolder.stdMs)
         {
             s_HolderIndex++;
             Judge(s_TargetHolder);
@@ -109,6 +109,8 @@ public class AutoTest : MonoBehaviour
         int startMs, guideMs;
         startMs = NoteClass.CalMs(pos);
         guideMs = startMs - Mathf.RoundToInt(240000 / (float)ValueManager.s_Bpm);
+
+        s_isTesting = true;
 
         s_this.StartCoroutine(ITesting(guideMs));
         s_this.StartCoroutine(ITestGuide(startMs, guideMs));
@@ -187,7 +189,7 @@ public class AutoTest : MonoBehaviour
 
         for (int i = 0; i < 4; i++)
         {
-            
+            ComboRenderer[i].sprite = ComboSprite[Combo[i]];
         }
     }
     private void ResetCombo()

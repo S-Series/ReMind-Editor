@@ -11,6 +11,6 @@ public class LineHolder : MonoBehaviour
 
     public void UpdateScale()
     {
-        transform.localScale = new Vector3(300, 100 / (NoteField.s_Zoom / 10f), 300);
+        transform.localScale = new Vector3(300, 1000 / (10f / NoteField.s_Zoom), 300);
     }
 }

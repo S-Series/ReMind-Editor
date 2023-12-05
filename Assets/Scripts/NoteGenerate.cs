@@ -42,9 +42,9 @@ public class NoteGenerate : MonoBehaviour
         else if (s_Line == 0) { posX = -360; }
 
         previews[s_previewIndex].transform.localPosition
-            = new Vector3(posX, posY * 2
+            = new Vector3(posX, (posY * 2
             + 1600f / GuideGenerate.s_guideCount * NoteField.s_Scroll * 2
-            + 1600f * NoteField.s_Page * 2, posZ);
+            + 1600f * NoteField.s_Page * 2) / NoteField.s_Zoom, posZ);
     }
 
     public static void GenerateNote()
