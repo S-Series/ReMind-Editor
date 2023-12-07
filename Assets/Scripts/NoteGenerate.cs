@@ -9,6 +9,7 @@ public class NoteGenerate : MonoBehaviour
     public static bool s_isGenerating = false;
 
     public static int posX = 0, posY = 0, posZ = 0, s_Line = 0, s_previewIndex = 0;
+    public static Vector3[] InitVec = new Vector3[2];
 
     [SerializeField] GameObject[] previews;
     [SerializeField] GameObject[] GeneratePrefabs;
@@ -25,6 +26,9 @@ public class NoteGenerate : MonoBehaviour
     {
         s_this = this;
         ChangePreview(-1);
+
+        InitVec[0] = GeneratePrefabs[0].transform.localPosition;
+        InitVec[1] = GeneratePrefabs[1].transform.localPosition;
     }
 
     private void Update()

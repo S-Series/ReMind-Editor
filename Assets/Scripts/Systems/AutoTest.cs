@@ -10,7 +10,7 @@ public class AutoTest : MonoBehaviour
 {
     private static AutoTest s_this;
 
-    private readonly static string[] Trigger = { "Play", "Start", "End" };
+    private readonly static string[] Trigger = { "100", "Start", "End" };
 
     private static int s_HolderIndex = 0;
     private static bool s_isTesting = false, s_isPause = false, s_isEffect = false;
@@ -89,13 +89,14 @@ public class AutoTest : MonoBehaviour
         {
             s_HolderIndex++;
             Judge(s_TargetHolder);
-            s_TargetHolder = NoteField.s_noteHolders[s_HolderIndex];
+            s_TargetHolder = s_HolderIndex == NoteField.s_noteHolders.Count 
+                ? null : NoteField.s_noteHolders[s_HolderIndex];
         }
 
         _MovingField[0].localPosition 
-            = new Vector3(0, s_isEffect ? s_EffectPosY : s_PosY, 0);
+            = new Vector3(-.5f, (s_isEffect ? s_EffectPosY : s_PosY) / -320f - 5f, 0);
         _MovingField[1].localPosition 
-            = new Vector3(0, (s_isEffect ? s_EffectPosY : s_PosY) * s_GameSpeed, 0);
+            = new Vector3(25, -31.3f, -19f - (s_isEffect ? s_EffectPosY : s_PosY) / 160f);
     }
 
     public static void StartTest(int pos)
@@ -158,7 +159,7 @@ public class AutoTest : MonoBehaviour
                 if (holder.bottoms[i].length == 1)
                 {
                     AddCombo();
-                    judgeEffects[i + 8].SetTrigger(Trigger[0]);
+                    judgeEffects[i + 4].SetTrigger(Trigger[0]);
                     gameJudgeEffects[i + 8].SetTrigger(Trigger[0]);
                 }
                 else

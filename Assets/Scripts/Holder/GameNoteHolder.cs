@@ -10,7 +10,7 @@ public class GameNoteHolder : MonoBehaviour
 
     public void UpdateNote(NoteHolder holder)
     {
-        transform.localPosition = new Vector3(0, holder.stdPos * 2, -3614.458f);
+        transform.localPosition = new Vector3(0, holder.stdPos * 2, NoteGenerate.InitVec[1].z);
 
         for (int i = 0; i < 4; i++)
         {
