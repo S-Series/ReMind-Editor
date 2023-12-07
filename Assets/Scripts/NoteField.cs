@@ -142,7 +142,7 @@ public class NoteField : MonoBehaviour
         DrawField[0].localScale = _scale;
         DrawField[0].localPosition = _pos;
 
-        DrawField[1].localScale = new Vector3(0.00415f, zoomValue * 0.0003125001f, 0.00415f);
+        DrawField[1].localScale = new Vector3(0.00415f, 2f * zoomValue * 0.0003125001f, 0.00415f);
         DrawField[1].localPosition = new Vector3(25, -31.3f, ((s_Page * -10)
             - (10f / GuideGenerate.s_guideCount * s_Scroll)) * zoomValue / 10 - 19);
 

@@ -10,7 +10,7 @@ public class GameNoteHolder : MonoBehaviour
 
     public void UpdateNote(NoteHolder holder)
     {
-        transform.localPosition = new Vector3(0, holder.stdPos * 2, 0);
+        transform.localPosition = new Vector3(0, holder.stdPos * 2, -3614.458f);
 
         for (int i = 0; i < 4; i++)
         {
@@ -62,6 +62,6 @@ public class GameNoteHolder : MonoBehaviour
     }
     public void UpdateScale()
     {
-        transform.localScale = new Vector3(1, 20f / (NoteField.s_Zoom / 10f), 1);
+        transform.localScale = new Vector3(1, 10f / (10f / NoteField.s_Zoom), 1);
     }
 }

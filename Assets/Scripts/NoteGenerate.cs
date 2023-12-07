@@ -75,6 +75,7 @@ public class NoteGenerate : MonoBehaviour
         else
         {
             copyObject = Instantiate(s_this.GeneratePrefabs[0], s_this.GenerateField[0], false);
+            //copyObject.transform.localPosition = 
             holder = copyObject.GetComponent<NoteHolder>();
             holder.name = "Pos : " + pos.ToString();
             holder.stdMs = NoteClass.CalMs(pos);
