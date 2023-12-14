@@ -46,7 +46,7 @@ public class PlayInputManager : MonoBehaviour
     }
     private void UpdateInputAction()
     {
-
+        
     }
 
     private void JudgeAction(int line)

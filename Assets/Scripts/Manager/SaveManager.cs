@@ -33,10 +33,13 @@ public class SaveManager : MonoBehaviour
     private void Start()
     {
         HiddenKey = PlayerPrefs.GetString("HiddenKey");
+        LoadNoteFile();
     }
     public static void SaveNoteFile()
     {
         if (!isLoadable) { return; }
+
+        print("run");
 
         string path = "";
         if (isAlt || !isLoaded)
@@ -56,20 +59,13 @@ public class SaveManager : MonoBehaviour
                 {
                     path = dialog.FileName;
                     stream.Close();
+                    if (File.Exists(path)) { File.Delete(path); }
                 }
                 else { return; }
             }
             else { return; }
         }
         else { path = s_LoadedPath; }
-
-        if (path == "") { return; }
-
-        string strPath;
-        strPath = path.ToString();
-
-        if (strPath.Length < 3) { path = path + ".nd"; }
-        else if (strPath.Substring(strPath.Length - 3) != ".nd") { path = path + ".nd"; }
 
         print(path);
 
@@ -118,7 +114,6 @@ public class SaveManager : MonoBehaviour
                     Mathf.RoundToInt(System.Convert.ToSingle(holder.speedNote.bpm * 100)),
                 holder.speedNote == null ? 00 :
                     Mathf.RoundToInt(System.Convert.ToSingle(holder.speedNote.multiple * 1000)));
-            print(saveData);
             saveFile.noteDatas.Add(saveData);
         }
         s_this.StartCoroutine(s_this.IWriteFile(saveFile, path));
@@ -161,7 +156,8 @@ public class SaveManager : MonoBehaviour
 
         yield return null;
 
-        File.WriteAllText(path, JsonAES.Encrypt(jsonData, HiddenKey));
+
+        File.WriteAllText(path + ".nd", JsonAES.Encrypt(jsonData, HiddenKey));
 
         yield return null;
 
@@ -208,8 +204,10 @@ public class SaveManager : MonoBehaviour
             catch { yield break; }
         }
 
+        print(JsonAES.Decrypt(File.ReadAllText(path), HiddenKey));
+
         //$ Check Old Version File
-        if (VersionManager.isVersionMatch(saveFile.version))
+        if (!VersionManager.isVersionMatch(saveFile.version))
         {
             isActive = false;
             isPassed = false;
@@ -322,6 +320,7 @@ public class SaveManager : MonoBehaviour
             }
 
             copyHolder.UpdateNote();
+            copyHolder.UpdateScale();
             copyHolder.CheckDestroy();
             yield return null;
         }
