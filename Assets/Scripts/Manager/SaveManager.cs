@@ -39,7 +39,7 @@ public class SaveManager : MonoBehaviour
     {
         if (!isLoadable) { return; }
 
-        print("run");
+        NoteField.InitAllHolder();
 
         string path = "";
         if (isAlt || !isLoaded)
@@ -59,7 +59,7 @@ public class SaveManager : MonoBehaviour
                 {
                     path = dialog.FileName;
                     stream.Close();
-                    if (File.Exists(path)) { File.Delete(path); }
+                    if (File.Exists(path)) { File.Move(path, path + ".nd"); }
                 }
                 else { return; }
             }
@@ -156,8 +156,9 @@ public class SaveManager : MonoBehaviour
 
         yield return null;
 
+        if (!path.Contains(".nd")) { path += ".nd"; }
 
-        File.WriteAllText(path + ".nd", JsonAES.Encrypt(jsonData, HiddenKey));
+        File.WriteAllText(path, JsonAES.Encrypt(jsonData, HiddenKey));
 
         yield return null;
 
@@ -319,6 +320,7 @@ public class SaveManager : MonoBehaviour
                 speed.multiple = Convert.ToDouble(noteData[1]) / 1000d;
             }
 
+            copyHolder.EnableCollider(true);
             copyHolder.UpdateNote();
             copyHolder.UpdateScale();
             copyHolder.CheckDestroy();
@@ -419,7 +421,7 @@ public class SaveFile
 {
     public int delay = 0;
     public int[] version = { 1, 0, 0 };
-    public double bpm = 120.0;
+    public float bpm = 120.0f;
 
     public List<string> noteDatas = new List<string>();
 }

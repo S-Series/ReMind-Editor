@@ -12,6 +12,7 @@ public class NoteGenerate : MonoBehaviour
     public static Vector3[] InitVec = new Vector3[2];
 
     [SerializeField] GameObject[] previews;
+    [SerializeField] GameObject previewGuide;
     [SerializeField] GameObject[] GeneratePrefabs;
     [SerializeField] Transform[] GenerateField;
     /// <summary>
@@ -49,6 +50,9 @@ public class NoteGenerate : MonoBehaviour
             = new Vector3(posX, (posY * 2
             + 1600f / GuideGenerate.s_guideCount * NoteField.s_Scroll * 2
             + 1600f * NoteField.s_Page * 2) / NoteField.s_Zoom, posZ);
+        previewGuide.transform.localPosition = new Vector3(3086, (posY * 2
+            + 1600f / GuideGenerate.s_guideCount * NoteField.s_Scroll * 2
+            + 1600f * NoteField.s_Page * 2) / NoteField.s_Zoom, 0);
     }
 
     public static void GenerateNote()

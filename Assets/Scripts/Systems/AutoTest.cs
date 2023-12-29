@@ -10,10 +10,12 @@ public class AutoTest : MonoBehaviour
 {
     private static AutoTest s_this;
 
+    public static bool s_isTesting = false;
+
     private readonly static string[] Trigger = { "100", "Start", "End" };
 
     private static int s_HolderIndex = 0;
-    private static bool s_isTesting = false, s_isPause = false, s_isEffect = false;
+    private static bool s_isPause = false, s_isEffect = false;
     private static float s_Bpm = 120.0f, s_GameSpeed;
     private static float s_Ms = 0.0f, s_SpeedMs = 0.0f;
     private static float s_PosY = 0.0f, s_SpeedPosY = 0.0f, s_EffectPosY = 0.0f;
@@ -83,6 +85,13 @@ public class AutoTest : MonoBehaviour
     {
         if (!s_isTesting) { return; }
 
+        _MovingField[0].localPosition 
+            = new Vector3(-.5f, (s_isEffect ? s_EffectPosY : s_PosY) / -320f - 5f, 0);
+        _MovingField[1].localPosition 
+            = new Vector3(25, -31.3f, -19f - (s_isEffect ? s_EffectPosY : s_PosY) / 160f);
+        _MovingField[2].localPosition
+            = new Vector3(0, -(s_isEffect ? s_EffectPosY : s_PosY), 0);
+
         if (s_TargetHolder == null) { return; }
 
         if (s_Ms >= s_TargetHolder.stdMs)
@@ -92,11 +101,6 @@ public class AutoTest : MonoBehaviour
             s_TargetHolder = s_HolderIndex == NoteField.s_noteHolders.Count 
                 ? null : NoteField.s_noteHolders[s_HolderIndex];
         }
-
-        _MovingField[0].localPosition 
-            = new Vector3(-.5f, (s_isEffect ? s_EffectPosY : s_PosY) / -320f - 5f, 0);
-        _MovingField[1].localPosition 
-            = new Vector3(25, -31.3f, -19f - (s_isEffect ? s_EffectPosY : s_PosY) / 160f);
     }
 
     public static void StartTest(int pos)
@@ -106,6 +110,11 @@ public class AutoTest : MonoBehaviour
         NoteGenerate.Escape();
         InputManager.EnableInput(false);
         NoteField.SortNoteHolder();
+        NoteField.InitAllHolder();
+        NoteField.s_isFieldMovable = false;
+
+        s_Bpm = ValueManager.s_Bpm;
+        s_HolderIndex = 0;
 
         int startMs, guideMs;
         startMs = NoteClass.CalMs(pos);
@@ -117,16 +126,19 @@ public class AutoTest : MonoBehaviour
         s_this.StartCoroutine(ITestGuide(startMs, guideMs));
         s_this.StartCoroutine(IPlayMusic(startMs));
 
-        s_TargetHolder = NoteField.s_noteHolders.Find(item => item.stdMs > startMs);
+        s_HolderIndex = NoteField.s_noteHolders.FindIndex(item => item.stdMs >= startMs);
+        s_TargetHolder = NoteField.s_noteHolders[s_HolderIndex];
     }
     public static void EndTest()
     {
         s_isTesting = false;
         InputManager.EnableInput(true);
+        NoteField.s_isFieldMovable = true;
+
         foreach (NoteHolder holder in NoteField.s_noteHolders) { holder.EnableNote(true); }
         s_this.StopAllCoroutines();
 
-        MusicLoader.audioSource.Play();
+        MusicLoader.audioSource.Stop();
     }
 
     private void Judge(NoteHolder holder)
@@ -276,11 +288,15 @@ public class AutoTest : MonoBehaviour
     //$ Button Actions
     public void Btn_StartTest()
     {
+        if (SpectrumManager.isGenerating) { return; }
+
         if (s_isTesting) { EndTest(); }
         else { StartTest(0); }
     }
     public void Btn_MidTest()
     {
+        if (SpectrumManager.isGenerating) { return; }
+
         if (s_isTesting) { EndTest(); }
         else { StartTest(NoteField.s_StartPos); }
     }

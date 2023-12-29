@@ -113,6 +113,7 @@ public class MusicLoader : MonoBehaviour
         dropdown[0].value = index;
         dropdown[1].value = index;
         dropdown[2].value = index;
+        SpectrumManager.GenerateSpectrum(audioSource.clip);
     }
     public void LoadAllFile()
     {

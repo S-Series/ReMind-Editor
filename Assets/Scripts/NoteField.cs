@@ -135,15 +135,15 @@ public class NoteField : MonoBehaviour
         zoomValue = 10.0f / s_Zoom;
 
         _pos = new Vector3(-0.5f, ((s_Page * -10)
-            - (10f / GuideGenerate.s_guideCount * s_Scroll)) * zoomValue / 10 - 5, 0);
+            - (10f / _count * s_Scroll)) * zoomValue / 10 - 5, 0);
         _scale = new Vector3(0.00312f, zoomValue * 0.0003125f, 0.00312f);
 
         DrawField[0].localScale = _scale;
         DrawField[0].localPosition = _pos;
 
         DrawField[1].localScale = new Vector3(0.00415f, 2f * zoomValue * 0.0003125001f, 0.00415f);
-        DrawField[1].localPosition = new Vector3(25, -31.3f, 2f * (((s_Page * -10)
-            - (10f / GuideGenerate.s_guideCount * s_Scroll)) * zoomValue / 10) - 19f);
+        DrawField[1].localPosition = new Vector3(25, -31.3f, 2f *
+            (((s_Page * -10) - (10f / _count * s_Scroll)) * zoomValue / 10) - 19f);
 
         DrawField[2].localScale = _scale;
         DrawField[2].localPosition = _pos;
@@ -151,6 +151,8 @@ public class NoteField : MonoBehaviour
         DrawField[3].localScale = _scale;
         DrawField[3].localPosition = _pos;
 
+        DrawField[4].localScale = new Vector3(1, zoomValue / 5f, 1);
+        DrawField[4].localPosition = new Vector3(0, (s_Page * -1600f) - (1600f * s_Scroll / _count), 0);
         PreviewNoteParent.localScale = new Vector3(0.00312f, 0.00312f, 0.00312f);
 
         GuideGenerate.UpdateGuideColor();
@@ -164,6 +166,15 @@ public class NoteField : MonoBehaviour
     public static void SortNoteHolder()
     {
         s_noteHolders = s_noteHolders.OrderBy(item => item.stdPos).ToList();
+    }
+    public static void InitAllHolder()
+    {
+        NoteClass.SortAll();
+        NoteClass.InitAll();
+        for (int i = 0; i < s_noteHolders.Count; i++)
+        {
+            s_noteHolders[i].stdMs = NoteClass.CalMs(s_noteHolders[i].stdPos);
+        }
     }
     public static IEnumerator IResetHolderList()
     {
@@ -182,7 +193,6 @@ public class NoteField : MonoBehaviour
     public static void PageToSelect()   //$ InputManager AltZero Action
     {
         if (EditManager.s_SelectNoteHolder == null) { return; }
-
         
     }
 }

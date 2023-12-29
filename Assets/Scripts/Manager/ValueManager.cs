@@ -12,7 +12,7 @@ public class ValueManager : MonoBehaviour
 
     //$ UnSave Value
     public static int s_Delay = 0;
-    public static double s_Bpm = 120.0;
+    public static float s_Bpm = 120.0f;
     public static bool s_isTest = false;
     public static bool s_isPause = false;
 

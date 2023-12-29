@@ -24,17 +24,14 @@ public class ValueBox : MonoBehaviour, IPointerClickHandler
     public void InputBpm()
     {
         float data;
-        try { data = System.Convert.ToSingle(inputFields[0].text); }
-        catch { inputFields[0].text = ValueManager.s_Bpm.ToString(); return; }
-        data = Mathf.CeilToInt(data * 100) / 100f; //$ 소수점 두자리로 변환
+        data = System.Convert.ToSingle(inputFields[0].text);
         inputFields[0].text = data.ToString();
-        ValueManager.s_Bpm = (double)data;
+        ValueManager.s_Bpm = data;
     }
     public void InputDelay()
     {
         int data;
-        try { data = System.Convert.ToInt32(inputFields[1].text); }
-        catch { inputFields[1].text = ValueManager.s_Delay.ToString(); return; }
+        data = System.Convert.ToInt32(inputFields[1].text);
         ValueManager.s_Delay = data;
     }
 

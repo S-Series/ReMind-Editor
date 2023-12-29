@@ -347,33 +347,35 @@ public class EditManager : MonoBehaviour
     }
     private static void MultyDelete()
     {
+        int removeLine;
         string selectNoteTag;
         NoteHolder selectHolder;
         for (int i = 0; i < s_MultyObject.Count; i++)
         {
+            removeLine = Convert.ToInt32(s_MultyObject[i].transform.tag);
             selectHolder = s_MultyHolder[i];
             selectNoteTag = s_MultyObject[i].transform.parent.tag;
 
             if (selectNoteTag == noteTag[0])
             {
                 NormalNote note;
-                note = selectHolder.normals[s_line - 1];
+                note = selectHolder.normals[removeLine - 1];
                 NoteClass.s_NormalNotes.RemoveAll(item => item == note);
-                selectHolder.normals[s_line - 1] = null;
+                selectHolder.normals[removeLine - 1] = null;
             }
             else if (selectNoteTag == noteTag[1])
             {
                 NormalNote note;
-                note = selectHolder.bottoms[s_line - 1];
+                note = selectHolder.bottoms[removeLine - 1];
                 NoteClass.s_NormalNotes.RemoveAll(item => item == note);
-                selectHolder.bottoms[s_line - 1] = null;
+                selectHolder.bottoms[removeLine - 1] = null;
             }
             else if (selectNoteTag == noteTag[2])
             {
                 NormalNote note;
-                note = selectHolder.airials[s_line - 1];
+                note = selectHolder.airials[removeLine - 1];
                 NoteClass.s_NormalNotes.RemoveAll(item => item == note);
-                selectHolder.airials[s_line - 1] = null;
+                selectHolder.airials[removeLine - 1] = null;
             }
             else
             {
@@ -531,8 +533,10 @@ public class EditManager : MonoBehaviour
 
         int pagePos, startPos, endPos;
         startPos = NoteField.s_StartPos;
-        endPos = NoteField.s_StartPos + Mathf.FloorToInt(1600 * (NoteField.s_Zoom / 10f));
+        endPos = NoteField.s_StartPos + Mathf.FloorToInt(1600 * NoteField.s_Zoom);
         pagePos = s_SelectNoteHolder.stdPos;
+
+        print(String.Format("{0} : {1}", startPos, endPos));
 
         while (pagePos < startPos)
         {
@@ -546,7 +550,6 @@ public class EditManager : MonoBehaviour
             endPos = NoteField.s_Page * 1600
                + Mathf.RoundToInt(1600f / GuideGenerate.s_guideCount * NoteField.s_Scroll)
                + Mathf.FloorToInt(1600f * (10f / NoteField.s_Zoom));
-            print(NoteField.s_Zoom);
         }
         NoteField.s_this.UpdateField();
     }
