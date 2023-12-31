@@ -41,6 +41,8 @@ namespace GameNote
             double _calBpm;
             s_SpeedNotes.OrderBy(item => item.pos);
 
+            
+
             SpeedNote _speedNote = null;
 
             int _index = 0;
@@ -75,7 +77,7 @@ namespace GameNote
             return _ret;
         }
 
-        private static void InitSpeedMs()
+        public static void InitSpeedMs()
         {
             if (s_SpeedNotes.Count == 0) { return; }
 
@@ -125,7 +127,6 @@ namespace GameNote
             NoteClass.s_SpeedNotes.Add(ret);
             return ret;
         }
-
         public double getBpm()
         {
             return bpm * multiple;

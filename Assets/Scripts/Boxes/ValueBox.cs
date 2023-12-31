@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using TMPro;
+using System.Linq;
+using GameNote;
 
 public class ValueBox : MonoBehaviour, IPointerClickHandler
 {
@@ -27,12 +29,20 @@ public class ValueBox : MonoBehaviour, IPointerClickHandler
         data = System.Convert.ToSingle(inputFields[0].text);
         inputFields[0].text = data.ToString();
         ValueManager.s_Bpm = data;
+        NoteClass.InitSpeedMs();
+        SpectrumManager.GenerateSpectrum(null);
     }
     public void InputDelay()
     {
         int data;
         data = System.Convert.ToInt32(inputFields[1].text);
+        if (data < 0)
+        {
+            data = 0;
+            inputFields[1].text = "0";
+        }
         ValueManager.s_Delay = data;
+        SpectrumManager.UpdateMusicDelay();
     }
 
     public void OnPointerClick(PointerEventData eventData)

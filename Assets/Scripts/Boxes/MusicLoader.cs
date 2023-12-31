@@ -95,6 +95,11 @@ public class MusicLoader : MonoBehaviour
             dropdown[0].value = _value == -1 ? 0 : _value;
             dropdown[1].value = _value == -1 ? 0 : _value;
             dropdown[2].value = _value == -1 ? 0 : _value;
+            if (_value > 0)
+            {
+                audioSource.clip = clips[_value - 1];
+                SpectrumManager.GenerateSpectrum(clips[_value - 1]);
+            }
         }
         else
         {

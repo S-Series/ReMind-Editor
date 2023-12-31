@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -33,8 +34,8 @@ public class AutoTest : MonoBehaviour
     [SerializeField] private Animator[] judgeEffects;
     [SerializeField] private Animator[] gameJudgeEffects;
     [SerializeField] private AudioSource guideSound;
-    [SerializeField] private AudioSource[] judgeSounds;
-    [SerializeField] private AudioSource[] judgeLongSounds;
+    [SerializeField] public AudioSource[] judgeSounds;
+    [SerializeField] public AudioSource[] judgeLongSounds;
     [SerializeField] private Sprite[] ComboSprite;
     [SerializeField] private SpriteRenderer[] ComboRenderer;
 
@@ -89,8 +90,7 @@ public class AutoTest : MonoBehaviour
             = new Vector3(-.5f, (s_isEffect ? s_EffectPosY : s_PosY) / -320f - 5f, 0);
         _MovingField[1].localPosition 
             = new Vector3(25, -31.3f, -19f - (s_isEffect ? s_EffectPosY : s_PosY) / 160f);
-        _MovingField[2].localPosition
-            = new Vector3(0, -(s_isEffect ? s_EffectPosY : s_PosY), 0);
+        SpectrumManager.UpdatePosY(s_isEffect ? -s_EffectPosY : -s_PosY);
 
         if (s_TargetHolder == null) { return; }
 
@@ -213,6 +213,14 @@ public class AutoTest : MonoBehaviour
         ComboRenderer[0].color = new Color32(125, 125, 125, 255);
     }
 
+    public static AudioSource[] GetJudgeAudioSource()
+    {
+        AudioSource[] ret;
+        ret = s_this.judgeSounds;
+        ret.Concat(s_this.judgeLongSounds);
+        return ret;
+    }
+    
     //$ Testing Coroutines
     private static IEnumerator ITesting(int value)
     {
@@ -241,13 +249,11 @@ public class AutoTest : MonoBehaviour
     }
     private static IEnumerator IPlayMusic(int startMs)
     {
-        int musicMs;
-        musicMs = startMs + ValueManager.s_Delay;
-
+        MusicLoader.audioSource.time = (ValueManager.s_Delay + startMs) / 1000f;
         while(true)
         {
             yield return null;
-            if (s_Ms >= musicMs)
+            if (s_Ms > startMs)
             {
                 MusicLoader.audioSource.Play();
                 break;

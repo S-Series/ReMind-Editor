@@ -23,4 +23,5 @@ public class GameManager : MonoBehaviour
         if (ret.Count == 0) { return null; }
         else { return ret; }
     }
+    
 }

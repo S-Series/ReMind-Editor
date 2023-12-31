@@ -2467,8 +2467,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1401610391}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMin: {x: 0.7, y: 0}
+  m_AnchorMax: {x: 0.7, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: -14}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -10585,6 +10585,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 209403470}
+  - component: {fileID: 209403471}
   m_Layer: 0
   m_Name: AudioSources
   m_TagString: Untagged
@@ -10608,6 +10609,22 @@ Transform:
   - {fileID: 1057860374}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &209403471
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 209403469}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 937a0fc37b0d22b449c115bc49b824c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Audios: []
+  BuildAudios: []
+  BuildJudgeAudios: []
+  GameAudios: []
 --- !u!1 &218929022
 GameObject:
   m_ObjectHideFlags: 0
@@ -16529,7 +16546,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 369057189}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &369057189
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26346,7 +26375,19 @@ MonoBehaviour:
   m_Value: 70
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 209403471}
+        m_TargetAssemblyTypeName: VolumeSetting, Assembly-CSharp
+        m_MethodName: MusicVolume
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 572458809}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Slider, UnityEngine.UI
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &573126915
 GameObject:
   m_ObjectHideFlags: 0
@@ -28424,7 +28465,7 @@ Transform:
   m_GameObject: {fileID: 616992756}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3084.9358, y: -250, z: 0}
+  m_LocalPosition: {x: 3084.9358, y: -217.5, z: 0}
   m_LocalScale: {x: 86.53847, y: 10, z: 86.53847}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -29162,6 +29203,14 @@ PrefabInstance:
       propertyPath: m_BindingId
       value: b45229b7-e758-4e38-b7cc-ce4efbfd2f45
       objectReference: {fileID: 0}
+    - target: {fileID: 6680292650503350826, guid: f25dcd618d3acd64795bf8bb32edb6c9, type: 3}
+      propertyPath: m_RebindText
+      value: 
+      objectReference: {fileID: 1007737371}
+    - target: {fileID: 6680292650503350826, guid: f25dcd618d3acd64795bf8bb32edb6c9, type: 3}
+      propertyPath: m_RebindOverlay
+      value: 
+      objectReference: {fileID: 1572752732}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -29471,6 +29520,14 @@ PrefabInstance:
       propertyPath: m_BindingId
       value: 4d138cd0-03bc-43bd-97e0-c7709e7d975e
       objectReference: {fileID: 0}
+    - target: {fileID: 6680292650503350826, guid: f25dcd618d3acd64795bf8bb32edb6c9, type: 3}
+      propertyPath: m_RebindText
+      value: 
+      objectReference: {fileID: 1007737371}
+    - target: {fileID: 6680292650503350826, guid: f25dcd618d3acd64795bf8bb32edb6c9, type: 3}
+      propertyPath: m_RebindOverlay
+      value: 
+      objectReference: {fileID: 1572752732}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -35684,8 +35741,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 147289059}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMin: {x: 0.7, y: 0}
+  m_AnchorMax: {x: 0.7, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: -14}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -42967,7 +43024,7 @@ GameObject:
   - component: {fileID: 1007737372}
   - component: {fileID: 1007737371}
   m_Layer: 0
-  m_Name: Text (TMP)
+  m_Name: Re-bind Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -43895,8 +43952,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 672100320}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMin: {x: 0.7, y: 0}
+  m_AnchorMax: {x: 0.7, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: -14}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -50078,6 +50135,14 @@ PrefabInstance:
       propertyPath: m_BindingId
       value: 0d496fff-0850-4630-bdbd-cf85981ecca6
       objectReference: {fileID: 0}
+    - target: {fileID: 6680292650503350826, guid: f25dcd618d3acd64795bf8bb32edb6c9, type: 3}
+      propertyPath: m_RebindText
+      value: 
+      objectReference: {fileID: 1007737371}
+    - target: {fileID: 6680292650503350826, guid: f25dcd618d3acd64795bf8bb32edb6c9, type: 3}
+      propertyPath: m_RebindOverlay
+      value: 
+      objectReference: {fileID: 1572752732}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -59161,7 +59226,7 @@ RectTransform:
   m_Father: {fileID: 783764750}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 0.7, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 5, y: -5}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -63084,6 +63149,14 @@ PrefabInstance:
       propertyPath: m_BindingId
       value: a8653b7f-771e-4491-8bf8-40721b53df54
       objectReference: {fileID: 0}
+    - target: {fileID: 6680292650503350826, guid: f25dcd618d3acd64795bf8bb32edb6c9, type: 3}
+      propertyPath: m_RebindText
+      value: 
+      objectReference: {fileID: 1007737371}
+    - target: {fileID: 6680292650503350826, guid: f25dcd618d3acd64795bf8bb32edb6c9, type: 3}
+      propertyPath: m_RebindOverlay
+      value: 
+      objectReference: {fileID: 1572752732}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -63427,6 +63500,14 @@ PrefabInstance:
       propertyPath: m_BindingId
       value: 67d4cbc3-48df-441d-9ce2-d7b62c750132
       objectReference: {fileID: 0}
+    - target: {fileID: 6680292650503350826, guid: f25dcd618d3acd64795bf8bb32edb6c9, type: 3}
+      propertyPath: m_RebindText
+      value: 
+      objectReference: {fileID: 1007737371}
+    - target: {fileID: 6680292650503350826, guid: f25dcd618d3acd64795bf8bb32edb6c9, type: 3}
+      propertyPath: m_RebindOverlay
+      value: 
+      objectReference: {fileID: 1572752732}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -64287,6 +64368,14 @@ PrefabInstance:
       propertyPath: m_BindingId
       value: 6a1df820-bff9-4b33-8a2f-a5accd0842be
       objectReference: {fileID: 0}
+    - target: {fileID: 6680292650503350826, guid: f25dcd618d3acd64795bf8bb32edb6c9, type: 3}
+      propertyPath: m_RebindText
+      value: 
+      objectReference: {fileID: 1007737371}
+    - target: {fileID: 6680292650503350826, guid: f25dcd618d3acd64795bf8bb32edb6c9, type: 3}
+      propertyPath: m_RebindOverlay
+      value: 
+      objectReference: {fileID: 1572752732}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -64635,7 +64724,7 @@ RectTransform:
   m_Father: {fileID: 2115282687}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 0.7, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 5, y: -5}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -66355,6 +66444,14 @@ PrefabInstance:
       propertyPath: m_BindingId
       value: 32b89b55-c37a-4f16-8353-4a8eef00f76d
       objectReference: {fileID: 0}
+    - target: {fileID: 6680292650503350826, guid: f25dcd618d3acd64795bf8bb32edb6c9, type: 3}
+      propertyPath: m_RebindText
+      value: 
+      objectReference: {fileID: 1007737371}
+    - target: {fileID: 6680292650503350826, guid: f25dcd618d3acd64795bf8bb32edb6c9, type: 3}
+      propertyPath: m_RebindOverlay
+      value: 
+      objectReference: {fileID: 1572752732}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -66818,7 +66915,19 @@ MonoBehaviour:
   m_Value: 70
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 209403471}
+        m_TargetAssemblyTypeName: VolumeSetting, Assembly-CSharp
+        m_MethodName: FxVolume
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1532796277}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Slider, UnityEngine.UI
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1548209850
 GameObject:
   m_ObjectHideFlags: 0
@@ -70011,6 +70120,14 @@ PrefabInstance:
       propertyPath: m_BindingId
       value: 35b4fe2c-df4a-4340-a716-8fa36d5fc2dc
       objectReference: {fileID: 0}
+    - target: {fileID: 6680292650503350826, guid: f25dcd618d3acd64795bf8bb32edb6c9, type: 3}
+      propertyPath: m_RebindText
+      value: 
+      objectReference: {fileID: 1007737371}
+    - target: {fileID: 6680292650503350826, guid: f25dcd618d3acd64795bf8bb32edb6c9, type: 3}
+      propertyPath: m_RebindOverlay
+      value: 
+      objectReference: {fileID: 1572752732}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -71032,7 +71149,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1659117869
 RectTransform:
   m_ObjectHideFlags: 0
@@ -73718,6 +73835,14 @@ PrefabInstance:
       propertyPath: m_BindingId
       value: 7c72fefb-0a09-4215-a874-7fbb530d06b5
       objectReference: {fileID: 0}
+    - target: {fileID: 6680292650503350826, guid: f25dcd618d3acd64795bf8bb32edb6c9, type: 3}
+      propertyPath: m_RebindText
+      value: 
+      objectReference: {fileID: 1007737371}
+    - target: {fileID: 6680292650503350826, guid: f25dcd618d3acd64795bf8bb32edb6c9, type: 3}
+      propertyPath: m_RebindOverlay
+      value: 
+      objectReference: {fileID: 1572752732}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -76632,7 +76757,7 @@ RectTransform:
   m_Father: {fileID: 2070420032}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 0.7, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 5, y: -5}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -87890,7 +88015,19 @@ MonoBehaviour:
   m_Value: 70
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 209403471}
+        m_TargetAssemblyTypeName: VolumeSetting, Assembly-CSharp
+        m_MethodName: EffectVolume
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Slider, UnityEngine.UI
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &2079905364
 GameObject:
   m_ObjectHideFlags: 0
@@ -89896,6 +90033,14 @@ PrefabInstance:
       propertyPath: m_BindingId
       value: 357d28de-eab2-4b7d-b7d7-255b1aca254f
       objectReference: {fileID: 0}
+    - target: {fileID: 6680292650503350826, guid: f25dcd618d3acd64795bf8bb32edb6c9, type: 3}
+      propertyPath: m_RebindText
+      value: 
+      objectReference: {fileID: 1007737371}
+    - target: {fileID: 6680292650503350826, guid: f25dcd618d3acd64795bf8bb32edb6c9, type: 3}
+      propertyPath: m_RebindOverlay
+      value: 
+      objectReference: {fileID: 1572752732}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

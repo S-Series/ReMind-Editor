@@ -5,16 +5,20 @@ using UnityEngine.UI;
 
 public class VolumeSetting : MonoBehaviour
 {
-    AudioSource[] Audios;
-    AudioSource[] BuildAudios;
-    AudioSource[] GameAudios;
+    [SerializeField] private AudioSource[] Audios;
+    [SerializeField] private AudioSource[] BuildAudios;
+    [SerializeField] private AudioSource[] BuildJudgeAudios;
+    [SerializeField] private AudioSource[] GameAudios;
 
     void Start()
     {
         //$ Music
-        Audios[0] = MusicLoader.audioSource;
+        Audios = new AudioSource[]
+        {
+            MusicLoader.audioSource,
+        };
         //$ Fx
-        //BuildAudios[0] = ;
+        BuildJudgeAudios = AutoTest.GetJudgeAudioSource(); 
         //$ Effect
         //BuildAudios[1] = ;
     }
@@ -29,10 +33,13 @@ public class VolumeSetting : MonoBehaviour
     }
     public void FxVolume(Slider slider)
     {
-        BuildAudios[1].volume = slider.value;
+        
     }
     public void EffectVolume(Slider slider)
     {
-        BuildAudios[2].volume = slider.value;
+        foreach(AudioSource audioSource in BuildJudgeAudios)
+        {
+            audioSource.volume = slider.value;
+        }
     }
 }
