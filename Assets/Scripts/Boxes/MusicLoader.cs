@@ -106,6 +106,7 @@ public class MusicLoader : MonoBehaviour
 
     public void OnDropdownValueChanged(TMP_Dropdown Tdd)
     {
+        StopMusic();
         int index;
         index = Tdd.value;
         PlayerPrefs.SetString("MusicValue", Tdd.options[index].text);
@@ -118,5 +119,15 @@ public class MusicLoader : MonoBehaviour
     public void LoadAllFile()
     {
         StartCoroutine(ILoadAllFile());
+    }
+    public static void PlayMusic(float timer = 0.0f)
+    {
+        if (audioSource.clip == null) { return; }
+        audioSource.time = timer;
+        audioSource.Play();
+    }
+    public static void StopMusic()
+    {
+        audioSource?.Stop();
     }
 }
