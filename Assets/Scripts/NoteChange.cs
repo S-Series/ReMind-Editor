@@ -137,6 +137,7 @@ public class NoteChange : MonoBehaviour
         if (value < 0) { value = 0; input.text = "0"; }
         EditManager.PageNote(value);
     }
+    //$ NormaNote Only  
     public void InputLegnth(TMP_InputField input)
     {
         int value;
@@ -159,7 +160,6 @@ public class NoteChange : MonoBehaviour
             }
         }
     }
-
     public void ToggleAirial(Toggle toggle)
     {
         if (EditManager.s_isMultyEditing) { return; }
@@ -167,7 +167,26 @@ public class NoteChange : MonoBehaviour
         NoteHolder holder;
         holder = EditManager.s_SelectNoteHolder;
     }
-    public void ToggleGuideColor()
+    //$ FloorNote Only
+    public void ToggleFloorLine(Toggle toggle)
+    {
+
+    }
+    public void ToggleSoundNote(Toggle toggle)
+    {
+
+    }
+    public void DropSoundIndex(TMP_Dropdown dropdown)
+    {
+
+    }
+    //$ SpeedNote Only
+    public void InputBpm(TMP_InputField input)
+    {
+        if (EditManager.s_isMultyEditing) { return; }
+        if (EditManager.s_SelectNoteHolder == null) { return; }
+    }
+    public void InputMultiply(TMP_InputField input)
     {
 
     }

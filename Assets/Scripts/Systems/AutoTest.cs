@@ -167,7 +167,7 @@ public class AutoTest : MonoBehaviour
                 AddCombo();
                 judgeEffects[i].SetTrigger(Trigger[0]);
                 gameJudgeEffects[i + 4].transform.localPosition 
-                    = new Vector3(0, holder.airials[i].length, 0);
+                    = new Vector3(240 * i - 360, holder.airials[i].length * 3.5f, 0);
                 gameJudgeEffects[i + 4].SetTrigger(Trigger[0]);
                     judgeSounds[i].Play();
             }

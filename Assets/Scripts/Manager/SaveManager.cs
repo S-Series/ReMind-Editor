@@ -44,6 +44,7 @@ public class SaveManager : MonoBehaviour
         string path = "";
         if (isAlt || !isLoaded)
         {
+            isAlt = false;
             VistaSaveFileDialog dialog;
             dialog = new VistaSaveFileDialog();
             dialog.Filter = "nd files (*.nd)|*.nd";

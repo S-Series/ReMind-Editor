@@ -120,11 +120,10 @@ public class SpectrumManager : MonoBehaviour
         GenerateField.localScale = new Vector3(
             maxScale == 0 ? 1f : 1f / maxScale, SpectrumTransforms[2], 1);
         GenerateField.localPosition = new Vector3(0, posY * 2f / NoteField.s_Zoom, 0);
-        print(posY);
-        print(SpectrumTransforms[2]);
     }
     private IEnumerator IGenerating()
     {
+        print("Started");
         GenerateDelays = new List<float>();
         maxScale = 0.0f;
         float[] getData;
@@ -141,8 +140,8 @@ public class SpectrumManager : MonoBehaviour
             audioSource.time = data.ms / 1000f;
             data.SpectrumObject.transform.GetChild(1)
                 .localScale = new Vector3(getData[1], 1, 1);
-            if (getData[0] > maxScale) { maxScale = getData[0]; UpdateField(); }
-            if (getData[1] > maxScale) { maxScale = getData[1]; UpdateField(); }
+            if (getData[0] > maxScale) { maxScale = getData[0]; }
+            if (getData[1] > maxScale) { maxScale = getData[1]; }
             GenerateDelays.Add(Time.deltaTime * 1000);
             SpectrumTransforms[3] = GenerateDelays.Average();
         }

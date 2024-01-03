@@ -47,12 +47,17 @@ public class GuideHolder : MonoBehaviour
 
     public void UpdateLineColor(bool third, bool fourth)
     {
+        Color32 color32;
         if (third)
         {
-            if (fourth) { guideLineRenderer.color = color32s[3]; }
-            else { guideLineRenderer.color = color32s[1]; }
+            if (fourth) { color32 = color32s[3]; }
+            else { color32 = color32s[1]; }
         }
-        else if (fourth) { guideLineRenderer.color = color32s[2]; }
-        else { guideLineRenderer.color = color32s[0]; }
+        else if (fourth) { color32 = color32s[2]; }
+        else { color32 = color32s[0]; }
+
+        guideLineRenderer.color = color32;
+        guideLineRenderer.transform.GetChild(0)
+            .GetComponent<SpriteRenderer>().color = color32;
     }
 }
