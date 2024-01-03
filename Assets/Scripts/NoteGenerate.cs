@@ -47,12 +47,8 @@ public class NoteGenerate : MonoBehaviour
         else if (s_Line == 0) { posX = -360; }
 
         previews[s_previewIndex].transform.localPosition
-            = new Vector3(posX, (posY * 2
-            + 1600f / GuideGenerate.s_guideCount * NoteField.s_Scroll * 2
-            + 1600f * NoteField.s_Page * 2) / NoteField.s_Zoom, posZ);
-        previewGuide.transform.localPosition = new Vector3(3086, (posY * 2
-            + 1600f / GuideGenerate.s_guideCount * NoteField.s_Scroll * 2
-            + 1600f * NoteField.s_Page * 2) / NoteField.s_Zoom, 0);
+            = new Vector3(posX, 2 * posY / NoteField.s_Zoom, posZ);
+        previewGuide.transform.localPosition = new Vector3(3086, 2 * posY / NoteField.s_Zoom, 0);
     }
 
     public static void GenerateNote()
@@ -224,5 +220,34 @@ public class NoteGenerate : MonoBehaviour
 
         GuideGenerate.EnableGuideCollider(false);
         foreach (NoteHolder holder in NoteField.s_noteHolders) { holder.EnableCollider(true); }
+    }
+
+    [ContextMenu("Test Generate")]
+    public void TestGenerate()
+    {
+        int posY;
+        NormalNote[] notes;
+        NoteHolder holder;
+        for (int i = 0; i < 100; i++)
+        {
+            notes = new NormalNote[]
+            {
+                NormalNote.Generate(),
+                NormalNote.Generate(),
+                NormalNote.Generate(),
+                NormalNote.Generate()
+            };
+            for (int j = 0; j < 4; j++)
+            {
+                posY = 1600 * i + 400 * j;
+                notes[j].ms = NoteClass.CalMs(posY);
+                notes[j].pos = posY;
+                notes[j].isAir = true;
+                notes[j].length = 1;
+                holder = GenerateNoteManual(posY);
+                holder.airials[j] = notes[j];
+                holder.UpdateNote();
+            }
+        }
     }
 }

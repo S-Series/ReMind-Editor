@@ -26,7 +26,8 @@ public class ValueBox : MonoBehaviour, IPointerClickHandler
     public void InputBpm()
     {
         float data;
-        data = System.Convert.ToSingle(inputFields[0].text);
+        try { data = System.Convert.ToSingle(inputFields[0].text); }
+        catch { return; }
         inputFields[0].text = data.ToString();
         ValueManager.s_Bpm = data;
         NoteClass.InitSpeedMs();
@@ -35,7 +36,8 @@ public class ValueBox : MonoBehaviour, IPointerClickHandler
     public void InputDelay()
     {
         int data;
-        data = System.Convert.ToInt32(inputFields[1].text);
+        try { data = System.Convert.ToInt32(inputFields[1].text); }
+        catch { return; }
         if (data < 0)
         {
             data = 0;

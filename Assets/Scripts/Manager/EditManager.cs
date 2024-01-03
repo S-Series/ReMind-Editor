@@ -93,7 +93,8 @@ public class EditManager : MonoBehaviour
             s_isMultyEditing = true;
             NoteHolder objectHolder;
             int _line, _count;
-            _line = Convert.ToInt32(@object.tag);
+            try { _line = Convert.ToInt32(@object.tag); }
+            catch { _line = Convert.ToInt32(@object.transform.parent.tag); }
             _count = @object.transform.childCount;
 
             if (_count == 0)

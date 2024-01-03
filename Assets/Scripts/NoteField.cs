@@ -148,11 +148,6 @@ public class NoteField : MonoBehaviour
         DrawField[2].localScale = _scale;
         DrawField[2].localPosition = _pos;
 
-        DrawField[3].localScale = _scale;
-        DrawField[3].localPosition = _pos;
-
-        DrawField[4].localScale = new Vector3(1, zoomValue / 5f, 1);
-        DrawField[4].localPosition = new Vector3(0, (s_Page * -1600f) - (1600f * s_Scroll / _count), 0);
         SpectrumManager.UpdatePosY((s_Page * -1600f) - (1600f * s_Scroll / _count));
         SpectrumManager.UpdateScale(zoomValue / 5f);
         PreviewNoteParent.localScale = new Vector3(0.00312f, 0.00312f, 0.00312f);

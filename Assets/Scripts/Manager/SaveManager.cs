@@ -59,15 +59,25 @@ public class SaveManager : MonoBehaviour
                 {
                     path = dialog.FileName;
                     stream.Close();
-                    if (File.Exists(path)) { File.Move(path, path + ".nd"); }
+                    if (File.Exists(path))
+                    {
+                        while (path.Contains(".nd"))
+                        {
+                            string data;
+                            data = File.ReadAllText(path);
+                            File.Delete(path);
+                            if (path == ".nd") { path = "_"; }
+                            else { path = path.Substring(0, path.Length - 3);  }
+                            File.WriteAllText(path, data);
+                        }
+                        File.Move(path, path + ".nd");
+                    }
                 }
                 else { return; }
             }
             else { return; }
         }
         else { path = s_LoadedPath; }
-
-        print(path);
 
         SaveFile saveFile;
         saveFile = new SaveFile();

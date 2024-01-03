@@ -28,7 +28,9 @@ public class SpectrumManager : MonoBehaviour
     public static List<SpectrumData> spectrumDatas;
 
     public static bool isGenerating = false;
-    private static float[] SpectrumTransforms = new float[3];
+    private static float[] SpectrumTransforms = new float[4];
+    private static List<float> GenerateDelays;
+    private static float maxScale;
 
     private void Awake()
     {
@@ -81,7 +83,7 @@ public class SpectrumManager : MonoBehaviour
     private void StartGenerateCoroutine()
     {
         StopAllCoroutines();
-        StartCoroutine(GetRecommandDelay());
+        StartCoroutine(IGenerating());
     }
     private float[] GetSpectrumData()
     {
@@ -89,35 +91,9 @@ public class SpectrumManager : MonoBehaviour
         ret = new float[2];
         data = new float[1024];
         audioSource.GetSpectrumData(data, 0, FFTWindow.Rectangular);
-        ret[0] = data.Max() * 1000;
-        ret[1] = data.Average() * 10000;
+        ret[0] = data.Max() * 1024;
+        ret[1] = data.Average() * 1024 * 10;
         return ret;
-    }
-    private IEnumerator GetRecommandDelay()
-    {
-        float GetSpectrum;
-        float StartSpectrum;
-
-        audioSource.time = 0;
-        audioSource.Play();
-        GetSpectrum = 0.0f;
-        StartSpectrum = GetSpectrumData()[0];
-        print(StartSpectrum);
-
-        for (int i = 1; true; i++)
-        {
-            audioSource.time = i / 1000f;
-            GetSpectrum = GetSpectrumData()[0];
-            print(GetSpectrum);
-            if (GetSpectrum > StartSpectrum * 2f)
-            {
-                UpdateMusicDelay(Mathf.RoundToInt(i - Time.deltaTime / 1000f));
-                break;
-            }
-            yield return null;
-        }
-
-        StartCoroutine(IGenerating());
     }
     public static void UpdateMusicDelay(int? DelayMs = null)
     {
@@ -138,12 +114,19 @@ public class SpectrumManager : MonoBehaviour
     private static void UpdateField()
     {
         float posY;
-        posY = SpectrumTransforms[1] - SpectrumTransforms[0] * SpectrumTransforms[2];
-        GenerateField.localScale = new Vector3(1, SpectrumTransforms[2], 1);
-        GenerateField.localPosition = new Vector3(0, posY, 0);
+        posY = SpectrumTransforms[1] 
+            - SpectrumTransforms[0] * SpectrumTransforms[2]
+            - ValueManager.s_Bpm * SpectrumTransforms[3] / 150;
+        GenerateField.localScale = new Vector3(
+            maxScale == 0 ? 1f : 1f / maxScale, SpectrumTransforms[2], 1);
+        GenerateField.localPosition = new Vector3(0, posY * 2f / NoteField.s_Zoom, 0);
+        print(posY);
+        print(SpectrumTransforms[2]);
     }
     private IEnumerator IGenerating()
     {
+        GenerateDelays = new List<float>();
+        maxScale = 0.0f;
         float[] getData;
         SpectrumData data;
         for (int i = 0; i < spectrumDatas.Count; i++)
@@ -158,6 +141,10 @@ public class SpectrumManager : MonoBehaviour
             audioSource.time = data.ms / 1000f;
             data.SpectrumObject.transform.GetChild(1)
                 .localScale = new Vector3(getData[1], 1, 1);
+            if (getData[0] > maxScale) { maxScale = getData[0]; UpdateField(); }
+            if (getData[1] > maxScale) { maxScale = getData[1]; UpdateField(); }
+            GenerateDelays.Add(Time.deltaTime * 1000);
+            SpectrumTransforms[3] = GenerateDelays.Average();
         }
         audioSource.Stop();
         isGenerating = false;

@@ -112,6 +112,8 @@ public class AutoTest : MonoBehaviour
         NoteField.SortNoteHolder();
         NoteField.InitAllHolder();
         NoteField.s_isFieldMovable = false;
+        foreach (NoteHolder holder
+            in NoteField.s_noteHolders) { holder.EnableCollider(false); }
 
         s_Bpm = ValueManager.s_Bpm;
         s_HolderIndex = 0;
@@ -135,7 +137,11 @@ public class AutoTest : MonoBehaviour
         InputManager.EnableInput(true);
         NoteField.s_isFieldMovable = true;
 
-        foreach (NoteHolder holder in NoteField.s_noteHolders) { holder.EnableNote(true); }
+        foreach (NoteHolder holder in NoteField.s_noteHolders)
+        {
+            holder.EnableNote(true);
+            holder.EnableCollider(true);
+        }
         s_this.StopAllCoroutines();
 
         MusicLoader.audioSource.Stop();
@@ -152,6 +158,7 @@ public class AutoTest : MonoBehaviour
                     AddCombo();
                     judgeEffects[i].SetTrigger(Trigger[0]);
                     gameJudgeEffects[i].SetTrigger(Trigger[0]);
+                    judgeSounds[i].Play();
                 }
                 else { StartCoroutine(ILongNote(i, holder.longMs[i])); }
             }
@@ -162,6 +169,7 @@ public class AutoTest : MonoBehaviour
                 gameJudgeEffects[i + 4].transform.localPosition 
                     = new Vector3(0, holder.airials[i].length, 0);
                 gameJudgeEffects[i + 4].SetTrigger(Trigger[0]);
+                    judgeSounds[i].Play();
             }
 
             if (i >= 2) { continue; }
@@ -173,6 +181,7 @@ public class AutoTest : MonoBehaviour
                     AddCombo();
                     judgeEffects[i + 4].SetTrigger(Trigger[0]);
                     gameJudgeEffects[i + 8].SetTrigger(Trigger[0]);
+                    judgeSounds[i + 4].Play();
                 }
                 else
                 {
@@ -196,9 +205,9 @@ public class AutoTest : MonoBehaviour
     {
         Combo[3]++;
 
-        if (Combo[3] > 9) { Combo[3]--; Combo[2]++; }
-        if (Combo[2] > 9) { Combo[2]--; Combo[1]++; }
-        if (Combo[1] > 9) { Combo[1]--; Combo[0]++; }
+        if (Combo[3] > 9) { Combo[3] -= 10; Combo[2]++; }
+        if (Combo[2] > 9) { Combo[2] -= 10; Combo[1]++; }
+        if (Combo[1] > 9) { Combo[1] -= 10; Combo[0]++; }
 
         for (int i = 0; i < 4; i++)
         {
