@@ -4,13 +4,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using GameNote;
+using TMPro;
+using System;
 
 public class NoteField : MonoBehaviour
 {
     public static NoteField s_this;
 
     public static bool s_isFieldMovable = true;
-    public static List<LineHolder> s_holders = new List<LineHolder>();
     public static List<NoteHolder> s_noteHolders = new List<NoteHolder>();
     public static int s_Page = 0;
     public static int s_Scroll = 0;
@@ -33,14 +34,14 @@ public class NoteField : MonoBehaviour
         for (int i = 0; i < 999; i++)
         {
             _copyObject = Instantiate(LinePrefab, DrawField[0], false);
-            _copyObject.transform.localPosition = new Vector3(-480.7692f, 1600 * 2 * i, 0);
+            _copyObject.transform.localPosition = new Vector3(-465f, 1600 * 2 * i, 0);
 
             _holder = _copyObject.transform.GetComponent<LineHolder>();
             _holder.page = i;
             _holder.texts[0].text = string.Format("{0:D3}", i + 1);
-            _holder.texts[1].text = string.Format("ms\n{0}", NoteClass.CalMs(1600 * i));
+            _holder.texts[1].text = string.Format("{0}", NoteClass.CalMs(1600 * i));
 
-            s_holders.Add(_holder);
+            LineHolder.s_holders.Add(_holder);
         }
     }
     private void Start()
@@ -156,7 +157,7 @@ public class NoteField : MonoBehaviour
         GuideGenerate.GuideFieldSize(_scale, zoomValue);
 
         foreach (NoteHolder holder in s_noteHolders) { holder.UpdateScale(); }
-        foreach (LineHolder holder in s_holders) { holder.UpdateScale(); }
+        foreach (LineHolder holder in LineHolder.s_holders) { holder.UpdateScale(); }
 
         EditBox.UpdateRenderer();
     }
@@ -191,5 +192,20 @@ public class NoteField : MonoBehaviour
     {
         if (EditManager.s_SelectNoteHolder == null) { return; }
         
+    }
+
+    public void InputPage(TMP_InputField inputField)
+    {
+        int value;
+        try { value = Convert.ToInt32(inputField.text); }
+        catch { value = s_Page; }
+
+        if (value < 1) { value = 1; }
+        if (value > 1000) { value = 1000; }
+        s_Page = value - 1;
+        s_Scroll = 0;
+
+        inputField.text = String.Format("{0:d3}", value);
+        UpdateField();
     }
 }

@@ -50,23 +50,16 @@ public class AutoTest : MonoBehaviour
         //# Space
         inputActions[0].performed += item =>
         {
+            if (!s_isTesting) { return; }
             if (s_isPause)
             {
-                float _time;
-                _time = s_Ms + ValueManager.s_Delay;
-                if (_time < 0)
-                {
-                    s_Ms += (int)(_time);
-                    _time += _time;
-                }
-                MusicLoader.audioSource.time = _time;
-                MusicLoader.audioSource.Play();
                 s_isPause = false;
+                MusicLoader.audioSource.Pause();
             }
             else
             {
-                MusicLoader.audioSource.Stop();
                 s_isPause = true;
+                MusicLoader.audioSource.Play();
             }
         };
         //# UpArrow
@@ -123,17 +116,21 @@ public class AutoTest : MonoBehaviour
         guideMs = startMs - Mathf.RoundToInt(240000 / (float)ValueManager.s_Bpm);
 
         s_isTesting = true;
+        s_isPause = false;
 
         s_this.StartCoroutine(ITesting(guideMs));
-        s_this.StartCoroutine(ITestGuide(startMs, guideMs));
+        s_this.StartCoroutine(ITestGuide(guideMs, pos));
         s_this.StartCoroutine(IPlayMusic(startMs));
 
         s_HolderIndex = NoteField.s_noteHolders.FindIndex(item => item.stdMs >= startMs);
         s_TargetHolder = NoteField.s_noteHolders[s_HolderIndex];
+
+        foreach (InputAction action in s_this.inputActions) { action.Enable(); }
     }
     public static void EndTest()
     {
         s_isTesting = false;
+        s_isPause = false;
         InputManager.EnableInput(true);
         NoteField.s_isFieldMovable = true;
 
@@ -141,10 +138,12 @@ public class AutoTest : MonoBehaviour
         {
             holder.EnableNote(true);
             holder.EnableCollider(true);
+            holder.gameNoteHolder.UpdateNote();
         }
         s_this.StopAllCoroutines();
 
         MusicLoader.audioSource.Stop();
+        foreach (InputAction action in s_this.inputActions) { action.Disable(); }
     }
 
     private void Judge(NoteHolder holder)
@@ -200,6 +199,8 @@ public class AutoTest : MonoBehaviour
         {
             s_isEffect = true;
         }
+
+        holder.gameNoteHolder.JudgeVisual();
     }
     private void AddCombo()
     {
@@ -237,28 +238,39 @@ public class AutoTest : MonoBehaviour
         while (true)
         {
             yield return null;
+            if (s_isPause) { continue; }
             s_Ms += Time.deltaTime * 1000;
             s_PosY = (s_Ms - s_SpeedMs) * s_Bpm / 150 + s_SpeedPosY;
         }
     }
-    private static IEnumerator ITestGuide(int value, int G)
+    private static IEnumerator ITestGuide(int startMs, int startPos)
     {
-        int D;
-        D = (G - value) / 4;
+        int index;
+        SpeedNote note;
+        index = NoteClass.s_SpeedNotes.FindIndex(item => item.pos > startPos);
+        note = index <= 0 ? null : NoteClass.s_SpeedNotes[index - 1];     
 
-        int[] guideMs = new int[4] { value, value + D, value + 2 * D, value + 3 * D };
-        for (int i = 0; i < 4; i++)
+        int duration;
+        duration = Mathf.RoundToInt(150 * 400 / (note == null ? ValueManager.s_Bpm : (float)note.bpm));
+
+        int[] guideMs = new int[4];
+        for (int i = 0; i < 4; i++) { guideMs[i] = startMs + i * duration; }
+        for (int i = 0; i < 4;)
         {
+            print(guideMs[i]);
             yield return null;
             if (s_Ms >= guideMs[i])
             {
+                i++;
                 s_this.guideSound.Play();
             }
         }
     }
     private static IEnumerator IPlayMusic(int startMs)
     {
-        MusicLoader.audioSource.time = (ValueManager.s_Delay + startMs) / 1000f;
+        float delay;
+        delay = ValueManager.s_Delay;
+        MusicLoader.audioSource.time = (delay + startMs) / 1000f;
         while(true)
         {
             yield return null;
@@ -267,6 +279,12 @@ public class AutoTest : MonoBehaviour
                 MusicLoader.audioSource.Play();
                 break;
             }
+        }
+        var wait = new WaitForSeconds(1.0f);
+        while (true)
+        {
+            yield return wait;
+            MusicLoader.audioSource.time = (delay + s_Ms) / 1000f;
         }
     }
 
