@@ -54,12 +54,12 @@ public class AutoTest : MonoBehaviour
             if (s_isPause)
             {
                 s_isPause = false;
-                MusicLoader.audioSource.Pause();
+                MusicLoader.audioSource.Play();
             }
             else
             {
                 s_isPause = true;
-                MusicLoader.audioSource.Play();
+                MusicLoader.audioSource.Pause();
             }
         };
         //# UpArrow
@@ -79,11 +79,13 @@ public class AutoTest : MonoBehaviour
     {
         if (!s_isTesting) { return; }
 
-        _MovingField[0].localPosition 
-            = new Vector3(-.5f, (s_isEffect ? s_EffectPosY : s_PosY) / -320f - 5f, 0);
-        _MovingField[1].localPosition 
-            = new Vector3(25, -31.3f, -19f - (s_isEffect ? s_EffectPosY : s_PosY) / 160f);
-        SpectrumManager.UpdatePosY(s_isEffect ? -s_EffectPosY : -s_PosY);
+        _MovingField[0].localPosition
+            = new Vector3(-.5f, s_PosY / -320f - 5f, 0);
+        _MovingField[1].localPosition
+            = new Vector3(-.5f, s_PosY / -320f - 5f, 0);
+        _MovingField[2].localPosition
+            = new Vector3(25, -31.3f, -19f - s_PosY / 160f);
+        SpectrumManager.UpdatePosY(-s_PosY);
 
         if (s_TargetHolder == null) { return; }
 
@@ -238,9 +240,11 @@ public class AutoTest : MonoBehaviour
         while (true)
         {
             yield return null;
+            s_PosY = s_isEffect ? s_EffectPosY : (s_Ms - s_SpeedMs) * s_Bpm / 150 + s_SpeedPosY;
+            
             if (s_isPause) { continue; }
+            
             s_Ms += Time.deltaTime * 1000;
-            s_PosY = (s_Ms - s_SpeedMs) * s_Bpm / 150 + s_SpeedPosY;
         }
     }
     private static IEnumerator ITestGuide(int startMs, int startPos)
@@ -280,6 +284,7 @@ public class AutoTest : MonoBehaviour
                 break;
             }
         }
+        yield break;
         var wait = new WaitForSeconds(1.0f);
         while (true)
         {

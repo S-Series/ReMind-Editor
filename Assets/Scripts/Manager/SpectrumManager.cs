@@ -3,7 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using GameNote;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SpectrumManager : MonoBehaviour
 {
@@ -24,6 +26,8 @@ public class SpectrumManager : MonoBehaviour
     private static Transform GenerateField;
     private static GameObject SpectrumPrefab;
     [SerializeField] GameObject _SpectrumPrefab;
+    [SerializeField] Transform SpectrumLoading;
+    [SerializeField] TextMeshPro SpectrumLoadingText;
 
     public static List<SpectrumData> spectrumDatas;
 
@@ -123,14 +127,25 @@ public class SpectrumManager : MonoBehaviour
     }
     private IEnumerator IGenerating()
     {
-        print("Started");
+        int count;
+        count = spectrumDatas.Count;
         GenerateDelays = new List<float>();
         maxScale = 0.0f;
         float[] getData;
         SpectrumData data;
-        for (int i = 0; i < spectrumDatas.Count; i++)
+
+        SpectrumLoading.parent.gameObject.SetActive(true);
+        SpectrumLoading.localScale = new Vector3(0.0175f, 0, 1);
+        SpectrumLoadingText.text = String.Format("{0} of {1}", 0, count);
+
+        for (int i = 0; i < count;)
         {
             yield return null;
+
+            if (AutoTest.s_isTesting) { SpectrumLoadingText.text = "Paused"; continue; }
+
+            SpectrumLoading.localScale = new Vector3(0.0175f, 0.225f * i / count, 1);
+            SpectrumLoadingText.text = String.Format("{0} of {1}", i, count);
 
             data = spectrumDatas[i];
             getData = GetSpectrumData();
@@ -144,8 +159,13 @@ public class SpectrumManager : MonoBehaviour
             if (getData[1] > maxScale) { maxScale = getData[1]; }
             GenerateDelays.Add(Time.deltaTime * 1000);
             SpectrumTransforms[3] = GenerateDelays.Average();
+            i++;
         }
         audioSource.Stop();
         isGenerating = false;
+
+        SpectrumLoadingText.text = "Load Complete!";
+        yield return new WaitForSeconds(3.0f); 
+        SpectrumLoading.parent.gameObject.SetActive(false);
     }
 }

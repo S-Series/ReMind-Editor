@@ -240,6 +240,7 @@ public class SaveManager : MonoBehaviour
         ValueManager.s_Bpm = saveFile.bpm;
         ValueManager.s_Delay = saveFile.delay;
         ValueManager.UpdateInputField();
+        foreach (LineHolder holder in LineHolder.s_holders) { holder.UpdateMs(); }
 
         string[] saveData;
         string[] noteData;
