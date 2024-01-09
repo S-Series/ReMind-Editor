@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using GameNote;
+using System;
 
 [System.Serializable]
 public class NoteHolder : MonoBehaviour
@@ -78,6 +79,7 @@ public class NoteHolder : MonoBehaviour
             "" : string.Format("Effect : {0} || Value : {1:D4}",
             "None", effectNote.value);
 
+        UpdateTextInfo();
         gameNoteHolder.UpdateNote(this);
     }
     public void UpdateScale()
@@ -133,9 +135,12 @@ public class NoteHolder : MonoBehaviour
     {
         foreach (GameObject gameObject in ParentObjects) { gameObject.SetActive(isEnable); }
     }   
-    public void ShowTextInfo(bool isEnable)
+    public void UpdateTextInfo()
     {
-        
+        InfoTmps[0].text = speedNote == null ? "" : String.Format("{0:F2} X {1:F2} = {2:F2}",
+            speedNote.bpm, speedNote.multiple, speedNote.bpm * speedNote.multiple);
+        InfoTmps[1].text = effectNote == null ? "" : String.Format("{0} || {1:D4}",
+            effectNote.GetEffectName(), effectNote.value);
     }
     public void NoteAlert()
     {

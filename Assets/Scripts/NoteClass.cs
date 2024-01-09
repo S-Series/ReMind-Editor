@@ -137,7 +137,15 @@ namespace GameNote
     {
         public int effectIndex, value;
         public EffectHolder holder;
-
+        public string GetEffectName()
+        {
+            switch (effectIndex)
+            {
+                case 1: return "None";
+                
+                default : return "None";
+            }
+        }
         public static EffectNote Generate()
         {
             EffectNote ret;

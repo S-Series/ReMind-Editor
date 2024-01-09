@@ -183,11 +183,18 @@ public class NoteChange : MonoBehaviour
     //$ SpeedNote Only
     public void InputBpm(TMP_InputField input)
     {
-        if (EditManager.s_isMultyEditing) { return; }
-        if (EditManager.s_SelectNoteHolder == null) { return; }
+        float value;
+        try {value = Convert.ToSingle(input.text); }
+        catch { return; }
+        EditManager.BpmNote(value);
+        NoteField.InitAllHolder();
     }
     public void InputMultiply(TMP_InputField input)
     {
-
+        float value;
+        try {value = Convert.ToSingle(input.text); }
+        catch { return; }
+        EditManager.MultiplyNote(value);
+        NoteField.InitAllHolder();
     }
 }

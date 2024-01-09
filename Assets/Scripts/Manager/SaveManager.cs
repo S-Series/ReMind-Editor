@@ -164,6 +164,7 @@ public class SaveManager : MonoBehaviour
     {
         string jsonData;
         jsonData = JsonUtility.ToJson(saveFile, true);
+        print(jsonData);
 
         yield return null;
 

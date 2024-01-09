@@ -54,6 +54,7 @@ public class AutoTest : MonoBehaviour
             if (s_isPause)
             {
                 s_isPause = false;
+                MusicLoader.audioSource.time = (ValueManager.s_Delay + s_Ms) / 1000f;
                 MusicLoader.audioSource.Play();
             }
             else
@@ -100,8 +101,6 @@ public class AutoTest : MonoBehaviour
 
     public static void StartTest(int pos)
     {
-        if (NoteField.s_noteHolders.Count == 0) { return; }
-
         NoteGenerate.Escape();
         InputManager.EnableInput(false);
         NoteField.SortNoteHolder();
@@ -120,12 +119,12 @@ public class AutoTest : MonoBehaviour
         s_isTesting = true;
         s_isPause = false;
 
-        s_this.StartCoroutine(ITesting(guideMs));
+        s_this.StartCoroutine(ITesting(guideMs, startMs));
         s_this.StartCoroutine(ITestGuide(guideMs, pos));
         s_this.StartCoroutine(IPlayMusic(startMs));
 
         s_HolderIndex = NoteField.s_noteHolders.FindIndex(item => item.stdMs >= startMs);
-        s_TargetHolder = NoteField.s_noteHolders[s_HolderIndex];
+        s_TargetHolder = s_HolderIndex == -1 ? null : NoteField.s_noteHolders[s_HolderIndex];
 
         foreach (InputAction action in s_this.inputActions) { action.Enable(); }
     }
@@ -234,9 +233,22 @@ public class AutoTest : MonoBehaviour
     }
     
     //$ Testing Coroutines
-    private static IEnumerator ITesting(int value)
+    private static IEnumerator ITesting(int value, int startms)
     {
+        float delay;
+        delay = ValueManager.s_Delay;
+
+        AudioSource audio;
+        audio = MusicLoader.audioSource;
+
         s_Ms = value;
+        while (!audio.isPlaying)
+        {
+            yield return null;
+            s_Ms += Time.deltaTime * 1000f;
+            s_PosY = s_Ms * s_Bpm / 150f;
+        }
+
         while (true)
         {
             yield return null;
@@ -244,7 +256,7 @@ public class AutoTest : MonoBehaviour
             
             if (s_isPause) { continue; }
             
-            s_Ms += Time.deltaTime * 1000;
+            s_Ms = audio.time * 1000f - delay;
         }
     }
     private static IEnumerator ITestGuide(int startMs, int startPos)
@@ -272,9 +284,7 @@ public class AutoTest : MonoBehaviour
     }
     private static IEnumerator IPlayMusic(int startMs)
     {
-        float delay;
-        delay = ValueManager.s_Delay;
-        MusicLoader.audioSource.time = (delay + startMs) / 1000f;
+        MusicLoader.audioSource.time = (ValueManager.s_Delay + startMs) / 1000f;
         while(true)
         {
             yield return null;
@@ -283,13 +293,6 @@ public class AutoTest : MonoBehaviour
                 MusicLoader.audioSource.Play();
                 break;
             }
-        }
-        yield break;
-        var wait = new WaitForSeconds(1.0f);
-        while (true)
-        {
-            yield return wait;
-            MusicLoader.audioSource.time = (delay + s_Ms) / 1000f;
         }
     }
 

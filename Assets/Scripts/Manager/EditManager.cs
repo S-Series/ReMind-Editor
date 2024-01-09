@@ -621,18 +621,23 @@ public class EditManager : MonoBehaviour
         }
         else
         {
-            s_SelectNoteHolder.TryGetComponent<SpeedNote>(out var speed);
-            if (speed != null)
+            //$ Speed Note
+            if ( s_SelectedObject == s_SelectNoteHolder.getSpeed())
             {
-                NoteClass.s_SpeedNotes.RemoveAll(item => item == speed);
+                SpeedNote noteData;
+                noteData = s_SelectNoteHolder.speedNote;
+                NoteClass.s_SpeedNotes.RemoveAll(item => item == noteData);
                 s_SelectNoteHolder.speedNote = null;
             }
-            else
+            //$ Effect Note
+            else if (s_SelectedObject == s_SelectNoteHolder.getEffect())
             {
-                s_SelectNoteHolder.TryGetComponent<EffectNote>(out var effect);
-                NoteClass.s_EffectNotes.RemoveAll(item => item == effect);
+                EffectNote noteData;
+                noteData = s_SelectNoteHolder.effectNote;
+                NoteClass.s_EffectNotes.RemoveAll(item => item == noteData);
                 s_SelectNoteHolder.effectNote = null;
             }
+            else { throw new Exception("Note Delete System Error!"); }
         }
         NoteClass.SortAll();
         s_SelectNoteHolder.UpdateNote();
@@ -943,6 +948,27 @@ public class EditManager : MonoBehaviour
         }
         InfoField.UpdateInfoField();
         NoteChange.UpdateInfoFields();
+    }
+
+    public static void BpmNote(float value)
+    {
+        if (value < 1) { return; }
+        if (s_isMultyEditing) { return; }
+        SpeedNote note;
+        note = s_SelectNoteHolder.speedNote;
+        if ( note == null) { return; }
+        note.bpm = value;
+        s_SelectNoteHolder.UpdateTextInfo();
+    }
+    public static void MultiplyNote(float value)
+    {
+        if (value < 1) { return; }
+        if (s_isMultyEditing) { return; }
+        SpeedNote note;
+        note = s_SelectNoteHolder.speedNote;
+        if ( note == null) { return; }
+        note.multiple = value;
+        s_SelectNoteHolder.UpdateTextInfo();
     }
 
     public static void MoveNoteInput(bool isUp)
