@@ -956,8 +956,10 @@ public class EditManager : MonoBehaviour
         if (s_isMultyEditing) { return; }
         SpeedNote note;
         note = s_SelectNoteHolder.speedNote;
-        if ( note == null) { return; }
+        if ( note == null) { print("returned"); return; }
         note.bpm = value;
+        NoteClass.InitSpeedMs();
+        NoteField.InitAllHolder();
         s_SelectNoteHolder.UpdateTextInfo();
     }
     public static void MultiplyNote(float value)

@@ -126,7 +126,7 @@ public class NoteGenerate : MonoBehaviour
                 //SpeedHolder speedHolder;
 
                 //# Init SpeedNote
-                speed = new SpeedNote();
+                speed = SpeedNote.Generate();
                 speed.ms = 0;
                 speed.pos = pos;
                 speed.bpm = ValueManager.s_Bpm;
@@ -144,7 +144,7 @@ public class NoteGenerate : MonoBehaviour
                 //EffectHolder effectHolder;
 
                 //# Init EffectNote
-                effect = new EffectNote();
+                effect = EffectNote.Generate();
                 effect.ms = 0;
                 effect.pos = pos;
                 effect.value = 0;

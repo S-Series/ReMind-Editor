@@ -186,8 +186,8 @@ public class NoteChange : MonoBehaviour
         float value;
         try {value = Convert.ToSingle(input.text); }
         catch { return; }
+        print(value);
         EditManager.BpmNote(value);
-        NoteField.InitAllHolder();
     }
     public void InputMultiply(TMP_InputField input)
     {
@@ -195,6 +195,5 @@ public class NoteChange : MonoBehaviour
         try {value = Convert.ToSingle(input.text); }
         catch { return; }
         EditManager.MultiplyNote(value);
-        NoteField.InitAllHolder();
     }
 }

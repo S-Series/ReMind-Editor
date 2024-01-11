@@ -322,6 +322,7 @@ public class SaveManager : MonoBehaviour
                 effect = EffectNote.Generate();
                 effect.effectIndex = Convert.ToInt32(noteData[1]);
                 effect.value = Convert.ToInt32(noteData[2]);
+                copyHolder.effectNote = effect;
             }
             if (noteData[0] == "01")
             {
@@ -331,6 +332,7 @@ public class SaveManager : MonoBehaviour
                 speed.pos = copyHolder.stdPos;
                 speed.bpm = Convert.ToDouble(noteData[0]) / 100d;
                 speed.multiple = Convert.ToDouble(noteData[1]) / 1000d;
+                copyHolder.speedNote = speed;
             }
 
             copyHolder.EnableCollider(true);

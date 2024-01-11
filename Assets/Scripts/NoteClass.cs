@@ -28,79 +28,58 @@ namespace GameNote
             foreach (EffectNote note in s_EffectNotes)
             {
                 note.ms = CalMs(note.pos);
-            }    
-        }    
+            }
+        }
 
         public static int CalMs(int pos)
         {
-            int _ret = 0;
-            if (pos <= 0) { return _ret; }
-
-            int _calMs;
-            float _calPos;
-            double _calBpm;
-            s_SpeedNotes.OrderBy(item => item.pos);
-
-            
-
-            SpeedNote _speedNote = null;
-
-            int _index = 0;
-            for (int i = 0; i < s_SpeedNotes.Count; i++)
-            {
-                if (pos >= s_SpeedNotes[i].pos)
-                {
-                    _index = i;
-                }
-                else { break; }
-            }
-
-            if (_index == 0) { _speedNote = null; }
-            else { _speedNote = s_SpeedNotes[_index - 1]; }
-
-            if (_speedNote == null)
-            {
-                _calMs = 0;
-                _calPos = pos;
-                _calBpm = ValueManager.s_Bpm;
-            }
+            float _ret;
+            if (pos <= 0) { _ret = 0; }
+            else if (s_SpeedNotes.Count == 0) { _ret = 150f * pos / ValueManager.s_Bpm; }
             else
             {
-                InitSpeedMs();
-                _calMs = _speedNote.ms;
-                _calPos = pos - _speedNote.pos;
-                _calBpm = _speedNote.bpm * _speedNote.multiple;
+                int index;
+                index = s_SpeedNotes.FindLastIndex(item => item.pos <= pos);
+
+                if (index == -1) { _ret = 150f * pos / ValueManager.s_Bpm; }
+                else
+                {
+                    SpeedNote target;
+                    target = s_SpeedNotes[index];
+
+                    _ret = target.ms + 150f * (pos - target.pos) / (Single)target.bpm;
+                }
             }
-
-            _ret = Mathf.RoundToInt(Convert.ToSingle(150 * _calPos / _calBpm));
-
-            return _ret;
+            return Mathf.RoundToInt(_ret);
         }
 
         public static void InitSpeedMs()
         {
             if (s_SpeedNotes.Count == 0) { return; }
 
-            float _pos;
-            double _bpm;
-            s_SpeedNotes[0].ms = Mathf.RoundToInt(Convert.ToSingle(150 * s_SpeedNotes[0].pos / ValueManager.s_Bpm));
+            int lastMs;
+            float pos;
+            double bpm;
+
+            lastMs = Mathf.RoundToInt(150f * s_SpeedNotes[0].pos / ValueManager.s_Bpm);
+            s_SpeedNotes[0].ms = lastMs;
 
             for (int i = 1; i < s_SpeedNotes.Count; i++)
             {
-                _bpm = s_SpeedNotes[i].bpm * s_SpeedNotes[i].multiple;
-                _pos = s_SpeedNotes[i].pos - s_SpeedNotes[i - 1].pos;
-                s_SpeedNotes[i].ms = s_SpeedNotes[i - 1].ms 
-                    + Mathf.RoundToInt(Convert.ToSingle(150 * _pos / _bpm));
+                bpm = s_SpeedNotes[i - 1].bpm;
+                pos = s_SpeedNotes[i].pos - s_SpeedNotes[i - 1].pos;
+                lastMs += Mathf.RoundToInt(150f * pos / (Single)bpm);
+                s_SpeedNotes[i].ms = lastMs;
             }
         }
     }
-    
+
     public class Note
     {
         public int pos, ms;
     }
 
-    public class NormalNote:Note
+    public class NormalNote : Note
     {
         public int line, length = 1, SoundIndex = 0;
         public bool isAir;
@@ -115,7 +94,7 @@ namespace GameNote
         }
     }
 
-    public class SpeedNote:Note
+    public class SpeedNote : Note
     {
         public double bpm, multiple;
         public SpeedHolder holder;
@@ -133,7 +112,7 @@ namespace GameNote
         }
     }
 
-    public class EffectNote:Note
+    public class EffectNote : Note
     {
         public int effectIndex, value;
         public EffectHolder holder;
@@ -142,8 +121,8 @@ namespace GameNote
             switch (effectIndex)
             {
                 case 1: return "None";
-                
-                default : return "None";
+
+                default: return "None";
             }
         }
         public static EffectNote Generate()

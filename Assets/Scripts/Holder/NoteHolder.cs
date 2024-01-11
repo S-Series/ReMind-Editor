@@ -72,13 +72,6 @@ public class NoteHolder : MonoBehaviour
         if (effectNote == null) { effectObject.SetActive(false); }
         else { effectObject.SetActive(true); }
 
-        InfoTmps[0].text = speedNote == null ?
-            "" : string.Format("BPM : {0:F2} X {1:F1} = {2:F2}",
-            speedNote.bpm, speedNote.multiple, speedNote.bpm * speedNote.multiple);
-        InfoTmps[1].text = effectNote == null ?
-            "" : string.Format("Effect : {0} || Value : {1:D4}",
-            "None", effectNote.value);
-
         UpdateTextInfo();
         gameNoteHolder.UpdateNote(this);
     }
@@ -141,6 +134,19 @@ public class NoteHolder : MonoBehaviour
             speedNote.bpm, speedNote.multiple, speedNote.bpm * speedNote.multiple);
         InfoTmps[1].text = effectNote == null ? "" : String.Format("{0} || {1:D4}",
             effectNote.GetEffectName(), effectNote.value);
+    }
+    public void ApplyMs(int ms)
+    {
+        stdMs = ms;
+        for (int i = 0; i < 4; i++)
+        {
+            if (normals[i] != null) { normals[i].ms = stdMs; }
+            if (airials[i] != null) { airials[i].ms = stdMs; }
+            if (i > 1) continue;
+            if (bottoms[i] != null) { bottoms[i].ms = stdMs; }
+        }
+        // if (speedNote != null) { speedNote.ms = stdMs; }
+        if (effectNote != null) { effectNote.ms = stdMs; }
     }
     public void NoteAlert()
     {

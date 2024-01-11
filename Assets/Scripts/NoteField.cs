@@ -165,13 +165,18 @@ public class NoteField : MonoBehaviour
     {
         s_noteHolders = s_noteHolders.OrderBy(item => item.stdPos).ToList();
     }
-    public static void InitAllHolder()
+    public static void InitAllHolder(float pos = 0)
     {
+        int a, b;
         NoteClass.SortAll();
         NoteClass.InitAll();
         for (int i = 0; i < s_noteHolders.Count; i++)
         {
-            s_noteHolders[i].stdMs = NoteClass.CalMs(s_noteHolders[i].stdPos);
+            a = s_noteHolders[i].stdMs;
+            if (s_noteHolders[i].stdPos < pos) { continue; }
+            s_noteHolders[i].ApplyMs(NoteClass.CalMs(s_noteHolders[i].stdPos));
+            b = s_noteHolders[i].stdMs;
+            print(String.Format("{0} : {1} => {2}", s_noteHolders[i].stdPos, a, b));
         }
     }
     public static IEnumerator IResetHolderList()
