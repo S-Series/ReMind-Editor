@@ -96,8 +96,8 @@ public class AutoTest : MonoBehaviour
         {
             s_HolderIndex++;
             Judge(s_TargetHolder);
-            s_TargetHolder = s_HolderIndex == NoteHolder.holders.Count 
-                ? null : NoteHolder.holders[s_HolderIndex];
+            s_TargetHolder = s_HolderIndex == NoteHolder.s_holders.Count 
+                ? null : NoteHolder.s_holders[s_HolderIndex];
         }
     }
 
@@ -109,13 +109,13 @@ public class AutoTest : MonoBehaviour
         NoteField.InitAllHolder();
         NoteField.s_isFieldMovable = false;
         foreach (NoteHolder holder
-            in NoteHolder.holders) { holder.EnableCollider(false); }
+            in NoteHolder.s_holders) { holder.EnableCollider(false); }
 
         s_Bpm = ValueManager.s_Bpm;
         s_HolderIndex = 0;
 
         int startMs, guideMs;
-        startMs = NoteClass.CalMs(pos);
+        startMs = NoteClass.PosToMs(pos);
         guideMs = startMs - Mathf.RoundToInt(240000 / (float)ValueManager.s_Bpm);
 
         s_isTesting = true;
@@ -125,8 +125,8 @@ public class AutoTest : MonoBehaviour
         s_this.StartCoroutine(ITestGuide(guideMs, pos));
         s_this.StartCoroutine(IPlayMusic(startMs));
 
-        s_HolderIndex = NoteHolder.holders.FindIndex(item => item.stdMs >= startMs);
-        s_TargetHolder = s_HolderIndex == -1 ? null : NoteHolder.holders[s_HolderIndex];
+        s_HolderIndex = NoteHolder.s_holders.FindIndex(item => item.stdMs >= startMs);
+        s_TargetHolder = s_HolderIndex == -1 ? null : NoteHolder.s_holders[s_HolderIndex];
 
         foreach (InputAction action in s_this.inputActions) { action.Enable(); }
     }
@@ -137,14 +137,15 @@ public class AutoTest : MonoBehaviour
         InputManager.EnableInput(true);
         NoteField.s_isFieldMovable = true;
 
-        foreach (NoteHolder holder in NoteHolder.holders)
+        foreach (NoteHolder holder in NoteHolder.s_holders)
         {
-            holder.EnableNote(true);
+            holder.EnableNote(false);
             holder.EnableCollider(true);
             holder.gameNoteHolder.UpdateNote();
         }
         s_this.StopAllCoroutines();
 
+        ObjectCooling.UpdateCooling();
         MusicLoader.audioSource.Stop();
         foreach (InputAction action in s_this.inputActions) { action.Disable(); }
     }
@@ -257,7 +258,7 @@ public class AutoTest : MonoBehaviour
             if (s_isPause) { continue; }
             
             s_Ms = audio.time * 1000f - delay;
-            ObjectCooling.UpdateCooling(s_PosY);
+            ObjectCooling.UpdateTestCooling(s_PosY);
         }
     }
     private static IEnumerator ITestGuide(int startMs, int startPos)

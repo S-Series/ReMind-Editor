@@ -70,7 +70,7 @@ public class GuideGenerate : MonoBehaviour
         {
             holder.EnableCollider(isEnable);
         }
-        foreach (NoteHolder holder in NoteHolder.holders)
+        foreach (NoteHolder holder in NoteHolder.s_holders)
         {
             holder.EnableCollider(true);
         }

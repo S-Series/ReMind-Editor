@@ -218,7 +218,7 @@ public class EditManager : MonoBehaviour
             targetPos = thisHolder.stdPos + value;
             targetNoteTag = s_MultyObject[i].transform.parent.tag;
 
-            targetHolder = NoteHolder.holders.Find(item => item.stdPos == targetPos);
+            targetHolder = NoteHolder.s_holders.Find(item => item.stdPos == targetPos);
             if (targetHolder == null) { targetHolder = NoteGenerate.GenerateNoteManual(targetPos); }
 
             //$ Normal Note
@@ -584,7 +584,7 @@ public class EditManager : MonoBehaviour
         }
 
 
-        foreach (NoteHolder holder in NoteHolder.holders) { holder.EnableCollider(true); }
+        foreach (NoteHolder holder in NoteHolder.s_holders) { holder.EnableCollider(true); }
         MultyEscape();
         InputManager.Editing(false);
         EditBox.Deselect();
@@ -651,7 +651,7 @@ public class EditManager : MonoBehaviour
         if (s_isMultyEditing) { MultyNoteMove(editPos - s_SelectNoteHolder.stdPos); return; }
 
         NoteHolder targetHolder;
-        targetHolder = NoteHolder.holders.Find(item => item.stdPos == editPos);
+        targetHolder = NoteHolder.s_holders.Find(item => item.stdPos == editPos);
 
         if (targetHolder == null) { targetHolder = NoteGenerate.GenerateNoteManual(editPos); }
 
@@ -758,7 +758,7 @@ public class EditManager : MonoBehaviour
         editPos = editPage * 1600 + s_SelectNoteHolder.stdPos % 1600;
 
         NoteHolder targetHolder;
-        targetHolder = NoteHolder.holders.Find(item => item.stdPos == editPos);
+        targetHolder = NoteHolder.s_holders.Find(item => item.stdPos == editPos);
         if (targetHolder == null) { targetHolder = NoteGenerate.GenerateNoteManual(editPos); }
 
         if (s_SelectedObject.transform.parent.CompareTag(noteTag[0]))

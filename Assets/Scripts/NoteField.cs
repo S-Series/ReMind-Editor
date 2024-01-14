@@ -39,7 +39,7 @@ public class NoteField : MonoBehaviour
             _holder = _copyObject.transform.GetComponent<LineHolder>();
             _holder.page = i;
             _holder.texts[0].text = string.Format("{0:D3}", i + 1);
-            _holder.texts[1].text = string.Format("{0}", NoteClass.CalMs(1600 * i));
+            _holder.texts[1].text = string.Format("{0}", NoteClass.PosToMs(1600 * i));
 
             LineHolder.s_holders.Add(_holder);
         }
@@ -82,33 +82,33 @@ public class NoteField : MonoBehaviour
         NoteHolder ret = null;
         if (note.isAir)
         {
-            for (int i = 0; i < NoteHolder.holders.Count; i++)
+            for (int i = 0; i < NoteHolder.s_holders.Count; i++)
             {
-                if (NoteHolder.holders[i].airials.Contains(note))
+                if (NoteHolder.s_holders[i].airials.Contains(note))
                 {
-                    ret = NoteHolder.holders[i];
+                    ret = NoteHolder.s_holders[i];
                     break;
                 }
             }
         }
         else if (note.line > 4)
         {
-            for (int i = 0; i < NoteHolder.holders.Count; i++)
+            for (int i = 0; i < NoteHolder.s_holders.Count; i++)
             {
-                if (NoteHolder.holders[i].bottoms.Contains(note))
+                if (NoteHolder.s_holders[i].bottoms.Contains(note))
                 {
-                    ret = NoteHolder.holders[i];
+                    ret = NoteHolder.s_holders[i];
                     break;
                 }
             }
         }
         else
         {
-            for (int i = 0; i < NoteHolder.holders.Count; i++)
+            for (int i = 0; i < NoteHolder.s_holders.Count; i++)
             {
-                if (NoteHolder.holders[i].normals.Contains(note))
+                if (NoteHolder.s_holders[i].normals.Contains(note))
                 {
-                    ret = NoteHolder.holders[i];
+                    ret = NoteHolder.s_holders[i];
                     break;
                 }
             }
@@ -157,37 +157,37 @@ public class NoteField : MonoBehaviour
         GuideGenerate.UpdateGuideColor();
         GuideGenerate.GuideFieldSize(_scale, zoomValue);
 
-        foreach (NoteHolder holder in NoteHolder.holders) { holder.UpdateScale(); }
+        foreach (NoteHolder holder in NoteHolder.s_holders) { holder.UpdateScale(); }
         foreach (LineHolder holder in LineHolder.s_holders) { holder.UpdateScale(); }
 
         EditBox.UpdateRenderer();
     }
     public static void SortNoteHolder()
     {
-        NoteHolder.holders.OrderBy(item => item.stdPos).ToList();
+        NoteHolder.s_holders.OrderBy(item => item.stdPos).ToList();
     }
     public static void InitAllHolder(float pos = 0)
     {
         int a, b;
         NoteClass.SortAll();
         NoteClass.InitAll();
-        for (int i = 0; i < NoteHolder.holders.Count; i++)
+        for (int i = 0; i < NoteHolder.s_holders.Count; i++)
         {
-            a = NoteHolder.holders[i].stdMs;
-            if (NoteHolder.holders[i].stdPos < pos) { continue; }
-            NoteHolder.holders[i].ApplyMs(NoteClass.CalMs(NoteHolder.holders[i].stdPos));
-            NoteHolder.holders[i].UpdateLongMs();
-            b = NoteHolder.holders[i].stdMs;
+            a = NoteHolder.s_holders[i].stdMs;
+            if (NoteHolder.s_holders[i].stdPos < pos) { continue; }
+            NoteHolder.s_holders[i].ApplyMs(NoteClass.PosToMs(NoteHolder.s_holders[i].stdPos));
+            NoteHolder.s_holders[i].UpdateLongMs();
+            b = NoteHolder.s_holders[i].stdMs;
         }
     }
     public static IEnumerator IResetHolderList()
     {
-        for (int i = 0; i < NoteHolder.holders.Count; i++)
+        for (int i = 0; i < NoteHolder.s_holders.Count; i++)
         {
-            NoteHolder.holders[i].DestroyHolder();
+            NoteHolder.s_holders[i].DestroyHolder();
             yield return null;
         }
-        NoteHolder.holders = new List<NoteHolder>();
+        NoteHolder.s_holders = new List<NoteHolder>();
     }
     public static void ResetZoom()      //$ InputManager SetZero Action
     {

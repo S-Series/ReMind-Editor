@@ -58,7 +58,7 @@ public class NoteGenerate : MonoBehaviour
         NoteHolder holder;
         pos = posY + Mathf.RoundToInt
             (1600f / GuideGenerate.s_guideCount * NoteField.s_Scroll + 1600f * NoteField.s_Page);
-        holder = NoteHolder.holders.Find(item => item.stdPos == pos);
+        holder = NoteHolder.s_holders.Find(item => item.stdPos == pos);
 
         if (holder != null)
         {
@@ -82,14 +82,14 @@ public class NoteGenerate : MonoBehaviour
             //copyObject.transform.localPosition = 
             holder = copyObject.GetComponent<NoteHolder>();
             holder.name = "Pos : " + pos.ToString();
-            holder.stdMs = NoteClass.CalMs(pos);
+            holder.stdMs = NoteClass.PosToMs(pos);
             holder.stdPos = pos;
             holder.EnableCollider(false);
 
             copyObject = Instantiate(s_this.GeneratePrefabs[1], s_this.GenerateField[1], false);
             holder.gameNoteHolder = copyObject.GetComponent<GameNoteHolder>();
             holder.gameNoteHolder.name = "Pos : " + pos.ToString();
-            NoteHolder.holders.Add(holder);
+            NoteHolder.s_holders.Add(holder);
         }
 
         switch (ToolManager.noteType)
@@ -160,31 +160,33 @@ public class NoteGenerate : MonoBehaviour
 
         holder.UpdateNote();
         holder.UpdateScale();
+        holder.EnableNote(false);
         holder.EnableCollider(false);
 
         NoteField.SortNoteHolder();
         InfoField.UpdateInfoField();
+        ObjectCooling.UpdateCooling();
     }
     public static NoteHolder GenerateNoteManual(int pos)
     {
         NoteHolder ret;
         GameObject copyObject;
 
-        ret = NoteHolder.holders.Find(item => item.stdPos == pos);
+        ret = NoteHolder.s_holders.Find(item => item.stdPos == pos);
 
         if (ret != null) { return ret; }
 
         copyObject = Instantiate(s_this.GeneratePrefabs[0], s_this.GenerateField[0], false);
         ret = copyObject.GetComponent<NoteHolder>();
         ret.name = "Pos : " + pos.ToString();
-        ret.stdMs = NoteClass.CalMs(pos);
+        ret.stdMs = NoteClass.PosToMs(pos);
         ret.stdPos = pos;
         ret.EnableCollider(false);
 
         copyObject = Instantiate(s_this.GeneratePrefabs[1], s_this.GenerateField[1], false);
         ret.gameNoteHolder = copyObject.GetComponent<GameNoteHolder>();
         ret.gameNoteHolder.name = "Pos : " + pos.ToString();
-        NoteHolder.holders.Add(ret);
+        NoteHolder.s_holders.Add(ret);
         return ret;
     }
     public static void ChangePreview(int index)
@@ -210,7 +212,7 @@ public class NoteGenerate : MonoBehaviour
         s_this.previews[index].SetActive(true);
 
         GuideGenerate.EnableGuideCollider(true);
-        foreach (NoteHolder holder in NoteHolder.holders) { holder.EnableCollider(false); }
+        foreach (NoteHolder holder in NoteHolder.s_holders) { holder.EnableCollider(false); }
     }
     public static void Escape()
     {
@@ -219,7 +221,7 @@ public class NoteGenerate : MonoBehaviour
         foreach (GameObject gameObject in s_this.previews) { gameObject.SetActive(false); }
 
         GuideGenerate.EnableGuideCollider(false);
-        foreach (NoteHolder holder in NoteHolder.holders) { holder.EnableCollider(true); }
+        foreach (NoteHolder holder in NoteHolder.s_holders) { holder.EnableCollider(true); }
     }
 
     [ContextMenu("Test Generate")]
@@ -240,7 +242,7 @@ public class NoteGenerate : MonoBehaviour
             for (int j = 0; j < 4; j++)
             {
                 posY = 1600 * i + 400 * j;
-                notes[j].ms = NoteClass.CalMs(posY);
+                notes[j].ms = NoteClass.PosToMs(posY);
                 notes[j].pos = posY;
                 notes[j].isAir = true;
                 notes[j].length = 1;

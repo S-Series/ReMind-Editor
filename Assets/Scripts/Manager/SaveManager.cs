@@ -95,10 +95,10 @@ public class SaveManager : MonoBehaviour
 
         NoteField.SortNoteHolder();
 
-        for (int i = 0; i < NoteHolder.holders.Count; i++)
+        for (int i = 0; i < NoteHolder.s_holders.Count; i++)
         {
             saveData = "";
-            holder = NoteHolder.holders[i];
+            holder = NoteHolder.s_holders[i];
 
             saveData += string.Format("|{0:D11}|#", holder.stdMs);
             saveData += string.Format("|{0:D11}|#", holder.stdPos);
@@ -183,7 +183,7 @@ public class SaveManager : MonoBehaviour
         InputManager.EnableInput(false);
 
         //$ Check NoteField
-        if (NoteHolder.holders.Count != 0)
+        if (NoteHolder.s_holders.Count != 0)
         {
             isActive = false;
             isPassed = false;
@@ -332,10 +332,12 @@ public class SaveManager : MonoBehaviour
             copyHolder.UpdateNote();
             copyHolder.UpdateScale();
             copyHolder.CheckDestroy();
+            copyHolder.EnableNote(false);
             yield return null;
         }
     
         InputManager.EnableInput(true);
+        ObjectCooling.UpdateCooling();
         isLoaded = true;
         s_LoadedPath = path;
     }

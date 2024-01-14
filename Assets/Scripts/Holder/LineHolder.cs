@@ -13,10 +13,19 @@ public class LineHolder : MonoBehaviour
 
     public void UpdateMs()
     {
-        texts[1].text = NoteClass.CalMs(page * 1600).ToString();
+        texts[1].text = NoteClass.PosToMs(page * 1600).ToString();
     }
     public void UpdateScale()
     {
         transform.localScale = new Vector3(300, 1000 / (10f / NoteField.s_Zoom), 300);
+    }
+    public void EnableHolder(bool isEnable)
+    {
+        gameObject.SetActive(isEnable);
+    }
+
+    public int GetPosValue()
+    {
+        return (page - 1) * 1600;
     }
 }

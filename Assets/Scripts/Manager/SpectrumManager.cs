@@ -10,18 +10,6 @@ using UnityEngine.UI;
 public class SpectrumManager : MonoBehaviour
 {
     private static SpectrumManager s_this;
-    public struct SpectrumData
-    {
-        public float ms { get; }
-        public float posY { get; }
-        public GameObject SpectrumObject { get; }
-        public SpectrumData(float x, float y, GameObject z)
-        {
-            ms = x;
-            posY = y;
-            SpectrumObject = z;
-        }
-    }
     private static AudioSource audioSource;
     private static Transform GenerateField;
     private static GameObject SpectrumPrefab;
@@ -69,7 +57,7 @@ public class SpectrumManager : MonoBehaviour
             posY = indexer * 16;
 
             float ms;
-            ms = NoteClass.CalMs(posY);
+            ms = NoteClass.PosToMs(posY);
 
             if (ms / 1000f > length) { break; } //$ End of while();
 
@@ -150,11 +138,7 @@ public class SpectrumManager : MonoBehaviour
             data = spectrumDatas[i];
             getData = GetSpectrumData();
             audioSource.time = data.ms / 1000f;
-            data.SpectrumObject.transform.GetChild(0)
-                .localScale = new Vector3(getData[0], .5f, 1);
-            audioSource.time = data.ms / 1000f;
-            data.SpectrumObject.transform.GetChild(1)
-                .localScale = new Vector3(getData[1], 1, 1);
+            data.UpdateScale(getData);
             if (getData[0] > maxScale) { maxScale = getData[0]; }
             if (getData[1] > maxScale) { maxScale = getData[1]; }
             GenerateDelays.Add(Time.deltaTime * 1000);

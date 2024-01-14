@@ -9,7 +9,7 @@ using System;
 public class 
 NoteHolder : MonoBehaviour
 {
-    public static List<NoteHolder> holders = new List<NoteHolder>();
+    public static List<NoteHolder> s_holders = new List<NoteHolder>();
     public static List<NoteHolder> errorHolders = new List<NoteHolder>();
 
     public int stdMs, stdPos;
@@ -107,7 +107,7 @@ NoteHolder : MonoBehaviour
     {
         if (isNull())
         {
-            holders.RemoveAll(item => item == this);
+            s_holders.RemoveAll(item => item == this);
             Destroy(gameNoteHolder.gameObject);
             Destroy(this.gameObject);
         }
@@ -159,7 +159,7 @@ NoteHolder : MonoBehaviour
             longMs[i] = new int[note.length];
             for (int j = 0; j < note.length; j++)
             {
-                longMs[i][j] = NoteClass.CalMs(stdPos + j * 100);
+                longMs[i][j] = NoteClass.PosToMs(stdPos + j * 100);
             }
         }
     }
@@ -167,9 +167,20 @@ NoteHolder : MonoBehaviour
     {
         
     }
+    public int NoteMaxLength(bool isPos = false)
+    {
+        int ret = 0;
+        for (int i = 0; i < 4; i++)
+        {
+            if (normals[i] != null) if (normals[i].length > ret) ret = normals[i].length;
+            if (i > 1) continue;
+            if (bottoms[i] != null) if (bottoms[i].length > ret) ret = bottoms[i].length;
+        }
+        return isPos ? ret * 100 : ret;
+    }
     public static void UpdateVisualPos(float pos)
     {
-        foreach (NoteHolder holder in holders)
+        foreach (NoteHolder holder in s_holders)
         {
             if (holder.stdPos < pos - 400) { holder.gameObject.SetActive(false); }
             else if (holder.stdPos > pos + 1600 * NoteField.s_Zoom + 400) { holder.EnableNote(false); }

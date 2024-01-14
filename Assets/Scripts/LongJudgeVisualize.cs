@@ -38,6 +38,7 @@ public class LongJudgeVisualize : MonoBehaviour
         float per, zoom;
         float[] values;
         zoom = NoteField.s_Zoom;
+        print(zoom); zoom = 1;
         values = new float[2] { Length * 10, Length * 100 };
         while (true)
         {

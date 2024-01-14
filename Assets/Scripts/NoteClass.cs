@@ -3,6 +3,7 @@ using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Windows.Forms;
 
 namespace GameNote
 {
@@ -23,15 +24,15 @@ namespace GameNote
             InitSpeedMs();
             foreach (NormalNote note in s_NormalNotes)
             {
-                note.ms = CalMs(note.pos);
+                note.ms = PosToMs(note.pos);
             }
             foreach (EffectNote note in s_EffectNotes)
             {
-                note.ms = CalMs(note.pos);
+                note.ms = PosToMs(note.pos);
             }
         }
 
-        public static int CalMs(int pos)
+        public static int PosToMs(int pos)
         {
             float _ret;
             if (pos <= 0) { _ret = 0; }
@@ -51,6 +52,12 @@ namespace GameNote
                 }
             }
             return Mathf.RoundToInt(_ret);
+        }
+        public static float MsToPos(float Ms)
+        {
+            float ret = 0.0f;
+            s_SpeedNotes.FindLastIndex(item => item.ms <= Ms);
+            return ret;
         }
 
         public static void InitSpeedMs()
@@ -133,6 +140,32 @@ namespace GameNote
             ret = new EffectNote();
             NoteClass.s_EffectNotes.Add(ret);
             return ret;
+        }
+    }
+
+    public struct SpectrumData
+    {
+        public float ms { get; }
+        public float posY { get; set; }
+        public GameObject SpectrumObject { get; }
+        private Transform[] transforms;
+        public SpectrumData(float ms, float pos, GameObject @object)
+        {
+            this.ms = ms;
+            posY = pos;
+            SpectrumObject = @object;
+            transforms = new Transform[2];
+            transforms[0] = SpectrumObject.transform.GetChild(0);
+            transforms[1] = SpectrumObject.transform.GetChild(1);
+        }
+        public void UpdateScale(float[] values)
+        {
+            transforms[0].localScale = new Vector3(values[0], .5f, 1);
+            transforms[1].localScale = new Vector3(values[1], .5f, 1);
+        }
+        public void UpdateScaleY(Vector3 vec3)
+        {
+            SpectrumObject.transform.localScale = vec3;
         }
     }
 }

@@ -24,7 +24,7 @@ public class TestPlaySystem : MonoBehaviour
     {
         List<NoteHolder> holders;
         holders = new List<NoteHolder>();
-        holders = NoteHolder.holders;
+        holders = NoteHolder.s_holders;
         holderPackages = new List<HolderPackage>();
 
         for (int i = 0; i < holders.Count; i++)
