@@ -33,9 +33,9 @@ public class InfoField : MonoBehaviour
         int[] floorCount = new int[2] { 0, 0 };
 
         #region Sector 01
-        for (int i = 0; i < NoteField.s_noteHolders.Count; i++)
+        for (int i = 0; i < NoteHolder.holders.Count; i++)
         {
-            holder = NoteField.s_noteHolders[i];
+            holder = NoteHolder.holders[i];
             for (int j = 0; j < 4; j++)
             {
                 normalCount[j] += holder.normals[j] == null ? 0 : holder.normals[j].length;

@@ -137,14 +137,13 @@ public class NoteChange : MonoBehaviour
         if (value < 0) { value = 0; input.text = "0"; }
         EditManager.PageNote(value);
     }
-    //$ NormaNote Only  
     public void InputLegnth(TMP_InputField input)
     {
         int value;
         try { value = Convert.ToInt32(input.text); }
         catch { value = 1; input.text = "1";}
         if (value < 1) { value = 1; input.text = "1"; }
-        EditManager.LegnthNote(value);
+        EditManager.LengthNote(value);
     }
     public void ToggleLine()
     {
@@ -186,7 +185,6 @@ public class NoteChange : MonoBehaviour
         float value;
         try {value = Convert.ToSingle(input.text); }
         catch { return; }
-        print(value);
         EditManager.BpmNote(value);
     }
     public void InputMultiply(TMP_InputField input)

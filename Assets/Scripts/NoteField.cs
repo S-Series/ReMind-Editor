@@ -12,7 +12,7 @@ public class NoteField : MonoBehaviour
     public static NoteField s_this;
 
     public static bool s_isFieldMovable = true;
-    public static List<NoteHolder> s_noteHolders = new List<NoteHolder>();
+    // public static List<NoteHolder> s_noteHolders = new List<NoteHolder>();
     public static int s_Page = 0;
     public static int s_Scroll = 0;
     public static int s_Zoom = 2;
@@ -82,33 +82,33 @@ public class NoteField : MonoBehaviour
         NoteHolder ret = null;
         if (note.isAir)
         {
-            for (int i = 0; i < s_noteHolders.Count; i++)
+            for (int i = 0; i < NoteHolder.holders.Count; i++)
             {
-                if (s_noteHolders[i].airials.Contains(note))
+                if (NoteHolder.holders[i].airials.Contains(note))
                 {
-                    ret = s_noteHolders[i];
+                    ret = NoteHolder.holders[i];
                     break;
                 }
             }
         }
         else if (note.line > 4)
         {
-            for (int i = 0; i < s_noteHolders.Count; i++)
+            for (int i = 0; i < NoteHolder.holders.Count; i++)
             {
-                if (s_noteHolders[i].bottoms.Contains(note))
+                if (NoteHolder.holders[i].bottoms.Contains(note))
                 {
-                    ret = s_noteHolders[i];
+                    ret = NoteHolder.holders[i];
                     break;
                 }
             }
         }
         else
         {
-            for (int i = 0; i < s_noteHolders.Count; i++)
+            for (int i = 0; i < NoteHolder.holders.Count; i++)
             {
-                if (s_noteHolders[i].normals.Contains(note))
+                if (NoteHolder.holders[i].normals.Contains(note))
                 {
-                    ret = s_noteHolders[i];
+                    ret = NoteHolder.holders[i];
                     break;
                 }
             }
@@ -123,6 +123,7 @@ public class NoteField : MonoBehaviour
         float zoomValue;
 
         s_StartPos = s_Page * 1600 + Mathf.RoundToInt(1600f / _count * s_Scroll);
+        ObjectCooling.UpdateCooling(s_StartPos);
 
         if (s_Scroll < 0) { s_Page--; s_Scroll += _count; }
         while (s_Scroll > _count) { s_Page++; s_Scroll -= _count; }
@@ -156,41 +157,41 @@ public class NoteField : MonoBehaviour
         GuideGenerate.UpdateGuideColor();
         GuideGenerate.GuideFieldSize(_scale, zoomValue);
 
-        foreach (NoteHolder holder in s_noteHolders) { holder.UpdateScale(); }
+        foreach (NoteHolder holder in NoteHolder.holders) { holder.UpdateScale(); }
         foreach (LineHolder holder in LineHolder.s_holders) { holder.UpdateScale(); }
 
         EditBox.UpdateRenderer();
     }
     public static void SortNoteHolder()
     {
-        s_noteHolders = s_noteHolders.OrderBy(item => item.stdPos).ToList();
+        NoteHolder.holders.OrderBy(item => item.stdPos).ToList();
     }
     public static void InitAllHolder(float pos = 0)
     {
         int a, b;
         NoteClass.SortAll();
         NoteClass.InitAll();
-        for (int i = 0; i < s_noteHolders.Count; i++)
+        for (int i = 0; i < NoteHolder.holders.Count; i++)
         {
-            a = s_noteHolders[i].stdMs;
-            if (s_noteHolders[i].stdPos < pos) { continue; }
-            s_noteHolders[i].ApplyMs(NoteClass.CalMs(s_noteHolders[i].stdPos));
-            b = s_noteHolders[i].stdMs;
-            print(String.Format("{0} : {1} => {2}", s_noteHolders[i].stdPos, a, b));
+            a = NoteHolder.holders[i].stdMs;
+            if (NoteHolder.holders[i].stdPos < pos) { continue; }
+            NoteHolder.holders[i].ApplyMs(NoteClass.CalMs(NoteHolder.holders[i].stdPos));
+            NoteHolder.holders[i].UpdateLongMs();
+            b = NoteHolder.holders[i].stdMs;
         }
     }
     public static IEnumerator IResetHolderList()
     {
-        for (int i = 0; i < s_noteHolders.Count; i++)
+        for (int i = 0; i < NoteHolder.holders.Count; i++)
         {
-            s_noteHolders[i].DestroyHolder();
+            NoteHolder.holders[i].DestroyHolder();
             yield return null;
         }
-        s_noteHolders = new List<NoteHolder>();
+        NoteHolder.holders = new List<NoteHolder>();
     }
     public static void ResetZoom()      //$ InputManager SetZero Action
     {
-        s_Zoom = 10;
+        s_Zoom = 2;
         s_this.UpdateField();
     }
     public static void PageToSelect()   //$ InputManager AltZero Action

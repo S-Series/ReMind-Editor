@@ -81,7 +81,7 @@ namespace GameNote
 
     public class NormalNote : Note
     {
-        public int line, length = 1, SoundIndex = 0;
+        public int line, length, SoundIndex;
         public bool isAir;
         public NoteHolder holder;
 
@@ -89,6 +89,8 @@ namespace GameNote
         {
             NormalNote ret;
             ret = new NormalNote();
+            ret.length = 1;
+            ret.SoundIndex = 0;
             NoteClass.s_NormalNotes.Add(ret);
             return ret;
         }

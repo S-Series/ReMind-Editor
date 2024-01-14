@@ -218,7 +218,7 @@ public class EditManager : MonoBehaviour
             targetPos = thisHolder.stdPos + value;
             targetNoteTag = s_MultyObject[i].transform.parent.tag;
 
-            targetHolder = NoteField.s_noteHolders.Find(item => item.stdPos == targetPos);
+            targetHolder = NoteHolder.holders.Find(item => item.stdPos == targetPos);
             if (targetHolder == null) { targetHolder = NoteGenerate.GenerateNoteManual(targetPos); }
 
             //$ Normal Note
@@ -584,7 +584,7 @@ public class EditManager : MonoBehaviour
         }
 
 
-        foreach (NoteHolder holder in NoteField.s_noteHolders) { holder.EnableCollider(true); }
+        foreach (NoteHolder holder in NoteHolder.holders) { holder.EnableCollider(true); }
         MultyEscape();
         InputManager.Editing(false);
         EditBox.Deselect();
@@ -651,8 +651,7 @@ public class EditManager : MonoBehaviour
         if (s_isMultyEditing) { MultyNoteMove(editPos - s_SelectNoteHolder.stdPos); return; }
 
         NoteHolder targetHolder;
-        GameObject targetObject;
-        targetHolder = NoteField.s_noteHolders.Find(item => item.stdPos == editPos);
+        targetHolder = NoteHolder.holders.Find(item => item.stdPos == editPos);
 
         if (targetHolder == null) { targetHolder = NoteGenerate.GenerateNoteManual(editPos); }
 
@@ -669,10 +668,9 @@ public class EditManager : MonoBehaviour
                 s_SelectNoteHolder.normals[note.line - 1] = null;
                 note.pos = editPos;
 
-                targetObject = targetHolder.getNormal(note.line - 1);
                 targetHolder.UpdateNote();
                 s_SelectNoteHolder.UpdateNote();
-                Select(targetObject);
+                Select(targetHolder.getNormal(note.line - 1));
             }
         }
         else if (s_SelectedObject.transform.parent.CompareTag(noteTag[2]))
@@ -688,10 +686,9 @@ public class EditManager : MonoBehaviour
                 s_SelectNoteHolder.airials[note.line - 1] = null;
                 note.pos = editPos;
 
-                targetObject = targetHolder.getAirial(note.line - 1);
                 targetHolder.UpdateNote();
                 s_SelectNoteHolder.UpdateNote();
-                Select(targetObject);
+                Select(targetHolder.getAirial(note.line - 1));
             }
         }
         else if (s_SelectedObject.transform.parent.CompareTag(noteTag[1]))
@@ -708,16 +705,15 @@ public class EditManager : MonoBehaviour
                 s_SelectNoteHolder.bottoms[note.line - 1] = null;
                 note.pos = editPos;
 
-                targetObject = targetHolder.getBottom(note.line - 1);
                 targetHolder.UpdateNote();
                 s_SelectNoteHolder.UpdateNote();
-                Select(targetObject);
+                Select(targetHolder.getBottom(note.line - 1));
             }
         }
         else if (s_SelectedObject.CompareTag("01"))
         {
             if (targetHolder.speedNote != null)
-            { Select(targetHolder.getSpeed()); }
+                { Select(targetHolder.getSpeed()); }
             else
             {
                 SpeedNote note;
@@ -726,10 +722,12 @@ public class EditManager : MonoBehaviour
                 targetHolder.speedNote = note;
                 s_SelectNoteHolder.speedNote = null;
 
-                targetObject = targetHolder.getSpeed();
                 targetHolder.UpdateNote();
                 s_SelectNoteHolder.UpdateNote();
-                Select(targetObject);
+                Select(targetHolder.getSpeed());
+
+                NoteClass.InitSpeedMs();
+                NoteField.InitAllHolder();
             }
         }
         else
@@ -744,10 +742,9 @@ public class EditManager : MonoBehaviour
                 targetHolder.effectNote = note;
                 s_SelectNoteHolder.effectNote = null;
 
-                targetObject = targetHolder.getEffect();
                 targetHolder.UpdateNote();
                 s_SelectNoteHolder.UpdateNote();
-                Select(targetObject);
+                Select(targetHolder.getEffect());
             }
         }
 
@@ -761,7 +758,7 @@ public class EditManager : MonoBehaviour
         editPos = editPage * 1600 + s_SelectNoteHolder.stdPos % 1600;
 
         NoteHolder targetHolder;
-        targetHolder = NoteField.s_noteHolders.Find(item => item.stdPos == editPos);
+        targetHolder = NoteHolder.holders.Find(item => item.stdPos == editPos);
         if (targetHolder == null) { targetHolder = NoteGenerate.GenerateNoteManual(editPos); }
 
         if (s_SelectedObject.transform.parent.CompareTag(noteTag[0]))
@@ -914,36 +911,37 @@ public class EditManager : MonoBehaviour
             }
         }
     }
-    public static void LegnthNote(int editLegnth)
+    public static void LengthNote(int editLength)
     {
         if (s_isMultyEditing) { return; }
+        if (s_SelectNoteHolder == null) { print("null"); }
 
-        if (editLegnth < 1) { editLegnth = 1; }
+        if (editLength < 1) { editLength = 1; }
 
         if (s_SelectedObject.transform.parent.CompareTag("Normal"))
         {
             NormalNote note;
-            note = s_SelectNoteHolder.normals[Convert.ToInt32(s_SelectedObject.tag) - 1];
+            note = s_SelectNoteHolder.normals[s_line - 1];
 
-            note.length = editLegnth;
+            note.length = editLength;
             s_SelectNoteHolder.UpdateNote();
         }
-        else if (s_SelectNoteHolder.transform.parent.CompareTag("Bottom"))
+        else if (s_SelectedObject.transform.parent.CompareTag("Bottom"))
         {
             NormalNote note;
-            note = s_SelectNoteHolder.bottoms[Convert.ToInt32(s_SelectedObject.tag) - 1];
+            note = s_SelectNoteHolder.bottoms[s_line - 1];
 
-            note.length = editLegnth;
+            note.length = editLength;
             s_SelectNoteHolder.UpdateNote();
         }
         else if (s_SelectedObject.transform.parent.CompareTag("Airial"))
         {
-            if (editLegnth > 100) { editLegnth = 100; }
+            if (editLength > 100) { editLength = 100; }
 
             NormalNote note;
-            note = s_SelectNoteHolder.airials[Convert.ToInt32(s_SelectedObject.tag) - 1];
+            note = s_SelectNoteHolder.airials[s_line - 1];
 
-            note.length = editLegnth;
+            note.length = editLength;
             s_SelectNoteHolder.UpdateNote();
         }
         InfoField.UpdateInfoField();
@@ -964,7 +962,7 @@ public class EditManager : MonoBehaviour
     }
     public static void MultiplyNote(float value)
     {
-        if (value < 1) { return; }
+        if (value < 0) { return; }
         if (s_isMultyEditing) { return; }
         SpeedNote note;
         note = s_SelectNoteHolder.speedNote;
@@ -998,7 +996,7 @@ public class EditManager : MonoBehaviour
             if (s_length < 001) { s_length = 001; }
             if (s_length > 259) { s_length = 259; }
 
-            LegnthNote(s_length);
+            LengthNote(s_length);
         }
         //$ Pos Movement
         else

@@ -6,7 +6,8 @@ using GameNote;
 using System;
 
 [System.Serializable]
-public class NoteHolder : MonoBehaviour
+public class 
+NoteHolder : MonoBehaviour
 {
     public static List<NoteHolder> holders = new List<NoteHolder>();
     public static List<NoteHolder> errorHolders = new List<NoteHolder>();
@@ -42,9 +43,9 @@ public class NoteHolder : MonoBehaviour
             else
             {
                 normalObjects[i].SetActive(true);
-                normalObjects[i].TryGetComponent<NoteLength>(out var notelength);
-                if (notelength == null) { throw new System.Exception("Notelength Operation is not Exist!"); }
-                notelength.Length(normals[i].length);
+                normalObjects[i].TryGetComponent<NoteLength>(out var normalLength);
+                if (normalLength == null) { throw new System.Exception("Notelength Operation is not Exist!"); }
+                normalLength.Length(normals[i].length);
             }
 
             if (airials[i] == null) { airialObjects[i].SetActive(false); }
@@ -52,17 +53,16 @@ public class NoteHolder : MonoBehaviour
             {
                 airialObjects[i].SetActive(true);
             }
-        }
 
-        for (int i = 0; i < 2; i++)
-        {
+            if (i > 1) { continue; }
+
             if (bottoms[i] == null) { bottomObjects[i].SetActive(false); }
             else
             {
                 bottomObjects[i].SetActive(true);
-                bottomObjects[i].TryGetComponent<NoteLength>(out var notelength);
-                if (notelength == null) { throw new System.Exception("Notelength Operation is not Exist!"); }
-                notelength.Length(bottoms[i].length);
+                bottomObjects[i].TryGetComponent<NoteLength>(out var bottomLength);
+                if (bottomLength == null) { throw new System.Exception("Notelength Operation is not Exist!"); }
+                bottomLength.Length(bottoms[i].length);
             }
         }
 
@@ -107,7 +107,7 @@ public class NoteHolder : MonoBehaviour
     {
         if (isNull())
         {
-            NoteField.s_noteHolders.RemoveAll(item => item == this);
+            holders.RemoveAll(item => item == this);
             Destroy(gameNoteHolder.gameObject);
             Destroy(this.gameObject);
         }
@@ -126,7 +126,7 @@ public class NoteHolder : MonoBehaviour
     }
     public void EnableNote(bool isEnable)
     {
-        foreach (GameObject gameObject in ParentObjects) { gameObject.SetActive(isEnable); }
+        gameObject.SetActive(isEnable);
     }   
     public void UpdateTextInfo()
     {
@@ -148,9 +148,33 @@ public class NoteHolder : MonoBehaviour
         // if (speedNote != null) { speedNote.ms = stdMs; }
         if (effectNote != null) { effectNote.ms = stdMs; }
     }
+    public void UpdateLongMs()
+    {
+        NormalNote note;
+        for (int i = 0; i < 6; i++)
+        {
+            note = i > 3 ? bottoms[i - 4] : normals[i];
+            if (note == null) { longMs[i] = null; continue; }
+            if (note.length <= 1) { longMs[i] = null; continue; }
+            longMs[i] = new int[note.length];
+            for (int j = 0; j < note.length; j++)
+            {
+                longMs[i][j] = NoteClass.CalMs(stdPos + j * 100);
+            }
+        }
+    }
     public void NoteAlert()
     {
         
+    }
+    public static void UpdateVisualPos(float pos)
+    {
+        foreach (NoteHolder holder in holders)
+        {
+            if (holder.stdPos < pos - 400) { holder.gameObject.SetActive(false); }
+            else if (holder.stdPos > pos + 1600 * NoteField.s_Zoom + 400) { holder.EnableNote(false); }
+            else { holder.EnableNote(true); }
+        }
     }
 
     public GameObject getNormal(int index) { return normalObjects[index]; }

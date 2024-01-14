@@ -11,14 +11,16 @@ public class AutoTest : MonoBehaviour
 {
     private static AutoTest s_this;
 
+    public static float s_Ms = 0.0f;
     public static bool s_isTesting = false;
 
-    private readonly static string[] Trigger = { "100", "Start", "End" };
+    //private readonly static string[] Trigger = { "100", "Start", "End" };
+    private readonly static string[] Trigger = { "100", "100", "100" };
 
     private static int s_HolderIndex = 0;
     private static bool s_isPause = false, s_isEffect = false;
     private static float s_Bpm = 120.0f, s_GameSpeed;
-    private static float s_Ms = 0.0f, s_SpeedMs = 0.0f;
+    private static float s_SpeedMs = 0.0f;
     private static float s_PosY = 0.0f, s_SpeedPosY = 0.0f, s_EffectPosY = 0.0f;
     private static NoteHolder s_TargetHolder;
     
@@ -94,8 +96,8 @@ public class AutoTest : MonoBehaviour
         {
             s_HolderIndex++;
             Judge(s_TargetHolder);
-            s_TargetHolder = s_HolderIndex == NoteField.s_noteHolders.Count 
-                ? null : NoteField.s_noteHolders[s_HolderIndex];
+            s_TargetHolder = s_HolderIndex == NoteHolder.holders.Count 
+                ? null : NoteHolder.holders[s_HolderIndex];
         }
     }
 
@@ -107,7 +109,7 @@ public class AutoTest : MonoBehaviour
         NoteField.InitAllHolder();
         NoteField.s_isFieldMovable = false;
         foreach (NoteHolder holder
-            in NoteField.s_noteHolders) { holder.EnableCollider(false); }
+            in NoteHolder.holders) { holder.EnableCollider(false); }
 
         s_Bpm = ValueManager.s_Bpm;
         s_HolderIndex = 0;
@@ -119,12 +121,12 @@ public class AutoTest : MonoBehaviour
         s_isTesting = true;
         s_isPause = false;
 
-        s_this.StartCoroutine(ITesting(guideMs, startMs));
+        s_this.StartCoroutine(ITesting(guideMs));
         s_this.StartCoroutine(ITestGuide(guideMs, pos));
         s_this.StartCoroutine(IPlayMusic(startMs));
 
-        s_HolderIndex = NoteField.s_noteHolders.FindIndex(item => item.stdMs >= startMs);
-        s_TargetHolder = s_HolderIndex == -1 ? null : NoteField.s_noteHolders[s_HolderIndex];
+        s_HolderIndex = NoteHolder.holders.FindIndex(item => item.stdMs >= startMs);
+        s_TargetHolder = s_HolderIndex == -1 ? null : NoteHolder.holders[s_HolderIndex];
 
         foreach (InputAction action in s_this.inputActions) { action.Enable(); }
     }
@@ -135,7 +137,7 @@ public class AutoTest : MonoBehaviour
         InputManager.EnableInput(true);
         NoteField.s_isFieldMovable = true;
 
-        foreach (NoteHolder holder in NoteField.s_noteHolders)
+        foreach (NoteHolder holder in NoteHolder.holders)
         {
             holder.EnableNote(true);
             holder.EnableCollider(true);
@@ -183,10 +185,7 @@ public class AutoTest : MonoBehaviour
                     gameJudgeEffects[i + 8].SetTrigger(Trigger[0]);
                     judgeSounds[i + 4].Play();
                 }
-                else
-                {
-
-                }
+                else { StartCoroutine(ILongNote(i + 4, holder.longMs[i + 4])); }
             }
         }
 
@@ -201,6 +200,7 @@ public class AutoTest : MonoBehaviour
             s_isEffect = true;
         }
 
+        holder.EnableNote(false);
         holder.gameNoteHolder.JudgeVisual();
     }
     private void AddCombo()
@@ -233,7 +233,7 @@ public class AutoTest : MonoBehaviour
     }
     
     //$ Testing Coroutines
-    private static IEnumerator ITesting(int value, int startms)
+    private static IEnumerator ITesting(int value)
     {
         float delay;
         delay = ValueManager.s_Delay;
@@ -257,6 +257,7 @@ public class AutoTest : MonoBehaviour
             if (s_isPause) { continue; }
             
             s_Ms = audio.time * 1000f - delay;
+            ObjectCooling.UpdateCooling(s_PosY);
         }
     }
     private static IEnumerator ITestGuide(int startMs, int startPos)
@@ -273,7 +274,6 @@ public class AutoTest : MonoBehaviour
         for (int i = 0; i < 4; i++) { guideMs[i] = startMs + i * duration; }
         for (int i = 0; i < 4;)
         {
-            print(guideMs[i]);
             yield return null;
             if (s_Ms >= guideMs[i])
             {
@@ -299,10 +299,16 @@ public class AutoTest : MonoBehaviour
     //$ LongNote, EffectNote, etc... Coroutines
     private IEnumerator ILongNote(int line, int[] datas)
     {
+        int length;
+        length = datas.Length;
+        if (line > 5) { yield break; }
+        print(length);
+        LongJudgeVisualize.s_LJV[line].
+            StartLongVisualize(length, new int[2] { datas[0], datas[length - 1] });
         judgeEffects[line].SetTrigger(Trigger[1]);
         gameJudgeEffects[line].SetTrigger(Trigger[1]);
 
-        for (int i = 0; i < datas.Length;)
+        for (int i = 0; i < length;)
         {
             if (s_Ms > datas[i])
             {

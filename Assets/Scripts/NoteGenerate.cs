@@ -58,7 +58,7 @@ public class NoteGenerate : MonoBehaviour
         NoteHolder holder;
         pos = posY + Mathf.RoundToInt
             (1600f / GuideGenerate.s_guideCount * NoteField.s_Scroll + 1600f * NoteField.s_Page);
-        holder = NoteField.s_noteHolders.Find(item => item.stdPos == pos);
+        holder = NoteHolder.holders.Find(item => item.stdPos == pos);
 
         if (holder != null)
         {
@@ -89,7 +89,7 @@ public class NoteGenerate : MonoBehaviour
             copyObject = Instantiate(s_this.GeneratePrefabs[1], s_this.GenerateField[1], false);
             holder.gameNoteHolder = copyObject.GetComponent<GameNoteHolder>();
             holder.gameNoteHolder.name = "Pos : " + pos.ToString();
-            NoteField.s_noteHolders.Add(holder);
+            NoteHolder.holders.Add(holder);
         }
 
         switch (ToolManager.noteType)
@@ -170,7 +170,7 @@ public class NoteGenerate : MonoBehaviour
         NoteHolder ret;
         GameObject copyObject;
 
-        ret = NoteField.s_noteHolders.Find(item => item.stdPos == pos);
+        ret = NoteHolder.holders.Find(item => item.stdPos == pos);
 
         if (ret != null) { return ret; }
 
@@ -184,7 +184,7 @@ public class NoteGenerate : MonoBehaviour
         copyObject = Instantiate(s_this.GeneratePrefabs[1], s_this.GenerateField[1], false);
         ret.gameNoteHolder = copyObject.GetComponent<GameNoteHolder>();
         ret.gameNoteHolder.name = "Pos : " + pos.ToString();
-        NoteField.s_noteHolders.Add(ret);
+        NoteHolder.holders.Add(ret);
         return ret;
     }
     public static void ChangePreview(int index)
@@ -210,7 +210,7 @@ public class NoteGenerate : MonoBehaviour
         s_this.previews[index].SetActive(true);
 
         GuideGenerate.EnableGuideCollider(true);
-        foreach (NoteHolder holder in NoteField.s_noteHolders) { holder.EnableCollider(false); }
+        foreach (NoteHolder holder in NoteHolder.holders) { holder.EnableCollider(false); }
     }
     public static void Escape()
     {
@@ -219,7 +219,7 @@ public class NoteGenerate : MonoBehaviour
         foreach (GameObject gameObject in s_this.previews) { gameObject.SetActive(false); }
 
         GuideGenerate.EnableGuideCollider(false);
-        foreach (NoteHolder holder in NoteField.s_noteHolders) { holder.EnableCollider(true); }
+        foreach (NoteHolder holder in NoteHolder.holders) { holder.EnableCollider(true); }
     }
 
     [ContextMenu("Test Generate")]

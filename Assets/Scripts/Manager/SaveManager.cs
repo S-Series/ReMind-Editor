@@ -8,6 +8,7 @@ using GameNote;
 using AESWithJava.Con;
 using Ookii.Dialogs;
 using System.Windows.Forms;
+using Palmmedia.ReportGenerator.Core.Common;
 
 public class SaveManager : MonoBehaviour
 {
@@ -94,31 +95,31 @@ public class SaveManager : MonoBehaviour
 
         NoteField.SortNoteHolder();
 
-        for (int i = 0; i < NoteField.s_noteHolders.Count; i++)
+        for (int i = 0; i < NoteHolder.holders.Count; i++)
         {
             saveData = "";
-            holder = NoteField.s_noteHolders[i];
+            holder = NoteHolder.holders[i];
 
             saveData += string.Format("|{0:D11}|#", holder.stdMs);
             saveData += string.Format("|{0:D11}|#", holder.stdPos);
-            saveData += string.Format("|{0:D2}|{1:D2}|{2:D2}|{3:D2}|#",
-                holder.normals[0] == null ? 0 : LengthToString(holder.normals[0].length),
-                holder.normals[1] == null ? 0 : LengthToString(holder.normals[1].length),
-                holder.normals[2] == null ? 0 : LengthToString(holder.normals[2].length),
-                holder.normals[3] == null ? 0 : LengthToString(holder.normals[3].length));
+            saveData += string.Format("|{0}|{1}|{2}|{3}|#",
+                holder.normals[0] == null ? "--" : LengthToString(holder.normals[0].length),
+                holder.normals[1] == null ? "--" : LengthToString(holder.normals[1].length),
+                holder.normals[2] == null ? "--" : LengthToString(holder.normals[2].length),
+                holder.normals[3] == null ? "--" : LengthToString(holder.normals[3].length));
             saveData += string.Format("|{0}|{1}|{2}|{3}|#",
                 holder.airials[0] == null ? "--" : LengthToString(holder.airials[0].length),
                 holder.airials[1] == null ? "--" : LengthToString(holder.airials[1].length),
                 holder.airials[2] == null ? "--" : LengthToString(holder.airials[2].length),
                 holder.airials[3] == null ? "--" : LengthToString(holder.airials[3].length));
-            saveData += string.Format("|{0:D2}|{1:D2}|{2:D2}|{3:D2}|#",
-                holder.bottoms[0] == null ? 0 : holder.bottoms[0].length,
-                holder.bottoms[1] == null ? 0 : holder.bottoms[1].length,
+            saveData += string.Format("|{0}|{1}|{2:D2}|{3:D2}|#",
+                holder.bottoms[0] == null ? "--" : LengthToString(holder.bottoms[0].length),
+                holder.bottoms[1] == null ? "--" : LengthToString(holder.bottoms[1].length),
                 holder.bottoms[0] == null ? 0 : holder.bottoms[0].SoundIndex,
                 holder.bottoms[1] == null ? 0 : holder.bottoms[1].SoundIndex);
             saveData += string.Format("|{0}|{1}|{2:D5}|#",
-                holder.speedNote == null ? "00" : "01",
-                holder.effectNote == null ? "-1" : string.Format("{0:D2}", holder.effectNote.effectIndex),
+                holder.speedNote == null ? "F" : "T",
+                holder.effectNote == null ? "---" : string.Format("{0:D3}", holder.effectNote.effectIndex),
                 holder.effectNote == null ? 0 : holder.effectNote.value);
             saveData += string.Format("|{0:D5}|{1:D5}|",
                 holder.speedNote == null ? 00 :
@@ -170,7 +171,8 @@ public class SaveManager : MonoBehaviour
 
         if (!path.Contains(".nd")) { path += ".nd"; }
 
-        File.WriteAllText(path, JsonAES.Encrypt(jsonData, HiddenKey));
+        File.WriteAllText(path, jsonData);
+        //File.WriteAllText(path, JsonAES.Encrypt(jsonData, HiddenKey));
 
         yield return null;
 
@@ -181,7 +183,7 @@ public class SaveManager : MonoBehaviour
         InputManager.EnableInput(false);
 
         //$ Check NoteField
-        if (NoteField.s_noteHolders.Count != 0)
+        if (NoteHolder.holders.Count != 0)
         {
             isActive = false;
             isPassed = false;
@@ -203,21 +205,12 @@ public class SaveManager : MonoBehaviour
 
         SaveFile saveFile;
         saveFile = new SaveFile();
-        
-        try 
-        {
-            saveFile = JsonUtility.FromJson<SaveFile>(JsonAES.Decrypt(File.ReadAllText(path), HiddenKey));
-        }
-        catch
-        {
-            try
-            {
-                saveFile = JsonUtility.FromJson<SaveFile>(File.ReadAllText(path));
-            }
-            catch { yield break; }
-        }
 
-        print(JsonAES.Decrypt(File.ReadAllText(path), HiddenKey));
+        try
+        {
+            saveFile = JsonUtility.FromJson<SaveFile>(File.ReadAllText(path));
+        }
+        catch { yield break; }
 
         //$ Check Old Version File
         if (!VersionManager.isVersionMatch(saveFile.version))
@@ -263,7 +256,7 @@ public class SaveManager : MonoBehaviour
             noteData = saveData[dataIndex].Split('|', StringSplitOptions.RemoveEmptyEntries);
             for (int j = 0; j < 4; j++)
             {
-                if (noteData[j] == "00") { copyHolder.normals[j] = null; }
+                if (noteData[j] == "--") { copyHolder.normals[j] = null; }
                 else
                 {
                     normal = NormalNote.Generate();
@@ -301,7 +294,7 @@ public class SaveManager : MonoBehaviour
             noteData = saveData[dataIndex].Split('|', StringSplitOptions.RemoveEmptyEntries);
             for (int j = 0; j < 2; j++)
             {
-                if (noteData[j] == "00") { copyHolder.bottoms[j] = null; }
+                if (noteData[j] == "--") { copyHolder.bottoms[j] = null; }
                 else
                 {
                     normal = NormalNote.Generate();
@@ -317,14 +310,14 @@ public class SaveManager : MonoBehaviour
 
             dataIndex++; //$ == 5
             noteData = saveData[dataIndex].Split('|', StringSplitOptions.RemoveEmptyEntries);
-            if (noteData[1] != "-1")
+            if (noteData[1] != "---")
             {
                 effect = EffectNote.Generate();
                 effect.effectIndex = Convert.ToInt32(noteData[1]);
                 effect.value = Convert.ToInt32(noteData[2]);
                 copyHolder.effectNote = effect;
             }
-            if (noteData[0] == "01")
+            if (noteData[0] == "T")
             {
                 noteData = saveData[dataIndex + 1].Split('|', StringSplitOptions.RemoveEmptyEntries);
                 speed = SpeedNote.Generate();
@@ -359,7 +352,11 @@ public class SaveManager : MonoBehaviour
     {
         char[] cArr;
         cArr = value.ToCharArray();
-        return (Convert.ToInt32(cArr[0]) - 65) * 10 + (int)Char.GetNumericValue(cArr[1]);
+
+        int ret;
+        ret = (Convert.ToInt32(cArr[0]) - 65) * 10 + (int)Char.GetNumericValue(cArr[1]);
+        if (ret < 1) { ret = 1; }
+        return ret;
     }
 
     public void SelectInputFileName(bool select)
@@ -434,9 +431,9 @@ public class SaveManager : MonoBehaviour
 
 public class SaveFile
 {
+    public float bpm = 120.0f;
     public int delay = 0;
     public int[] version = { 1, 0, 0 };
-    public float bpm = 120.0f;
 
     public List<string> noteDatas = new List<string>();
 }

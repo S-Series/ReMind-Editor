@@ -56,8 +56,8 @@ public class DragSelect : MonoBehaviour
             dragObject.gameObject.SetActive(false);
         };
 
-        shiftAction[0].performed += item => { isShift = true; print(isShift); };
-        shiftAction[1].performed += item => { isShift = false; print(isShift); };
+        shiftAction[0].performed += item => { isShift = true; };
+        shiftAction[1].performed += item => { isShift = false; };
 
         inputAction[0].Enable();
         inputAction[1].Enable();

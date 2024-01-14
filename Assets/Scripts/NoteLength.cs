@@ -29,19 +29,19 @@ public class NoteLength : MonoBehaviour
             {
                 if (transform.parent.CompareTag("Normal"))
                 {
-                    LongNotes[1].localScale = new Vector3(1, length * 0.05683594f, 1);
-                    LongNotes[3].localPosition = new Vector3(0, length * 0.5681819f, 0);
+                    LongNotes[1].localScale = new Vector3(1, 2 * length * 0.05683594f, 1);
+                    LongNotes[3].localPosition = new Vector3(0, 2 * length * 0.5681819f, 0);
                 }
                 else
                 {
-                    LongNotes[1].localScale = new Vector3(1, length * 0.05209961f, 1);
-                    LongNotes[3].localPosition = new Vector3(0, length * 0.5208334f, 0);
+                    LongNotes[1].localScale = new Vector3(1, 2 * length * 0.05209961f, 1);
+                    LongNotes[3].localPosition = new Vector3(0, 2 * length * 0.5208334f, 0);
                 }
 
             }
             else
             {
-                LongNotes[1].localScale = new Vector3(95, length * 10, 95);
+                LongNotes[1].localScale = new Vector3(96, length * 10, 96);
                 LongNotes[3].localPosition = new Vector3(0, 100 * length, 0);
             }
         }
