@@ -10,6 +10,7 @@ public class ObjectCooling : MonoBehaviour
     private static int[] lastIndex = { 0, 0, 0 };
     private static List<NoteHolder> s_noteHolders = new List<NoteHolder>();
     private static List<LineHolder> s_lineHolders = new List<LineHolder>();
+    private static List<SpectrumData> s_Spectrums = new List<SpectrumData>();
 
     public static void CalculateValue()
     {
@@ -50,7 +51,21 @@ public class ObjectCooling : MonoBehaviour
         }
     
         //$ Spectrum
+        float spectrumPos;
         SpectrumData spectrum;
+        foreach (SpectrumData data in s_Spectrums) { data.EnableObject(false); }
+        s_Spectrums = new List<SpectrumData>();
+        for (int i = 0; i < SpectrumManager.s_SpectrumDatas.Count; i++)
+        {
+            spectrum = SpectrumManager.s_SpectrumDatas[i];
+            spectrumPos = NoteClass.MsToPos(spectrum.ms);
+            if (spectrumPos > pos + OverValue) { break; }
+            else if ( spectrumPos >= pos - 200)
+            {
+                s_Spectrums.Add(spectrum);
+                spectrum.EnableObject(true);
+            }
+        }
     }
     public static void UpdateTestCooling(float pos)
     {

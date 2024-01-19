@@ -10655,7 +10655,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: adf740b99b9dec7498d8d30fa5d6464d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  view: []
   Line: 2
   isGameField: 0
   transforms:
@@ -12679,7 +12678,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: adf740b99b9dec7498d8d30fa5d6464d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  view: []
   Line: 5
   isGameField: 0
   transforms:
@@ -40560,7 +40558,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: adf740b99b9dec7498d8d30fa5d6464d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  view: []
   Line: 4
   isGameField: 0
   transforms:
@@ -42133,7 +42130,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: adf740b99b9dec7498d8d30fa5d6464d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  view: []
   Line: 1
   isGameField: 0
   transforms:
@@ -66783,7 +66779,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: adf740b99b9dec7498d8d30fa5d6464d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  view: []
   Line: 6
   isGameField: 0
   transforms:
@@ -74951,7 +74946,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: adf740b99b9dec7498d8d30fa5d6464d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  view: []
   Line: 3
   isGameField: 0
   transforms:

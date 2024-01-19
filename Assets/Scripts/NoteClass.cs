@@ -34,32 +34,43 @@ namespace GameNote
 
         public static int PosToMs(int pos)
         {
-            float _ret;
-            if (pos <= 0) { _ret = 0; }
-            else if (s_SpeedNotes.Count == 0) { _ret = 150f * pos / ValueManager.s_Bpm; }
+            float ret;
+            if (pos <= 0) { ret = 0; }
+            else if (s_SpeedNotes.Count == 0) { ret = 150f * pos / ValueManager.s_Bpm; }
             else
             {
                 int index;
                 index = s_SpeedNotes.FindLastIndex(item => item.pos <= pos);
 
-                if (index == -1) { _ret = 150f * pos / ValueManager.s_Bpm; }
+                if (index == -1) { ret = 150f * pos / ValueManager.s_Bpm; }
                 else
                 {
                     SpeedNote target;
                     target = s_SpeedNotes[index];
-
-                    _ret = target.ms + 150f * (pos - target.pos) / (Single)target.bpm;
+                    ret = target.ms + 150f * (pos - target.pos) / (Single)target.bpm;
                 }
             }
-            return Mathf.RoundToInt(_ret);
+            return Mathf.RoundToInt(ret);
         }
         public static float MsToPos(float Ms)
         {
-            float ret = 0.0f;
-            s_SpeedNotes.FindLastIndex(item => item.ms <= Ms);
+            float ret;
+            if (s_SpeedNotes.Count == 0) { ret = ValueManager.s_Bpm* Ms / 150f; }
+            else
+            {
+                int index;
+                index = s_SpeedNotes.FindLastIndex(item => item.ms <= Ms);
+
+                if (index == -1) { ret = ValueManager.s_Bpm * Ms / 150f; }
+                else
+                {
+                    SpeedNote target;
+                    target = s_SpeedNotes[index];
+                    ret = target.pos + (Single)target.bpm * (Ms - target.ms) / 150f ;
+                }
+            }
             return ret;
         }
-
         public static void InitSpeedMs()
         {
             if (s_SpeedNotes.Count == 0) { return; }
@@ -81,11 +92,7 @@ namespace GameNote
         }
     }
 
-    public class Note
-    {
-        public int pos, ms;
-    }
-
+    public class Note { public int pos, ms; }
     public class NormalNote : Note
     {
         public int line, length, SoundIndex;
@@ -102,7 +109,6 @@ namespace GameNote
             return ret;
         }
     }
-
     public class SpeedNote : Note
     {
         public double bpm, multiple;
@@ -115,12 +121,7 @@ namespace GameNote
             NoteClass.s_SpeedNotes.Add(ret);
             return ret;
         }
-        public double getBpm()
-        {
-            return bpm * multiple;
-        }
     }
-
     public class EffectNote : Note
     {
         public int effectIndex, value;
@@ -142,7 +143,6 @@ namespace GameNote
             return ret;
         }
     }
-
     public struct SpectrumData
     {
         public float ms { get; }
@@ -157,6 +157,7 @@ namespace GameNote
             transforms = new Transform[2];
             transforms[0] = SpectrumObject.transform.GetChild(0);
             transforms[1] = SpectrumObject.transform.GetChild(1);
+            EnableObject(false);
         }
         public void UpdateScale(float[] values)
         {
@@ -166,6 +167,10 @@ namespace GameNote
         public void UpdateScaleY(Vector3 vec3)
         {
             SpectrumObject.transform.localScale = vec3;
+        }
+        public void EnableObject(bool isEnable)
+        {
+            SpectrumObject.SetActive(isEnable);
         }
     }
 }

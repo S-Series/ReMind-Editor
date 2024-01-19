@@ -6,36 +6,12 @@ using UnityEngine.Networking;
 
 public class Updator : MonoBehaviour
 {
-    public static void CheckUpdate(int[] result)
+    public static Updator s_this;
+    void Awake()
     {
-        //$ Failed
-        if (result[0] == -1)
-        {
-            if (result[1] == 1)         //# Networking Failed
-            {
-
-            }
-            else if (result[2] == 1)    //# Downloading Failed
-            {
-
-            }
-            else
-            {
-                new System.Exception("Checking Update Error");
-            }
-            return;
-        }
-        else
-        {
-
-        }
+        if (s_this == null) { s_this = this; }
     }
-
-    public void CheckButton()
-    {
-
-    }
-    public void UpdateButton()
+    public void InternetConnection(bool isSuccess)
     {
 
     }

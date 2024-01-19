@@ -108,8 +108,11 @@ public class AutoTest : MonoBehaviour
         NoteField.SortNoteHolder();
         NoteField.InitAllHolder();
         NoteField.s_isFieldMovable = false;
+
         foreach (NoteHolder holder
             in NoteHolder.s_holders) { holder.EnableCollider(false); }
+
+        ObjectCooling.ResetLastIndex();
 
         s_Bpm = ValueManager.s_Bpm;
         s_HolderIndex = 0;
@@ -163,7 +166,7 @@ public class AutoTest : MonoBehaviour
                     gameJudgeEffects[i].SetTrigger(Trigger[0]);
                     judgeSounds[i].Play();
                 }
-                else { StartCoroutine(ILongNote(i, holder.longMs[i])); }
+                else { StartCoroutine(ILongNote(i, holder.normals[i], holder.longMs[i])); }
             }
             if (holder.airials[i] != null)
             {
@@ -186,13 +189,13 @@ public class AutoTest : MonoBehaviour
                     gameJudgeEffects[i + 8].SetTrigger(Trigger[0]);
                     judgeSounds[i + 4].Play();
                 }
-                else { StartCoroutine(ILongNote(i + 4, holder.longMs[i + 4])); }
+                else { StartCoroutine(ILongNote(i + 4, holder.bottoms[i], holder.longMs[i + 4])); }
             }
         }
 
         if (holder.speedNote != null)
         {
-            s_Bpm = (float)holder.speedNote.getBpm();
+            s_Bpm = (float)holder.speedNote.bpm;
             s_SpeedMs = holder.stdMs;
             s_SpeedPosY = holder.stdPos;
         }
@@ -243,11 +246,12 @@ public class AutoTest : MonoBehaviour
         audio = MusicLoader.audioSource;
 
         s_Ms = value;
-        while (!audio.isPlaying)
+        while (true)
         {
             yield return null;
             s_Ms += Time.deltaTime * 1000f;
             s_PosY = s_Ms * s_Bpm / 150f;
+            ObjectCooling.UpdateTestCooling(s_PosY);
         }
 
         while (true)
@@ -298,14 +302,13 @@ public class AutoTest : MonoBehaviour
     }
 
     //$ LongNote, EffectNote, etc... Coroutines
-    private IEnumerator ILongNote(int line, int[] datas)
+    private IEnumerator ILongNote(int line, NormalNote note, int[] datas)
     {
         int length;
-        length = datas.Length;
+        length = note.length;
         if (line > 5) { yield break; }
-        print(length);
-        LongJudgeVisualize.s_LJV[line].
-            StartLongVisualize(length, new int[2] { datas[0], datas[length - 1] });
+        LongJudgeVisualize.s_LJV[line].StartLongVisualize(length, new int[2] 
+            { NoteClass.PosToMs(note.pos), NoteClass.PosToMs(note.pos + note.length * 100)});
         judgeEffects[line].SetTrigger(Trigger[1]);
         gameJudgeEffects[line].SetTrigger(Trigger[1]);
 
@@ -313,6 +316,10 @@ public class AutoTest : MonoBehaviour
         {
             if (s_Ms > datas[i])
             {
+                //! Debug Code
+                judgeEffects[line].SetTrigger(Trigger[1]);
+                gameJudgeEffects[line].SetTrigger(Trigger[1]);
+                //! end
                 AddCombo();
                 i++;
             }

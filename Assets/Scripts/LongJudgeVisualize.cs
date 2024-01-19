@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,7 +6,6 @@ using UnityEngine;
 public class LongJudgeVisualize : MonoBehaviour
 {
     public static LongJudgeVisualize[] s_LJV = new LongJudgeVisualize[12];
-    public LongJudgeVisualize[] view;
     [SerializeField] private int Line;
     [SerializeField] private bool isGameField;
     [SerializeField] private Transform[] transforms;
@@ -24,7 +24,7 @@ public class LongJudgeVisualize : MonoBehaviour
     }
     public void StartLongVisualize(int Length, int[] ms)
     {
-        StopCoroutine(VisualizeCoroutine);
+        StopAllCoroutines();
         sprite[0].enabled = true;
         sprite[1].enabled = true;
         sprite[2].enabled = true;
@@ -37,17 +37,17 @@ public class LongJudgeVisualize : MonoBehaviour
     {
         float per, zoom;
         float[] values;
-        zoom = NoteField.s_Zoom;
-        print(zoom); zoom = 1;
+        zoom = NoteField.s_Zoom / 2f;
         values = new float[2] { Length * 10, Length * 100 };
         while (true)
         {
             yield return null;
-            per = (1.0f - Mathf.Lerp(ms[0], ms[1], AutoTest.s_Ms)) * 100f;
-            if (per <= 0) { break; }
+            if (AutoTest.s_Ms > ms[1]) { break; }
+            per = 1.0f - Mathf.InverseLerp(ms[0], ms[1], AutoTest.s_Ms);
             transforms[1].localScale = new Vector3(95, values[0] * per * zoom, 95);
             transforms[2].localPosition = new Vector3(0, values[1] * per * zoom, 0);
         }
+        print("Ended");
         sprite[0].enabled = false;
         sprite[1].enabled = false;
         sprite[2].enabled = false;

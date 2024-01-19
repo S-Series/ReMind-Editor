@@ -40,6 +40,7 @@ public class NoteField : MonoBehaviour
             _holder.page = i;
             _holder.texts[0].text = string.Format("{0:D3}", i + 1);
             _holder.texts[1].text = string.Format("{0}", NoteClass.PosToMs(1600 * i));
+            _holder.EnableHolder(false);
 
             LineHolder.s_holders.Add(_holder);
         }

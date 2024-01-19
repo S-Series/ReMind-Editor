@@ -17,7 +17,7 @@ public class SpectrumManager : MonoBehaviour
     [SerializeField] Transform SpectrumLoading;
     [SerializeField] TextMeshPro SpectrumLoadingText;
 
-    public static List<SpectrumData> spectrumDatas;
+    public static List<SpectrumData> s_SpectrumDatas = new List<SpectrumData>();
 
     public static bool isGenerating = false;
     private static float[] SpectrumTransforms = new float[4];
@@ -37,7 +37,7 @@ public class SpectrumManager : MonoBehaviour
         if (@clip != null) { audioSource.clip = @clip; }
         if (audioSource.clip == null) { return; }
         audioSource.Play();
-        spectrumDatas = new List<SpectrumData>();
+        s_SpectrumDatas = new List<SpectrumData>();
 
         for (int i = 0; i < GenerateField.childCount; i++)
         {
@@ -66,7 +66,7 @@ public class SpectrumManager : MonoBehaviour
             @object.name = String.Format("{0} : {1}", posY, ms);
             @object.transform.localPosition = new Vector3(0, posY, 0);
 
-            spectrumDatas.Add(new SpectrumData(ms, posY, @object));
+            s_SpectrumDatas.Add(new SpectrumData(ms, posY, @object));
 
             indexer++;
         }
@@ -116,7 +116,7 @@ public class SpectrumManager : MonoBehaviour
     private IEnumerator IGenerating()
     {
         int count;
-        count = spectrumDatas.Count;
+        count = s_SpectrumDatas.Count;
         GenerateDelays = new List<float>();
         maxScale = 0.0f;
         float[] getData;
@@ -135,7 +135,7 @@ public class SpectrumManager : MonoBehaviour
             SpectrumLoading.localScale = new Vector3(0.0175f, 0.225f * i / count, 1);
             SpectrumLoadingText.text = String.Format("{0} of {1}", i, count);
 
-            data = spectrumDatas[i];
+            data = s_SpectrumDatas[i];
             getData = GetSpectrumData();
             audioSource.time = data.ms / 1000f;
             data.UpdateScale(getData);

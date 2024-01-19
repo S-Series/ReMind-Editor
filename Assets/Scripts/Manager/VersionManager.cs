@@ -9,7 +9,8 @@ public class VersionManager : MonoBehaviour
     private static VersionManager s_this;
 
     public static int s_Season = 1, s_Release = 0, s_Fatch = 0;
-    private const string URL = "https://drive.google.com/uc?export=download&id=14UUDWP3_2zB8jfPkFvvf1xFEx6Y2UbyJ";
+    private const string Version_URL = "https://drive.google.com/file/d/14UUDWP3_2zB8jfPkFvvf1xFEx6Y2UbyJ/view?usp=drive_link";
+    private const string Download_URL = "https://drive.google.com/uc?export=download&id=14UUDWP3_2zB8jfPkFvvf1xFEx6Y2UbyJ";
 
     private void Awake()
     {
@@ -21,7 +22,7 @@ public class VersionManager : MonoBehaviour
         if (Application.internetReachability 
             == NetworkReachability.NotReachable) 
         {
-            Updator.CheckUpdate(new int[3] { -1, 1, 0 });
+            Updator.s_this.InternetConnection(false);
         }
         else { s_this.StartCoroutine(s_this.IDownloadVersionInfo()); }
     }
@@ -41,12 +42,12 @@ public class VersionManager : MonoBehaviour
 
     private IEnumerator IDownloadVersionInfo()
     {
-        UnityWebRequest www = UnityWebRequest.Get(URL);
+        UnityWebRequest www = UnityWebRequest.Get(Version_URL);
         yield return www.SendWebRequest();
 
         if (www.result != UnityWebRequest.Result.Success)
         {
-            Updator.CheckUpdate(new int[3] {-1, 0, 1 });
+
         }
         else    //$ Download Success
         {
