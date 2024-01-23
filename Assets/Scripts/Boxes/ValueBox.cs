@@ -32,7 +32,7 @@ public class ValueBox : MonoBehaviour, IPointerClickHandler
         ValueManager.s_Bpm = data;
         NoteClass.InitSpeedMs();
         foreach (LineHolder holder in LineHolder.s_holders) { holder.UpdateMs(); }
-        SpectrumManager.GenerateSpectrum(null);
+        SpectrumManager.UpdateSpectrumPos();
     }
     public void InputDelay()
     {

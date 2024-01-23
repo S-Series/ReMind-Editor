@@ -43,6 +43,7 @@ public class SpectrumManager : MonoBehaviour
         {
             Destroy(GenerateField.GetChild(i).gameObject);
         }
+        ObjectCooling.UpdateCooling(runOnly: 3);
 
         float length;
         length = audioSource.clip == null ? -1f : audioSource.clip.length;
@@ -53,18 +54,15 @@ public class SpectrumManager : MonoBehaviour
 
         while (true)
         {
-            int posY;
-            posY = indexer * 16;
-
-            float ms;
-            ms = NoteClass.PosToMs(posY);
+            float ms, posY;
+            ms = indexer * 10;
+            posY = NoteClass.MsToPos(ms);
 
             if (ms / 1000f > length) { break; } //$ End of while();
 
             GameObject @object;
             @object = Instantiate(SpectrumPrefab, GenerateField, false);
             @object.name = String.Format("{0} : {1}", posY, ms);
-            @object.transform.localPosition = new Vector3(0, posY, 0);
 
             s_SpectrumDatas.Add(new SpectrumData(ms, posY, @object));
 
@@ -86,6 +84,13 @@ public class SpectrumManager : MonoBehaviour
         ret[0] = data.Max() * 1024;
         ret[1] = data.Average() * 1024 * 10;
         return ret;
+    }
+    public static void UpdateSpectrumPos()
+    {
+        foreach (SpectrumData data in s_SpectrumDatas)
+        {
+            data.UpdatePosY(NoteClass.MsToPos(data.ms));
+        }
     }
     public static void UpdateMusicDelay(int? DelayMs = null)
     {

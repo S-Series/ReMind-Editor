@@ -154,10 +154,16 @@ namespace GameNote
             this.ms = ms;
             posY = pos;
             SpectrumObject = @object;
+            SpectrumObject.transform.localPosition = new Vector3(0, posY, 0);
             transforms = new Transform[2];
             transforms[0] = SpectrumObject.transform.GetChild(0);
             transforms[1] = SpectrumObject.transform.GetChild(1);
             EnableObject(false);
+        }
+        public void UpdatePosY(float value)
+        {
+            posY = value;
+            SpectrumObject.transform.localPosition = new Vector3(0, posY, 0);
         }
         public void UpdateScale(float[] values)
         {

@@ -17,53 +17,64 @@ public class ObjectCooling : MonoBehaviour
         OverValue = 1600 * NoteField.s_Zoom + 400;
     }
 
-    public static void UpdateCooling(float pos = -1)
+    /// <param name="runOnly"> 0:Everything || 1:Note || 2:Line || 3:Spectrum </param>
+    public static void UpdateCooling(float pos = -1, int runOnly = 0)
     {
         if (pos == -1) { pos = NoteField.s_StartPos; }
+
         //$ NoteHolder
-        NoteHolder noteHolder;
-        foreach (NoteHolder holder in s_noteHolders) { holder.EnableNote(false); }
-        s_noteHolders = new List<NoteHolder>();
-        for (int i = 0; i < NoteHolder.s_holders.Count; i++)
+        if (runOnly == 0 || runOnly == 1)
         {
-            noteHolder = NoteHolder.s_holders[i];
-            if (noteHolder.stdPos > pos + OverValue) { break; }
-            if (isHolderVisible(pos, noteHolder))
+            NoteHolder noteHolder;
+            foreach (NoteHolder holder in s_noteHolders) { holder.EnableNote(false); }
+            s_noteHolders = new List<NoteHolder>();
+            for (int i = 0; i < NoteHolder.s_holders.Count; i++)
             {
-                s_noteHolders.Add(noteHolder);
-                noteHolder.EnableNote(true);
+                noteHolder = NoteHolder.s_holders[i];
+                if (noteHolder.stdPos > pos + OverValue) { break; }
+                if (isHolderVisible(pos, noteHolder))
+                {
+                    s_noteHolders.Add(noteHolder);
+                    noteHolder.EnableNote(true);
+                }
             }
         }
 
         //$ Line Holder
-        LineHolder lineHolder;
-        foreach (LineHolder holder in s_lineHolders) { holder.EnableHolder(false); }
-        s_lineHolders = new List<LineHolder>();
-        for (int i = 0; i < LineHolder.s_holders.Count; i++)
+        if (runOnly == 0 || runOnly == 2)
         {
-            lineHolder = LineHolder.s_holders[i];
-            if (lineHolder.GetPosValue() > pos + OverValue) { break; }
-            else if (lineHolder.GetPosValue() >= pos - 200)
+            LineHolder lineHolder;
+            foreach (LineHolder holder in s_lineHolders) { holder.EnableHolder(false); }
+            s_lineHolders = new List<LineHolder>();
+            for (int i = 0; i < LineHolder.s_holders.Count; i++)
             {
-                s_lineHolders.Add(lineHolder);
-                lineHolder.EnableHolder(true);
+                lineHolder = LineHolder.s_holders[i];
+                if (lineHolder.GetPosValue() > pos + OverValue) { break; }
+                else if (lineHolder.GetPosValue() >= pos - 200)
+                {
+                    s_lineHolders.Add(lineHolder);
+                    lineHolder.EnableHolder(true);
+                }
             }
         }
-    
+
         //$ Spectrum
-        float spectrumPos;
-        SpectrumData spectrum;
-        foreach (SpectrumData data in s_Spectrums) { data.EnableObject(false); }
-        s_Spectrums = new List<SpectrumData>();
-        for (int i = 0; i < SpectrumManager.s_SpectrumDatas.Count; i++)
+        if (runOnly == 0 || runOnly == 3)
         {
-            spectrum = SpectrumManager.s_SpectrumDatas[i];
-            spectrumPos = NoteClass.MsToPos(spectrum.ms);
-            if (spectrumPos > pos + OverValue) { break; }
-            else if ( spectrumPos >= pos - 200)
+            float spectrumPos;
+            SpectrumData spectrum;
+            foreach (SpectrumData data in s_Spectrums) { data.EnableObject(false); }
+            s_Spectrums = new List<SpectrumData>();
+            for (int i = 0; i < SpectrumManager.s_SpectrumDatas.Count; i++)
             {
-                s_Spectrums.Add(spectrum);
-                spectrum.EnableObject(true);
+                spectrum = SpectrumManager.s_SpectrumDatas[i];
+                spectrumPos = NoteClass.MsToPos(spectrum.ms);
+                if (spectrumPos > pos + OverValue) { break; }
+                else if (spectrumPos >= pos - 200)
+                {
+                    s_Spectrums.Add(spectrum);
+                    spectrum.EnableObject(true);
+                }
             }
         }
     }

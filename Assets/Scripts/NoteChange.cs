@@ -142,6 +142,7 @@ public class NoteChange : MonoBehaviour
         int value;
         try { value = Convert.ToInt32(input.text); }
         catch { value = 1; input.text = "1";}
+        print(value);
         if (value < 1) { value = 1; input.text = "1"; }
         EditManager.LengthNote(value);
     }

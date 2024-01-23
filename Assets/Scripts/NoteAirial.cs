@@ -10,7 +10,7 @@ public class NoteAirial : MonoBehaviour
     public void UpdatePosition(int _value)
     {
         float posX = transform.localPosition.x;
-        transform.localPosition = new Vector3(posX, 0, -3.6f * _value);
-        Shadow.transform.localPosition = new Vector3(0, 0, 3.6f * _value);
+        transform.localPosition = new Vector3(posX, 0, -5f * _value);
+        Shadow.transform.localPosition = new Vector3(0, 0, 5f * _value);
     }
 }

@@ -647,6 +647,7 @@ public class EditManager : MonoBehaviour
     public static void PosNote(int editPos)
     {
         editPos = 1600 * s_page + editPos;
+        s_posY = editPos;
 
         if (s_isMultyEditing) { MultyNoteMove(editPos - s_SelectNoteHolder.stdPos); return; }
 
@@ -756,6 +757,7 @@ public class EditManager : MonoBehaviour
     {
         int editPos;
         editPos = editPage * 1600 + s_SelectNoteHolder.stdPos % 1600;
+        s_posY = editPos;
 
         NoteHolder targetHolder;
         targetHolder = NoteHolder.s_holders.Find(item => item.stdPos == editPos);
@@ -860,6 +862,8 @@ public class EditManager : MonoBehaviour
 
         if (editLine < 1 || editLine > 4) { return; }
 
+        s_line = editLine;
+
         if (s_SelectedObject.transform.parent.CompareTag(noteTag[0]))
         {
             if (s_SelectNoteHolder.normals[editLine - 1] != null)
@@ -918,29 +922,25 @@ public class EditManager : MonoBehaviour
 
         if (editLength < 1) { editLength = 1; }
 
-        if (s_SelectedObject.transform.parent.CompareTag("Normal"))
+        NormalNote note;
+        s_length = editLength;
+        if (s_SelectedObject.transform.parent.CompareTag(noteTag[0]))
         {
-            NormalNote note;
             note = s_SelectNoteHolder.normals[s_line - 1];
-
             note.length = editLength;
             s_SelectNoteHolder.UpdateNote();
         }
-        else if (s_SelectedObject.transform.parent.CompareTag("Bottom"))
+        else if (s_SelectedObject.transform.parent.CompareTag(noteTag[1]))
         {
-            NormalNote note;
             note = s_SelectNoteHolder.bottoms[s_line - 1];
-
             note.length = editLength;
             s_SelectNoteHolder.UpdateNote();
         }
-        else if (s_SelectedObject.transform.parent.CompareTag("Airial"))
+        else if (s_SelectedObject.transform.parent.CompareTag(noteTag[2]))
         {
             if (editLength > 100) { editLength = 100; }
 
-            NormalNote note;
             note = s_SelectNoteHolder.airials[s_line - 1];
-
             note.length = editLength;
             s_SelectNoteHolder.UpdateNote();
         }
@@ -958,6 +958,7 @@ public class EditManager : MonoBehaviour
         note.bpm = value;
         NoteClass.InitSpeedMs();
         NoteField.InitAllHolder();
+        SpectrumManager.UpdateSpectrumPos();
         s_SelectNoteHolder.UpdateTextInfo();
     }
     public static void MultiplyNote(float value)

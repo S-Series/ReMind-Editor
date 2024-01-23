@@ -5366,18 +5366,6 @@ MonoBehaviour:
   m_OnDeselect:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 136653256}
-        m_TargetAssemblyTypeName: NoteChange, Assembly-CSharp
-        m_MethodName: InputLegnth
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 121150852}
-          m_ObjectArgumentAssemblyTypeName: TMPro.TMP_InputField, Unity.TextMeshPro
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
       - m_Target: {fileID: 1565003369}
         m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
         m_MethodName: EnableInput
@@ -22134,7 +22122,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!212 &477351643
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -70030,7 +70018,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &1584952832
 SpriteRenderer:
   m_ObjectHideFlags: 0

@@ -20,10 +20,6 @@ public class VersionManager : MonoBehaviour
     {
         s_this = (s_this == null) ? this : s_this;
     }
-    void Start()
-    {
-        ZipFile.ExtractToDirectory(Application.dataPath + @"\Updator.zip", Application.dataPath, true);
-    }
     public static void CheckVersion()
     {
         if (Application.internetReachability 
