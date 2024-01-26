@@ -61,14 +61,11 @@ public class ValueManager : MonoBehaviour
         s_this.ValueInputField[1].text = s_Delay.ToString();
     }
 
-    public void Input_Bpm()
+    public void SubmitBpm(float value)
     {
-        float value;
-        try { value = Convert.ToSingle(ValueInputField[0].text); }
-        catch { value = 120.0f; }
-        value = Mathf.RoundToInt(value * 100) / 100f;
-        if (value > 0) { s_Bpm = value; }
-        ValueInputField[0].text = s_Bpm.ToString();
+        GameNote.NoteClass.InitSpeedMs();
+        foreach (LineHolder holder in LineHolder.s_holders) { holder.UpdateMs(); }
+        SpectrumManager.UpdateSpectrumPos();
     }
     public void Input_Delay()
     {

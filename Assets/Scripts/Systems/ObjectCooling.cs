@@ -20,7 +20,7 @@ public class ObjectCooling : MonoBehaviour
     /// <param name="runOnly"> 0:Everything || 1:Note || 2:Line || 3:Spectrum </param>
     public static void UpdateCooling(float pos = -1, int runOnly = 0)
     {
-        if (pos == -1) { pos = NoteField.s_StartPos; }
+        if (pos < 0) { pos = NoteField.s_StartPos; }
 
         //$ NoteHolder
         if (runOnly == 0 || runOnly == 1)
