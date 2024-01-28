@@ -80,6 +80,10 @@ NoteHolder : MonoBehaviour
         transform.localScale = new Vector3(1, 10f / (10f / NoteField.s_Zoom), 1);
         gameNoteHolder.UpdateScale();
     }
+    public void NoteSelected(NoteType type, int line)
+    {
+
+    }
     public void EnableCollider(bool isTrue)
     {
         foreach (GameObject obj in normalObjects)
@@ -188,11 +192,26 @@ NoteHolder : MonoBehaviour
         }
     }
 
-    public GameObject getNormal(int index) { return normalObjects[index]; }
-    public GameObject getAirial(int index) { return airialObjects[index]; }
-    public GameObject getBottom(int index) { return bottomObjects[index]; }
-    public GameObject getSpeed() { return speedObject; }
-    public GameObject getEffect() { return effectObject; }
+    public GameObject getNormal(int index)
+    {
+        return normalObjects[index];
+    }
+    public GameObject getAirial(int index)
+    {
+        return airialObjects[index];
+    }
+    public GameObject getBottom(int index)
+    {
+        return bottomObjects[index];
+    }
+    public GameObject getSpeed() 
+    {
+        return speedObject;
+    }
+    public GameObject getEffect() 
+    {
+        return effectObject;
+    }
 
     private bool isNull()
     {

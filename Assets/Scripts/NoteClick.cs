@@ -1,31 +1,36 @@
-using System.Collections;
-using System.Collections.Generic;
+using GameNote;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class NoteClick : MonoBehaviour, IPointerClickHandler
 {
+    public int NoteLine;
+    public NoteType noteType;
     [SerializeField] private bool isNoteParent;
     public void OnPointerClick(PointerEventData eventData)
     {
         if (NoteGenerate.s_isGenerating) { return; }
 
-        if (!isNoteParent) { EditManager.Select(this.gameObject); }
-        else { EditManager.Select(this.transform.parent.gameObject); }
+        EditManager.Select(this);
+    }
+    public NoteHolder GetNoteHolder()
+    {
+        NoteHolder holder;
+        holder = GetComponentInParent<NoteHolder>();
+        if (holder == null) { throw new System.Exception("Holder is NULL"); }
+        return holder;
     }
 
     void OnTriggerEnter2D(Collider2D other)
     {
         if (!other.gameObject.CompareTag("Draggable")) { return; }
 
-        if (!isNoteParent) { DragSelect.AddObject(this.gameObject); }
-        else { DragSelect.AddObject(this.transform.parent.gameObject); }
+        DragSelect.AddObject(this);
     }
     void OnTriggerExit2D(Collider2D other)
     {
         if (!other.gameObject.CompareTag("Draggable")) { return; }
 
-        if (!isNoteParent) { DragSelect.RemoveObject(this.gameObject); }
-        else { DragSelect.RemoveObject(this.transform.parent.gameObject); }
+        DragSelect.RemoveObject(this);
     }
 }

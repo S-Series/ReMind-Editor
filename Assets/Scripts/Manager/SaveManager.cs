@@ -48,7 +48,7 @@ public class SaveManager : MonoBehaviour
             isAlt = false;
             VistaSaveFileDialog dialog;
             dialog = new VistaSaveFileDialog();
-            dialog.Filter = "nd files (*.nd)|*.nd";
+            dialog.Filter = "nd files|*.4nd;*5nd";
             dialog.FilterIndex = 1;
             dialog.Title = "Save Data";
             dialog.InitialDirectory = (UnityEngine.Application.dataPath + @"\_DataBox").Replace("/", "\\");
@@ -137,7 +137,7 @@ public class SaveManager : MonoBehaviour
 
         VistaOpenFileDialog dialog;
         dialog = new VistaOpenFileDialog();
-        dialog.Filter = "nd files (*.nd)|*.nd";
+        dialog.Filter = "nd files|*.4nd;*.5nd";
         dialog.FilterIndex = 1;
         dialog.Title = "Open Data";
         dialog.InitialDirectory = (UnityEngine.Application.dataPath + @"\_DataBox").Replace("/", "\\");

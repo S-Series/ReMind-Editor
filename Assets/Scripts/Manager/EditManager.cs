@@ -17,7 +17,7 @@ public class EditManager : MonoBehaviour
     public static bool s_isMultyEditing = false;
 
     private static List<NoteHolder> s_MultyHolder;
-    private static List<GameObject> s_MultyObject;
+    private static List<NoteClick> s_MultyObject;
 
     private static List<int> s_MultyPage;
     private static List<int> s_MultyPosY;
@@ -26,26 +26,26 @@ public class EditManager : MonoBehaviour
     private static List<int> s_MultySoundIndex;
     private static List<bool> s_MultyAirial;
 
-    public static void MultySelect(GameObject[] objects, bool isReset)
+    public static void MultySelect(NoteClick[] clicks, bool isReset)
     {
-        if (objects.Length == 0) { return; }
+        if (clicks.Length == 0) { return; }
 
-        if (isReset) { s_MultyObject = new List<GameObject>(); Escape(); }
+        if (isReset) { s_MultyObject = new List<NoteClick>(); Escape(); }
         
-        for (int i = 0; i < objects.Length; i++)
+        for (int i = 0; i < clicks.Length; i++)
         {
-            AddMultyNote(objects[i]);
+            AddMultyNote(clicks[i]);
         }
         s_isMultyEditing = true;
-        Select(s_MultyObject[s_stdIndex]);
+        Select(clicks[s_stdIndex]);
     }
-    private static void AddMultyNote(GameObject @object)
+    private static void AddMultyNote(NoteClick click)
     {
-        if (s_MultyObject.Exists(item => item == @object))
+        if (s_MultyObject.Exists(item => item == click))
         {
             int index;
             int _count;
-            index = s_MultyObject.FindIndex(item => item == @object);
+            index = s_MultyObject.FindIndex(item => item == click);
             _count = s_MultyObject[index].transform.childCount;
 
             if (_count == 0)
@@ -90,74 +90,7 @@ public class EditManager : MonoBehaviour
         }
         else
         {
-            s_isMultyEditing = true;
-            NoteHolder objectHolder;
-            int _line, _count;
-            try { _line = Convert.ToInt32(@object.tag); }
-            catch { _line = Convert.ToInt32(@object.transform.parent.tag); }
-            _count = @object.transform.childCount;
-
-            if (_count == 0)
-            {
-                @object.transform.GetComponent<BoxCollider2D>().enabled = false;
-                @object.transform.GetComponent<SpriteRenderer>().color = Color.green;
-            }
-            else
-            {
-                for (int i = 0; i < _count; i++)
-                {
-                    @object.transform.GetChild(i).TryGetComponent<BoxCollider2D>(out var collider2D);
-                    @object.transform.GetChild(i).GetComponent<SpriteRenderer>().color = Color.green;
-                    if (collider2D != null) { collider2D.enabled = false; }
-                }
-            }
-
-            objectHolder = @object.GetComponentInParent<NoteHolder>();
-            s_MultyObject.Add(@object);
-            s_MultyHolder.Add(objectHolder);
-
-            s_MultyPosY.Add(objectHolder.stdPos % 1600);
-            s_MultyPage.Add(Mathf.FloorToInt(objectHolder.stdPos / 1600f));
-
-            if (@object.transform.parent.CompareTag(noteTag[0]))
-            {
-                s_MultyAirial.Add(false);
-                s_MultyLine.Add(_line);
-                s_MultyLength.Add(objectHolder.normals[_line - 1].length);
-                s_MultySoundIndex.Add(objectHolder.normals[_line - 1].SoundIndex);
-            }
-            else if (@object.transform.parent.CompareTag(noteTag[1]))
-            {
-                s_MultyAirial.Add(false);
-                s_MultyLine.Add(_line);
-                s_MultyLength.Add(objectHolder.bottoms[_line - 1].length);
-                s_MultySoundIndex.Add(objectHolder.bottoms[_line - 1].SoundIndex);
-            }
-            else if (@object.transform.parent.CompareTag(noteTag[2]))
-            {
-                s_MultyAirial.Add(true);
-                s_MultyLine.Add(_line);
-                s_MultyLength.Add(0);
-                s_MultySoundIndex.Add(objectHolder.airials[_line - 1].SoundIndex);
-            }
-            else
-            {
-                s_MultyAirial.Add(false);
-                s_MultyLine.Add(0);
-                s_MultyLength.Add(0);
-                s_MultySoundIndex.Add(0);
-            }
-
-            int _stdIndex = 0, posValue = 2147483647; //# 2 ^ 31 - 1
-            for (int i = 0; i < s_MultyHolder.Count; i++)
-            {
-                if (s_MultyHolder[i].stdPos < posValue)
-                {
-                    _stdIndex = i;
-                    posValue = s_MultyHolder[i].stdPos;
-                }
-            }
-            s_stdIndex = _stdIndex;
+            
         }
     }
     private static void ResetMultyEdit()
@@ -165,7 +98,7 @@ public class EditManager : MonoBehaviour
         s_stdIndex = -1;
         s_isMultyEditing = false;
         s_MultyHolder = new List<NoteHolder>();
-        s_MultyObject = new List<GameObject>();
+        s_MultyObject = new List<NoteClick>();
         s_MultyPage = new List<int>();
         s_MultyPosY = new List<int>();
         s_MultyLine = new List<int>();
@@ -202,7 +135,7 @@ public class EditManager : MonoBehaviour
     {
         if (value == 0) { return; }
 
-        List<GameObject> targetObjects = new List<GameObject>();
+        List<NoteClick> targetObjects = new List<NoteClick>();
         int targetPos, targetIndex;
         string targetNoteTag;
         NoteHolder targetHolder, thisHolder;
@@ -237,7 +170,7 @@ public class EditManager : MonoBehaviour
                     thisHolder.normals[targetIndex] = targetHolder.normals[targetIndex];
                 }
                 targetHolder.normals[targetIndex] = normalNote;
-                targetObjects.Add(targetHolder.getNormal(targetIndex));
+                //targetObjects.Add(targetHolder.getNormal(targetIndex));
             }
             //$ Bottom Note
             else if (targetNoteTag == noteTag[1])
@@ -255,7 +188,7 @@ public class EditManager : MonoBehaviour
                     thisHolder.bottoms[targetIndex] = targetHolder.bottoms[targetIndex];
                 }
                 targetHolder.bottoms[targetIndex] = normalNote;
-                targetObjects.Add(targetHolder.getBottom(targetIndex));
+                //targetObjects.Add(targetHolder.getBottom(targetIndex));
             }
             //$ Airial Note
             else if (targetNoteTag == noteTag[2])
@@ -273,7 +206,7 @@ public class EditManager : MonoBehaviour
                     thisHolder.airials[targetIndex] = targetHolder.airials[targetIndex];
                 }
                 targetHolder.airials[targetIndex] = normalNote;
-                targetObjects.Add(targetHolder.getAirial(targetIndex));
+                //targetObjects.Add(targetHolder.getAirial(targetIndex));
             }
             //$ Speed Note
             else if (s_MultyObject[i].CompareTag("01"))
@@ -290,7 +223,7 @@ public class EditManager : MonoBehaviour
                     thisHolder.speedNote = targetHolder.speedNote;
                 }
                 targetHolder.speedNote = speedNote;
-                targetObjects.Add(targetHolder.getSpeed());
+                //targetObjects.Add(targetHolder.getSpeed());
             }
             //$ Effect Note
             else if (s_MultyObject[i].CompareTag("02"))
@@ -307,7 +240,7 @@ public class EditManager : MonoBehaviour
                     thisHolder.effectNote = targetHolder.effectNote;
                 }
                 targetHolder.effectNote = effectNote;
-                targetObjects.Add(targetHolder.getEffect());
+                //targetObjects.Add(targetHolder.getEffect());
             }
             //# System Exception
             else { throw new Exception("UnAvailable Note Type!!!"); }
@@ -404,6 +337,7 @@ public class EditManager : MonoBehaviour
 
     #endregion //$ End MultyEditing
 
+    public static NoteType s_noteType = NoteType.None;
     public static NoteHolder s_SelectNoteHolder;
     public static GameObject s_SelectedObject;
     public static int s_page, s_posY, s_line, s_length, s_soundIndex;
@@ -434,110 +368,63 @@ public class EditManager : MonoBehaviour
             else { action.Disable(); }
         }
     }
-    public static void Select(GameObject obj)
+    public static void Select(NoteClick click)
     {
-        int _count;
-        if (s_SelectedObject != null)
-        {
-            _count = s_SelectedObject.transform.childCount;
-            if (_count == 0)
-            {
-                s_SelectedObject.transform.GetComponent<BoxCollider2D>().enabled = true;
-                if (s_ctrl) { AddMultyNote(s_SelectedObject); }
-                else { s_SelectedObject.transform.GetComponent<SpriteRenderer>().color = Color.white; }
-            }
-            else if (s_SelectedObject.transform.parent.CompareTag("Special"))
-            {
-                s_SelectedObject.GetComponent<BoxCollider2D>().enabled = true;
-                s_SelectedObject.GetComponent<SpriteRenderer>().color = new Color32(255, 255, 255, 255);
-            }
-            else
-            {
-                for (int i = 0; i < _count; i++)
-                {
-                    s_SelectedObject.transform.GetChild(i)
-                        .TryGetComponent<BoxCollider2D>(out var collider2D);
-                    s_SelectedObject.transform.GetChild(i)
-                        .GetComponent<SpriteRenderer>().color = Color.white;
-                    if (collider2D != null) { collider2D.enabled = true; }
-                }
-            }
-        }
+        NoteHolder holder;
+        holder = click.GetNoteHolder();
 
-        _count = obj.transform.childCount;
-        if (_count == 0)
-        {
-            obj.transform.GetComponent<BoxCollider2D>().enabled = false;
-            obj.transform.GetComponent<SpriteRenderer>().color = Color.green;
-        }
-        else if (obj.transform.parent.CompareTag("Special"))
-        {
-            obj.GetComponent<BoxCollider2D>().enabled = false;
-            obj.GetComponent<SpriteRenderer>().color = new Color32(255, 0, 0, 255);
-        }
-        else
-        {
-            for (int i = 0; i < _count; i++)
-            {
-                obj.transform.GetChild(i).TryGetComponent<BoxCollider2D>(out var collider2D);
-                obj.transform.GetChild(i).GetComponent<SpriteRenderer>().color = Color.green;
-                if (collider2D != null) { collider2D.enabled = false; }
-            }
-        }
+        s_posY = holder.stdPos % 1600;
+        s_page = Mathf.FloorToInt(holder.stdPos / 1600f);
 
-        s_SelectNoteHolder = obj.GetComponentInParent<NoteHolder>();
-        s_SelectedObject = obj;
+        s_SelectedObject = click;
+        s_SelectNoteHolder = holder;
 
-        s_posY = s_SelectNoteHolder.stdPos % 1600;
-        s_page = Mathf.FloorToInt(s_SelectNoteHolder.stdPos / 1600f);
+        NormalNote note;
+        s_noteType = click.noteType;
+        s_line = click.NoteLine;
+        s_isAirial = click.noteType == NoteType.Airial ? true : false;
+        switch (s_noteType)
+        {
+            case NoteType.Normal:
+                note = holder.normals[s_line - 1];
+                s_length = note.length;
+                s_soundIndex = 0;
+                break;
 
-        if (obj.transform.parent.CompareTag(noteTag[0]))
-        {
-            s_isAirial = false;
-            s_line = Convert.ToInt32(obj.tag);
-            s_length = s_SelectNoteHolder.normals[s_line - 1].length;
-            s_soundIndex = s_SelectNoteHolder.normals[s_line - 1].SoundIndex;
-        }
-        else if (obj.transform.parent.CompareTag(noteTag[1]))
-        {
-            s_isAirial = false;
-            s_line = Convert.ToInt32(obj.tag);
-            s_length = s_SelectNoteHolder.bottoms[s_line - 1].length;
-            s_soundIndex = s_SelectNoteHolder.bottoms[s_line - 1].SoundIndex;
-        }
-        else if (obj.transform.parent.CompareTag(noteTag[2]))
-        {
-            s_isAirial = true;
-            s_line = Convert.ToInt32(obj.tag);
-            s_length = s_SelectNoteHolder.airials[s_line - 1].length;
-            s_soundIndex = s_SelectNoteHolder.airials[s_line - 1].SoundIndex;
-            // obj.GetComponent<SpriteRenderer>().color = new Color32(255, 255, 000, 255);
-        }
-        else
-        {
-            //# Speed Note
-            if (obj.CompareTag("01"))
-            {
-                print("speed Note");
-            }
-            //# Effect Note
-            else if (obj.CompareTag("02"))
-            {
-                print("effect Note");
-            }
-            else { new Exception("Selected Note Type Error"); }
+            case NoteType.Bottom:
+                note = holder.bottoms[s_line - 1];
+                s_length = note.length;
+                s_soundIndex = note.SoundIndex;
+                break;
+
+            case NoteType.Airial:
+                note = holder.airials[s_line - 1];
+                s_length = note.length;
+                s_soundIndex = 0;
+                break;
+                
+            case NoteType.Speed:
+                
+                break;
+
+            case NoteType.Effect:
+                
+                break;
+
+            case NoteType.None:
+            default:
+                new System.Exception("");
+                break;
         }
 
         InputManager.Editing(true);
-        EditBox.PopUpBox(obj);
+        EditBox.PopUpBox(s_noteType);
         HelperUpdate(true);
 
         int pagePos, startPos, endPos;
         startPos = NoteField.s_StartPos;
         endPos = NoteField.s_StartPos + Mathf.FloorToInt(1600 * NoteField.s_Zoom);
         pagePos = s_SelectNoteHolder.stdPos;
-
-        print(String.Format("{0} : {1}", startPos, endPos));
 
         while (pagePos < startPos)
         {
@@ -656,10 +543,12 @@ public class EditManager : MonoBehaviour
 
         if (targetHolder == null) { targetHolder = NoteGenerate.GenerateNoteManual(editPos); }
 
-        if (s_SelectedObject.transform.parent.CompareTag(noteTag[0]))
+        if (s_noteType == NoteType.Normal)
         {
             if (targetHolder.normals[s_line - 1] != null)
-            { Select(targetHolder.getNormal(s_line - 1)); }
+            {
+
+            }
             else
             {
                 NormalNote note;
@@ -671,13 +560,15 @@ public class EditManager : MonoBehaviour
 
                 targetHolder.UpdateNote();
                 s_SelectNoteHolder.UpdateNote();
-                Select(targetHolder.getNormal(note.line - 1));
+                Select(targetHolder.getNormal(note.line - 1).GetComponentInChildren<NoteClick>());
             }
         }
-        else if (s_SelectedObject.transform.parent.CompareTag(noteTag[2]))
+        else if (s_noteType == NoteType.Airial)
         {
             if (targetHolder.airials[s_line - 1] != null)
-            { Select(targetHolder.getAirial(s_line - 1)); }
+            {
+
+            }
             else
             {
                 NormalNote note;
@@ -692,10 +583,12 @@ public class EditManager : MonoBehaviour
                 Select(targetHolder.getAirial(note.line - 1));
             }
         }
-        else if (s_SelectedObject.transform.parent.CompareTag(noteTag[1]))
+        else if (s_noteType == NoteType.Bottom)
         {
             if (targetHolder.bottoms[s_line - 1] != null)
-            { Select(targetHolder.getBottom(s_line - 1)); }
+            {
+
+            }
             else
             {
                 NormalNote note;
@@ -711,10 +604,12 @@ public class EditManager : MonoBehaviour
                 Select(targetHolder.getBottom(note.line - 1));
             }
         }
-        else if (s_SelectedObject.CompareTag("01"))
+        else if (s_noteType == NoteType.Speed)
         {
             if (targetHolder.speedNote != null)
-                { Select(targetHolder.getSpeed()); }
+            {
+
+            }
             else
             {
                 SpeedNote note;
@@ -731,10 +626,12 @@ public class EditManager : MonoBehaviour
                 NoteField.InitAllHolder();
             }
         }
-        else
+        else if (s_noteType == NoteType.Effect)
         {
             if (targetHolder.effectNote != null)
-            { Select(targetHolder.getEffect()); }
+            {
+
+            }
             else
             {
                 EffectNote note;
@@ -748,6 +645,7 @@ public class EditManager : MonoBehaviour
                 Select(targetHolder.getEffect());
             }
         }
+        else { }
 
         targetHolder.UpdateNote();
         s_SelectNoteHolder.UpdateNote();

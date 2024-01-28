@@ -7,6 +7,7 @@ using System.Windows.Forms;
 
 namespace GameNote
 {
+    public enum NoteType { None = 0, Normal = 1, Airial = 2, Bottom = 3, Speed = 4, Effect = 5 }
     public class NoteClass : MonoBehaviour
     {
         public static List<NormalNote> s_NormalNotes = new List<NormalNote>();

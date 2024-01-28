@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using GameNote;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -20,36 +21,31 @@ public class EditBox : MonoBehaviour
         s_lineRenderer = _lineRenderer;
     }
 
-    public static void PopUpBox(GameObject gameObject)
+    public static void PopUpBox(NoteType type)
     {
         if (EditManager.s_isMultyEditing) { MultyEditMode(); return; }
 
-        pos = gameObject.GetComponentInParent<NoteHolder>().stdPos;
+        foreach (GameObject obj in s_this.editBoxes) { obj.SetActive(false); }
 
-        foreach (GameObject obj in s_this.editBoxes)
-        {
-            obj.SetActive(false);
-        }
-
-        if (gameObject.transform.parent.CompareTag("Normal")
-            || gameObject.transform.parent.CompareTag("Airial"))
+        if (type == NoteType.Normal || type == NoteType.Airial)
         {
             s_this.UpdateBox(1);
         }
-        else if (gameObject.transform.parent.CompareTag("Bottom"))
+        else if (type == NoteType.Bottom)
         {
             s_this.UpdateBox(2);
         }
         else
         {
-            if (gameObject.CompareTag("01"))
+            if (type == NoteType.Speed)
             {
                 s_this.UpdateBox(3);
             }
-            else
+            else if (type == NoteType.Effect)
             {
                 s_this.UpdateBox(4);
             }
+            else { throw new System.Exception(""); }
         }
         
         UpdateRenderer();
@@ -74,10 +70,12 @@ public class EditBox : MonoBehaviour
         editBoxes[index].SetActive(true);
         NoteChange.UpdateInfoFields();
 
-        /*Vector3 position;
+        /*
+        Vector3 position;
         position = editBoxes[index].transform.localPosition;
          if (Mathf.Abs(position.x) > 10 || Mathf.Abs(position.y) > 4.5)
-        { editBoxes[index].transform.localPosition = new Vector3(-5.75f, 0, 0); }*/
+        { editBoxes[index].transform.localPosition = new Vector3(-5.75f, 0, 0); }
+        */
 
         nowIndex = index;
     }

@@ -7,7 +7,7 @@ public class DragSelect : MonoBehaviour
 {
     public static bool isDraggable = true;
     private static bool isDrag = false;
-    public static List<GameObject> s_DragSelectObject;
+    public static List<NoteClick> s_DragSelectObject;
 
     private bool isShift = false;
     [SerializeField] private InputAction[] inputAction;
@@ -21,7 +21,7 @@ public class DragSelect : MonoBehaviour
     private void Awake()
     {
         boxCoroutine = IDragBox();
-        s_DragSelectObject = new List<GameObject>();
+        s_DragSelectObject = new List<NoteClick>();
         lineRenderer = dragObject.GetComponent<LineRenderer>();
         
         //$ Mouse Input
@@ -30,7 +30,7 @@ public class DragSelect : MonoBehaviour
             if (!isDraggable) { return; }
 
             isDrag = true;
-            s_DragSelectObject = new List<GameObject>();
+            s_DragSelectObject = new List<NoteClick>();
             
             Vector3 mousePos = Mouse.current.position.ReadValue();
             mousePos.z = Camera.main.nearClipPlane;
@@ -64,14 +64,14 @@ public class DragSelect : MonoBehaviour
         shiftAction[0].Enable();
         shiftAction[1].Enable();
     }
-    public static void AddObject(GameObject @object)
+    public static void AddObject(NoteClick click)
     {
-        if (s_DragSelectObject.Contains(@object)) { return; }
-        else { s_DragSelectObject.Add(@object); }
+        if (s_DragSelectObject.Contains(click)) { return; }
+        else { s_DragSelectObject.Add(click); }
     }
-    public static void RemoveObject(GameObject @object)
+    public static void RemoveObject(NoteClick click)
     {
-        s_DragSelectObject.RemoveAll(item => item == @object);
+        s_DragSelectObject.RemoveAll(item => item == click);
     }
     private IEnumerator IDragBox()
     {
