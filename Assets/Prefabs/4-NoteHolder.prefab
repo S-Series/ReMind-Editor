@@ -182,7 +182,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1591c65717b62f47becb9421f8d4e36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  noteType: 1
   isNoteParent: 1
 --- !u!61 &5868627167640726360
 BoxCollider2D:
@@ -702,7 +701,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1591c65717b62f47becb9421f8d4e36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  noteType: 1
   isNoteParent: 1
 --- !u!61 &955811004567123202
 BoxCollider2D:
@@ -1218,8 +1216,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1014723832883863549}
-  - component: {fileID: 1014723832883863550}
+  - component: {fileID: 2210546868158228334}
   - component: {fileID: 3661603048959144597}
+  - component: {fileID: 1014723832883863550}
   - component: {fileID: 2206488269294961290}
   m_Layer: 0
   m_Name: Air04
@@ -1243,6 +1242,35 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1014723834383784660}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2210546868158228334
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1014723832883863548}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c6c24f4d72b4d0488b0292739e7b5c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NoteLine: 4
+  noteType: 2
+  isGameNote: 0
+  LongNotes: []
+--- !u!114 &3661603048959144597
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1014723832883863548}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1591c65717b62f47becb9421f8d4e36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isNoteParent: 0
 --- !u!212 &1014723832883863550
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1295,20 +1323,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &3661603048959144597
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1014723832883863548}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e1591c65717b62f47becb9421f8d4e36, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  noteType: 2
-  isNoteParent: 0
 --- !u!61 &2206488269294961290
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1363,8 +1377,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1014723833269013127}
-  - component: {fileID: 1014723833269013144}
+  - component: {fileID: 8505906472824204202}
   - component: {fileID: 3151062074575018459}
+  - component: {fileID: 1014723833269013144}
   - component: {fileID: 5863531115137825939}
   m_Layer: 0
   m_Name: Air03
@@ -1388,6 +1403,35 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1014723834383784660}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8505906472824204202
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1014723833269013126}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c6c24f4d72b4d0488b0292739e7b5c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NoteLine: 3
+  noteType: 2
+  isGameNote: 0
+  LongNotes: []
+--- !u!114 &3151062074575018459
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1014723833269013126}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1591c65717b62f47becb9421f8d4e36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isNoteParent: 0
 --- !u!212 &1014723833269013144
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1440,20 +1484,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &3151062074575018459
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1014723833269013126}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e1591c65717b62f47becb9421f8d4e36, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  noteType: 2
-  isNoteParent: 0
 --- !u!61 &5863531115137825939
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1585,8 +1615,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1014723833439605155}
-  - component: {fileID: 1014723833439605156}
+  - component: {fileID: 5455848258704220281}
   - component: {fileID: 6943090949904561512}
+  - component: {fileID: 1014723833439605156}
   - component: {fileID: 7524734180961877311}
   m_Layer: 0
   m_Name: Air02
@@ -1610,6 +1641,35 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1014723834383784660}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5455848258704220281
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1014723833439605154}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c6c24f4d72b4d0488b0292739e7b5c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NoteLine: 2
+  noteType: 2
+  isGameNote: 0
+  LongNotes: []
+--- !u!114 &6943090949904561512
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1014723833439605154}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1591c65717b62f47becb9421f8d4e36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isNoteParent: 0
 --- !u!212 &1014723833439605156
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1662,20 +1722,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &6943090949904561512
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1014723833439605154}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e1591c65717b62f47becb9421f8d4e36, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  noteType: 2
-  isNoteParent: 0
 --- !u!61 &7524734180961877311
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1854,7 +1900,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1591c65717b62f47becb9421f8d4e36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  noteType: 1
   isNoteParent: 1
 --- !u!61 &3308596844806514373
 BoxCollider2D:
@@ -2033,6 +2078,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c6c24f4d72b4d0488b0292739e7b5c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  NoteLine: 1
+  noteType: 3
   isGameNote: 0
   LongNotes:
   - {fileID: 6367677639661719740}
@@ -2049,6 +2096,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3141819544775991567}
   - component: {fileID: 9221280909471838955}
+  - component: {fileID: 8883562038768455336}
   - component: {fileID: 1419944604847025080}
   - component: {fileID: 8642778870082062888}
   m_Layer: 0
@@ -2126,6 +2174,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &8883562038768455336
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2051157923456923410}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c6c24f4d72b4d0488b0292739e7b5c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NoteLine: 0
+  noteType: 5
+  isGameNote: 0
+  LongNotes: []
 --- !u!114 &1419944604847025080
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2138,7 +2202,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1591c65717b62f47becb9421f8d4e36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  noteType: 5
   isNoteParent: 0
 --- !u!61 &8642778870082062888
 BoxCollider2D:
@@ -2233,6 +2296,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c6c24f4d72b4d0488b0292739e7b5c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  NoteLine: 3
+  noteType: 1
   isGameNote: 0
   LongNotes:
   - {fileID: 1073895570222186878}
@@ -2367,8 +2432,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7052810919737230072}
-  - component: {fileID: 4077681112556134685}
+  - component: {fileID: 1365864875988119725}
   - component: {fileID: 269959329326103627}
+  - component: {fileID: 4077681112556134685}
   - component: {fileID: 7553259134916485371}
   m_Layer: 0
   m_Name: Air01
@@ -2392,6 +2458,35 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1014723834383784660}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1365864875988119725
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2747370496236699458}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c6c24f4d72b4d0488b0292739e7b5c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NoteLine: 1
+  noteType: 2
+  isGameNote: 0
+  LongNotes: []
+--- !u!114 &269959329326103627
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2747370496236699458}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1591c65717b62f47becb9421f8d4e36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isNoteParent: 0
 --- !u!212 &4077681112556134685
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2444,20 +2539,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &269959329326103627
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2747370496236699458}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e1591c65717b62f47becb9421f8d4e36, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  noteType: 2
-  isNoteParent: 0
 --- !u!61 &7553259134916485371
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2685,7 +2766,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1591c65717b62f47becb9421f8d4e36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  noteType: 1
   isNoteParent: 1
 --- !u!61 &4681260249725194277
 BoxCollider2D:
@@ -2864,6 +2944,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c6c24f4d72b4d0488b0292739e7b5c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  NoteLine: 4
+  noteType: 1
   isGameNote: 0
   LongNotes:
   - {fileID: 5947220050963065232}
@@ -2968,7 +3050,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1591c65717b62f47becb9421f8d4e36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  noteType: 1
   isNoteParent: 1
 --- !u!61 &4618713534834124770
 BoxCollider2D:
@@ -3113,7 +3194,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1591c65717b62f47becb9421f8d4e36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  noteType: 3
   isNoteParent: 1
 --- !u!61 &1450931421719482236
 BoxCollider2D:
@@ -3339,6 +3419,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6728364733351359983}
   - component: {fileID: 5279914479206772305}
+  - component: {fileID: 763615582506953898}
   - component: {fileID: 239298945382627223}
   - component: {fileID: 5203947502943746745}
   m_Layer: 0
@@ -3416,6 +3497,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &763615582506953898
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5346671460098484311}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c6c24f4d72b4d0488b0292739e7b5c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NoteLine: 0
+  noteType: 4
+  isGameNote: 0
+  LongNotes: []
 --- !u!114 &239298945382627223
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3428,7 +3525,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1591c65717b62f47becb9421f8d4e36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  noteType: 4
   isNoteParent: 0
 --- !u!61 &5203947502943746745
 BoxCollider2D:
@@ -3523,6 +3619,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c6c24f4d72b4d0488b0292739e7b5c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  NoteLine: 2
+  noteType: 3
   isGameNote: 0
   LongNotes:
   - {fileID: 7766297029861084699}
@@ -3627,7 +3725,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1591c65717b62f47becb9421f8d4e36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  noteType: 3
   isNoteParent: 1
 --- !u!61 &1041044372056276380
 BoxCollider2D:
@@ -3807,6 +3904,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c6c24f4d72b4d0488b0292739e7b5c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  NoteLine: 1
+  noteType: 1
   isGameNote: 0
   LongNotes:
   - {fileID: 6367677638190123140}
@@ -4117,7 +4216,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1591c65717b62f47becb9421f8d4e36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  noteType: 1
   isNoteParent: 1
 --- !u!61 &6367677638190123195
 BoxCollider2D:
@@ -4262,7 +4360,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1591c65717b62f47becb9421f8d4e36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  noteType: 3
   isNoteParent: 1
 --- !u!61 &6367677639661719731
 BoxCollider2D:
@@ -4407,7 +4504,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1591c65717b62f47becb9421f8d4e36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  noteType: 1
   isNoteParent: 1
 --- !u!61 &8642931002561289044
 BoxCollider2D:
@@ -5599,7 +5695,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1591c65717b62f47becb9421f8d4e36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  noteType: 3
   isNoteParent: 1
 --- !u!61 &3169389470316218615
 BoxCollider2D:
@@ -5694,6 +5789,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c6c24f4d72b4d0488b0292739e7b5c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  NoteLine: 2
+  noteType: 1
   isGameNote: 0
   LongNotes:
   - {fileID: 7571251816288876811}
@@ -5882,7 +5979,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1591c65717b62f47becb9421f8d4e36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  noteType: 1
   isNoteParent: 1
 --- !u!61 &1272598614993766828
 BoxCollider2D:

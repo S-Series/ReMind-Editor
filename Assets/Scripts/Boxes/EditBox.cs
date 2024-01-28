@@ -84,8 +84,8 @@ public class EditBox : MonoBehaviour
         if (nowIndex == -1) { s_lineRenderer.SetPosition(1, new Vector3(-5.25f, 2.0f, 10f)); }
         else
         { 
-            if (EditManager.s_SelectedObject == null) { return; }
-            s_lineRenderer.SetPosition(1, EditManager.s_SelectedObject.transform.position);
+            if (EditManager.s_noteType == NoteType.None) { return; }
+            // s_lineRenderer.SetPosition(1, EditManager.s_SelectedObject.transform.position);
         }
     }
 }

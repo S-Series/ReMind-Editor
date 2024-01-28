@@ -1,14 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using GameNote;
 
-public class NoteLength : MonoBehaviour
+public class NoteData : MonoBehaviour
 {
+    public int NoteLine;
+    public NoteType noteType;
     [SerializeField] private bool isGameNote;
     [SerializeField] private Transform[] LongNotes;
 
     public void Length(int length)
     {
+        if (noteType != NoteType.Normal || noteType != NoteType.Bottom) { return; }
+
         if (length <= 1)
         {
             LongNotes[0].gameObject.SetActive(true);
@@ -27,7 +32,7 @@ public class NoteLength : MonoBehaviour
 
             if (isGameNote)
             {
-                if (transform.parent.CompareTag("Normal"))
+                if (noteType == NoteType.Normal)
                 {
                     LongNotes[1].localScale = new Vector3(1, 2 * length * 0.05683594f, 1);
                     LongNotes[3].localPosition = new Vector3(0, 2 * length * 0.5681819f, 0);
@@ -46,10 +51,16 @@ public class NoteLength : MonoBehaviour
             }
         }
     }
-
     public Transform GetTransform(bool isSingle)
     {
         if (isSingle) { return LongNotes[0]; }
         else { return LongNotes[1]; }
+    }
+    public NoteHolder GetNoteHolder()
+    {
+        NoteHolder holder;
+        holder = GetComponentInParent<NoteHolder>();
+        if (holder == null) { throw new System.Exception("Holder is NULL"); }
+        return holder;
     }
 }

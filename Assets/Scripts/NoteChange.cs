@@ -33,21 +33,17 @@ public class NoteChange : MonoBehaviour
     {
         if (EditManager.s_isMultyEditing) { return; }
 
+        NoteType type;
         NoteHolder holder;
-        GameObject noteObject;
+        type = EditManager.s_noteType;
         holder = EditManager.s_SelectNoteHolder;
-        noteObject = EditManager.s_SelectedObject;
         
-        if (holder == null || noteObject == null) { return; }
-
-        string selectNoteTag;
-        selectNoteTag = noteObject.transform.parent.tag;
+        if (holder == null || type == NoteType.None) { return; }
 
         NormalNote normalNote;
         TMP_InputField[] inputFields;
 
-        //$ Normal Note & Airial Note
-        if (selectNoteTag == noteTag[0] || selectNoteTag == noteTag[1])
+        if (type == NoteType.Normal || type == NoteType.Airial)
         {
             inputFields = s_this.NormalInputs;
             normalNote = EditManager.s_isAirial
@@ -72,8 +68,7 @@ public class NoteChange : MonoBehaviour
                 s_this.NormalToggles[4].isOn = false;
             }
         }
-        //$ Floor Note
-        else if (selectNoteTag == noteTag[2])
+        else if (type == NoteType.Bottom)
         {
             inputFields = s_this.FloorInputs;
             normalNote = EditManager.s_SelectNoteHolder.bottoms[EditManager.s_line - 1];
@@ -98,8 +93,7 @@ public class NoteChange : MonoBehaviour
         }
         else
         {
-            //$ Speed Note
-            if (noteObject.CompareTag("01"))
+            if (type == NoteType.Speed)
             {
                 SpeedNote speed;
                 speed = EditManager.s_SelectNoteHolder.speedNote;
@@ -111,8 +105,7 @@ public class NoteChange : MonoBehaviour
                 inputFields[3].text = speed.multiple.ToString();
                 inputFields[4].text = String.Format("{0:F2}", speed.bpm * speed.multiple);
             }
-            //$ Effect Note
-            else if (noteObject.CompareTag("02"))
+            else if (type == NoteType.Effect)
             {
                 
             }
@@ -127,7 +120,7 @@ public class NoteChange : MonoBehaviour
         int value;
         try { value = Convert.ToInt32(input.text); }
         catch { input.text = (EditManager.s_SelectNoteHolder.stdPos % 1600).ToString(); return; }
-        EditManager.PosNote(value);
+        EditManager.EditNote(pos: value);
     }
     public void InputPage(TMP_InputField input)
     {
@@ -135,7 +128,7 @@ public class NoteChange : MonoBehaviour
         try { value = Convert.ToInt32(input.text); }
         catch { input.text = Mathf.FloorToInt(EditManager.s_SelectNoteHolder.stdPos / 1600f).ToString(); return; }
         if (value < 0) { value = 0; input.text = "0"; }
-        EditManager.PageNote(value);
+        EditManager.EditNote(page: value);
     }
     public void InputLegnth(TMP_InputField input)
     {
@@ -148,14 +141,14 @@ public class NoteChange : MonoBehaviour
     }
     public void ToggleLine()
     {
-        if (EditManager.s_SelectedObject == null) { return; }
+        if (EditManager.s_noteType == NoteType.None) { return; }
         if (EditManager.s_SelectNoteHolder == null) { return; }
 
-        for (int i = 0; i < 4; i++)
+        for (int i = 0; i < 5; i++)
         {
             if (NormalToggles[i].isOn)
             {
-                EditManager.LineNote(i + 1);
+                EditManager.EditNote(line: i + 1);
                 break;
             }
         }

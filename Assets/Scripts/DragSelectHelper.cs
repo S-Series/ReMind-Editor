@@ -10,10 +10,10 @@ public class DragSelectHelper : MonoBehaviour
     }
     void OnTriggerEnter2D(Collider2D other)
     {
-        DragSelect.AddObject(EditManager.s_SelectedObject);
+        // DragSelect.AddObject(EditManager.s_SelectedObject);
     }
     void OnTriggerExit2D(Collider2D other)
     {
-        DragSelect.RemoveObject(EditManager.s_SelectedObject);
+        // DragSelect.RemoveObject(EditManager.s_SelectedObject);
     }
 }

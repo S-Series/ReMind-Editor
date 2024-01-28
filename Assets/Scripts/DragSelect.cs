@@ -52,7 +52,9 @@ public class DragSelect : MonoBehaviour
             StopCoroutine(boxCoroutine);
 
             if (s_DragSelectObject.Count != 0)
-                { EditManager.MultySelect(s_DragSelectObject.ToArray(), !isShift); }
+            {
+                
+            }
             dragObject.gameObject.SetActive(false);
         };
 

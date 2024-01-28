@@ -4,21 +4,13 @@ using UnityEngine.EventSystems;
 
 public class NoteClick : MonoBehaviour, IPointerClickHandler
 {
-    public int NoteLine;
-    public NoteType noteType;
     [SerializeField] private bool isNoteParent;
     public void OnPointerClick(PointerEventData eventData)
     {
         if (NoteGenerate.s_isGenerating) { return; }
 
-        EditManager.Select(this);
-    }
-    public NoteHolder GetNoteHolder()
-    {
-        NoteHolder holder;
-        holder = GetComponentInParent<NoteHolder>();
-        if (holder == null) { throw new System.Exception("Holder is NULL"); }
-        return holder;
+        if (isNoteParent) { EditManager.Select(GetComponentInParent<NoteData>()); }
+        else { EditManager.Select(GetComponent<NoteData>()); }
     }
 
     void OnTriggerEnter2D(Collider2D other)

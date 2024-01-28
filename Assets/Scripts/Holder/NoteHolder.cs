@@ -43,7 +43,7 @@ NoteHolder : MonoBehaviour
             else
             {
                 normalObjects[i].SetActive(true);
-                normalObjects[i].TryGetComponent<NoteLength>(out var normalLength);
+                normalObjects[i].TryGetComponent<NoteData>(out var normalLength);
                 if (normalLength == null) { throw new System.Exception("Notelength Operation is not Exist!"); }
                 normalLength.Length(normals[i].length);
             }
@@ -60,7 +60,7 @@ NoteHolder : MonoBehaviour
             else
             {
                 bottomObjects[i].SetActive(true);
-                bottomObjects[i].TryGetComponent<NoteLength>(out var bottomLength);
+                bottomObjects[i].TryGetComponent<NoteData>(out var bottomLength);
                 if (bottomLength == null) { throw new System.Exception("Notelength Operation is not Exist!"); }
                 bottomLength.Length(bottoms[i].length);
             }
