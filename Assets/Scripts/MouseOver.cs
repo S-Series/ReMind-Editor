@@ -34,7 +34,6 @@ public class MouseOver : MonoBehaviour, IPointerEnterHandler, IPointerClickHandl
                 break;
         }
     }
-
     public void OnPointerClick(PointerEventData eventData)
     {
         print("Clicked");

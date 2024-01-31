@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using GameData;
 using UnityEngine;
 
 public class GameNoteHolder : MonoBehaviour
@@ -96,5 +97,9 @@ public class GameNoteHolder : MonoBehaviour
             else if (line < 10) { airialObjects[line - 6].SetActive(false); }
             else { throw new System.Exception("Judge Line Error (line >= 10)"); }
         }
+    }
+    public void ApplyGameMode(GameMode mode)
+    {
+        
     }
 }

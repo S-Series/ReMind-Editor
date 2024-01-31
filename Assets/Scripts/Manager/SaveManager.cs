@@ -48,7 +48,7 @@ public class SaveManager : MonoBehaviour
             isAlt = false;
             VistaSaveFileDialog dialog;
             dialog = new VistaSaveFileDialog();
-            dialog.Filter = "nd files|*.4nd;*5nd";
+            dialog.Filter = "All Files|*.*";
             dialog.FilterIndex = 1;
             dialog.Title = "Save Data";
             dialog.InitialDirectory = (UnityEngine.Application.dataPath + @"\_DataBox").Replace("/", "\\");
@@ -169,7 +169,11 @@ public class SaveManager : MonoBehaviour
 
         yield return null;
 
-        if (!path.Contains(".nd")) { path += ".nd"; }
+        path.Replace(".4nd", String.Empty);
+        path.Replace(".5nd", String.Empty);
+        path.Replace(".6nd", String.Empty);
+
+        path += String.Format(".{0}nd", (int)GameManager.gameMode);
 
         File.WriteAllText(path, jsonData);
         //File.WriteAllText(path, JsonAES.Encrypt(jsonData, HiddenKey));

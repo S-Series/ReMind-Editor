@@ -5,12 +5,11 @@ using GameData;
 
 namespace GameData
 {
-    public enum GameMode { Line_4 = 4, Line_5 = 5 }
+    public enum GameMode { Line_4 = 4, Line_5 = 5, Line_6 = 6 }
 }
 public class GameManager : MonoBehaviour
 {
     public static GameMode gameMode = GameMode.Line_4;
-
     public static List<T> FindAllObjects<T>() where T : Component
     {
         List<T> ret = new List<T>();
@@ -30,5 +29,4 @@ public class GameManager : MonoBehaviour
         if (ret.Count == 0) { return null; }
         else { return ret; }
     }
-    
 }

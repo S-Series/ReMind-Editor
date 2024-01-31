@@ -43,11 +43,12 @@ NoteHolder : MonoBehaviour
             else { holder.EnableNote(true); }
         }
     }
-    public static void GamemodeHolderUpdate(GameMode mode)
+    public static void GameModeHolderUpdate(GameMode mode)
     {
         foreach (NoteHolder holder in s_holders)
         {
-            holder.ApplyGamemode(mode);
+            holder.ApplyGameMode(mode);
+            holder.gameNoteHolder.ApplyGameMode(mode);
         }
     }
 
@@ -175,6 +176,22 @@ NoteHolder : MonoBehaviour
         // if (speedNote != null) { speedNote.ms = stdMs; }
         if (effectNote != null) { effectNote.ms = stdMs; }
     }
+    public void ApplyJudge(NoteType type = NoteType.None, int index = -1)
+    {
+        if (type == NoteType.None || index == -1)
+        {
+            int max;
+            max = (int)GameManager.gameMode;
+            for (int i = 0; i < max; i++)
+            {
+                normalObjects[i].SetActive(false);
+            }
+        }
+        else
+        {
+
+        }
+    }
     public void UpdateLongMs()
     {
         NormalNote note;
@@ -194,7 +211,7 @@ NoteHolder : MonoBehaviour
     {
 
     }
-    public void ApplyGamemode(GameMode mode)
+    public void ApplyGameMode(GameMode mode)
     {
         int lineCount, startPosX;
         float scaleX, posX;

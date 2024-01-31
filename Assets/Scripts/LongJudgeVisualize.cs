@@ -47,7 +47,6 @@ public class LongJudgeVisualize : MonoBehaviour
             transforms[1].localScale = new Vector3(95, values[0] * per * zoom, 95);
             transforms[2].localPosition = new Vector3(0, values[1] * per * zoom, 0);
         }
-        print("Ended");
         sprite[0].enabled = false;
         sprite[1].enabled = false;
         sprite[2].enabled = false;

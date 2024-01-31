@@ -25,6 +25,7 @@ public class NoteField : MonoBehaviour
     [SerializeField] GameObject LinePrefab;
     [SerializeField] Transform PreviewNoteParent;
     [SerializeField] Transform[] DrawField;
+    [SerializeField] GameObject[] LineObjects;
 
     private void Awake()
     {
@@ -181,6 +182,12 @@ public class NoteField : MonoBehaviour
             NoteHolder.s_holders[i].UpdateLongMs();
             b = NoteHolder.s_holders[i].stdMs;
         }
+    }
+    public static void UpdateFieldByGameMode()
+    {
+        foreach (GameObject obj in s_this.LineObjects) { obj.SetActive(false); }
+        s_this.LineObjects[(int)GameManager.gameMode - 4].SetActive(true);
+        NoteHolder.GameModeHolderUpdate(GameManager.gameMode);
     }
     public static IEnumerator IResetHolderList()
     {
