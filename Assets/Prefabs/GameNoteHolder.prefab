@@ -132,6 +132,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c6c24f4d72b4d0488b0292739e7b5c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  NoteLine: 3
+  noteType: 1
   isGameNote: 1
   LongNotes:
   - {fileID: 1424395508603666050}
@@ -1208,6 +1210,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2368270511782949943}
   - component: {fileID: 1370791184939384118}
+  - component: {fileID: 3231546121441820814}
   m_Layer: 0
   m_Name: A_01
   m_TagString: 01
@@ -1250,6 +1253,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Shadow: {fileID: 2206770840453109978}
   renderers: {fileID: 2368270513170101494}
+--- !u!114 &3231546121441820814
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2368270511782949942}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c6c24f4d72b4d0488b0292739e7b5c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NoteLine: 0
+  noteType: 2
+  isGameNote: 0
+  LongNotes: []
 --- !u!1 &2368270511841022461
 GameObject:
   m_ObjectHideFlags: 0
@@ -1260,6 +1279,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2368270511841022462}
   - component: {fileID: 2890831634586661366}
+  - component: {fileID: 2059035253109316107}
   m_Layer: 0
   m_Name: A_03
   m_TagString: 03
@@ -1302,6 +1322,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Shadow: {fileID: 6576601501942709054}
   renderers: {fileID: 2368270511899266590}
+--- !u!114 &2059035253109316107
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2368270511841022461}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c6c24f4d72b4d0488b0292739e7b5c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NoteLine: 0
+  noteType: 2
+  isGameNote: 0
+  LongNotes: []
 --- !u!1 &2368270511865297178
 GameObject:
   m_ObjectHideFlags: 0
@@ -1735,6 +1771,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2368270512129096899}
   - component: {fileID: 145017468547624624}
+  - component: {fileID: 841823629345928504}
   m_Layer: 0
   m_Name: A_02
   m_TagString: 02
@@ -1777,6 +1814,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Shadow: {fileID: 1164403169839822566}
   renderers: {fileID: 2368270512212927609}
+--- !u!114 &841823629345928504
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2368270512129096898}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c6c24f4d72b4d0488b0292739e7b5c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NoteLine: 0
+  noteType: 2
+  isGameNote: 0
+  LongNotes: []
 --- !u!1 &2368270512212927615
 GameObject:
   m_ObjectHideFlags: 0
@@ -2092,7 +2145,7 @@ GameObject:
   - component: {fileID: 2368270512563088929}
   - component: {fileID: 2368270512563088930}
   m_Layer: 0
-  m_Name: 4-GameNoteHolder
+  m_Name: GameNoteHolder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2151,6 +2204,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2368270512611902116}
   - component: {fileID: 3982192743839664901}
+  - component: {fileID: 3806710269748927749}
   m_Layer: 0
   m_Name: A_04
   m_TagString: 04
@@ -2193,6 +2247,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Shadow: {fileID: 6999842551812421401}
   renderers: {fileID: 2368270511572853846}
+--- !u!114 &3806710269748927749
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2368270512611902107}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c6c24f4d72b4d0488b0292739e7b5c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NoteLine: 0
+  noteType: 2
+  isGameNote: 0
+  LongNotes: []
 --- !u!1 &2368270512651221690
 GameObject:
   m_ObjectHideFlags: 0
@@ -3117,6 +3187,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c6c24f4d72b4d0488b0292739e7b5c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  NoteLine: 2
+  noteType: 1
   isGameNote: 1
   LongNotes:
   - {fileID: 6064991779434688047}
@@ -3171,6 +3243,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c6c24f4d72b4d0488b0292739e7b5c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  NoteLine: 0
+  noteType: 0
   isGameNote: 1
   LongNotes:
   - {fileID: 2368270513107096655}
@@ -3309,6 +3383,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c6c24f4d72b4d0488b0292739e7b5c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  NoteLine: 0
+  noteType: 0
   isGameNote: 1
   LongNotes:
   - {fileID: 1335542769875833039}
@@ -3447,6 +3523,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c6c24f4d72b4d0488b0292739e7b5c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  NoteLine: 4
+  noteType: 1
   isGameNote: 1
   LongNotes:
   - {fileID: 52646595029426487}
@@ -4005,6 +4083,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c6c24f4d72b4d0488b0292739e7b5c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  NoteLine: 1
+  noteType: 1
   isGameNote: 1
   LongNotes:
   - {fileID: 2368270511559422992}

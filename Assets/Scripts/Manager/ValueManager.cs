@@ -63,7 +63,7 @@ public class ValueManager : MonoBehaviour
 
     public void SubmitBpm(float value)
     {
-        GameNote.NoteClass.InitSpeedMs();
+        NoteClass.InitSpeedMs();
         foreach (LineHolder holder in LineHolder.s_holders) { holder.UpdateMs(); }
         SpectrumManager.UpdateSpectrumPos();
     }

@@ -1,9 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using GameData;
 
+namespace GameData
+{
+    public enum GameMode { Line_4 = 4, Line_5 = 5 }
+}
 public class GameManager : MonoBehaviour
 {
+    public static GameMode gameMode = GameMode.Line_4;
+
     public static List<T> FindAllObjects<T>() where T : Component
     {
         List<T> ret = new List<T>();

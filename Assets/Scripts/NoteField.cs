@@ -12,6 +12,7 @@ public class NoteField : MonoBehaviour
     public static NoteField s_this;
 
     public static bool s_isFieldMovable = true;
+
     // public static List<NoteHolder> s_noteHolders = new List<NoteHolder>();
     public static int s_Page = 0;
     public static int s_Scroll = 0;
