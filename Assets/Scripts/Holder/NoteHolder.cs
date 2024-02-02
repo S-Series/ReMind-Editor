@@ -176,21 +176,33 @@ NoteHolder : MonoBehaviour
         // if (speedNote != null) { speedNote.ms = stdMs; }
         if (effectNote != null) { effectNote.ms = stdMs; }
     }
-    public void ApplyJudge(NoteType type = NoteType.None, int index = -1)
+    public int[][] ApplyJudge(NoteType type = NoteType.None, int line = 0)
     {
-        if (type == NoteType.None || index == -1)
+        int[][] ret;
+        if (type == NoteType.None || line == 0)
         {
             int max;
             max = (int)GameManager.gameMode;
+            ret = new int[3][];
+            ret[0] = new int[] { 0, 0, 0, 0, 0 };
+            ret[1] = new int[] { 0, 0, 0, 0, 0 };
+            ret[2] = new int[] { 0, 0 };
             for (int i = 0; i < max; i++)
             {
+                if (normals[i] != null) { ret[0][i] = normals[i].length; }
+                if (airials[i] != null) { ret[1][i] = airials[i].length; }
                 normalObjects[i].SetActive(false);
+                airialObjects[i].SetActive(false);
+                if (i > 1) { continue; }
+                if (bottoms[i] != null) { ret[2][i] = bottoms[i].length; }
+                bottomObjects[i].SetActive(false);
             }
         }
         else
         {
-
+            ret = null;   
         }
+        return ret;
     }
     public void UpdateLongMs()
     {

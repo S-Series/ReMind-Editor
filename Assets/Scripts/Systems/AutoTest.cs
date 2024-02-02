@@ -155,57 +155,12 @@ public class AutoTest : MonoBehaviour
 
     private void Judge(NoteHolder holder)
     {
-        for (int i = 0; i < 4; i++)
+        int[][] data;
+        data = holder.ApplyJudge();
+        for (int i = 0; i < 5; i++)
         {
-            if (holder.normals[i] != null)
-            {
-                if (holder.normals[i].length == 1)
-                {
-                    AddCombo();
-                    judgeEffects[i].SetTrigger(Trigger[0]);
-                    gameJudgeEffects[i].SetTrigger(Trigger[0]);
-                    judgeSounds[i].Play();
-                }
-                else { StartCoroutine(ILongNote(i, holder.normals[i], holder.longMs[i])); }
-            }
-            if (holder.airials[i] != null)
-            {
-                AddCombo();
-                judgeEffects[i].SetTrigger(Trigger[0]);
-                gameJudgeEffects[i + 4].transform.localPosition 
-                    = new Vector3(240 * i - 360, holder.airials[i].length * 3.5f, 0);
-                gameJudgeEffects[i + 4].SetTrigger(Trigger[0]);
-                    judgeSounds[i].Play();
-            }
-
-            if (i >= 2) { continue; }
-
-            if (holder.bottoms[i] != null)
-            {
-                if (holder.bottoms[i].length == 1)
-                {
-                    AddCombo();
-                    judgeEffects[i + 4].SetTrigger(Trigger[0]);
-                    gameJudgeEffects[i + 8].SetTrigger(Trigger[0]);
-                    judgeSounds[i + 4].Play();
-                }
-                else { StartCoroutine(ILongNote(i + 4, holder.bottoms[i], holder.longMs[i + 4])); }
-            }
+            
         }
-
-        if (holder.speedNote != null)
-        {
-            s_Bpm = (float)holder.speedNote.bpm;
-            s_SpeedMs = holder.stdMs;
-            s_SpeedPosY = holder.stdPos;
-        }
-        if (holder.effectNote != null)
-        {
-            s_isEffect = true;
-        }
-
-        holder.EnableNote(false);
-        holder.gameNoteHolder.JudgeVisual();
     }
     private void AddCombo()
     {
