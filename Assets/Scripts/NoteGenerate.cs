@@ -15,7 +15,8 @@ public class NoteGenerate : MonoBehaviour
     [SerializeField] GameObject previewGuide;
     [SerializeField] GameObject[] GeneratePrefabs;
     [SerializeField] Transform[] GenerateField;
-    /// <summary>
+
+    /// <summary> Pervies Note Type
     /// previews[0] = Normal Note
     /// previews[1] = Bottom Note
     /// previews[2] = Airial Note
@@ -89,6 +90,7 @@ public class NoteGenerate : MonoBehaviour
             copyObject = Instantiate(s_this.GeneratePrefabs[1], s_this.GenerateField[1], false);
             holder.gameNoteHolder = copyObject.GetComponent<GameNoteHolder>();
             holder.gameNoteHolder.name = "Pos : " + pos.ToString();
+            holder.ApplyGameMode(GameManager.gameMode);
             NoteHolder.s_holders.Add(holder);
         }
 

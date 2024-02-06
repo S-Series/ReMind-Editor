@@ -16,9 +16,14 @@ NoteHolder : MonoBehaviour
     public int stdMs, stdPos;
     public GameNoteHolder gameNoteHolder;
 
-    public int[][] longMs = { new int[0], new int[0], new int[0], new int[0], new int[0], new int[0] };
-    public NormalNote[] normals = new NormalNote[5] { null, null, null, null, null };
-    public NormalNote[] airials = new NormalNote[5] { null, null, null, null, null };
+    public int[][] longMs = 
+    { 
+        new int[0], new int[0], new int[0],
+        new int[0], new int[0], new int[0],
+        new int[0], new int[0]
+    };
+    public NormalNote[] normals = new NormalNote[6] { null, null, null, null, null, null };
+    public NormalNote[] airials = new NormalNote[6] { null, null, null, null, null, null };
     public NormalNote[] bottoms = new NormalNote[2] { null, null };
     public SpeedNote speedNote;
     public EffectNote effectNote;
@@ -48,7 +53,6 @@ NoteHolder : MonoBehaviour
         foreach (NoteHolder holder in s_holders)
         {
             holder.ApplyGameMode(mode);
-            holder.gameNoteHolder.ApplyGameMode(mode);
         }
     }
 
@@ -179,28 +183,60 @@ NoteHolder : MonoBehaviour
     public int[][] ApplyJudge(NoteType type = NoteType.None, int line = 0)
     {
         int[][] ret;
+        ret = new int[][]
+        {
+            new int[]{0, 0, 0, 0, 0, 0},   /// Normal
+            new int[]{0, 0, 0, 0, 0, 0},   //@ Airial
+            new int[]{0, 0}             //$ Bottom
+        };
+
         if (type == NoteType.None || line == 0)
         {
             int max;
             max = (int)GameManager.gameMode;
-            ret = new int[3][];
-            ret[0] = new int[] { 0, 0, 0, 0, 0 };
-            ret[1] = new int[] { 0, 0, 0, 0, 0 };
-            ret[2] = new int[] { 0, 0 };
+            
             for (int i = 0; i < max; i++)
             {
                 if (normals[i] != null) { ret[0][i] = normals[i].length; }
-                if (airials[i] != null) { ret[1][i] = airials[i].length; }
                 normalObjects[i].SetActive(false);
+
+                if (airials[i] != null) { ret[1][i] = airials[i].length; }
                 airialObjects[i].SetActive(false);
+
                 if (i > 1) { continue; }
+                
                 if (bottoms[i] != null) { ret[2][i] = bottoms[i].length; }
                 bottomObjects[i].SetActive(false);
             }
         }
         else
         {
-            ret = null;   
+            if (line < 1) { return ret; }
+            if (line > (int)GameManager.gameMode) { return ret; }
+
+            int index;
+            index = line - 1;
+
+            switch (type)
+            {
+                case NoteType.Normal:
+                    normalObjects[index].SetActive(false);
+                    ret[0][index] = normals[index].length;
+                    break;
+
+                case NoteType.Airial:
+                    airialObjects[index].SetActive(false);
+                    ret[1][index] = airials[index].length;
+                    break;
+
+                case NoteType.Bottom:
+                    if (index > 1) { break; }
+                    airialObjects[index].SetActive(false);
+                    ret[2][index] = bottoms[index].length;
+                    break;
+
+                default: break;
+            }
         }
         return ret;
     }
@@ -226,7 +262,7 @@ NoteHolder : MonoBehaviour
     public void ApplyGameMode(GameMode mode)
     {
         int lineCount, startPosX;
-        float scaleX, posX;
+        float scaleX, posX = 0;
         bool isActive;
         lineCount = (int)mode;
         startPosX = -120 * (lineCount - 1);
@@ -245,6 +281,8 @@ NoteHolder : MonoBehaviour
             normalObjects[i].SetActive(isActive);
             airialObjects[i].SetActive(isActive);
         }
+
+        gameNoteHolder.ApplyGameMode(ints: new int[] { lineCount, startPosX }, mode: mode);
     }
     public int NoteMaxLength(bool isPos = false)
     {

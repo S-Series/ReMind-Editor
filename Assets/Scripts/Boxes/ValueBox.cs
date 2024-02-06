@@ -45,11 +45,9 @@ public class ValueBox : MonoBehaviour, IPointerClickHandler
         ValueManager.s_Delay = data;
         SpectrumManager.UpdateMusicDelay();
     }
-
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (isBoxOpened) { animator.SetTrigger("Close"); }
-        else { animator.SetTrigger("Open"); }
+        animator.SetTrigger(isBoxOpened ? "Close" : "Open");
         isBoxOpened = !isBoxOpened;
     }
 }

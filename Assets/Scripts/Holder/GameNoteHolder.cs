@@ -98,8 +98,24 @@ public class GameNoteHolder : MonoBehaviour
             else { throw new System.Exception("Judge Line Error (line >= 10)"); }
         }
     }
-    public void ApplyGameMode(GameMode mode)
+    public void ApplyGameMode(int[] ints, GameMode mode)
     {
-        
+        float posX;
+        bool isActive;
+        Vector3 vec3;
+
+        for (int i = 0; i < 6; i++)
+        {
+            isActive = i < ints[0] ? true : false;
+            posX = ints[1] + 240 * i;
+            normalObjects[i].transform.localPosition = new Vector3(posX, 0, 0);
+            airialObjects[i].transform.localPosition = new Vector3(posX, 0, 0);
+            normalObjects[i].SetActive(isActive);
+            airialObjects[i].SetActive(isActive);
+        }
+
+        vec3 = new Vector3(96f / Mathf.Pow(0.815f, (int)mode - 4), 96f, 96f);
+        bottomObjects[0].transform.localScale = vec3;
+        bottomObjects[1].transform.localScale = vec3;
     }
 }

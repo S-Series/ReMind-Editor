@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using TMPro;
 using GameNote;
+using GameData;
 
 public class AutoTest : MonoBehaviour
 {
@@ -15,7 +16,7 @@ public class AutoTest : MonoBehaviour
     public static bool s_isTesting = false;
 
     //private readonly static string[] Trigger = { "100", "Start", "End" };
-    private readonly static string[] Trigger = { "100", "100", "100" };
+    private readonly static string[] s_Trigger = { "100", "100", "100" };
 
     private static int s_HolderIndex = 0;
     private static bool s_isPause = false, s_isEffect = false;
@@ -33,8 +34,17 @@ public class AutoTest : MonoBehaviour
 
     [SerializeField] private InputAction[] inputActions;
 
-    [SerializeField] private Animator[] judgeEffects;
-    [SerializeField] private Animator[] gameJudgeEffects;
+    //# --------------------------------------------------
+    private static Animator[][] judgeEffects;
+    [SerializeField] Animator[] judgeEffects_A;
+    [SerializeField] Animator[] judgeEffects_B;
+    [SerializeField] Animator[] judgeEffects_C;
+    private static Animator[][] gameJudgeEffects;
+    [SerializeField] Animator[] gameJudgeEffects_A;
+    [SerializeField] Animator[] gameJudgeEffects_B;
+    [SerializeField] Animator[] gameJudgeEffects_C;
+
+    //# --------------------------------------------------
     [SerializeField] private AudioSource guideSound;
     [SerializeField] public AudioSource[] judgeSounds;
     [SerializeField] public AudioSource[] judgeLongSounds;
@@ -48,6 +58,19 @@ public class AutoTest : MonoBehaviour
     private void Start()
     {
         MovingField = _MovingField;
+
+        judgeEffects = new Animator[][]
+        {
+            judgeEffects_A,
+            judgeEffects_B,
+            judgeEffects_C
+        };
+        gameJudgeEffects = new Animator[][]
+        {
+            gameJudgeEffects_A,
+            gameJudgeEffects_B,
+            gameJudgeEffects_C
+        };
 
         //# Space
         inputActions[0].performed += item =>
@@ -157,9 +180,33 @@ public class AutoTest : MonoBehaviour
     {
         int[][] data;
         data = holder.ApplyJudge();
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < 6; i++)
         {
-            
+            if (data[0][i] > 0)
+            {
+                judgeEffects[0][i].SetTrigger(s_Trigger[0]);
+                StartCoroutine
+                (ILongNote(
+                    NoteType.Normal,
+                    new int[3]{holder.stdPos, i, data[0][i]},
+                    holder.longMs[i]
+                ));
+            }
+            if (data[1][i] > 0)
+            {
+                judgeEffects[1][i].SetTrigger(s_Trigger[0]);
+            }
+            if (i > 1) { continue; }
+            if (data[2][i] > 0)
+            {
+                judgeEffects[2][i].SetTrigger(s_Trigger[0]);
+                StartCoroutine
+                (ILongNote(
+                    NoteType.Bottom,
+                    new int[3]{holder.stdPos, i, data[0][i]},
+                    holder.longMs[i + 6]
+                ));
+            }
         }
     }
     private void AddCombo()
@@ -183,6 +230,10 @@ public class AutoTest : MonoBehaviour
         ComboRenderer[0].color = new Color32(125, 125, 125, 255);
     }
 
+    public static void ApplyGameMode(GameMode mode)
+    {
+        
+    }
     public static AudioSource[] GetJudgeAudioSource()
     {
         AudioSource[] ret;
@@ -190,6 +241,7 @@ public class AutoTest : MonoBehaviour
         ret.Concat(s_this.judgeLongSounds);
         return ret;
     }
+    
     
     //$ Testing Coroutines
     private static IEnumerator ITesting(int value)
@@ -257,32 +309,31 @@ public class AutoTest : MonoBehaviour
     }
 
     //$ LongNote, EffectNote, etc... Coroutines
-    private IEnumerator ILongNote(int line, NormalNote note, int[] datas)
+    /// <param name="datas"> datas = int[3] {pos, line, length} </param>
+    private IEnumerator ILongNote(NoteType type, int[] datas, int[] judges)
     {
-        int length;
-        length = note.length;
-        if (line > 5) { yield break; }
-        LongJudgeVisualize.s_LJV[line].StartLongVisualize(length, new int[2] 
-            { NoteClass.PosToMs(note.pos), NoteClass.PosToMs(note.pos + note.length * 100)});
-        judgeEffects[line].SetTrigger(Trigger[1]);
-        gameJudgeEffects[line].SetTrigger(Trigger[1]);
+        if (datas[1] > 5) { yield break; }
+        LongJudgeVisualize.s_LJV[datas[1]].
+        StartLongVisualize(
+            datas[2],
+            new int[2] 
+            {
+                NoteClass.PosToMs(datas[0]),
+                NoteClass.PosToMs(datas[0] + datas[2] * 100)
+            }
+        );
 
-        for (int i = 0; i < length;)
+        for (int i = 0; i < datas[2];)
         {
-            if (s_Ms > datas[i])
+            if (s_Ms > judges[i])
             {
                 //! Debug Code
-                judgeEffects[line].SetTrigger(Trigger[1]);
-                gameJudgeEffects[line].SetTrigger(Trigger[1]);
                 //! end
                 AddCombo();
                 i++;
             }
             yield return null;
         }
-
-        judgeEffects[line].SetTrigger(Trigger[2]);
-        gameJudgeEffects[line].SetTrigger(Trigger[2]);
     }
     private IEnumerator IEffect(NoteHolder holder)
     {

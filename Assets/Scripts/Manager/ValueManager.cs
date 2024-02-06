@@ -5,6 +5,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
+public class UserValue
+{
+    public List<int> saveInteger = new List<int>();
+    public List<bool> saveBoolean = new List<bool>();
+    public List<string> saveString = new List<string>();
+    public List<double> saveDouble = new List<double>();
+}
+
 public class ValueManager : MonoBehaviour
 {
     private static ValueManager s_this;
@@ -75,10 +83,4 @@ public class ValueManager : MonoBehaviour
     }
 }
 
-public class UserValue
-{
-    public List<int> saveInteger = new List<int>();
-    public List<bool> saveBoolean = new List<bool>();
-    public List<string> saveString = new List<string>();
-    public List<double> saveDouble = new List<double>();
-}
+
