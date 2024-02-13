@@ -1,15 +1,17 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayInputManager : MonoBehaviour
 {
     public static PlayInputManager s_PlayInputManager;
+    public static bool s_isRebindable = false;
 
     private PlayerInput playerInput;
-    private readonly string[] ActionMap 
-        = {"Preset01", "Preset02", "Preset03", "Preset04", "User"};
+    private readonly string[] ActionMap = { "Preset01", "Preset02", "User" };
     [SerializeField] InputPlay test;
 
     private void Awake()
@@ -21,36 +23,38 @@ public class PlayInputManager : MonoBehaviour
     {
         SetupInputAction();
     }
-    private void Update()
-    {
-        UpdateInputAction();
-    }
-
     private void SetupInputAction()
     {
         playerInput.DeactivateInput();
         for (int i = 0; i < ActionMap.Length; i++)
         {
-            playerInput.SwitchCurrentActionMap(ActionMap[i]);
-            for (int j = 0; j < 4; j++)
-            {
-                playerInput.actions[string.Format("Line A 0{0}", j + 1)].performed
-                    += item => { JudgeAction(j + 1); };
-                playerInput.actions[string.Format("Line B 0{0}", j + 1)].performed
-                    += item => { JudgeAction(j + 1); };
-            }
-            playerInput.actions["Side - L"].performed += item => { JudgeAction(5); };
-            playerInput.actions["Side - R"].performed += item => { JudgeAction(6); };
+            playerInput.actions["Type A-01"].performed += item => { JudgeAction(1); };
+            playerInput.actions["Type B-01"].performed += item => { JudgeAction(1); };
+            playerInput.actions["Type A-02"].performed += item => { JudgeAction(2); };
+            playerInput.actions["Type B-02"].performed += item => { JudgeAction(2); };
+            playerInput.actions["Type A-03"].performed += item => { JudgeAction(3); };
+            playerInput.actions["Type B-03"].performed += item => { JudgeAction(3); };
+            playerInput.actions["Type A-04"].performed += item => { JudgeAction(4); };
+            playerInput.actions["Type B-04"].performed += item => { JudgeAction(4); };
+            playerInput.actions["Type A-05"].performed += item => { JudgeAction(5); };
+            playerInput.actions["Type B-05"].performed += item => { JudgeAction(5); };
+            playerInput.actions["Side - L"].performed += item => { JudgeAction(-1); };
+            playerInput.actions["Side - R"].performed += item => { JudgeAction(-2); };
         }
+        playerInput.SwitchCurrentActionMap(ActionMap[0]);
         playerInput.ActivateInput();
     }
-    private void UpdateInputAction()
-    {
-        
-    }
-
     private void JudgeAction(int line)
     {
         print(line);
+    }
+    public void DropdownPreset(TMP_Dropdown dropdown)
+    {
+        int index;
+        index = dropdown.value;
+        playerInput.DeactivateInput();
+        playerInput.SwitchCurrentActionMap(ActionMap[index]);
+        playerInput.ActivateInput();
+        s_isRebindable = ActionMap[index] == "User" ? true : false;
     }
 }

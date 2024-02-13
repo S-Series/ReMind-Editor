@@ -3,16 +3,20 @@ using UnityEngine.InputSystem;
 
 public class RebindSaveLoad : MonoBehaviour
 {
-    public InputActionAsset actions;
+    public InputActionAsset _actions;
+    private static InputActionAsset actions;
 
-    public void OnEnable()
+    void Awake()
+    {
+        if (actions == null) { actions = _actions; }
+    }
+    public static void LoadBinding()
     {
         var rebinds = PlayerPrefs.GetString("rebinds");
         if (!string.IsNullOrEmpty(rebinds))
             actions.LoadBindingOverridesFromJson(rebinds);
     }
-
-    public void OnDisable()
+    public static void SaveBinding()
     {
         var rebinds = actions.SaveBindingOverridesAsJson();
         PlayerPrefs.SetString("rebinds", rebinds);

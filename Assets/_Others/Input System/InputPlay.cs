@@ -28,7 +28,7 @@ public partial class @InputPlay: IInputActionCollection2, IDisposable
             ""id"": ""15f931f2-c276-4d50-9ff2-2ffe5fa710e4"",
             ""actions"": [
                 {
-                    ""name"": ""Line A 01"",
+                    ""name"": ""Type A-01"",
                     ""type"": ""Button"",
                     ""id"": ""d6d04f90-0873-46d6-94f1-c038f27e40e3"",
                     ""expectedControlType"": ""Button"",
@@ -37,7 +37,7 @@ public partial class @InputPlay: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Line A 02"",
+                    ""name"": ""Type A-02"",
                     ""type"": ""Button"",
                     ""id"": ""6fd5e7a5-0a6b-4e25-a9ca-6db093fe0d43"",
                     ""expectedControlType"": ""Button"",
@@ -46,7 +46,7 @@ public partial class @InputPlay: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Line A 03"",
+                    ""name"": ""Type A-03"",
                     ""type"": ""Button"",
                     ""id"": ""5c5ba3a5-5eed-4bb0-89a6-0edbc97c87b3"",
                     ""expectedControlType"": ""Button"",
@@ -55,7 +55,7 @@ public partial class @InputPlay: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Line A 04"",
+                    ""name"": ""Type A-04"",
                     ""type"": ""Button"",
                     ""id"": ""4d079a9a-bd0e-4fa7-9dbb-eab83f185d21"",
                     ""expectedControlType"": ""Button"",
@@ -64,7 +64,16 @@ public partial class @InputPlay: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Line B 01"",
+                    ""name"": ""Type A-05"",
+                    ""type"": ""Button"",
+                    ""id"": ""42388ba7-b13f-47b4-b46b-ba1ecf8a852d"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press"",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Type B-01"",
                     ""type"": ""Button"",
                     ""id"": ""9431aa32-fdd0-4920-8d59-ff571abd2998"",
                     ""expectedControlType"": ""Button"",
@@ -73,7 +82,7 @@ public partial class @InputPlay: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Line B 02"",
+                    ""name"": ""Type B-02"",
                     ""type"": ""Button"",
                     ""id"": ""e6f574c7-028e-471b-95bc-87aee66ff82f"",
                     ""expectedControlType"": ""Button"",
@@ -82,7 +91,7 @@ public partial class @InputPlay: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Line B 03"",
+                    ""name"": ""Type B-03"",
                     ""type"": ""Button"",
                     ""id"": ""604385b0-b8eb-48d9-93a0-cb0ab79e27e1"",
                     ""expectedControlType"": ""Button"",
@@ -91,9 +100,18 @@ public partial class @InputPlay: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Line B 04"",
+                    ""name"": ""Type B-04"",
                     ""type"": ""Button"",
                     ""id"": ""71fdfac4-0a51-4e29-bc62-da44bbe65d40"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press"",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Type B-05"",
+                    ""type"": ""Button"",
+                    ""id"": ""e4da5f1c-ddec-4f25-917f-2463f0be3fa8"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": ""Press"",
@@ -126,7 +144,7 @@ public partial class @InputPlay: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Line A 01"",
+                    ""action"": ""Type A-01"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -137,7 +155,7 @@ public partial class @InputPlay: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Line B 01"",
+                    ""action"": ""Type B-01"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -148,7 +166,7 @@ public partial class @InputPlay: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Line A 02"",
+                    ""action"": ""Type A-02"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -159,7 +177,7 @@ public partial class @InputPlay: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Line A 03"",
+                    ""action"": ""Type A-03"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -170,7 +188,7 @@ public partial class @InputPlay: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Line A 04"",
+                    ""action"": ""Type A-04"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -181,7 +199,7 @@ public partial class @InputPlay: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Line B 02"",
+                    ""action"": ""Type B-02"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -192,7 +210,7 @@ public partial class @InputPlay: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Line B 03"",
+                    ""action"": ""Type B-03"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -203,7 +221,7 @@ public partial class @InputPlay: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Line B 04"",
+                    ""action"": ""Type B-04"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -228,80 +246,120 @@ public partial class @InputPlay: IInputActionCollection2, IDisposable
                     ""action"": ""Side - R"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""fbbde308-8fc3-4ca8-b807-5f0feab68631"",
+                    ""path"": ""<Keyboard>/b"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Type A-05"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b874ab45-9c66-4681-a3e7-83b722044293"",
+                    ""path"": ""<Keyboard>/n"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Type B-05"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
         {
             ""name"": ""Preset02"",
-            ""id"": ""65cc014e-6ae8-4afe-a739-05356880ef07"",
+            ""id"": ""ab712930-5971-4d56-b420-3ef48330fa7b"",
             ""actions"": [
                 {
-                    ""name"": ""Line A 01"",
+                    ""name"": ""Type A-01"",
                     ""type"": ""Button"",
-                    ""id"": ""8f74dbc4-64a4-40d6-8adf-09d48d510918"",
+                    ""id"": ""6a7d862b-dcc9-4498-a36e-9d76704911e3"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": ""Press"",
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Line A 02"",
+                    ""name"": ""Type A-02"",
                     ""type"": ""Button"",
-                    ""id"": ""9f2c9349-7da7-42f4-8af1-8f15a27cb6a0"",
+                    ""id"": ""4976d960-d09f-46e3-bfc0-8e99d62b826a"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": ""Press"",
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Line A 03"",
+                    ""name"": ""Type A-03"",
                     ""type"": ""Button"",
-                    ""id"": ""41161cca-858a-44e1-950a-acaa05715761"",
+                    ""id"": ""5b6e9fb4-77bb-4f19-8254-e5ad0aafdf79"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": ""Press"",
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Line A 04"",
+                    ""name"": ""Type A-04"",
                     ""type"": ""Button"",
-                    ""id"": ""cb2328d3-52b3-4232-b5df-335d88ad8d14"",
+                    ""id"": ""3651ba3e-0e45-4bb9-9114-e64ace0c5fb6"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": ""Press"",
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Line B 01"",
+                    ""name"": ""Type A-05"",
                     ""type"": ""Button"",
-                    ""id"": ""2f7965da-5246-469d-acf3-edb98ff28847"",
+                    ""id"": ""72ab14d6-1a22-46a7-b5e8-69aabece9612"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": ""Press"",
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Line B 02"",
+                    ""name"": ""Type B-01"",
                     ""type"": ""Button"",
-                    ""id"": ""9eefb62e-10f3-4d21-afe9-47832a6bab19"",
+                    ""id"": ""dd93058f-0c8f-43dd-a365-a458c5164382"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": ""Press"",
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Line B 03"",
+                    ""name"": ""Type B-02"",
                     ""type"": ""Button"",
-                    ""id"": ""ebe58f30-ac29-4e59-bfdc-bc9738804811"",
+                    ""id"": ""bb43e303-591a-47ae-b54a-0143451b9ea9"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": ""Press"",
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Line B 04"",
+                    ""name"": ""Type B-03"",
                     ""type"": ""Button"",
-                    ""id"": ""82770b30-192d-4dd1-aae6-a1c6a628b2fb"",
+                    ""id"": ""e301a0c9-ff1e-4674-938b-76cb63ec52ea"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press"",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Type B-04"",
+                    ""type"": ""Button"",
+                    ""id"": ""4afb56ff-323a-4d93-be96-bcb743ab8846"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press"",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Type B-05"",
+                    ""type"": ""Button"",
+                    ""id"": ""2d11639a-a3f5-4a11-b436-1996a58a9016"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": ""Press"",
@@ -310,7 +368,7 @@ public partial class @InputPlay: IInputActionCollection2, IDisposable
                 {
                     ""name"": ""Side - L"",
                     ""type"": ""Button"",
-                    ""id"": ""199a2ee1-63a3-4294-a8a9-52df885498bb"",
+                    ""id"": ""0d92f027-defd-469a-9b3f-729bf77db694"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": ""Press"",
@@ -319,7 +377,7 @@ public partial class @InputPlay: IInputActionCollection2, IDisposable
                 {
                     ""name"": ""Side - R"",
                     ""type"": ""Button"",
-                    ""id"": ""307fc084-0810-4ded-a096-d0c6d263f459"",
+                    ""id"": ""8cdf404d-9510-4cb3-bca6-9a42e035377b"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": ""Press"",
@@ -329,527 +387,133 @@ public partial class @InputPlay: IInputActionCollection2, IDisposable
             ""bindings"": [
                 {
                     ""name"": """",
-                    ""id"": ""ddb2d717-fb86-4654-8cbc-1f4fe56cc59a"",
+                    ""id"": ""b52fb560-6db8-4f84-a832-293b752ac020"",
                     ""path"": ""<Keyboard>/a"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Line A 01"",
+                    ""action"": ""Type A-01"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
-                    ""id"": ""baf2a132-c688-44ad-b9f6-5366d8da093d"",
-                    ""path"": ""<Keyboard>/k"",
+                    ""id"": ""a2465a2e-405e-4995-8e21-59231807cc28"",
+                    ""path"": ""<Keyboard>/j"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Line B 01"",
+                    ""action"": ""Type B-01"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
-                    ""id"": ""a6220284-f2a6-496d-a7d5-62170c1dcdc5"",
+                    ""id"": ""84b7dc68-c5a9-451e-880d-0301f19868cb"",
                     ""path"": ""<Keyboard>/s"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Line A 02"",
+                    ""action"": ""Type A-02"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
-                    ""id"": ""85224b62-9c4b-4fb0-be4c-6bd238838d1d"",
+                    ""id"": ""b7471983-791e-4c97-932b-41270cc6c2c8"",
                     ""path"": ""<Keyboard>/d"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Line A 03"",
+                    ""action"": ""Type A-03"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
-                    ""id"": ""5ee15ba1-0338-4cfa-ade0-4cafba60b9e2"",
+                    ""id"": ""a3a57b06-24a7-478a-a2b2-396c26ba81da"",
                     ""path"": ""<Keyboard>/f"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Line A 04"",
+                    ""action"": ""Type A-04"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
-                    ""id"": ""723d6f4a-f56c-4a92-bfac-7d50d9661905"",
+                    ""id"": ""ef206ba9-221d-43e4-8c49-18c8bb02fee1"",
+                    ""path"": ""<Keyboard>/k"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Type B-02"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""10753197-ff44-42eb-a7a5-0d7298d2064f"",
                     ""path"": ""<Keyboard>/l"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Line B 02"",
+                    ""action"": ""Type B-03"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
-                    ""id"": ""67f2eb69-698c-4526-8db6-ac38b2a6b560"",
+                    ""id"": ""3bcbe59f-6755-41e0-a586-61d9be6d8767"",
                     ""path"": ""<Keyboard>/semicolon"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Line B 03"",
+                    ""action"": ""Type B-04"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
-                    ""id"": ""5b9d1c38-5a65-4dc1-bf43-5a1b15c0844e"",
+                    ""id"": ""ad7d9f23-107e-44dd-b912-a80e919474e5"",
+                    ""path"": ""<Keyboard>/leftShift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Side - L"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""76e51429-39d2-402e-aac8-33ef1ea7746f"",
+                    ""path"": ""<Keyboard>/rightShift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Side - R"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""dfb17451-62ae-4147-9654-071bbeca403f"",
+                    ""path"": ""<Keyboard>/g"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Type A-05"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""33d781ec-7d35-4f4d-8f65-7880e59d4cd6"",
                     ""path"": ""<Keyboard>/quote"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Line B 04"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""45b162c1-28eb-4bff-b5a8-f69b6d8f4d53"",
-                    ""path"": ""<Keyboard>/leftShift"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Side - L"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""409e1493-3d74-47c7-851b-97eb0df14cc0"",
-                    ""path"": ""<Keyboard>/rightShift"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Side - R"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                }
-            ]
-        },
-        {
-            ""name"": ""Preset03"",
-            ""id"": ""f63d17a2-af6f-4ed9-b534-b9cd3d126596"",
-            ""actions"": [
-                {
-                    ""name"": ""Line A 01"",
-                    ""type"": ""Button"",
-                    ""id"": ""d5a9fe86-dbca-4c93-b814-372fda571554"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": ""Press"",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Line A 02"",
-                    ""type"": ""Button"",
-                    ""id"": ""247c2744-1233-44be-a678-604f0a0e8615"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": ""Press"",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Line A 03"",
-                    ""type"": ""Button"",
-                    ""id"": ""bebc75b3-96b8-487c-82d6-a5e0d9b2db28"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": ""Press"",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Line A 04"",
-                    ""type"": ""Button"",
-                    ""id"": ""ed1bc20a-7e07-4098-ad43-442ecaa07d37"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": ""Press"",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Line B 01"",
-                    ""type"": ""Button"",
-                    ""id"": ""b477a8f4-30a7-48db-8834-5d24300a2ff3"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": ""Press"",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Line B 02"",
-                    ""type"": ""Button"",
-                    ""id"": ""21fb529d-3573-4882-8f87-c4af6b83857b"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": ""Press"",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Line B 03"",
-                    ""type"": ""Button"",
-                    ""id"": ""97e27e10-59d2-43ff-b0ee-df3ffcfa565c"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": ""Press"",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Line B 04"",
-                    ""type"": ""Button"",
-                    ""id"": ""6efd570a-b579-4c56-801c-140b387f1be7"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": ""Press"",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Side - L"",
-                    ""type"": ""Button"",
-                    ""id"": ""3f716dee-2d12-4282-90c2-53724d874fb0"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": ""Press"",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Side - R"",
-                    ""type"": ""Button"",
-                    ""id"": ""f41bbe4d-7500-4cfe-8bdb-9478d73faa4d"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": ""Press"",
-                    ""initialStateCheck"": false
-                }
-            ],
-            ""bindings"": [
-                {
-                    ""name"": """",
-                    ""id"": ""95665d4e-ad4a-49cc-951a-157a41d2cfac"",
-                    ""path"": ""<Keyboard>/3"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Line A 01"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""e822d557-9dec-4717-9f49-01199941572e"",
-                    ""path"": ""<Keyboard>/m"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Line B 01"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""ab8c19a9-2787-4cc8-9718-a0c11c996edb"",
-                    ""path"": ""<Keyboard>/x"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Line A 02"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""31a13597-d8ab-41ed-a15b-b49ff5810a99"",
-                    ""path"": ""<Keyboard>/c"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Line A 03"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""a61a1000-9619-4d74-97e2-5d2f8a2d4d19"",
-                    ""path"": ""<Keyboard>/v"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Line A 04"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""33782c1e-2ac8-4484-9ddd-4ad77d94c2f5"",
-                    ""path"": ""<Keyboard>/comma"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Line B 02"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""3c5a2cd9-c6ea-4a17-830f-a1e79cca2e25"",
-                    ""path"": ""<Keyboard>/period"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Line B 03"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""9871009d-c1af-4da5-965b-9e35fa3343a6"",
-                    ""path"": ""<Keyboard>/slash"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Line B 04"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""dd120a51-b31b-4da8-b2d6-99b3a343afdf"",
-                    ""path"": ""<Keyboard>/leftShift"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Side - L"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""0341c6bb-deaf-40f2-9450-6ceee0e52bc6"",
-                    ""path"": ""<Keyboard>/rightShift"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Side - R"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                }
-            ]
-        },
-        {
-            ""name"": ""Preset04"",
-            ""id"": ""d42cc8bf-64a4-41d1-a113-f3838949f47f"",
-            ""actions"": [
-                {
-                    ""name"": ""Line A 01"",
-                    ""type"": ""Button"",
-                    ""id"": ""81f48420-caeb-45fe-a500-ec3562730730"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": ""Press"",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Line A 02"",
-                    ""type"": ""Button"",
-                    ""id"": ""ff96e5d1-c360-4192-b16d-b968a292620f"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": ""Press"",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Line A 03"",
-                    ""type"": ""Button"",
-                    ""id"": ""c92702c9-72fd-426c-a945-6661c664c124"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": ""Press"",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Line A 04"",
-                    ""type"": ""Button"",
-                    ""id"": ""836ab537-0d63-43d0-80f0-3b79fdd0f47c"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": ""Press"",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Line B 01"",
-                    ""type"": ""Button"",
-                    ""id"": ""cd308986-3978-4597-abf8-cf30d0ccf49c"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": ""Press"",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Line B 02"",
-                    ""type"": ""Button"",
-                    ""id"": ""792103d0-9bc8-4916-ac0f-e405ccf5f992"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": ""Press"",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Line B 03"",
-                    ""type"": ""Button"",
-                    ""id"": ""94e8f977-92ed-4bfb-bf2e-4f65db687d62"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": ""Press"",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Line B 04"",
-                    ""type"": ""Button"",
-                    ""id"": ""9670ab7a-9b7e-411f-b612-9c84f21e5723"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": ""Press"",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Side - L"",
-                    ""type"": ""Button"",
-                    ""id"": ""d498e089-de42-48e8-9d9b-99d974182f4f"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": ""Press"",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Side - R"",
-                    ""type"": ""Button"",
-                    ""id"": ""28ea69b8-3def-406c-afc2-ef5b55487e4d"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": ""Press"",
-                    ""initialStateCheck"": false
-                }
-            ],
-            ""bindings"": [
-                {
-                    ""name"": """",
-                    ""id"": ""309cbfc1-eddd-429c-b747-c5f7f0210715"",
-                    ""path"": ""<Keyboard>/4"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Line A 01"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""881d429f-471e-4824-b9fe-215256579ba9"",
-                    ""path"": ""<Keyboard>/m"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Line B 01"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""fbf06ec2-63bf-4dbb-9e90-65555db10f25"",
-                    ""path"": ""<Keyboard>/x"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Line A 02"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""07c7d4a3-6398-446a-a9b6-079a8da709f5"",
-                    ""path"": ""<Keyboard>/c"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Line A 03"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""49eb3ef5-2485-48cf-b958-021fcae89cf1"",
-                    ""path"": ""<Keyboard>/v"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Line A 04"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""4270127f-44ca-4401-87c2-f801c531066e"",
-                    ""path"": ""<Keyboard>/comma"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Line B 02"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""5c969c36-8ce2-4b82-a3e2-a5c91ba563a0"",
-                    ""path"": ""<Keyboard>/period"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Line B 03"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""ea20f52b-8c9d-4bd1-87bf-fa5ebfd590bf"",
-                    ""path"": ""<Keyboard>/slash"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Line B 04"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""de75ad4a-5b2e-48ae-a1b9-29865ab1dac8"",
-                    ""path"": ""<Keyboard>/leftShift"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Side - L"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""d7462f12-6f02-4e51-9379-7806bd431084"",
-                    ""path"": ""<Keyboard>/rightShift"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Side - R"",
+                    ""action"": ""Type B-05"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1080,52 +744,32 @@ public partial class @InputPlay: IInputActionCollection2, IDisposable
 }");
         // Preset01
         m_Preset01 = asset.FindActionMap("Preset01", throwIfNotFound: true);
-        m_Preset01_LineA01 = m_Preset01.FindAction("Line A 01", throwIfNotFound: true);
-        m_Preset01_LineA02 = m_Preset01.FindAction("Line A 02", throwIfNotFound: true);
-        m_Preset01_LineA03 = m_Preset01.FindAction("Line A 03", throwIfNotFound: true);
-        m_Preset01_LineA04 = m_Preset01.FindAction("Line A 04", throwIfNotFound: true);
-        m_Preset01_LineB01 = m_Preset01.FindAction("Line B 01", throwIfNotFound: true);
-        m_Preset01_LineB02 = m_Preset01.FindAction("Line B 02", throwIfNotFound: true);
-        m_Preset01_LineB03 = m_Preset01.FindAction("Line B 03", throwIfNotFound: true);
-        m_Preset01_LineB04 = m_Preset01.FindAction("Line B 04", throwIfNotFound: true);
+        m_Preset01_TypeA01 = m_Preset01.FindAction("Type A-01", throwIfNotFound: true);
+        m_Preset01_TypeA02 = m_Preset01.FindAction("Type A-02", throwIfNotFound: true);
+        m_Preset01_TypeA03 = m_Preset01.FindAction("Type A-03", throwIfNotFound: true);
+        m_Preset01_TypeA04 = m_Preset01.FindAction("Type A-04", throwIfNotFound: true);
+        m_Preset01_TypeA05 = m_Preset01.FindAction("Type A-05", throwIfNotFound: true);
+        m_Preset01_TypeB01 = m_Preset01.FindAction("Type B-01", throwIfNotFound: true);
+        m_Preset01_TypeB02 = m_Preset01.FindAction("Type B-02", throwIfNotFound: true);
+        m_Preset01_TypeB03 = m_Preset01.FindAction("Type B-03", throwIfNotFound: true);
+        m_Preset01_TypeB04 = m_Preset01.FindAction("Type B-04", throwIfNotFound: true);
+        m_Preset01_TypeB05 = m_Preset01.FindAction("Type B-05", throwIfNotFound: true);
         m_Preset01_SideL = m_Preset01.FindAction("Side - L", throwIfNotFound: true);
         m_Preset01_SideR = m_Preset01.FindAction("Side - R", throwIfNotFound: true);
         // Preset02
         m_Preset02 = asset.FindActionMap("Preset02", throwIfNotFound: true);
-        m_Preset02_LineA01 = m_Preset02.FindAction("Line A 01", throwIfNotFound: true);
-        m_Preset02_LineA02 = m_Preset02.FindAction("Line A 02", throwIfNotFound: true);
-        m_Preset02_LineA03 = m_Preset02.FindAction("Line A 03", throwIfNotFound: true);
-        m_Preset02_LineA04 = m_Preset02.FindAction("Line A 04", throwIfNotFound: true);
-        m_Preset02_LineB01 = m_Preset02.FindAction("Line B 01", throwIfNotFound: true);
-        m_Preset02_LineB02 = m_Preset02.FindAction("Line B 02", throwIfNotFound: true);
-        m_Preset02_LineB03 = m_Preset02.FindAction("Line B 03", throwIfNotFound: true);
-        m_Preset02_LineB04 = m_Preset02.FindAction("Line B 04", throwIfNotFound: true);
+        m_Preset02_TypeA01 = m_Preset02.FindAction("Type A-01", throwIfNotFound: true);
+        m_Preset02_TypeA02 = m_Preset02.FindAction("Type A-02", throwIfNotFound: true);
+        m_Preset02_TypeA03 = m_Preset02.FindAction("Type A-03", throwIfNotFound: true);
+        m_Preset02_TypeA04 = m_Preset02.FindAction("Type A-04", throwIfNotFound: true);
+        m_Preset02_TypeA05 = m_Preset02.FindAction("Type A-05", throwIfNotFound: true);
+        m_Preset02_TypeB01 = m_Preset02.FindAction("Type B-01", throwIfNotFound: true);
+        m_Preset02_TypeB02 = m_Preset02.FindAction("Type B-02", throwIfNotFound: true);
+        m_Preset02_TypeB03 = m_Preset02.FindAction("Type B-03", throwIfNotFound: true);
+        m_Preset02_TypeB04 = m_Preset02.FindAction("Type B-04", throwIfNotFound: true);
+        m_Preset02_TypeB05 = m_Preset02.FindAction("Type B-05", throwIfNotFound: true);
         m_Preset02_SideL = m_Preset02.FindAction("Side - L", throwIfNotFound: true);
         m_Preset02_SideR = m_Preset02.FindAction("Side - R", throwIfNotFound: true);
-        // Preset03
-        m_Preset03 = asset.FindActionMap("Preset03", throwIfNotFound: true);
-        m_Preset03_LineA01 = m_Preset03.FindAction("Line A 01", throwIfNotFound: true);
-        m_Preset03_LineA02 = m_Preset03.FindAction("Line A 02", throwIfNotFound: true);
-        m_Preset03_LineA03 = m_Preset03.FindAction("Line A 03", throwIfNotFound: true);
-        m_Preset03_LineA04 = m_Preset03.FindAction("Line A 04", throwIfNotFound: true);
-        m_Preset03_LineB01 = m_Preset03.FindAction("Line B 01", throwIfNotFound: true);
-        m_Preset03_LineB02 = m_Preset03.FindAction("Line B 02", throwIfNotFound: true);
-        m_Preset03_LineB03 = m_Preset03.FindAction("Line B 03", throwIfNotFound: true);
-        m_Preset03_LineB04 = m_Preset03.FindAction("Line B 04", throwIfNotFound: true);
-        m_Preset03_SideL = m_Preset03.FindAction("Side - L", throwIfNotFound: true);
-        m_Preset03_SideR = m_Preset03.FindAction("Side - R", throwIfNotFound: true);
-        // Preset04
-        m_Preset04 = asset.FindActionMap("Preset04", throwIfNotFound: true);
-        m_Preset04_LineA01 = m_Preset04.FindAction("Line A 01", throwIfNotFound: true);
-        m_Preset04_LineA02 = m_Preset04.FindAction("Line A 02", throwIfNotFound: true);
-        m_Preset04_LineA03 = m_Preset04.FindAction("Line A 03", throwIfNotFound: true);
-        m_Preset04_LineA04 = m_Preset04.FindAction("Line A 04", throwIfNotFound: true);
-        m_Preset04_LineB01 = m_Preset04.FindAction("Line B 01", throwIfNotFound: true);
-        m_Preset04_LineB02 = m_Preset04.FindAction("Line B 02", throwIfNotFound: true);
-        m_Preset04_LineB03 = m_Preset04.FindAction("Line B 03", throwIfNotFound: true);
-        m_Preset04_LineB04 = m_Preset04.FindAction("Line B 04", throwIfNotFound: true);
-        m_Preset04_SideL = m_Preset04.FindAction("Side - L", throwIfNotFound: true);
-        m_Preset04_SideR = m_Preset04.FindAction("Side - R", throwIfNotFound: true);
         // User
         m_User = asset.FindActionMap("User", throwIfNotFound: true);
         m_User_LineA01 = m_User.FindAction("Line A 01", throwIfNotFound: true);
@@ -1199,28 +843,32 @@ public partial class @InputPlay: IInputActionCollection2, IDisposable
     // Preset01
     private readonly InputActionMap m_Preset01;
     private List<IPreset01Actions> m_Preset01ActionsCallbackInterfaces = new List<IPreset01Actions>();
-    private readonly InputAction m_Preset01_LineA01;
-    private readonly InputAction m_Preset01_LineA02;
-    private readonly InputAction m_Preset01_LineA03;
-    private readonly InputAction m_Preset01_LineA04;
-    private readonly InputAction m_Preset01_LineB01;
-    private readonly InputAction m_Preset01_LineB02;
-    private readonly InputAction m_Preset01_LineB03;
-    private readonly InputAction m_Preset01_LineB04;
+    private readonly InputAction m_Preset01_TypeA01;
+    private readonly InputAction m_Preset01_TypeA02;
+    private readonly InputAction m_Preset01_TypeA03;
+    private readonly InputAction m_Preset01_TypeA04;
+    private readonly InputAction m_Preset01_TypeA05;
+    private readonly InputAction m_Preset01_TypeB01;
+    private readonly InputAction m_Preset01_TypeB02;
+    private readonly InputAction m_Preset01_TypeB03;
+    private readonly InputAction m_Preset01_TypeB04;
+    private readonly InputAction m_Preset01_TypeB05;
     private readonly InputAction m_Preset01_SideL;
     private readonly InputAction m_Preset01_SideR;
     public struct Preset01Actions
     {
         private @InputPlay m_Wrapper;
         public Preset01Actions(@InputPlay wrapper) { m_Wrapper = wrapper; }
-        public InputAction @LineA01 => m_Wrapper.m_Preset01_LineA01;
-        public InputAction @LineA02 => m_Wrapper.m_Preset01_LineA02;
-        public InputAction @LineA03 => m_Wrapper.m_Preset01_LineA03;
-        public InputAction @LineA04 => m_Wrapper.m_Preset01_LineA04;
-        public InputAction @LineB01 => m_Wrapper.m_Preset01_LineB01;
-        public InputAction @LineB02 => m_Wrapper.m_Preset01_LineB02;
-        public InputAction @LineB03 => m_Wrapper.m_Preset01_LineB03;
-        public InputAction @LineB04 => m_Wrapper.m_Preset01_LineB04;
+        public InputAction @TypeA01 => m_Wrapper.m_Preset01_TypeA01;
+        public InputAction @TypeA02 => m_Wrapper.m_Preset01_TypeA02;
+        public InputAction @TypeA03 => m_Wrapper.m_Preset01_TypeA03;
+        public InputAction @TypeA04 => m_Wrapper.m_Preset01_TypeA04;
+        public InputAction @TypeA05 => m_Wrapper.m_Preset01_TypeA05;
+        public InputAction @TypeB01 => m_Wrapper.m_Preset01_TypeB01;
+        public InputAction @TypeB02 => m_Wrapper.m_Preset01_TypeB02;
+        public InputAction @TypeB03 => m_Wrapper.m_Preset01_TypeB03;
+        public InputAction @TypeB04 => m_Wrapper.m_Preset01_TypeB04;
+        public InputAction @TypeB05 => m_Wrapper.m_Preset01_TypeB05;
         public InputAction @SideL => m_Wrapper.m_Preset01_SideL;
         public InputAction @SideR => m_Wrapper.m_Preset01_SideR;
         public InputActionMap Get() { return m_Wrapper.m_Preset01; }
@@ -1232,30 +880,36 @@ public partial class @InputPlay: IInputActionCollection2, IDisposable
         {
             if (instance == null || m_Wrapper.m_Preset01ActionsCallbackInterfaces.Contains(instance)) return;
             m_Wrapper.m_Preset01ActionsCallbackInterfaces.Add(instance);
-            @LineA01.started += instance.OnLineA01;
-            @LineA01.performed += instance.OnLineA01;
-            @LineA01.canceled += instance.OnLineA01;
-            @LineA02.started += instance.OnLineA02;
-            @LineA02.performed += instance.OnLineA02;
-            @LineA02.canceled += instance.OnLineA02;
-            @LineA03.started += instance.OnLineA03;
-            @LineA03.performed += instance.OnLineA03;
-            @LineA03.canceled += instance.OnLineA03;
-            @LineA04.started += instance.OnLineA04;
-            @LineA04.performed += instance.OnLineA04;
-            @LineA04.canceled += instance.OnLineA04;
-            @LineB01.started += instance.OnLineB01;
-            @LineB01.performed += instance.OnLineB01;
-            @LineB01.canceled += instance.OnLineB01;
-            @LineB02.started += instance.OnLineB02;
-            @LineB02.performed += instance.OnLineB02;
-            @LineB02.canceled += instance.OnLineB02;
-            @LineB03.started += instance.OnLineB03;
-            @LineB03.performed += instance.OnLineB03;
-            @LineB03.canceled += instance.OnLineB03;
-            @LineB04.started += instance.OnLineB04;
-            @LineB04.performed += instance.OnLineB04;
-            @LineB04.canceled += instance.OnLineB04;
+            @TypeA01.started += instance.OnTypeA01;
+            @TypeA01.performed += instance.OnTypeA01;
+            @TypeA01.canceled += instance.OnTypeA01;
+            @TypeA02.started += instance.OnTypeA02;
+            @TypeA02.performed += instance.OnTypeA02;
+            @TypeA02.canceled += instance.OnTypeA02;
+            @TypeA03.started += instance.OnTypeA03;
+            @TypeA03.performed += instance.OnTypeA03;
+            @TypeA03.canceled += instance.OnTypeA03;
+            @TypeA04.started += instance.OnTypeA04;
+            @TypeA04.performed += instance.OnTypeA04;
+            @TypeA04.canceled += instance.OnTypeA04;
+            @TypeA05.started += instance.OnTypeA05;
+            @TypeA05.performed += instance.OnTypeA05;
+            @TypeA05.canceled += instance.OnTypeA05;
+            @TypeB01.started += instance.OnTypeB01;
+            @TypeB01.performed += instance.OnTypeB01;
+            @TypeB01.canceled += instance.OnTypeB01;
+            @TypeB02.started += instance.OnTypeB02;
+            @TypeB02.performed += instance.OnTypeB02;
+            @TypeB02.canceled += instance.OnTypeB02;
+            @TypeB03.started += instance.OnTypeB03;
+            @TypeB03.performed += instance.OnTypeB03;
+            @TypeB03.canceled += instance.OnTypeB03;
+            @TypeB04.started += instance.OnTypeB04;
+            @TypeB04.performed += instance.OnTypeB04;
+            @TypeB04.canceled += instance.OnTypeB04;
+            @TypeB05.started += instance.OnTypeB05;
+            @TypeB05.performed += instance.OnTypeB05;
+            @TypeB05.canceled += instance.OnTypeB05;
             @SideL.started += instance.OnSideL;
             @SideL.performed += instance.OnSideL;
             @SideL.canceled += instance.OnSideL;
@@ -1266,30 +920,36 @@ public partial class @InputPlay: IInputActionCollection2, IDisposable
 
         private void UnregisterCallbacks(IPreset01Actions instance)
         {
-            @LineA01.started -= instance.OnLineA01;
-            @LineA01.performed -= instance.OnLineA01;
-            @LineA01.canceled -= instance.OnLineA01;
-            @LineA02.started -= instance.OnLineA02;
-            @LineA02.performed -= instance.OnLineA02;
-            @LineA02.canceled -= instance.OnLineA02;
-            @LineA03.started -= instance.OnLineA03;
-            @LineA03.performed -= instance.OnLineA03;
-            @LineA03.canceled -= instance.OnLineA03;
-            @LineA04.started -= instance.OnLineA04;
-            @LineA04.performed -= instance.OnLineA04;
-            @LineA04.canceled -= instance.OnLineA04;
-            @LineB01.started -= instance.OnLineB01;
-            @LineB01.performed -= instance.OnLineB01;
-            @LineB01.canceled -= instance.OnLineB01;
-            @LineB02.started -= instance.OnLineB02;
-            @LineB02.performed -= instance.OnLineB02;
-            @LineB02.canceled -= instance.OnLineB02;
-            @LineB03.started -= instance.OnLineB03;
-            @LineB03.performed -= instance.OnLineB03;
-            @LineB03.canceled -= instance.OnLineB03;
-            @LineB04.started -= instance.OnLineB04;
-            @LineB04.performed -= instance.OnLineB04;
-            @LineB04.canceled -= instance.OnLineB04;
+            @TypeA01.started -= instance.OnTypeA01;
+            @TypeA01.performed -= instance.OnTypeA01;
+            @TypeA01.canceled -= instance.OnTypeA01;
+            @TypeA02.started -= instance.OnTypeA02;
+            @TypeA02.performed -= instance.OnTypeA02;
+            @TypeA02.canceled -= instance.OnTypeA02;
+            @TypeA03.started -= instance.OnTypeA03;
+            @TypeA03.performed -= instance.OnTypeA03;
+            @TypeA03.canceled -= instance.OnTypeA03;
+            @TypeA04.started -= instance.OnTypeA04;
+            @TypeA04.performed -= instance.OnTypeA04;
+            @TypeA04.canceled -= instance.OnTypeA04;
+            @TypeA05.started -= instance.OnTypeA05;
+            @TypeA05.performed -= instance.OnTypeA05;
+            @TypeA05.canceled -= instance.OnTypeA05;
+            @TypeB01.started -= instance.OnTypeB01;
+            @TypeB01.performed -= instance.OnTypeB01;
+            @TypeB01.canceled -= instance.OnTypeB01;
+            @TypeB02.started -= instance.OnTypeB02;
+            @TypeB02.performed -= instance.OnTypeB02;
+            @TypeB02.canceled -= instance.OnTypeB02;
+            @TypeB03.started -= instance.OnTypeB03;
+            @TypeB03.performed -= instance.OnTypeB03;
+            @TypeB03.canceled -= instance.OnTypeB03;
+            @TypeB04.started -= instance.OnTypeB04;
+            @TypeB04.performed -= instance.OnTypeB04;
+            @TypeB04.canceled -= instance.OnTypeB04;
+            @TypeB05.started -= instance.OnTypeB05;
+            @TypeB05.performed -= instance.OnTypeB05;
+            @TypeB05.canceled -= instance.OnTypeB05;
             @SideL.started -= instance.OnSideL;
             @SideL.performed -= instance.OnSideL;
             @SideL.canceled -= instance.OnSideL;
@@ -1317,28 +977,32 @@ public partial class @InputPlay: IInputActionCollection2, IDisposable
     // Preset02
     private readonly InputActionMap m_Preset02;
     private List<IPreset02Actions> m_Preset02ActionsCallbackInterfaces = new List<IPreset02Actions>();
-    private readonly InputAction m_Preset02_LineA01;
-    private readonly InputAction m_Preset02_LineA02;
-    private readonly InputAction m_Preset02_LineA03;
-    private readonly InputAction m_Preset02_LineA04;
-    private readonly InputAction m_Preset02_LineB01;
-    private readonly InputAction m_Preset02_LineB02;
-    private readonly InputAction m_Preset02_LineB03;
-    private readonly InputAction m_Preset02_LineB04;
+    private readonly InputAction m_Preset02_TypeA01;
+    private readonly InputAction m_Preset02_TypeA02;
+    private readonly InputAction m_Preset02_TypeA03;
+    private readonly InputAction m_Preset02_TypeA04;
+    private readonly InputAction m_Preset02_TypeA05;
+    private readonly InputAction m_Preset02_TypeB01;
+    private readonly InputAction m_Preset02_TypeB02;
+    private readonly InputAction m_Preset02_TypeB03;
+    private readonly InputAction m_Preset02_TypeB04;
+    private readonly InputAction m_Preset02_TypeB05;
     private readonly InputAction m_Preset02_SideL;
     private readonly InputAction m_Preset02_SideR;
     public struct Preset02Actions
     {
         private @InputPlay m_Wrapper;
         public Preset02Actions(@InputPlay wrapper) { m_Wrapper = wrapper; }
-        public InputAction @LineA01 => m_Wrapper.m_Preset02_LineA01;
-        public InputAction @LineA02 => m_Wrapper.m_Preset02_LineA02;
-        public InputAction @LineA03 => m_Wrapper.m_Preset02_LineA03;
-        public InputAction @LineA04 => m_Wrapper.m_Preset02_LineA04;
-        public InputAction @LineB01 => m_Wrapper.m_Preset02_LineB01;
-        public InputAction @LineB02 => m_Wrapper.m_Preset02_LineB02;
-        public InputAction @LineB03 => m_Wrapper.m_Preset02_LineB03;
-        public InputAction @LineB04 => m_Wrapper.m_Preset02_LineB04;
+        public InputAction @TypeA01 => m_Wrapper.m_Preset02_TypeA01;
+        public InputAction @TypeA02 => m_Wrapper.m_Preset02_TypeA02;
+        public InputAction @TypeA03 => m_Wrapper.m_Preset02_TypeA03;
+        public InputAction @TypeA04 => m_Wrapper.m_Preset02_TypeA04;
+        public InputAction @TypeA05 => m_Wrapper.m_Preset02_TypeA05;
+        public InputAction @TypeB01 => m_Wrapper.m_Preset02_TypeB01;
+        public InputAction @TypeB02 => m_Wrapper.m_Preset02_TypeB02;
+        public InputAction @TypeB03 => m_Wrapper.m_Preset02_TypeB03;
+        public InputAction @TypeB04 => m_Wrapper.m_Preset02_TypeB04;
+        public InputAction @TypeB05 => m_Wrapper.m_Preset02_TypeB05;
         public InputAction @SideL => m_Wrapper.m_Preset02_SideL;
         public InputAction @SideR => m_Wrapper.m_Preset02_SideR;
         public InputActionMap Get() { return m_Wrapper.m_Preset02; }
@@ -1350,30 +1014,36 @@ public partial class @InputPlay: IInputActionCollection2, IDisposable
         {
             if (instance == null || m_Wrapper.m_Preset02ActionsCallbackInterfaces.Contains(instance)) return;
             m_Wrapper.m_Preset02ActionsCallbackInterfaces.Add(instance);
-            @LineA01.started += instance.OnLineA01;
-            @LineA01.performed += instance.OnLineA01;
-            @LineA01.canceled += instance.OnLineA01;
-            @LineA02.started += instance.OnLineA02;
-            @LineA02.performed += instance.OnLineA02;
-            @LineA02.canceled += instance.OnLineA02;
-            @LineA03.started += instance.OnLineA03;
-            @LineA03.performed += instance.OnLineA03;
-            @LineA03.canceled += instance.OnLineA03;
-            @LineA04.started += instance.OnLineA04;
-            @LineA04.performed += instance.OnLineA04;
-            @LineA04.canceled += instance.OnLineA04;
-            @LineB01.started += instance.OnLineB01;
-            @LineB01.performed += instance.OnLineB01;
-            @LineB01.canceled += instance.OnLineB01;
-            @LineB02.started += instance.OnLineB02;
-            @LineB02.performed += instance.OnLineB02;
-            @LineB02.canceled += instance.OnLineB02;
-            @LineB03.started += instance.OnLineB03;
-            @LineB03.performed += instance.OnLineB03;
-            @LineB03.canceled += instance.OnLineB03;
-            @LineB04.started += instance.OnLineB04;
-            @LineB04.performed += instance.OnLineB04;
-            @LineB04.canceled += instance.OnLineB04;
+            @TypeA01.started += instance.OnTypeA01;
+            @TypeA01.performed += instance.OnTypeA01;
+            @TypeA01.canceled += instance.OnTypeA01;
+            @TypeA02.started += instance.OnTypeA02;
+            @TypeA02.performed += instance.OnTypeA02;
+            @TypeA02.canceled += instance.OnTypeA02;
+            @TypeA03.started += instance.OnTypeA03;
+            @TypeA03.performed += instance.OnTypeA03;
+            @TypeA03.canceled += instance.OnTypeA03;
+            @TypeA04.started += instance.OnTypeA04;
+            @TypeA04.performed += instance.OnTypeA04;
+            @TypeA04.canceled += instance.OnTypeA04;
+            @TypeA05.started += instance.OnTypeA05;
+            @TypeA05.performed += instance.OnTypeA05;
+            @TypeA05.canceled += instance.OnTypeA05;
+            @TypeB01.started += instance.OnTypeB01;
+            @TypeB01.performed += instance.OnTypeB01;
+            @TypeB01.canceled += instance.OnTypeB01;
+            @TypeB02.started += instance.OnTypeB02;
+            @TypeB02.performed += instance.OnTypeB02;
+            @TypeB02.canceled += instance.OnTypeB02;
+            @TypeB03.started += instance.OnTypeB03;
+            @TypeB03.performed += instance.OnTypeB03;
+            @TypeB03.canceled += instance.OnTypeB03;
+            @TypeB04.started += instance.OnTypeB04;
+            @TypeB04.performed += instance.OnTypeB04;
+            @TypeB04.canceled += instance.OnTypeB04;
+            @TypeB05.started += instance.OnTypeB05;
+            @TypeB05.performed += instance.OnTypeB05;
+            @TypeB05.canceled += instance.OnTypeB05;
             @SideL.started += instance.OnSideL;
             @SideL.performed += instance.OnSideL;
             @SideL.canceled += instance.OnSideL;
@@ -1384,30 +1054,36 @@ public partial class @InputPlay: IInputActionCollection2, IDisposable
 
         private void UnregisterCallbacks(IPreset02Actions instance)
         {
-            @LineA01.started -= instance.OnLineA01;
-            @LineA01.performed -= instance.OnLineA01;
-            @LineA01.canceled -= instance.OnLineA01;
-            @LineA02.started -= instance.OnLineA02;
-            @LineA02.performed -= instance.OnLineA02;
-            @LineA02.canceled -= instance.OnLineA02;
-            @LineA03.started -= instance.OnLineA03;
-            @LineA03.performed -= instance.OnLineA03;
-            @LineA03.canceled -= instance.OnLineA03;
-            @LineA04.started -= instance.OnLineA04;
-            @LineA04.performed -= instance.OnLineA04;
-            @LineA04.canceled -= instance.OnLineA04;
-            @LineB01.started -= instance.OnLineB01;
-            @LineB01.performed -= instance.OnLineB01;
-            @LineB01.canceled -= instance.OnLineB01;
-            @LineB02.started -= instance.OnLineB02;
-            @LineB02.performed -= instance.OnLineB02;
-            @LineB02.canceled -= instance.OnLineB02;
-            @LineB03.started -= instance.OnLineB03;
-            @LineB03.performed -= instance.OnLineB03;
-            @LineB03.canceled -= instance.OnLineB03;
-            @LineB04.started -= instance.OnLineB04;
-            @LineB04.performed -= instance.OnLineB04;
-            @LineB04.canceled -= instance.OnLineB04;
+            @TypeA01.started -= instance.OnTypeA01;
+            @TypeA01.performed -= instance.OnTypeA01;
+            @TypeA01.canceled -= instance.OnTypeA01;
+            @TypeA02.started -= instance.OnTypeA02;
+            @TypeA02.performed -= instance.OnTypeA02;
+            @TypeA02.canceled -= instance.OnTypeA02;
+            @TypeA03.started -= instance.OnTypeA03;
+            @TypeA03.performed -= instance.OnTypeA03;
+            @TypeA03.canceled -= instance.OnTypeA03;
+            @TypeA04.started -= instance.OnTypeA04;
+            @TypeA04.performed -= instance.OnTypeA04;
+            @TypeA04.canceled -= instance.OnTypeA04;
+            @TypeA05.started -= instance.OnTypeA05;
+            @TypeA05.performed -= instance.OnTypeA05;
+            @TypeA05.canceled -= instance.OnTypeA05;
+            @TypeB01.started -= instance.OnTypeB01;
+            @TypeB01.performed -= instance.OnTypeB01;
+            @TypeB01.canceled -= instance.OnTypeB01;
+            @TypeB02.started -= instance.OnTypeB02;
+            @TypeB02.performed -= instance.OnTypeB02;
+            @TypeB02.canceled -= instance.OnTypeB02;
+            @TypeB03.started -= instance.OnTypeB03;
+            @TypeB03.performed -= instance.OnTypeB03;
+            @TypeB03.canceled -= instance.OnTypeB03;
+            @TypeB04.started -= instance.OnTypeB04;
+            @TypeB04.performed -= instance.OnTypeB04;
+            @TypeB04.canceled -= instance.OnTypeB04;
+            @TypeB05.started -= instance.OnTypeB05;
+            @TypeB05.performed -= instance.OnTypeB05;
+            @TypeB05.canceled -= instance.OnTypeB05;
             @SideL.started -= instance.OnSideL;
             @SideL.performed -= instance.OnSideL;
             @SideL.canceled -= instance.OnSideL;
@@ -1431,242 +1107,6 @@ public partial class @InputPlay: IInputActionCollection2, IDisposable
         }
     }
     public Preset02Actions @Preset02 => new Preset02Actions(this);
-
-    // Preset03
-    private readonly InputActionMap m_Preset03;
-    private List<IPreset03Actions> m_Preset03ActionsCallbackInterfaces = new List<IPreset03Actions>();
-    private readonly InputAction m_Preset03_LineA01;
-    private readonly InputAction m_Preset03_LineA02;
-    private readonly InputAction m_Preset03_LineA03;
-    private readonly InputAction m_Preset03_LineA04;
-    private readonly InputAction m_Preset03_LineB01;
-    private readonly InputAction m_Preset03_LineB02;
-    private readonly InputAction m_Preset03_LineB03;
-    private readonly InputAction m_Preset03_LineB04;
-    private readonly InputAction m_Preset03_SideL;
-    private readonly InputAction m_Preset03_SideR;
-    public struct Preset03Actions
-    {
-        private @InputPlay m_Wrapper;
-        public Preset03Actions(@InputPlay wrapper) { m_Wrapper = wrapper; }
-        public InputAction @LineA01 => m_Wrapper.m_Preset03_LineA01;
-        public InputAction @LineA02 => m_Wrapper.m_Preset03_LineA02;
-        public InputAction @LineA03 => m_Wrapper.m_Preset03_LineA03;
-        public InputAction @LineA04 => m_Wrapper.m_Preset03_LineA04;
-        public InputAction @LineB01 => m_Wrapper.m_Preset03_LineB01;
-        public InputAction @LineB02 => m_Wrapper.m_Preset03_LineB02;
-        public InputAction @LineB03 => m_Wrapper.m_Preset03_LineB03;
-        public InputAction @LineB04 => m_Wrapper.m_Preset03_LineB04;
-        public InputAction @SideL => m_Wrapper.m_Preset03_SideL;
-        public InputAction @SideR => m_Wrapper.m_Preset03_SideR;
-        public InputActionMap Get() { return m_Wrapper.m_Preset03; }
-        public void Enable() { Get().Enable(); }
-        public void Disable() { Get().Disable(); }
-        public bool enabled => Get().enabled;
-        public static implicit operator InputActionMap(Preset03Actions set) { return set.Get(); }
-        public void AddCallbacks(IPreset03Actions instance)
-        {
-            if (instance == null || m_Wrapper.m_Preset03ActionsCallbackInterfaces.Contains(instance)) return;
-            m_Wrapper.m_Preset03ActionsCallbackInterfaces.Add(instance);
-            @LineA01.started += instance.OnLineA01;
-            @LineA01.performed += instance.OnLineA01;
-            @LineA01.canceled += instance.OnLineA01;
-            @LineA02.started += instance.OnLineA02;
-            @LineA02.performed += instance.OnLineA02;
-            @LineA02.canceled += instance.OnLineA02;
-            @LineA03.started += instance.OnLineA03;
-            @LineA03.performed += instance.OnLineA03;
-            @LineA03.canceled += instance.OnLineA03;
-            @LineA04.started += instance.OnLineA04;
-            @LineA04.performed += instance.OnLineA04;
-            @LineA04.canceled += instance.OnLineA04;
-            @LineB01.started += instance.OnLineB01;
-            @LineB01.performed += instance.OnLineB01;
-            @LineB01.canceled += instance.OnLineB01;
-            @LineB02.started += instance.OnLineB02;
-            @LineB02.performed += instance.OnLineB02;
-            @LineB02.canceled += instance.OnLineB02;
-            @LineB03.started += instance.OnLineB03;
-            @LineB03.performed += instance.OnLineB03;
-            @LineB03.canceled += instance.OnLineB03;
-            @LineB04.started += instance.OnLineB04;
-            @LineB04.performed += instance.OnLineB04;
-            @LineB04.canceled += instance.OnLineB04;
-            @SideL.started += instance.OnSideL;
-            @SideL.performed += instance.OnSideL;
-            @SideL.canceled += instance.OnSideL;
-            @SideR.started += instance.OnSideR;
-            @SideR.performed += instance.OnSideR;
-            @SideR.canceled += instance.OnSideR;
-        }
-
-        private void UnregisterCallbacks(IPreset03Actions instance)
-        {
-            @LineA01.started -= instance.OnLineA01;
-            @LineA01.performed -= instance.OnLineA01;
-            @LineA01.canceled -= instance.OnLineA01;
-            @LineA02.started -= instance.OnLineA02;
-            @LineA02.performed -= instance.OnLineA02;
-            @LineA02.canceled -= instance.OnLineA02;
-            @LineA03.started -= instance.OnLineA03;
-            @LineA03.performed -= instance.OnLineA03;
-            @LineA03.canceled -= instance.OnLineA03;
-            @LineA04.started -= instance.OnLineA04;
-            @LineA04.performed -= instance.OnLineA04;
-            @LineA04.canceled -= instance.OnLineA04;
-            @LineB01.started -= instance.OnLineB01;
-            @LineB01.performed -= instance.OnLineB01;
-            @LineB01.canceled -= instance.OnLineB01;
-            @LineB02.started -= instance.OnLineB02;
-            @LineB02.performed -= instance.OnLineB02;
-            @LineB02.canceled -= instance.OnLineB02;
-            @LineB03.started -= instance.OnLineB03;
-            @LineB03.performed -= instance.OnLineB03;
-            @LineB03.canceled -= instance.OnLineB03;
-            @LineB04.started -= instance.OnLineB04;
-            @LineB04.performed -= instance.OnLineB04;
-            @LineB04.canceled -= instance.OnLineB04;
-            @SideL.started -= instance.OnSideL;
-            @SideL.performed -= instance.OnSideL;
-            @SideL.canceled -= instance.OnSideL;
-            @SideR.started -= instance.OnSideR;
-            @SideR.performed -= instance.OnSideR;
-            @SideR.canceled -= instance.OnSideR;
-        }
-
-        public void RemoveCallbacks(IPreset03Actions instance)
-        {
-            if (m_Wrapper.m_Preset03ActionsCallbackInterfaces.Remove(instance))
-                UnregisterCallbacks(instance);
-        }
-
-        public void SetCallbacks(IPreset03Actions instance)
-        {
-            foreach (var item in m_Wrapper.m_Preset03ActionsCallbackInterfaces)
-                UnregisterCallbacks(item);
-            m_Wrapper.m_Preset03ActionsCallbackInterfaces.Clear();
-            AddCallbacks(instance);
-        }
-    }
-    public Preset03Actions @Preset03 => new Preset03Actions(this);
-
-    // Preset04
-    private readonly InputActionMap m_Preset04;
-    private List<IPreset04Actions> m_Preset04ActionsCallbackInterfaces = new List<IPreset04Actions>();
-    private readonly InputAction m_Preset04_LineA01;
-    private readonly InputAction m_Preset04_LineA02;
-    private readonly InputAction m_Preset04_LineA03;
-    private readonly InputAction m_Preset04_LineA04;
-    private readonly InputAction m_Preset04_LineB01;
-    private readonly InputAction m_Preset04_LineB02;
-    private readonly InputAction m_Preset04_LineB03;
-    private readonly InputAction m_Preset04_LineB04;
-    private readonly InputAction m_Preset04_SideL;
-    private readonly InputAction m_Preset04_SideR;
-    public struct Preset04Actions
-    {
-        private @InputPlay m_Wrapper;
-        public Preset04Actions(@InputPlay wrapper) { m_Wrapper = wrapper; }
-        public InputAction @LineA01 => m_Wrapper.m_Preset04_LineA01;
-        public InputAction @LineA02 => m_Wrapper.m_Preset04_LineA02;
-        public InputAction @LineA03 => m_Wrapper.m_Preset04_LineA03;
-        public InputAction @LineA04 => m_Wrapper.m_Preset04_LineA04;
-        public InputAction @LineB01 => m_Wrapper.m_Preset04_LineB01;
-        public InputAction @LineB02 => m_Wrapper.m_Preset04_LineB02;
-        public InputAction @LineB03 => m_Wrapper.m_Preset04_LineB03;
-        public InputAction @LineB04 => m_Wrapper.m_Preset04_LineB04;
-        public InputAction @SideL => m_Wrapper.m_Preset04_SideL;
-        public InputAction @SideR => m_Wrapper.m_Preset04_SideR;
-        public InputActionMap Get() { return m_Wrapper.m_Preset04; }
-        public void Enable() { Get().Enable(); }
-        public void Disable() { Get().Disable(); }
-        public bool enabled => Get().enabled;
-        public static implicit operator InputActionMap(Preset04Actions set) { return set.Get(); }
-        public void AddCallbacks(IPreset04Actions instance)
-        {
-            if (instance == null || m_Wrapper.m_Preset04ActionsCallbackInterfaces.Contains(instance)) return;
-            m_Wrapper.m_Preset04ActionsCallbackInterfaces.Add(instance);
-            @LineA01.started += instance.OnLineA01;
-            @LineA01.performed += instance.OnLineA01;
-            @LineA01.canceled += instance.OnLineA01;
-            @LineA02.started += instance.OnLineA02;
-            @LineA02.performed += instance.OnLineA02;
-            @LineA02.canceled += instance.OnLineA02;
-            @LineA03.started += instance.OnLineA03;
-            @LineA03.performed += instance.OnLineA03;
-            @LineA03.canceled += instance.OnLineA03;
-            @LineA04.started += instance.OnLineA04;
-            @LineA04.performed += instance.OnLineA04;
-            @LineA04.canceled += instance.OnLineA04;
-            @LineB01.started += instance.OnLineB01;
-            @LineB01.performed += instance.OnLineB01;
-            @LineB01.canceled += instance.OnLineB01;
-            @LineB02.started += instance.OnLineB02;
-            @LineB02.performed += instance.OnLineB02;
-            @LineB02.canceled += instance.OnLineB02;
-            @LineB03.started += instance.OnLineB03;
-            @LineB03.performed += instance.OnLineB03;
-            @LineB03.canceled += instance.OnLineB03;
-            @LineB04.started += instance.OnLineB04;
-            @LineB04.performed += instance.OnLineB04;
-            @LineB04.canceled += instance.OnLineB04;
-            @SideL.started += instance.OnSideL;
-            @SideL.performed += instance.OnSideL;
-            @SideL.canceled += instance.OnSideL;
-            @SideR.started += instance.OnSideR;
-            @SideR.performed += instance.OnSideR;
-            @SideR.canceled += instance.OnSideR;
-        }
-
-        private void UnregisterCallbacks(IPreset04Actions instance)
-        {
-            @LineA01.started -= instance.OnLineA01;
-            @LineA01.performed -= instance.OnLineA01;
-            @LineA01.canceled -= instance.OnLineA01;
-            @LineA02.started -= instance.OnLineA02;
-            @LineA02.performed -= instance.OnLineA02;
-            @LineA02.canceled -= instance.OnLineA02;
-            @LineA03.started -= instance.OnLineA03;
-            @LineA03.performed -= instance.OnLineA03;
-            @LineA03.canceled -= instance.OnLineA03;
-            @LineA04.started -= instance.OnLineA04;
-            @LineA04.performed -= instance.OnLineA04;
-            @LineA04.canceled -= instance.OnLineA04;
-            @LineB01.started -= instance.OnLineB01;
-            @LineB01.performed -= instance.OnLineB01;
-            @LineB01.canceled -= instance.OnLineB01;
-            @LineB02.started -= instance.OnLineB02;
-            @LineB02.performed -= instance.OnLineB02;
-            @LineB02.canceled -= instance.OnLineB02;
-            @LineB03.started -= instance.OnLineB03;
-            @LineB03.performed -= instance.OnLineB03;
-            @LineB03.canceled -= instance.OnLineB03;
-            @LineB04.started -= instance.OnLineB04;
-            @LineB04.performed -= instance.OnLineB04;
-            @LineB04.canceled -= instance.OnLineB04;
-            @SideL.started -= instance.OnSideL;
-            @SideL.performed -= instance.OnSideL;
-            @SideL.canceled -= instance.OnSideL;
-            @SideR.started -= instance.OnSideR;
-            @SideR.performed -= instance.OnSideR;
-            @SideR.canceled -= instance.OnSideR;
-        }
-
-        public void RemoveCallbacks(IPreset04Actions instance)
-        {
-            if (m_Wrapper.m_Preset04ActionsCallbackInterfaces.Remove(instance))
-                UnregisterCallbacks(instance);
-        }
-
-        public void SetCallbacks(IPreset04Actions instance)
-        {
-            foreach (var item in m_Wrapper.m_Preset04ActionsCallbackInterfaces)
-                UnregisterCallbacks(item);
-            m_Wrapper.m_Preset04ActionsCallbackInterfaces.Clear();
-            AddCallbacks(instance);
-        }
-    }
-    public Preset04Actions @Preset04 => new Preset04Actions(this);
 
     // User
     private readonly InputActionMap m_User;
@@ -1796,53 +1236,31 @@ public partial class @InputPlay: IInputActionCollection2, IDisposable
     }
     public interface IPreset01Actions
     {
-        void OnLineA01(InputAction.CallbackContext context);
-        void OnLineA02(InputAction.CallbackContext context);
-        void OnLineA03(InputAction.CallbackContext context);
-        void OnLineA04(InputAction.CallbackContext context);
-        void OnLineB01(InputAction.CallbackContext context);
-        void OnLineB02(InputAction.CallbackContext context);
-        void OnLineB03(InputAction.CallbackContext context);
-        void OnLineB04(InputAction.CallbackContext context);
+        void OnTypeA01(InputAction.CallbackContext context);
+        void OnTypeA02(InputAction.CallbackContext context);
+        void OnTypeA03(InputAction.CallbackContext context);
+        void OnTypeA04(InputAction.CallbackContext context);
+        void OnTypeA05(InputAction.CallbackContext context);
+        void OnTypeB01(InputAction.CallbackContext context);
+        void OnTypeB02(InputAction.CallbackContext context);
+        void OnTypeB03(InputAction.CallbackContext context);
+        void OnTypeB04(InputAction.CallbackContext context);
+        void OnTypeB05(InputAction.CallbackContext context);
         void OnSideL(InputAction.CallbackContext context);
         void OnSideR(InputAction.CallbackContext context);
     }
     public interface IPreset02Actions
     {
-        void OnLineA01(InputAction.CallbackContext context);
-        void OnLineA02(InputAction.CallbackContext context);
-        void OnLineA03(InputAction.CallbackContext context);
-        void OnLineA04(InputAction.CallbackContext context);
-        void OnLineB01(InputAction.CallbackContext context);
-        void OnLineB02(InputAction.CallbackContext context);
-        void OnLineB03(InputAction.CallbackContext context);
-        void OnLineB04(InputAction.CallbackContext context);
-        void OnSideL(InputAction.CallbackContext context);
-        void OnSideR(InputAction.CallbackContext context);
-    }
-    public interface IPreset03Actions
-    {
-        void OnLineA01(InputAction.CallbackContext context);
-        void OnLineA02(InputAction.CallbackContext context);
-        void OnLineA03(InputAction.CallbackContext context);
-        void OnLineA04(InputAction.CallbackContext context);
-        void OnLineB01(InputAction.CallbackContext context);
-        void OnLineB02(InputAction.CallbackContext context);
-        void OnLineB03(InputAction.CallbackContext context);
-        void OnLineB04(InputAction.CallbackContext context);
-        void OnSideL(InputAction.CallbackContext context);
-        void OnSideR(InputAction.CallbackContext context);
-    }
-    public interface IPreset04Actions
-    {
-        void OnLineA01(InputAction.CallbackContext context);
-        void OnLineA02(InputAction.CallbackContext context);
-        void OnLineA03(InputAction.CallbackContext context);
-        void OnLineA04(InputAction.CallbackContext context);
-        void OnLineB01(InputAction.CallbackContext context);
-        void OnLineB02(InputAction.CallbackContext context);
-        void OnLineB03(InputAction.CallbackContext context);
-        void OnLineB04(InputAction.CallbackContext context);
+        void OnTypeA01(InputAction.CallbackContext context);
+        void OnTypeA02(InputAction.CallbackContext context);
+        void OnTypeA03(InputAction.CallbackContext context);
+        void OnTypeA04(InputAction.CallbackContext context);
+        void OnTypeA05(InputAction.CallbackContext context);
+        void OnTypeB01(InputAction.CallbackContext context);
+        void OnTypeB02(InputAction.CallbackContext context);
+        void OnTypeB03(InputAction.CallbackContext context);
+        void OnTypeB04(InputAction.CallbackContext context);
+        void OnTypeB05(InputAction.CallbackContext context);
         void OnSideL(InputAction.CallbackContext context);
         void OnSideR(InputAction.CallbackContext context);
     }
