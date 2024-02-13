@@ -260,17 +260,6 @@ public class AutoTest : MonoBehaviour
             s_PosY = s_Ms * s_Bpm / 150f;
             ObjectCooling.UpdateTestCooling(s_PosY);
         }
-
-        while (true)
-        {
-            yield return null;
-            s_PosY = s_isEffect ? s_EffectPosY : (s_Ms - s_SpeedMs) * s_Bpm / 150 + s_SpeedPosY;
-            
-            if (s_isPause) { continue; }
-            
-            s_Ms = audio.time * 1000f - delay;
-            ObjectCooling.UpdateTestCooling(s_PosY);
-        }
     }
     private static IEnumerator ITestGuide(int startMs, int startPos)
     {
@@ -313,15 +302,13 @@ public class AutoTest : MonoBehaviour
     private IEnumerator ILongNote(NoteType type, int[] datas, int[] judges)
     {
         if (datas[1] > 5) { yield break; }
-        LongJudgeVisualize.s_LJV[datas[1]].
-        StartLongVisualize(
-            datas[2],
-            new int[2] 
-            {
-                NoteClass.PosToMs(datas[0]),
-                NoteClass.PosToMs(datas[0] + datas[2] * 100)
-            }
-        );
+        var @struct = new int[2]
+        {
+            NoteClass.PosToMs(datas[0]),
+            NoteClass.PosToMs(datas[0] + datas[2] * 100)
+        };
+        LongJudgeVisualize.s_LJV[0][datas[1] - 1].StartLongVisualize(datas[2], @struct);
+        LongJudgeVisualize.s_LJV[1][datas[1] - 1].StartLongVisualize(datas[2], @struct);
 
         for (int i = 0; i < datas[2];)
         {

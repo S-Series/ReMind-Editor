@@ -198,16 +198,12 @@ public class EditManager : MonoBehaviour
     {
         if (s_noteType == NoteType.None) { return; }
 
-        int[] noteData = new int[3];
 
-        if (page < 0) { noteData[0] = s_page; }
-        else { noteData[0] = page; }
+        if (page > -1) { s_page = page; }
+        if (pos > -1) { s_posY = pos; }
+        if (line > -1) { s_line = line; }
 
-        if (pos < 0) { noteData[1] = s_posY; }
-        else { noteData[1] = pos; }
-
-        if (line < -1) { noteData[2] = s_line; }
-        else { noteData[2] = line; }
+        int[] noteData = new int[3] { s_page, s_posY, s_line };
 
         NoteHolder targetHolder;
 
@@ -224,51 +220,70 @@ public class EditManager : MonoBehaviour
 
         NormalNote[] values = new NormalNote[2];
         switch (s_noteType)
-            {
-                case NoteType.Normal:
-                    values[0] = s_SelectNoteHolder.normals[s_line - 1]; //@ A
-                    values[1] = targetHolder.normals[noteData[2] - 1];  //@ B
-                    s_SelectNoteHolder.normals[s_line - 1] = values[1]; //$ B
-                    targetHolder.normals[noteData[2] - 1] = values[0];  //$ A
-                    targetHolder.UpdateNote();
-                    s_SelectNoteHolder.UpdateNote();
-                    Select(targetHolder.getNormal(noteData[2] - 1).GetComponent<NoteData>());
-                    break;
-                
-                case NoteType.Airial:
-                    values[0] = s_SelectNoteHolder.airials[s_line - 1]; //@ A
-                    values[1] = targetHolder.airials[noteData[2] - 1];  //@ B
-                    s_SelectNoteHolder.airials[s_line - 1] = values[1]; //$ B
-                    targetHolder.airials[noteData[2] - 1] = values[0];  //$ A
-                    targetHolder.UpdateNote();
-                    s_SelectNoteHolder.UpdateNote();
-                    Select(targetHolder.getAirial(noteData[2] - 1).GetComponent<NoteData>());
-                    break;
+        {
+            case NoteType.Normal:
+                values[0] = s_SelectNoteHolder.normals[s_line - 1]; //@ A
+                values[1] = targetHolder.normals[noteData[2] - 1];  //@ B
+                s_SelectNoteHolder.normals[s_line - 1] = values[1]; //$ B
+                targetHolder.normals[noteData[2] - 1] = values[0];  //$ A
+                targetHolder.UpdateNote();
+                s_SelectNoteHolder.UpdateNote();
+                Select(targetHolder.getNormal(noteData[2] - 1).GetComponent<NoteData>());
+                break;
 
-                case NoteType.Bottom:
-                    values[0] = s_SelectNoteHolder.bottoms[s_line - 1]; //@ A
-                    values[1] = targetHolder.bottoms[noteData[2] - 1];  //@ B
-                    s_SelectNoteHolder.bottoms[s_line - 1] = values[1]; //$ B
-                    targetHolder.bottoms[noteData[2] - 1] = values[0];  //$ A
-                    targetHolder.UpdateNote();
-                    s_SelectNoteHolder.UpdateNote();
-                    Select(targetHolder.getAirial(noteData[2] - 1).GetComponent<NoteData>());
-                    break;
+            case NoteType.Airial:
+                values[0] = s_SelectNoteHolder.airials[s_line - 1]; //@ A
+                values[1] = targetHolder.airials[noteData[2] - 1];  //@ B
+                s_SelectNoteHolder.airials[s_line - 1] = values[1]; //$ B
+                targetHolder.airials[noteData[2] - 1] = values[0];  //$ A
+                targetHolder.UpdateNote();
+                s_SelectNoteHolder.UpdateNote();
+                Select(targetHolder.getAirial(noteData[2] - 1).GetComponent<NoteData>());
+                break;
 
-                case NoteType.Effect:
-                
-                    break;
+            case NoteType.Bottom:
+                values[0] = s_SelectNoteHolder.bottoms[s_line - 1]; //@ A
+                values[1] = targetHolder.bottoms[noteData[2] - 1];  //@ B
+                s_SelectNoteHolder.bottoms[s_line - 1] = values[1]; //$ B
+                targetHolder.bottoms[noteData[2] - 1] = values[0];  //$ A
+                targetHolder.UpdateNote();
+                s_SelectNoteHolder.UpdateNote();
+                Select(targetHolder.getAirial(noteData[2] - 1).GetComponent<NoteData>());
+                break;
 
-                case NoteType.Speed:
-                
-                    break;
+            case NoteType.Effect:
 
-                default: throw new Exception("Note Type Error");
-            }
+                break;
+
+            case NoteType.Speed:
+
+                break;
+
+            default: throw new Exception("Note Type Error");
+        }
     }
     public static void LengthNote(int length)
     {
+        if (length < 1) { return; }
+        else if (length > 256) { return; }
+        
+        switch (s_noteType)
+        {
+            case NoteType.Normal:
+                s_SelectNoteHolder.normals[s_line - 1].length = length;
+                break;
+            
+            case NoteType.Bottom:
+                s_SelectNoteHolder.bottoms[s_line - 1].length = length;
+                break;
+            
+            case NoteType.Airial:
+                s_SelectNoteHolder.airials[s_line - 1].length = length;
+                break;
 
+            default: return;
+        }
+        s_SelectNoteHolder.UpdateNote();
     }
 
     public static void BpmNote(float value)
