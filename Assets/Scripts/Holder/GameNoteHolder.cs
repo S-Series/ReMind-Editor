@@ -68,10 +68,6 @@ public class GameNoteHolder : MonoBehaviour
     {
         transform.localScale = new Vector3(1, 10f / (10f / NoteField.s_Zoom), 1);
     }
-    public void UpdateLineSprites()
-    {
-        
-    }
     public void JudgeVisual(int line = -1)
     {
         if (line == -1)
