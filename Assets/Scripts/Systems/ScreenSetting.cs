@@ -8,7 +8,7 @@ using TMPro;
 public class ScreenSetting : MonoBehaviour
 {
     private static List<Camera> s_cameras = new List<Camera>();
-    private static int[] s_Values = new int[5] { 0, 0, 0, 0, 0 };
+    private static int[] s_Values = new int[5] { 3, 0, 0, 0, 0 };
     [SerializeField] TMP_Dropdown[] drops;
 
     void Start()
@@ -52,7 +52,6 @@ public class ScreenSetting : MonoBehaviour
 
         Screen.SetResolution(width, height, mode);
     }
-
     public void FrameRate(TMP_Dropdown dropdown)
     {
         SetFrameRate(dropdown.value);
@@ -68,7 +67,6 @@ public class ScreenSetting : MonoBehaviour
         else if (value == 6) { Application.targetFrameRate = -1;}
         else { Application.targetFrameRate = 60; } //# value == 2
     }
-    
     public void AntiAliasingValue(TMP_Dropdown dropdown)
     {
         SetAntiAliasing(dropdown.value);

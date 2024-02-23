@@ -7,6 +7,9 @@ public class NoteData : MonoBehaviour
 {
     public int NoteLine;
     public NoteType noteType;
+
+    private Color32 Color32;
+    private SpriteRenderer[] renderers = null;
     [SerializeField] private bool isGameNote;
     [SerializeField] private Transform[] LongNotes;
 
@@ -50,6 +53,42 @@ public class NoteData : MonoBehaviour
                 LongNotes[3].localPosition = new Vector3(0, 100 * length, 0);
             }
         }
+    }
+
+    public void Selected(bool isTure)
+    {
+        if (renderers == null) { renderers = GetComponentsInChildren<SpriteRenderer>(); }
+
+        if (isTure)
+        {
+            switch (noteType)
+            {
+                case NoteType.Normal:
+                    Color32 = new Color32(100, 255, 0, 255);
+                    break;
+
+                case NoteType.Airial:
+                    Color32 = new Color32(255, 200, 0, 255);
+                    break;
+
+                case NoteType.Bottom:
+                    Color32 = new Color32(0, 255, 200, 255);
+                    break;
+
+                case NoteType.Speed:
+                    Color32 = new Color32(255, 0, 125, 255);
+                    break;
+                
+                case NoteType.Effect:
+                    Color32 = new Color32(0, 255, 200, 255);
+                    break;
+
+                default: throw new System.Exception("NoteType UnAvaialble");
+            }
+        }
+        else { Color32 = new Color32(255, 255, 255, 255); }
+
+        foreach (SpriteRenderer renderer in renderers) { renderer.color = Color32; }
     }
     public Transform GetTransform(bool isSingle)
     {

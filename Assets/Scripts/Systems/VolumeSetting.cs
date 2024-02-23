@@ -5,22 +5,34 @@ using UnityEngine.UI;
 
 public class VolumeSetting : MonoBehaviour
 {
-    [SerializeField] private AudioSource[] Audios;
-    [SerializeField] private AudioSource[] BuildAudios;
-    [SerializeField] private AudioSource[] BuildJudgeAudios;
-    [SerializeField] private AudioSource[] GameAudios;
+    [SerializeField] AudioSource _MainMusic;
+    private static AudioSource MainMusic;
+    [SerializeField] AudioSource[] _SystemAudios;
+    private static AudioSource[] SystemAudios;
+    [SerializeField] AudioSource[] _FxAudios;
+    private static AudioSource[] FxAudios;
+    [SerializeField] AudioSource[] _GameAudios;
+    private static AudioSource[] GameAudios;
 
-    void Start()
+    private void Start()
     {
-        //$ Music
-        Audios = new AudioSource[]
-        {
-            MusicLoader.audioSource,
-        };
-        //$ Fx
-        BuildJudgeAudios = AutoTest.GetJudgeAudioSource(); 
-        //$ Effect
-        //BuildAudios[1] = ;
+        MainMusic = _MainMusic;
+        SystemAudios = _SystemAudios;
+        FxAudios = _FxAudios;
+        GameAudios = _GameAudios;
+    }
+
+    /// 
+    public static void PlaySound(int typeIndex, int index)
+    {
+        AudioSource source;
+        if (typeIndex == 1) { source = SystemAudios[index]; }
+        else if (typeIndex == 2) { source = FxAudios[index]; }
+        else if (typeIndex == 3) { source = GameAudios[index]; }
+        else { source = MainMusic; }
+
+        if (source.isPlaying) { source.Stop(); }
+        else { source.Play(); }
     }
 
     public void MasterVolume(Slider slider)
@@ -29,15 +41,18 @@ public class VolumeSetting : MonoBehaviour
     }
     public void MusicVolume(Slider slider)
     {
-        Audios[0].volume = slider.value;
+        MainMusic.volume = slider.value;
     }
     public void FxVolume(Slider slider)
     {
-        
+        foreach(AudioSource audioSource in FxAudios)
+        {
+            audioSource.volume = slider.value;
+        }
     }
-    public void EffectVolume(Slider slider)
+    public void SystemVolume(Slider slider)
     {
-        foreach(AudioSource audioSource in BuildJudgeAudios)
+        foreach(AudioSource audioSource in SystemAudios)
         {
             audioSource.volume = slider.value;
         }

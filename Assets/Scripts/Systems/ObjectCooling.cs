@@ -8,7 +8,7 @@ public class ObjectCooling : MonoBehaviour
 {
     public static int OverValue = 3200 + 400;
     private static int[] lastIndex = { 0, 0, 0 };
-    private static List<NoteHolder> s_noteHolders = new List<NoteHolder>();
+    public static List<NoteHolder> s_noteHolders = new List<NoteHolder>();
     private static List<LineHolder> s_lineHolders = new List<LineHolder>();
     private static List<SpectrumData> s_Spectrums = new List<SpectrumData>();
 

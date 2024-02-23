@@ -197,6 +197,7 @@ public class NoteField : MonoBehaviour
             yield return null;
         }
         NoteHolder.s_holders = new List<NoteHolder>();
+        ObjectCooling.s_noteHolders = new List<NoteHolder>();
     }
     public static void ResetZoom()      //$ InputManager SetZero Action
     {

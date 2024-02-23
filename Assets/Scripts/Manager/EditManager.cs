@@ -29,6 +29,7 @@ public class EditManager : MonoBehaviour
 
     #endregion //% End MultyEditing
 
+    public static NoteData s_LastData;
     public static NoteType s_noteType = NoteType.None;
     public static NoteHolder s_SelectNoteHolder;
     public static int s_page, s_posY, s_line, s_length, s_soundIndex;
@@ -60,10 +61,10 @@ public class EditManager : MonoBehaviour
     }
     public static void Select(NoteData data)
     {
-
-
         NoteHolder holder;
+        s_LastData = data;
         holder = data.GetNoteHolder();
+        data.Selected(true);
 
         s_posY = holder.stdPos % 1600;
         s_page = Mathf.FloorToInt(holder.stdPos / 1600f);
@@ -134,11 +135,7 @@ public class EditManager : MonoBehaviour
     }
     public static void Escape()
     {
-        if (s_SelectNoteHolder != null)
-        {
-            
-        }
-
+        s_LastData.Selected(false);
 
         foreach (NoteHolder holder in NoteHolder.s_holders) { holder.EnableCollider(true); }
         InputManager.Editing(false);

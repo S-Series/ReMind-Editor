@@ -5,9 +5,16 @@ using UnityEngine;
 
 public class LongJudgeVisualize : MonoBehaviour
 {
-    public static LongJudgeVisualize[][] s_LJV = new LongJudgeVisualize[2][];
+    public static LongJudgeVisualize[][] s_LJV =
+    {
+        new LongJudgeVisualize[5],
+        new LongJudgeVisualize[2],
+        new LongJudgeVisualize[5],
+        new LongJudgeVisualize[2]
+    };
     [SerializeField] private int Line;
     [SerializeField] private bool isGameField;
+    [SerializeField] private bool isBottomLine;
     [SerializeField] private Transform[] transforms;
     [SerializeField] private Animator animator;
     private SpriteRenderer[] sprite;
@@ -19,7 +26,7 @@ public class LongJudgeVisualize : MonoBehaviour
         sprite[0] = transforms[0].GetComponent<SpriteRenderer>();
         sprite[1] = transforms[1].GetComponent<SpriteRenderer>();
         sprite[2] = transforms[2].GetComponent<SpriteRenderer>();
-        s_LJV[isGameField ? 1 : 0][Line - 1] = this;
+        s_LJV[isGameField ? (isBottomLine ? 3 : 2) : (isBottomLine ? 1 : 0)][Line - 1] = this;
         VisualizeCoroutine = ILongVisualize(0, new int[] { 0, 0 });
     }
     public void StartLongVisualize(int Length, int[] ms)

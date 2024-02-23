@@ -22,7 +22,7 @@ public class MusicLoader : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
         if (!Directory.Exists(Application.dataPath + @"\_DataBox\_MusicFile\"))
         {
-            Directory.CreateDirectory(Environment.CurrentDirectory + @"\Assets\_DataBox\_MusicFile\");
+            Directory.CreateDirectory(Application.dataPath + @"\_DataBox\_MusicFile\");
         }
         path = Application.dataPath + @"\_DataBox\_MusicFile\";
         StartCoroutine(ILoadAllFile(true));

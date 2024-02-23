@@ -91,18 +91,20 @@ public class SaveManager : MonoBehaviour
 
         saveFile.bpm = ValueManager.s_Bpm;
         saveFile.delay = ValueManager.s_Delay;
+        saveFile.gameMode = (int)GameManager.gameMode - 4;
         saveFile.version = VersionManager.GetVersion();
 
         NoteField.SortNoteHolder();
 
         string stringFrame;
-        if (GameManager.gameMode == GameMode.Line_4) { stringFrame = "|{0}|{1}|{2}|{3}|#"; }
+        /*if (GameManager.gameMode == GameMode.Line_4) { stringFrame = "|{0}|{1}|{2}|{3}|#"; }
         else
         { 
             stringFrame = GameManager.gameMode == GameMode.Line_5 ? 
             "|{0}|{1}|{2}|{3}|{4}|#" : 
             "|{0}|{1}|{2}|{3}|{4}|{5}|#";
-        }
+        }*/
+        stringFrame = "|{0}|{1}|{2}|{3}|{4}|{5}|#";
 
         for (int i = 0; i < NoteHolder.s_holders.Count; i++)
         {
@@ -149,7 +151,7 @@ public class SaveManager : MonoBehaviour
 
         VistaOpenFileDialog dialog;
         dialog = new VistaOpenFileDialog();
-        dialog.Filter = "nd files|*.4nd;*.5nd";
+        dialog.Filter = "nd files|*.nd";
         dialog.FilterIndex = 1;
         dialog.Title = "Open Data";
         dialog.InitialDirectory = (UnityEngine.Application.dataPath + @"\_DataBox").Replace("/", "\\");
@@ -181,12 +183,9 @@ public class SaveManager : MonoBehaviour
 
         yield return null;
 
-        path = path.Replace("4nd", String.Empty);
-        path = path.Replace("5nd", String.Empty);
-        path = path.Replace("6nd", String.Empty);
-        path = path.Replace(".", String.Empty);
+        path = path.Replace(".nd", String.Empty);
 
-        path += String.Format(".{0}nd", (int)GameManager.gameMode);
+        path += ".nd";
 
         File.WriteAllText(path, jsonData);
         //File.WriteAllText(path, JsonAES.Encrypt(jsonData, HiddenKey));
@@ -261,9 +260,7 @@ public class SaveManager : MonoBehaviour
         SpeedNote speed;
         EffectNote effect;
 
-        if (path.Contains("4nd")) { GameManager.UpdateGameMode(GameMode.Line_4); }
-        if (path.Contains("5nd")) { GameManager.UpdateGameMode(GameMode.Line_5); }
-        if (path.Contains("6nd")) { GameManager.UpdateGameMode(GameMode.Line_6); }
+        GameManager.UpdateGameMode((GameMode)saveFile.gameMode + 4);
 
         int index;
         index = (int)GameManager.gameMode;
@@ -433,36 +430,17 @@ public class SaveManager : MonoBehaviour
         isActive = true;
         isPassed = pass;
     }
-
     private void DisableLoad()
     {
         isLoadable = false;
         noteFileInput.textComponent.color = new Color32(220, 025, 000, 255);
     }
-
-    #region Setting Hidden Key
-    [UnityEngine.ContextMenu("Saving Hidden Key")]
-    private void SaveHiddenKey()
-    {
-        PlayerPrefs.SetString("HiddenKey", _HiddenKey);
-        _HiddenKey = "";
-        print(PlayerPrefs.GetString("HiddenKey"));
-    }
-    [UnityEngine.ContextMenu("Show Hidden Key")]
-    private void LoadHiddenKey() { StartCoroutine(ILoadHiddenKey()); }
-    private IEnumerator ILoadHiddenKey()
-    {
-        _HiddenKey = PlayerPrefs.GetString("HiddenKey");
-        yield return new WaitForSeconds(0.5f);
-        _HiddenKey = "";
-    }
-    #endregion
 }
 
 public class SaveFile
 {
+    public int delay = 0, gameMode = 0;
     public float bpm = 120.0f;
-    public int delay = 0;
     public int[] version = { 1, 0, 0 };
 
     public List<string> noteDatas = new List<string>();

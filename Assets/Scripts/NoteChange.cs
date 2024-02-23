@@ -53,7 +53,6 @@ public class NoteChange : MonoBehaviour
             inputFields[0].text = EditManager.s_posY.ToString();
             inputFields[1].text = EditManager.s_page.ToString();
             inputFields[2].text = EditManager.s_length.ToString();
-            print(EditManager.s_line);
             s_this.NormalToggles[EditManager.s_line - 1].isOn = true;
             s_this.NormalToggles[5].isOn = EditManager.s_isGuideLeft;
 

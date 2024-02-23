@@ -45,7 +45,7 @@ TextureImporter:
   compressionQuality: 50
   spriteMode: 2
   spriteExtrude: 1
-  spriteMeshType: 1
+  spriteMeshType: 0
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 100
@@ -113,12 +113,12 @@ TextureImporter:
       name: Lines_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 4226
-        width: 1500
-        height: 2113
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 63
+        y: 4334
+        width: 1374
+        height: 1899
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -134,12 +134,12 @@ TextureImporter:
       name: Lines_1
       rect:
         serializedVersion: 2
-        x: 0
-        y: 2113
-        width: 1500
-        height: 2113
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 147
+        y: 2220
+        width: 1206
+        height: 1899
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -156,11 +156,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 0
+        y: 112
         width: 1500
-        height: 2113
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        height: 1896
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
