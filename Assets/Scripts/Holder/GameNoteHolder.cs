@@ -9,6 +9,7 @@ public class GameNoteHolder : MonoBehaviour
     [SerializeField] GameObject[] normalObjects;
     [SerializeField] GameObject[] airialObjects;
     [SerializeField] GameObject[] bottomObjects;
+    [SerializeField] Transform lineTransform;
 
     public void UpdateNote(NoteHolder noteHolder = null)
     {
@@ -117,5 +118,10 @@ public class GameNoteHolder : MonoBehaviour
         vec3 = new Vector3(96f / Mathf.Pow(0.815f, (int)mode - 4), 96f, 96f);
         bottomObjects[0].transform.localScale = vec3;
         bottomObjects[1].transform.localScale = vec3;
+    }
+    public void UpdateLineTransform(float posX, float lengthValue)
+    {
+        
+        lineTransform.localScale = new Vector3(80.72289f, 0.02632963f * lengthValue, 240.9639f);
     }
 }

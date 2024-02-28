@@ -36,7 +36,6 @@ NoteHolder : MonoBehaviour
     [SerializeField] private GameObject effectObject;
 
     [SerializeField] private GameObject[] ParentObjects;
-
     [SerializeField] private TextMeshPro[] InfoTmps;
 
     public static void UpdateVisualPos(float pos)
@@ -179,6 +178,10 @@ NoteHolder : MonoBehaviour
         }
         // if (speedNote != null) { speedNote.ms = stdMs; }
         if (effectNote != null) { effectNote.ms = stdMs; }
+    }
+    public void LineScale(float lengthValue)
+    {
+        gameNoteHolder.UpdateLineTransform(0, lengthValue);
     }
     public int[][] ApplyJudge(NoteType type = NoteType.None, int line = 0)
     {
