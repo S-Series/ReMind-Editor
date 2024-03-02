@@ -23867,6 +23867,7 @@ GameObject:
   - component: {fileID: 473645598}
   - component: {fileID: 473645600}
   - component: {fileID: 473645601}
+  - component: {fileID: 473645603}
   - component: {fileID: 473645602}
   m_Layer: 0
   m_Name: NoteField
@@ -24266,6 +24267,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _lineRenderers: []
+--- !u!114 &473645603
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 473645594}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4f0fc2502e088a488e4b61c7f89c007, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DefaultLine: {fileID: 1117728909}
 --- !u!1 &477351641
 GameObject:
   m_ObjectHideFlags: 0

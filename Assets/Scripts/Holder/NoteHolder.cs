@@ -6,9 +6,7 @@ using GameNote;
 using GameData;
 using System;
 
-[System.Serializable]
-public class
-NoteHolder : MonoBehaviour
+public class NoteHolder : MonoBehaviour
 {
     public static List<NoteHolder> s_holders = new List<NoteHolder>();
     public static List<NoteHolder> errorHolders = new List<NoteHolder>();
