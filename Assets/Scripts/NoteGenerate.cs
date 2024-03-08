@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using GameNote;
+using System.Runtime.CompilerServices;
 
 public class NoteGenerate : MonoBehaviour
 {
@@ -100,24 +101,25 @@ public class NoteGenerate : MonoBehaviour
             case ToolManager.NoteType.Normal:
 
                 //# Init NormalNote
-                NormalNote normal;
-                normal = NormalNote.Generate();
-                normal.ms = holder.stdMs;
-                normal.pos = holder.stdPos;
-                normal.line = s_Line;
-                normal.isAir = s_previewIndex == 2 ? true : false;
-                normal.length = 1;
-
-                if (s_previewIndex == 2)
+                if (s_previewIndex == 1)
                 {
-                    holder.airials[s_Line - 1] = normal;
+                    ScratchNote note;
+                    note = new ScratchNote(
+                        new int[3] { holder.stdPos, 1, 1 },
+                        s_Line < 3 ? true : false
+                    );
+                    holder.bottoms[s_Line < 3 ? 0 : 1] = note;
                 }
-                else if (s_previewIndex == 1)
+                else
                 {
-                    normal.line = s_Line < 3 ? 1 : 2;
-                    holder.bottoms[s_Line < 3 ? 0 : 1] = normal;
+                    NormalNote note;
+                    note = new NormalNote(
+                        new int[3] { holder.stdPos, s_Line, 1 },
+                        false
+                    );
+                    if (s_previewIndex == 2) { holder.airials[s_Line - 1] = note; }
+                    else { holder.normals[s_Line - 1] = note; }
                 }
-                else { holder.normals[s_Line - 1] = normal; }
                 break;
             #endregion
 
@@ -226,32 +228,4 @@ public class NoteGenerate : MonoBehaviour
         foreach (NoteHolder holder in NoteHolder.s_holders) { holder.EnableCollider(true); }
     }
 
-    [ContextMenu("Test Generate")]
-    public void TestGenerate()
-    {
-        int posY;
-        NormalNote[] notes;
-        NoteHolder holder;
-        for (int i = 0; i < 100; i++)
-        {
-            notes = new NormalNote[]
-            {
-                NormalNote.Generate(),
-                NormalNote.Generate(),
-                NormalNote.Generate(),
-                NormalNote.Generate()
-            };
-            for (int j = 0; j < 4; j++)
-            {
-                posY = 1600 * i + 400 * j;
-                notes[j].ms = NoteClass.PosToMs(posY);
-                notes[j].pos = posY;
-                notes[j].isAir = true;
-                notes[j].length = 1;
-                holder = GenerateNoteManual(posY);
-                holder.airials[j] = notes[j];
-                holder.UpdateNote();
-            }
-        }
-    }
 }

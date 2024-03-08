@@ -26,13 +26,6 @@ public class LineGenerator : MonoBehaviour
         ret = linePosX[noteHolders.FindLastIndex(item => item.stdPos < posY)];
         return ret;
     }
-    private static void UpdateLines()
-    {
-        for (int i = 0; i < noteHolders.Count; i++)
-        {
-            
-        }
-    }
     public static void AddHolder(NoteHolder holder)
     {
         if (noteHolders.Contains(item: holder)) { return; }

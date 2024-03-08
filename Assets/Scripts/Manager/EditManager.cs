@@ -83,7 +83,7 @@ public class EditManager : MonoBehaviour
                 s_soundIndex = 0;
                 break;
 
-            case NoteType.Bottom:
+            case NoteType.Scratch:
                 note = holder.bottoms[s_line - 1];
                 s_length = note.length;
                 s_soundIndex = note.SoundIndex;
@@ -238,7 +238,7 @@ public class EditManager : MonoBehaviour
                 Select(targetHolder.getAirial(noteData[2] - 1).GetComponent<NoteData>());
                 break;
 
-            case NoteType.Bottom:
+            case NoteType.Scratch:
                 values[0] = s_SelectNoteHolder.bottoms[s_line - 1]; //@ A
                 values[1] = targetHolder.bottoms[noteData[2] - 1];  //@ B
                 s_SelectNoteHolder.bottoms[s_line - 1] = values[1]; //$ B

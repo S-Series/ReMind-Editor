@@ -22,7 +22,7 @@ public class NoteHolder : MonoBehaviour
     };
     public NormalNote[] normals = new NormalNote[6] { null, null, null, null, null, null };
     public NormalNote[] airials = new NormalNote[6] { null, null, null, null, null, null };
-    public NormalNote[] bottoms = new NormalNote[2] { null, null };
+    public ScratchNote[] bottoms = new ScratchNote[2] { null, null };
     public SpeedNote speedNote;
     public EffectNote effectNote;
 
@@ -143,13 +143,6 @@ public class NoteHolder : MonoBehaviour
     }
     public void DestroyHolder()
     {
-        foreach (NormalNote note in normals) { NoteClass.s_NormalNotes.RemoveAll(item => item == note); }
-        foreach (NormalNote note in airials) { NoteClass.s_NormalNotes.RemoveAll(item => item == note); }
-        foreach (NormalNote note in bottoms) { NoteClass.s_NormalNotes.RemoveAll(item => item == note); }
-        NoteClass.s_SpeedNotes.RemoveAll(item => item == speedNote);
-        NoteClass.s_EffectNotes.RemoveAll(item => item == effectNote);
-        NoteClass.InitAll();
-
         Destroy(gameNoteHolder.gameObject);
         Destroy(this.gameObject);
     }
@@ -163,19 +156,6 @@ public class NoteHolder : MonoBehaviour
             speedNote.bpm, speedNote.multiple, speedNote.bpm * speedNote.multiple);
         InfoTmps[1].text = effectNote == null ? "" : String.Format("{0} || {1:D4}",
             effectNote.GetEffectName(), effectNote.value);
-    }
-    public void ApplyMs(int ms)
-    {
-        stdMs = ms;
-        for (int i = 0; i < 4; i++)
-        {
-            if (normals[i] != null) { normals[i].ms = stdMs; }
-            if (airials[i] != null) { airials[i].ms = stdMs; }
-            if (i > 1) continue;
-            if (bottoms[i] != null) { bottoms[i].ms = stdMs; }
-        }
-        // if (speedNote != null) { speedNote.ms = stdMs; }
-        if (effectNote != null) { effectNote.ms = stdMs; }
     }
     public void LineScale(float lengthValue)
     {
@@ -230,7 +210,7 @@ public class NoteHolder : MonoBehaviour
                     ret[1][index] = airials[index].length;
                     break;
 
-                case NoteType.Bottom:
+                case NoteType.Scratch:
                     if (index > 1) { break; }
                     airialObjects[index].SetActive(false);
                     ret[2][index] = bottoms[index].length;
@@ -240,21 +220,6 @@ public class NoteHolder : MonoBehaviour
             }
         }
         return ret;
-    }
-    public void UpdateLongMs()
-    {
-        NormalNote note;
-        for (int i = 0; i < 6; i++)
-        {
-            note = i > 3 ? bottoms[i - 4] : normals[i];
-            if (note == null) { longMs[i] = null; continue; }
-            if (note.length <= 1) { longMs[i] = null; continue; }
-            longMs[i] = new int[note.length];
-            for (int j = 0; j < note.length; j++)
-            {
-                longMs[i][j] = NoteClass.PosToMs(stdPos + j * 100);
-            }
-        }
     }
     public void NoteAlert()
     {

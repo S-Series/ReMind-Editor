@@ -8,40 +8,43 @@ using GameNote;
 
 namespace GameNote
 {
-    public enum NoteType { None = 0, Normal = 1, Airial = 2, Bottom = 3, Speed = 4, Effect = 5 }
-    public class Note { public int pos, ms; }
-    public class NormalNote : Note
+    public enum NoteType { None = 0, Normal = 1, Airial = 2, Scratch = 3, Speed = 4, Effect = 5 }
+    public class NormalNote
     {
-        public int line, length, SoundIndex;
-        public bool isAir;
-        public NoteHolder holder;
-
-        public static NormalNote Generate()
+        public int posY, line, length;
+        public bool isAirial;
+        public NormalNote(int[] values, bool isAirial)
         {
-            NormalNote ret;
-            ret = new NormalNote();
-            ret.length = 1;
-            ret.SoundIndex = 0;
-            NoteClass.s_NormalNotes.Add(ret);
-            return ret;
+            posY = values[0];
+            line = values[1];
+            length = values[2];
+            this.isAirial = isAirial;
         }
     }
-    public class SpeedNote : Note
+    public class ScratchNote
     {
+        public int posY, value, length;
+        public bool isLeftNote;
+        public ScratchNote(int[] values, bool isLeft)
+        {
+            posY = values[0];
+            value = values[1];
+            length = values[2];
+            isLeftNote = isLeft;
+        }
+    }
+    public class SpeedNote
+    {
+        public static List<SpeedNote> speedNotes;
+        public int posY, ms;
         public double bpm, multiple;
         public SpeedHolder holder;
 
-        public static SpeedNote Generate()
-        {
-            SpeedNote ret;
-            ret = new SpeedNote();
-            NoteClass.s_SpeedNotes.Add(ret);
-            return ret;
-        }
+        public SpeedNote() { }
     }
-    public class EffectNote : Note
+    public class EffectNote
     {
-        public int effectIndex, value;
+        public int posY, effectIndex, value;
         public EffectHolder holder;
         public string GetEffectName()
         {
@@ -52,13 +55,7 @@ namespace GameNote
                 default: return "None";
             }
         }
-        public static EffectNote Generate()
-        {
-            EffectNote ret;
-            ret = new EffectNote();
-            NoteClass.s_EffectNotes.Add(ret);
-            return ret;
-        }
+        public EffectNote() { }
     }
     public struct SpectrumData
     {
@@ -100,45 +97,24 @@ namespace GameNote
 
 public class NoteClass : MonoBehaviour
 {
-    public static List<NormalNote> s_NormalNotes = new List<NormalNote>();
-    public static List<SpeedNote> s_SpeedNotes = new List<SpeedNote>();
-    public static List<EffectNote> s_EffectNotes = new List<EffectNote>();
-
-    public static void SortAll()
-    {
-        s_NormalNotes.OrderBy(item => item.pos).ThenBy(item => item.line);
-        s_SpeedNotes.OrderBy(item => item.pos);
-        s_EffectNotes.OrderBy(item => item.pos);
-    }
-    public static void InitAll()
-    {
-        InitSpeedMs();
-        foreach (NormalNote note in s_NormalNotes)
-        {
-            note.ms = PosToMs(note.pos);
-        }
-        foreach (EffectNote note in s_EffectNotes)
-        {
-            note.ms = PosToMs(note.pos);
-        }
-    }
-
     public static int PosToMs(int pos)
     {
         float ret;
+        var speeds = SpeedNote.speedNotes;
+
         if (pos <= 0) { ret = 0; }
-        else if (s_SpeedNotes.Count == 0) { ret = 150f * pos / ValueManager.s_Bpm; }
+        else if (speeds.Count == 0) { ret = 150f * pos / ValueManager.s_Bpm; }
         else
         {
             int index;
-            index = s_SpeedNotes.FindLastIndex(item => item.pos <= pos);
+            index = speeds.FindLastIndex(item => item.posY <= pos);
 
             if (index == -1) { ret = 150f * pos / ValueManager.s_Bpm; }
             else
             {
                 SpeedNote target;
-                target = s_SpeedNotes[index];
-                ret = target.ms + 150f * (pos - target.pos) / (Single)target.bpm;
+                target = speeds[index];
+                ret = target.ms + 150f * (pos - target.posY) / (Single)target.bpm;
             }
         }
         return Mathf.RoundToInt(ret);
@@ -146,39 +122,42 @@ public class NoteClass : MonoBehaviour
     public static float MsToPos(float Ms)
     {
         float ret;
-        if (s_SpeedNotes.Count == 0) { ret = ValueManager.s_Bpm * Ms / 150f; }
+        var speeds = SpeedNote.speedNotes;
+
+        if (speeds.Count == 0) { ret = ValueManager.s_Bpm * Ms / 150f; }
         else
         {
             int index;
-            index = s_SpeedNotes.FindLastIndex(item => item.ms <= Ms);
+            index = speeds.FindLastIndex(item => item.ms <= Ms);
 
             if (index == -1) { ret = ValueManager.s_Bpm * Ms / 150f; }
             else
             {
                 SpeedNote target;
-                target = s_SpeedNotes[index];
-                ret = target.pos + (Single)target.bpm * (Ms - target.ms) / 150f;
+                target = speeds[index];
+                ret = target.posY + (Single)target.bpm * (Ms - target.ms) / 150f;
             }
         }
         return ret;
     }
     public static void InitSpeedMs()
     {
-        if (s_SpeedNotes.Count == 0) { return; }
+        if (SpeedNote.speedNotes.Count == 0) { return; }
 
         int lastMs;
         float pos;
         double bpm;
+        var speeds = SpeedNote.speedNotes;
 
-        lastMs = Mathf.RoundToInt(150f * s_SpeedNotes[0].pos / ValueManager.s_Bpm);
-        s_SpeedNotes[0].ms = lastMs;
+        lastMs = Mathf.RoundToInt(150f * speeds[0].posY / ValueManager.s_Bpm);
+        speeds[0].ms = lastMs;
 
-        for (int i = 1; i < s_SpeedNotes.Count; i++)
+        for (int i = 1; i < speeds.Count; i++)
         {
-            bpm = s_SpeedNotes[i - 1].bpm;
-            pos = s_SpeedNotes[i].pos - s_SpeedNotes[i - 1].pos;
+            bpm = speeds[i - 1].bpm;
+            pos = speeds[i].posY - speeds[i - 1].posY;
             lastMs += Mathf.RoundToInt(150f * pos / (Single)bpm);
-            s_SpeedNotes[i].ms = lastMs;
+            speeds[i].ms = lastMs;
         }
     }
 }

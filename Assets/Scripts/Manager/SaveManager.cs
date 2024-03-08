@@ -84,64 +84,22 @@ public class SaveManager : MonoBehaviour
         SaveFile saveFile;
         saveFile = new SaveFile();
 
+        NoteField.SortNoteHolder();
         InputManager.EnableInput(false);
 
-        string saveData;
-        NoteHolder holder;
-
+        List<string> datas;
+        datas = new List<string>();
+        for (int i = 0; i < NoteHolder.s_holders.Count; i++)
+        {
+            datas.Add(HolderToData(NoteHolder.s_holders[i]));
+        }
+        saveFile.noteDatas = datas;
         saveFile.bpm = ValueManager.s_Bpm;
         saveFile.delay = ValueManager.s_Delay;
         saveFile.gameMode = (int)GameManager.gameMode - 4;
         saveFile.version = VersionManager.GetVersion();
+        saveFile.noteDatas = new List<string>();
 
-        NoteField.SortNoteHolder();
-
-        string stringFrame;
-        /*if (GameManager.gameMode == GameMode.Line_4) { stringFrame = "|{0}|{1}|{2}|{3}|#"; }
-        else
-        { 
-            stringFrame = GameManager.gameMode == GameMode.Line_5 ? 
-            "|{0}|{1}|{2}|{3}|{4}|#" : 
-            "|{0}|{1}|{2}|{3}|{4}|{5}|#";
-        }*/
-        stringFrame = "|{0}|{1}|{2}|{3}|{4}|{5}|#";
-
-        for (int i = 0; i < NoteHolder.s_holders.Count; i++)
-        {
-            saveData = String.Empty;
-            holder = NoteHolder.s_holders[i];
-
-            saveData += string.Format("|{0:D19}|#", holder.stdPos);
-            saveData += string.Format(stringFrame,
-                holder.normals[0] == null ? "--" : LengthToString(holder.normals[0].length),
-                holder.normals[1] == null ? "--" : LengthToString(holder.normals[1].length),
-                holder.normals[2] == null ? "--" : LengthToString(holder.normals[2].length),
-                holder.normals[3] == null ? "--" : LengthToString(holder.normals[3].length),
-                holder.normals[4] == null ? "--" : LengthToString(holder.normals[4].length),
-                holder.normals[5] == null ? "--" : LengthToString(holder.normals[5].length));
-            saveData += string.Format(stringFrame,
-                holder.airials[0] == null ? "--" : LengthToString(holder.airials[0].length),
-                holder.airials[1] == null ? "--" : LengthToString(holder.airials[1].length),
-                holder.airials[2] == null ? "--" : LengthToString(holder.airials[2].length),
-                holder.airials[3] == null ? "--" : LengthToString(holder.airials[3].length),
-                holder.airials[4] == null ? "--" : LengthToString(holder.airials[4].length),
-                holder.airials[5] == null ? "--" : LengthToString(holder.airials[5].length));
-            saveData += string.Format("|{0}|{1}|{2:D2}|{3:D2}|#",
-                holder.bottoms[0] == null ? "--" : LengthToString(holder.bottoms[0].length),
-                holder.bottoms[1] == null ? "--" : LengthToString(holder.bottoms[1].length),
-                holder.bottoms[0] == null ? 0 : holder.bottoms[0].SoundIndex,
-                holder.bottoms[1] == null ? 0 : holder.bottoms[1].SoundIndex);
-            saveData += string.Format("|{0:D8}|{1:D8}|#",
-                holder.speedNote == null ? 00 :
-                    Mathf.RoundToInt(System.Convert.ToSingle(holder.speedNote.bpm * 10000)),
-                holder.speedNote == null ? 00 :
-                    Mathf.RoundToInt(System.Convert.ToSingle(holder.speedNote.multiple * 10000)));
-            saveData += string.Format("|{0}|{1:D13}|",
-                holder.effectNote == null ? "---" : string.Format("{0:D3}", holder.effectNote.effectIndex),
-                holder.effectNote == null ? 0 : holder.effectNote.value);
-            
-            saveFile.noteDatas.Add(saveData);
-        }
         s_this.StartCoroutine(s_this.IWriteFile(saveFile, path));
     }
     public static void LoadNoteFile()
@@ -179,19 +137,13 @@ public class SaveManager : MonoBehaviour
     {
         string jsonData;
         jsonData = JsonUtility.ToJson(saveFile, true);
-        print(jsonData);
-
         yield return null;
 
         path = path.Replace(".nd", String.Empty);
-
         path += ".nd";
 
         File.WriteAllText(path, jsonData);
-        //File.WriteAllText(path, JsonAES.Encrypt(jsonData, HiddenKey));
-
         yield return null;
-
         InputManager.EnableInput(true);
     }
     private IEnumerator IReadFile(string path)
@@ -252,113 +204,12 @@ public class SaveManager : MonoBehaviour
         ValueManager.UpdateInputField();
         foreach (LineHolder holder in LineHolder.s_holders) { holder.UpdateMs(); }
 
-        string[] saveData;
-        string[] noteData;
-
-        NoteHolder copyHolder;
-        NormalNote normal;
-        SpeedNote speed;
-        EffectNote effect;
-
         GameManager.UpdateGameMode((GameMode)saveFile.gameMode + 4);
 
-        int index;
-        index = (int)GameManager.gameMode;
         for (int i = 0; i < saveFile.noteDatas.Count; i++)
         {
-            int dataIndex = 0;
-            saveData = saveFile.noteDatas[i].Split("#", StringSplitOptions.RemoveEmptyEntries);
-
-            copyHolder = 
-            NoteGenerate.GenerateNoteManual(
-                Convert.ToInt32(
-                    saveData[dataIndex].Replace("|", "")
-                )
-            );
-
-            dataIndex++; //$ == 1
-            noteData = saveData[dataIndex].Split('|', StringSplitOptions.RemoveEmptyEntries);
-            for (int j = 0; j < index; j++)
-            {
-                if (noteData[j] == "--") { copyHolder.normals[j] = null; }
-                else
-                {
-                    normal = NormalNote.Generate();
-                    normal.isAir = false;
-                    normal.ms = copyHolder.stdMs;
-                    normal.pos = copyHolder.stdPos;
-                    normal.line = j + 1;
-                    normal.holder = copyHolder;
-                    normal.SoundIndex = 0;
-                    normal.length = StringToLength(noteData[j]);
-                    copyHolder.normals[j] = normal;
-                }
-            }
-
-            dataIndex++; //$ == 2
-            noteData = saveData[dataIndex].Split('|', StringSplitOptions.RemoveEmptyEntries);
-            for (int j = 0; j < index; j++)
-            {
-                if (noteData[j] == "--") { copyHolder.airials[j] = null; }
-                else
-                {
-                    normal = NormalNote.Generate();
-                    normal.isAir = true;
-                    normal.ms = copyHolder.stdMs;
-                    normal.pos = copyHolder.stdPos;
-                    normal.line = j + 1;
-                    normal.holder = copyHolder;
-                    normal.SoundIndex = 0;
-                    normal.length = StringToLength(noteData[j]);
-                    copyHolder.airials[j] = normal;
-                }
-            }
-            
-            dataIndex++; //$ == 3
-            noteData = saveData[dataIndex].Split('|', StringSplitOptions.RemoveEmptyEntries);
-            for (int j = 0; j < 2; j++)
-            {
-                if (noteData[j] == "--") { copyHolder.bottoms[j] = null; }
-                else
-                {
-                    normal = NormalNote.Generate();
-                    normal.ms = copyHolder.stdMs;
-                    normal.pos = copyHolder.stdPos;
-                    normal.line = j + 1;
-                    normal.holder = copyHolder;
-                    normal.length = StringToLength(noteData[j]);
-                    normal.SoundIndex = Convert.ToInt32(noteData[j + 2]);
-                    copyHolder.bottoms[j] = normal;
-                }
-            }
-
-            dataIndex++; //$ == 4
-            noteData = saveData[dataIndex].Split('|', StringSplitOptions.RemoveEmptyEntries);
-            if (Convert.ToInt32(noteData[0]) * Convert.ToInt32(noteData[1]) != 0)
-            {
-                speed = SpeedNote.Generate();
-                speed.ms = copyHolder.stdMs;
-                speed.pos = copyHolder.stdPos;
-                speed.bpm = Convert.ToDouble(noteData[0]) / 10000d;
-                speed.multiple = Convert.ToDouble(noteData[1]) / 10000d;
-                copyHolder.speedNote = speed;
-            }
-            dataIndex++; //$ == 5
-            noteData = saveData[dataIndex].Split('|', StringSplitOptions.RemoveEmptyEntries);
-            if (noteData[0] != "---")
-            {
-                effect = EffectNote.Generate();
-                effect.effectIndex = Convert.ToInt32(noteData[0]);
-                effect.value = Convert.ToInt32(noteData[1]);
-                copyHolder.effectNote = effect;
-            }
-
-            copyHolder.EnableCollider(true);
-            copyHolder.UpdateNote();
-            copyHolder.UpdateScale();
-            copyHolder.CheckDestroy();
-            copyHolder.EnableNote(false);
-            yield return null;
+            NoteHolder holder;
+            holder = DataToHolder(saveFile.noteDatas[i]);
         }
     
         InputManager.EnableInput(true);
@@ -383,6 +234,19 @@ public class SaveManager : MonoBehaviour
         int ret;
         ret = (Convert.ToInt32(cArr[0]) - 65) * 10 + (int)Char.GetNumericValue(cArr[1]);
         if (ret < 1) { ret = 1; }
+        return ret;
+    }
+
+    private static string HolderToData(NoteHolder holder)
+    {
+        string ret;
+        ret = "";
+        return ret;
+    }
+    private static NoteHolder DataToHolder(string data)
+    {
+        NoteHolder ret;
+        ret = new NoteHolder();
         return ret;
     }
 
