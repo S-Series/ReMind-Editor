@@ -32,7 +32,7 @@ public class EditManager : MonoBehaviour
     public static NoteData s_LastData;
     public static NoteType s_noteType = NoteType.None;
     public static NoteHolder s_SelectNoteHolder;
-    public static int s_page, s_posY, s_line, s_length, s_soundIndex;
+    public static int s_page, s_posY, s_line, s_length;
     public static bool s_isAirial = false, s_isGuideLeft = true;
     private static bool s_shift = false, s_ctrl = false;
     [SerializeField] InputAction[] actions;
@@ -75,24 +75,23 @@ public class EditManager : MonoBehaviour
         s_noteType = data.noteType;
         s_line = data.NoteLine;
         s_isAirial = data.noteType == NoteType.Airial ? true : false;
+
         switch (s_noteType)
         {
             case NoteType.Normal:
                 note = holder.normals[s_line - 1];
                 s_length = note.length;
-                s_soundIndex = 0;
                 break;
 
             case NoteType.Scratch:
-                note = holder.bottoms[s_line - 1];
-                s_length = note.length;
-                s_soundIndex = note.SoundIndex;
+                ScratchNote scratch;
+                scratch = holder.bottoms[s_line - 1];
+                s_length = scratch.length;
                 break;
 
             case NoteType.Airial:
                 note = holder.airials[s_line - 1];
                 s_length = note.length;
-                s_soundIndex = 0;
                 break;
                 
             case NoteType.Speed:
@@ -148,46 +147,32 @@ public class EditManager : MonoBehaviour
 
         if (s_isMultyEditing) { ; return; }
 
-        if (s_noteType == NoteType.Normal)
+        switch ( s_noteType)
         {
-            NormalNote note;
-            note = s_SelectNoteHolder.normals[s_line - 1];
-            NoteClass.s_NormalNotes.RemoveAll(item => item == note);
-            s_SelectNoteHolder.normals[s_line - 1] = null;
-        }
-        else if (s_noteType == NoteType.Bottom)
-        {
-            NormalNote note;
-            note = s_SelectNoteHolder.bottoms[s_line - 1];
-            NoteClass.s_NormalNotes.RemoveAll(item => item == note);
-            s_SelectNoteHolder.bottoms[s_line - 1] = null;
-        }
-        else if (s_noteType == NoteType.Airial)
-        {
-            NormalNote note;
-            note = s_SelectNoteHolder.airials[s_line - 1];
-            NoteClass.s_NormalNotes.RemoveAll(item => item == note);
-            s_SelectNoteHolder.airials[s_line - 1] = null;
-        }
-        else
-        {
-            if (s_noteType == NoteType.Speed)
-            {
-                SpeedNote noteData;
-                noteData = s_SelectNoteHolder.speedNote;
-                NoteClass.s_SpeedNotes.RemoveAll(item => item == noteData);
+            case NoteType.Normal:
+                s_SelectNoteHolder.normals[s_line - 1] = null;
+                break;
+
+            case NoteType.Scratch:
+                s_SelectNoteHolder.bottoms[s_line - 1] = null;
+                break;
+
+            case NoteType.Airial:
+                s_SelectNoteHolder.airials[s_line - 1] = null;
+                break;
+
+            case NoteType.Speed:
                 s_SelectNoteHolder.speedNote = null;
-            }
-            else if (s_noteType == NoteType.Effect)
-            {
-                EffectNote noteData;
-                noteData = s_SelectNoteHolder.effectNote;
-                NoteClass.s_EffectNotes.RemoveAll(item => item == noteData);
-                s_SelectNoteHolder.effectNote = null;
-            }
-            else { throw new Exception("Note Delete System Error!"); }
+                NoteClass.InitSpeedMs();
+                break;
+
+            case NoteType.Effect:
+
+                break;
+
+            case NoteType.None:
+                throw new Exception("Note Type Error!");
         }
-        NoteClass.SortAll();
         s_SelectNoteHolder.UpdateNote();
         Escape();
     }
@@ -239,10 +224,11 @@ public class EditManager : MonoBehaviour
                 break;
 
             case NoteType.Scratch:
-                values[0] = s_SelectNoteHolder.bottoms[s_line - 1]; //@ A
-                values[1] = targetHolder.bottoms[noteData[2] - 1];  //@ B
-                s_SelectNoteHolder.bottoms[s_line - 1] = values[1]; //$ B
-                targetHolder.bottoms[noteData[2] - 1] = values[0];  //$ A
+                ScratchNote[] scratchs = new ScratchNote[2];
+                scratchs[0] = s_SelectNoteHolder.bottoms[s_line - 1]; //@ A
+                scratchs[1] = targetHolder.bottoms[noteData[2] - 1];  //@ B
+                s_SelectNoteHolder.bottoms[s_line - 1] = scratchs[1]; //$ B
+                targetHolder.bottoms[noteData[2] - 1] = scratchs[0];  //$ A
                 targetHolder.UpdateNote();
                 s_SelectNoteHolder.UpdateNote();
                 Select(targetHolder.getAirial(noteData[2] - 1).GetComponent<NoteData>());
@@ -270,7 +256,7 @@ public class EditManager : MonoBehaviour
                 s_SelectNoteHolder.normals[s_line - 1].length = length;
                 break;
             
-            case NoteType.Bottom:
+            case NoteType.Scratch:
                 s_SelectNoteHolder.bottoms[s_line - 1].length = length;
                 break;
             
@@ -292,7 +278,6 @@ public class EditManager : MonoBehaviour
         if ( note == null) { print("returned"); return; }
         note.bpm = value;
         NoteClass.InitSpeedMs();
-        NoteField.InitAllHolder();
         SpectrumManager.UpdateSpectrumPos();
         s_SelectNoteHolder.UpdateTextInfo();
     }

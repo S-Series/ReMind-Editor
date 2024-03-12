@@ -13,6 +13,6 @@ public class Updator : MonoBehaviour
     }
     public void InternetConnection(bool isSuccess)
     {
-
+        
     }
 }

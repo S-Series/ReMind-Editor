@@ -83,7 +83,7 @@ public class NoteField : MonoBehaviour
     public NoteHolder FindMultyHolder(NormalNote note)
     {
         NoteHolder ret = null;
-        if (note.isAir)
+        if (note.isAirial)
         {
             for (int i = 0; i < NoteHolder.s_holders.Count; i++)
             {
@@ -96,14 +96,7 @@ public class NoteField : MonoBehaviour
         }
         else if (note.line > 4)
         {
-            for (int i = 0; i < NoteHolder.s_holders.Count; i++)
-            {
-                if (NoteHolder.s_holders[i].bottoms.Contains(note))
-                {
-                    ret = NoteHolder.s_holders[i];
-                    break;
-                }
-            }
+            return null;
         }
         else
         {
@@ -168,20 +161,6 @@ public class NoteField : MonoBehaviour
     public static void SortNoteHolder()
     {
         NoteHolder.s_holders.OrderBy(item => item.stdPos).ToList();
-    }
-    public static void InitAllHolder(float pos = 0)
-    {
-        int a, b;
-        NoteClass.SortAll();
-        NoteClass.InitAll();
-        for (int i = 0; i < NoteHolder.s_holders.Count; i++)
-        {
-            a = NoteHolder.s_holders[i].stdMs;
-            if (NoteHolder.s_holders[i].stdPos < pos) { continue; }
-            NoteHolder.s_holders[i].ApplyMs(NoteClass.PosToMs(NoteHolder.s_holders[i].stdPos));
-            NoteHolder.s_holders[i].UpdateLongMs();
-            b = NoteHolder.s_holders[i].stdMs;
-        }
     }
     public static void UpdateFieldByGameMode()
     {

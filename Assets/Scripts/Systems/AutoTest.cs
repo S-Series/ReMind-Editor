@@ -129,7 +129,6 @@ public class AutoTest : MonoBehaviour
         NoteGenerate.Escape();
         InputManager.EnableInput(false);
         NoteField.SortNoteHolder();
-        NoteField.InitAllHolder();
         NoteField.s_isFieldMovable = false;
 
         foreach (NoteHolder holder
@@ -140,7 +139,7 @@ public class AutoTest : MonoBehaviour
         s_Bpm = ValueManager.s_Bpm;
         s_HolderIndex = 0;
 
-        int startMs, guideMs;
+        float startMs, guideMs;
         startMs = NoteClass.PosToMs(pos);
         guideMs = startMs - Mathf.RoundToInt(240000 / (float)ValueManager.s_Bpm);
 
@@ -202,7 +201,7 @@ public class AutoTest : MonoBehaviour
                 judgeEffects[2][i].SetTrigger(s_Trigger[0]);
                 StartCoroutine
                 (ILongNote(
-                    NoteType.Bottom,
+                    NoteType.Scratch,
                     new int[3]{holder.stdPos, i, data[0][i]},
                     holder.longMs[i + 6]
                 ));
@@ -244,7 +243,7 @@ public class AutoTest : MonoBehaviour
     
     
     //$ Testing Coroutines
-    private static IEnumerator ITesting(int value)
+    private static IEnumerator ITesting(float value)
     {
         float delay;
         delay = ValueManager.s_Delay;
@@ -261,17 +260,17 @@ public class AutoTest : MonoBehaviour
             ObjectCooling.UpdateTestCooling(s_PosY);
         }
     }
-    private static IEnumerator ITestGuide(int startMs, int startPos)
+    private static IEnumerator ITestGuide(float startMs, float startPos)
     {
         int index;
         SpeedNote note;
-        index = NoteClass.s_SpeedNotes.FindIndex(item => item.pos > startPos);
-        note = index <= 0 ? null : NoteClass.s_SpeedNotes[index - 1];     
+        index = SpeedNote.speedNotes.FindIndex(item => item.posY > startPos);
+        note = index <= 0 ? null : SpeedNote.speedNotes[index - 1];     
 
         int duration;
         duration = Mathf.RoundToInt(150 * 400 / (note == null ? ValueManager.s_Bpm : (float)note.bpm));
 
-        int[] guideMs = new int[4];
+        float[] guideMs = new float[4];
         for (int i = 0; i < 4; i++) { guideMs[i] = startMs + i * duration; }
         for (int i = 0; i < 4;)
         {
@@ -283,7 +282,7 @@ public class AutoTest : MonoBehaviour
             }
         }
     }
-    private static IEnumerator IPlayMusic(int startMs)
+    private static IEnumerator IPlayMusic(float startMs)
     {
         MusicLoader.audioSource.time = (ValueManager.s_Delay + startMs) / 1000f;
         while(true)
@@ -302,7 +301,7 @@ public class AutoTest : MonoBehaviour
     private IEnumerator ILongNote(NoteType type, int[] datas, int[] judges)
     {
         if (datas[1] > 5) { yield break; }
-        var @struct = new int[2]
+        var @struct = new float[2]
         {
             NoteClass.PosToMs(datas[0]),
             NoteClass.PosToMs(datas[0] + datas[2] * 100)
@@ -324,7 +323,7 @@ public class AutoTest : MonoBehaviour
     }
     private IEnumerator IEffect(NoteHolder holder)
     {
-        int EndMs;
+        float EndMs;
         EndMs = holder.stdMs + holder.effectNote.value;
 
         while (s_Ms > EndMs)

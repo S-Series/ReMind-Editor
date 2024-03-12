@@ -67,28 +67,9 @@ public class NoteChange : MonoBehaviour
                 s_this.NormalToggles[4].isOn = false;
             }
         }
-        else if (type == NoteType.Bottom)
+        else if (type == NoteType.Scratch)
         {
-            inputFields = s_this.FloorInputs;
-            normalNote = EditManager.s_SelectNoteHolder.bottoms[EditManager.s_line - 1];
-
-            inputFields[0].text = EditManager.s_posY.ToString();
-            inputFields[1].text = EditManager.s_page.ToString();
-            inputFields[2].text = normalNote.length.ToString();
-
-            s_this.FloorToggles[0].isOn = normalNote.line == 1 ? true : false;
-            if (normalNote.SoundIndex == -1)
-            {
-                s_this.FloorToggles[1].isOn = false;
-                s_this.FloorDropdown.interactable = false;
-                s_this.FloorDropdown.value = 0;
-            }
-            else
-            {
-                s_this.FloorToggles[1].isOn = true;
-                s_this.FloorDropdown.interactable = true;
-                s_this.FloorDropdown.value = normalNote.SoundIndex;
-            }
+            //ToDo : asd;fkljasdf;lkjasdflk;jasdflkj;sadfl;kjasdflk;jsadfl;kj
         }
         else
         {

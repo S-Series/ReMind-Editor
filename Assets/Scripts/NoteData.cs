@@ -15,7 +15,7 @@ public class NoteData : MonoBehaviour
 
     public void Length(int length)
     {
-        if (noteType != NoteType.Normal || noteType != NoteType.Bottom) { return; }
+        if (noteType != NoteType.Normal || noteType != NoteType.Scratch) { return; }
 
         if (length <= 1)
         {
@@ -71,7 +71,7 @@ public class NoteData : MonoBehaviour
                     Color32 = new Color32(255, 200, 0, 255);
                     break;
 
-                case NoteType.Bottom:
+                case NoteType.Scratch:
                     Color32 = new Color32(0, 255, 200, 255);
                     break;
 

@@ -27,9 +27,9 @@ public class LongJudgeVisualize : MonoBehaviour
         sprite[1] = transforms[1].GetComponent<SpriteRenderer>();
         sprite[2] = transforms[2].GetComponent<SpriteRenderer>();
         s_LJV[isGameField ? (isBottomLine ? 3 : 2) : (isBottomLine ? 1 : 0)][Line - 1] = this;
-        VisualizeCoroutine = ILongVisualize(0, new int[] { 0, 0 });
+        VisualizeCoroutine = ILongVisualize(0, new float[] { 0, 0 });
     }
-    public void StartLongVisualize(int Length, int[] ms)
+    public void StartLongVisualize(int Length, float[] ms)
     {
         StopAllCoroutines();
         sprite[0].enabled = true;
@@ -40,7 +40,7 @@ public class LongJudgeVisualize : MonoBehaviour
         VisualizeCoroutine = ILongVisualize(Length, ms);
         StartCoroutine(VisualizeCoroutine);
     }
-    private IEnumerator ILongVisualize(int Length, int[] ms)
+    private IEnumerator ILongVisualize(int Length, float[] ms)
     {
         float per, zoom;
         float[] values;

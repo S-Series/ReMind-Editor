@@ -40,8 +40,6 @@ public class SaveManager : MonoBehaviour
     {
         if (!isLoadable) { return; }
 
-        NoteField.InitAllHolder();
-
         string path = "";
         if (isAlt || !isLoaded)
         {

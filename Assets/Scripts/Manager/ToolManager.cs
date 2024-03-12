@@ -1,16 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-//# Plugins
-
-//# Name Spaces
 using GameNote;
 
 public class ToolManager : MonoBehaviour
 {
     private static ToolManager s_this;
-    public enum NoteType { Null, Normal, Speed, Effect };
-    public static NoteType noteType = NoteType.Null;
+    public static NoteType noteType = NoteType.None;
 
     public void Awake()
     {

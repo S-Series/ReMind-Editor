@@ -36,11 +36,17 @@ namespace GameNote
     public class SpeedNote
     {
         public static List<SpeedNote> speedNotes;
-        public int posY, ms;
+        public int posY;
+        public float ms;
         public double bpm, multiple;
         public SpeedHolder holder;
 
-        public SpeedNote() { }
+        public SpeedNote(int value)
+        {
+            posY = value;
+            bpm = ValueManager.s_Bpm;
+            multiple = 1.0d;
+        }
     }
     public class EffectNote
     {
@@ -55,7 +61,12 @@ namespace GameNote
                 default: return "None";
             }
         }
-        public EffectNote() { }
+        public EffectNote(int _value)
+        {
+            posY = _value;
+            value = 0;
+            effectIndex = 0;
+        }
     }
     public struct SpectrumData
     {
@@ -97,9 +108,9 @@ namespace GameNote
 
 public class NoteClass : MonoBehaviour
 {
-    public static int PosToMs(int pos)
+    public static float PosToMs(int pos)
     {
-        float ret;
+        double ret;
         var speeds = SpeedNote.speedNotes;
 
         if (pos <= 0) { ret = 0; }
@@ -114,14 +125,14 @@ public class NoteClass : MonoBehaviour
             {
                 SpeedNote target;
                 target = speeds[index];
-                ret = target.ms + 150f * (pos - target.posY) / (Single)target.bpm;
+                ret = target.ms + 150f * (pos - target.posY) / target.bpm;
             }
         }
-        return Mathf.RoundToInt(ret);
+        return (Single)ret;
     }
     public static float MsToPos(float Ms)
     {
-        float ret;
+        double ret;
         var speeds = SpeedNote.speedNotes;
 
         if (speeds.Count == 0) { ret = ValueManager.s_Bpm * Ms / 150f; }
@@ -135,19 +146,25 @@ public class NoteClass : MonoBehaviour
             {
                 SpeedNote target;
                 target = speeds[index];
-                ret = target.posY + (Single)target.bpm * (Ms - target.ms) / 150f;
+                ret = target.posY + target.bpm * (Ms - target.ms) / 150f;
             }
         }
-        return ret;
+        return (Single)ret;
     }
     public static void InitSpeedMs()
     {
-        if (SpeedNote.speedNotes.Count == 0) { return; }
+        NoteHolder holder;
+        var speeds = SpeedNote.speedNotes;
+        speeds = new List<SpeedNote>();
+        for (int i = 0; i < NoteHolder.s_holders.Count; i++)
+        {
+            holder = NoteHolder.s_holders[i];
+            if (holder.speedNote != null) { speeds.Add(holder.speedNote); }
+        }
 
         int lastMs;
         float pos;
         double bpm;
-        var speeds = SpeedNote.speedNotes;
 
         lastMs = Mathf.RoundToInt(150f * speeds[0].posY / ValueManager.s_Bpm);
         speeds[0].ms = lastMs;
@@ -158,6 +175,19 @@ public class NoteClass : MonoBehaviour
             pos = speeds[i].posY - speeds[i - 1].posY;
             lastMs += Mathf.RoundToInt(150f * pos / (Single)bpm);
             speeds[i].ms = lastMs;
+        }
+
+        for (int i = 0; i < NoteHolder.s_holders.Count; i++)
+        {
+            holder = NoteHolder.s_holders[i];
+            if (holder.speedNote == null)
+            {
+
+            }
+            else
+            {
+
+            }
         }
     }
 }

@@ -11,7 +11,8 @@ public class NoteHolder : MonoBehaviour
     public static List<NoteHolder> s_holders = new List<NoteHolder>();
     public static List<NoteHolder> errorHolders = new List<NoteHolder>();
 
-    public int stdMs, stdPos;
+    public int stdPos;
+    public float stdMs;
     public GameNoteHolder gameNoteHolder;
 
     public int[][] longMs = 
