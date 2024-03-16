@@ -23,14 +23,29 @@ namespace GameNote
     }
     public class ScratchNote
     {
-        public int posY, value, length;
-        public bool isLeftNote;
+        public int posY, endValue, length;
+        public float startValue;
+        public bool isLeftNote, isInverse, isPowered;
         public ScratchNote(int[] values, bool isLeft)
         {
+            startValue = 0.0f;
+            isPowered = false;
+            isInverse = false;
+
             posY = values[0];
-            value = values[1];
+            endValue = values[1];
             length = values[2];
             isLeftNote = isLeft;
+        }
+        public ScratchNote(int[] values, float _startValue, bool[] bools)
+        {
+            posY = values[0];
+            startValue = _startValue;
+            endValue = values[1];
+            length = values[2];
+            isLeftNote = bools[0];
+            isPowered = bools[1];
+            isInverse = bools[2];
         }
     }
     public class SpeedNote
@@ -46,6 +61,12 @@ namespace GameNote
             posY = value;
             bpm = ValueManager.s_Bpm;
             multiple = 1.0d;
+        }
+        public SpeedNote(int posY, double bpm, double multiple)
+        {
+            this.posY = posY;
+            this.bpm = bpm;
+            this.multiple = multiple;
         }
     }
     public class EffectNote
@@ -66,6 +87,12 @@ namespace GameNote
             posY = _value;
             value = 0;
             effectIndex = 0;
+        }
+        public EffectNote(int posY, int index, int value)
+        {
+            this.posY = posY;
+            effectIndex = index;
+            this.value = value;
         }
     }
     public struct SpectrumData

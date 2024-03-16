@@ -298,4 +298,75 @@ public class NoteHolder : MonoBehaviour
 
         return true;
     }
+
+    public NoteHolder(int pos)
+    {
+        stdPos = pos;
+    }
+    public NoteHolder(string data)
+    {
+        //@ --------#--|--|--|--|--|--#--|--|--|--|--|--#---|---|---|---|---|---#-----|-----#--|------
+        string[] holderData, noteData;
+        holderData = data.Split('#', StringSplitOptions.RemoveEmptyEntries);
+
+        stdPos = Convert.ToInt32(holderData[0]);
+
+        noteData = holderData[1].Split('|', StringSplitOptions.RemoveEmptyEntries);
+        for (int i = 0; i < 6; i++)
+        {
+            normals[i] = new NormalNote(
+                values: new int[3]
+                {
+                    stdPos, i,
+                    SaveManager.StringToLength(noteData[i])
+                },
+                isAirial: false
+            );
+        }
+
+        noteData = holderData[2].Split('|', StringSplitOptions.RemoveEmptyEntries);
+        for (int i = 0; i < 6; i++)
+        {
+            airials[i] = new NormalNote(
+                values: new int[3]
+                {
+                    stdPos, i,
+                    SaveManager.StringToLength(noteData[i])
+                },
+                isAirial: true
+            );
+        }
+
+        noteData = holderData[3].Split('|', StringSplitOptions.RemoveEmptyEntries);
+        for (int i = 0; i < 2; i++)
+        {
+            bottoms[i] = new ScratchNote(
+                values: new int[3]{
+                    stdPos,                                                     //$ posY
+                    Convert.ToInt32(noteData[3 * i + 1]),                       //$ EndValue
+                    Mathf.Abs(SaveManager.StringToLength(noteData[3 * i + 2]))  //$ Length
+                },
+                _startValue: Mathf.Abs(Convert.ToInt32(noteData[3 * i])) / 100f,//$ StartValue
+                bools: new bool[3]{
+                    i == 0 ? true : false,                                      //$ isLeft
+                    Convert.ToInt32(noteData[3 * i + 0]) >= 0 ? true : false,   //$ isPowered
+                    Convert.ToInt32(noteData[3 * i + 2]) >= 0 ? true : false    //$ isInverse
+                }
+            );
+        }
+
+        noteData = holderData[4].Split('|', StringSplitOptions.RemoveEmptyEntries);
+        speedNote = new SpeedNote(
+            posY: stdPos,
+            bpm: Convert.ToInt32(noteData[0]) / 100d,
+            multiple: Convert.ToInt32(noteData[1]) / 10000d
+        );
+
+        noteData = holderData[5].Split('|', StringSplitOptions.RemoveEmptyEntries);
+        effectNote = new EffectNote(
+            posY: stdPos,
+            index: Convert.ToInt32(noteData[0]),
+            value: Convert.ToInt32(noteData[1])
+        );
+    }
 }

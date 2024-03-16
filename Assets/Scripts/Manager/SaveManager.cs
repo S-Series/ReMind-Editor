@@ -207,8 +207,10 @@ public class SaveManager : MonoBehaviour
         for (int i = 0; i < saveFile.noteDatas.Count; i++)
         {
             NoteHolder holder;
-            holder = DataToHolder(saveFile.noteDatas[i]);
+            holder = new NoteHolder(saveFile.noteDatas[i]);
+            holder.UpdateNote();
         }
+        NoteClass.InitSpeedMs();
     
         InputManager.EnableInput(true);
         ObjectCooling.UpdateCooling();
@@ -224,8 +226,10 @@ public class SaveManager : MonoBehaviour
         c = (char)(Mathf.FloorToInt(value / 10.0f) + 65);
         return String.Format("{0}{1}", c, value % 10);
     }
-    private static Int32 StringToLength(string value)
+    public static Int32 StringToLength(string value)
     {
+        if (value == "--") { return 0; }
+
         char[] cArr;
         cArr = value.ToCharArray();
 
@@ -238,13 +242,54 @@ public class SaveManager : MonoBehaviour
     private static string HolderToData(NoteHolder holder)
     {
         string ret;
-        ret = "";
-        return ret;
-    }
-    private static NoteHolder DataToHolder(string data)
-    {
-        NoteHolder ret;
-        ret = new NoteHolder();
+        ret = String.Format(
+            "{0:D8}#{1}|{2}|{3}|{4}|{5}|{6}#{7}|{8}|{9}|{10}|{11}|{12}#{13}|{14}#{15}",
+            holder.stdPos,
+            holder.normals[0] == null ? "--" : LengthToString(holder.normals[0].length),
+            holder.normals[1] == null ? "--" : LengthToString(holder.normals[1].length),
+            holder.normals[2] == null ? "--" : LengthToString(holder.normals[2].length),
+            holder.normals[3] == null ? "--" : LengthToString(holder.normals[3].length),
+            holder.normals[4] == null ? "--" : LengthToString(holder.normals[4].length),
+            holder.normals[5] == null ? "--" : LengthToString(holder.normals[5].length),
+
+            holder.airials[0] == null ? "--" : LengthToString(holder.airials[0].length),
+            holder.airials[1] == null ? "--" : LengthToString(holder.airials[1].length),
+            holder.airials[2] == null ? "--" : LengthToString(holder.airials[2].length),
+            holder.airials[3] == null ? "--" : LengthToString(holder.airials[3].length),
+            holder.airials[4] == null ? "--" : LengthToString(holder.airials[4].length),
+            holder.airials[5] == null ? "--" : LengthToString(holder.airials[5].length),
+
+            holder.bottoms[0] == null ? "---|---|---" : String.Format(
+                "{0}{1:D2}|{2:D3}|{3}{4}",
+                holder.bottoms[0].isPowered ? "+" : "-",
+                Mathf.FloorToInt(holder.bottoms[0].startValue * 100),
+                holder.bottoms[0].endValue,
+                holder.bottoms[0].isInverse ? "-" : "+",
+                LengthToString(holder.bottoms[0].length)
+            ),
+            holder.bottoms[1] == null ? "---|---|---" : String.Format(
+                "{0}{1:D2}|{2:D3}|{3}{4}",
+                holder.bottoms[1].isPowered ? "+" : "-",
+                Mathf.FloorToInt(holder.bottoms[1].startValue * 100),
+                holder.bottoms[1].endValue,
+                holder.bottoms[1].isInverse ? "-" : "+",
+                LengthToString(holder.bottoms[1].length)
+            ),
+
+            String.Format(
+                "{0}#{1}",
+                holder.speedNote == null ? "-----|-----" : String.Format(
+                    "{0:D5}|{1:D5}",
+                    Mathf.RoundToInt((Single)(holder.speedNote.bpm * 100d)),
+                    Mathf.RoundToInt((Single)(holder.speedNote.multiple * 10000d))
+                ),
+                holder.effectNote == null ? "--|------" : String.Format(
+                    "{0:D2}|{1:D6}",
+                    holder.effectNote.effectIndex,
+                    holder.effectNote.value
+                )
+            )
+        );
         return ret;
     }
 
