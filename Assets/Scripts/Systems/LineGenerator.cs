@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using GameNote;
 
 public class LineGenerator : MonoBehaviour
 {
@@ -20,34 +21,45 @@ public class LineGenerator : MonoBehaviour
         noteHolders = new List<NoteHolder>();
     }
 
+    public static void UpdateHolders()
+    {
+        int linePosX = 0, endPosX = 0, holderPosX = 0;
+        int[] lastPosX = { 0, 0 };
+        bool keepLastPos = false;
+        ScratchNote[] scratchNotes;
+        for (int i = 0; i < noteHolders.Count; i++)
+        {
+            holderPosX = noteHolders[i].stdPos;
+            keepLastPos = holderPosX - endPosX > 100 ? false : true;
+            var startPosX = keepLastPos ? lastPosX[0] : 0;
+            scratchNotes = new ScratchNote[2] { noteHolders[i].bottoms[0], noteHolders[i].bottoms[1] };
+            if (scratchNotes[0] != null)
+            {
+                if (scratchNotes[0].isPowered)
+                {
+                    linePosX -= 120 * scratchNotes[0].endValue;
+                }
+                noteHolders[i].ApplyScratchVec(
+                    true, scratchNotes[0].isSlide ?
+                    new Vector3[2] {
+                        new Vector3(startPosX, 0, 0),
+                        new Vector3(startPosX, 0, 0)
+                    } :
+                    new Vector3[4] {
+                        new Vector3(keepLastPos ? lastPosX[0] : 0, -100, 0),
+                        new Vector3(keepLastPos ? lastPosX[0] : 0, 0, 0),
+                        new Vector3(),
+                        new Vector3()
+                    }
+                );
+            }
+        }
+    }
+
     public static float GetNotePosX(float posY)
     {
         float ret = 0f;
         ret = linePosX[noteHolders.FindLastIndex(item => item.stdPos < posY)];
         return ret;
-    }
-    public static void AddHolder(NoteHolder holder)
-    {
-        if (noteHolders.Contains(item: holder)) { return; }
-        noteHolders.Add(item: holder);
-        noteHolders.OrderBy(item => item.stdPos);
-    }
-    public static void AddAllHolders()
-    {
-        for (int i = 0; i < NoteHolder.s_holders.Count; i++)
-        {
-            if (noteHolders.Contains(item: NoteHolder.s_holders[i])) { return; }
-            noteHolders.Add(item: NoteHolder.s_holders[i]);
-        }
-        noteHolders.OrderBy(item => item.stdPos);
-    }
-    public static void RemoveHolder(NoteHolder holder)
-    {
-        if (!noteHolders.Contains(item: holder)) { return; }
-        noteHolders.RemoveAll(item => item == holder);
-    }
-    public static void RemoveAllHolders()
-    {
-        noteHolders = new List<NoteHolder>();
     }
 }

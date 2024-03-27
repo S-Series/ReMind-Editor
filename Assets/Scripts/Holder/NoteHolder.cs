@@ -11,6 +11,8 @@ public class NoteHolder : MonoBehaviour
     public static List<NoteHolder> s_holders = new List<NoteHolder>();
     public static List<NoteHolder> errorHolders = new List<NoteHolder>();
 
+    private const float lineValue = 0.02632813f;
+
     public int stdPos;
     public float stdMs;
     public GameNoteHolder gameNoteHolder;
@@ -83,13 +85,7 @@ public class NoteHolder : MonoBehaviour
             if (i > 1) { continue; }
 
             if (bottoms[i] == null) { bottomObjects[i].SetActive(false); }
-            else
-            {
-                bottomObjects[i].SetActive(true);
-                bottomObjects[i].TryGetComponent<NoteData>(out var bottomLength);
-                if (bottomLength == null) { throw new System.Exception("Notelength Operation is not Exist!"); }
-                bottomLength.Length(bottoms[i].length);
-            }
+            else { bottomObjects[i].SetActive(true); }
         }
 
         if (speedNote == null) { speedObject.SetActive(false); }
@@ -133,6 +129,7 @@ public class NoteHolder : MonoBehaviour
         speedObject.GetComponent<BoxCollider2D>().enabled = isTrue;
         effectObject.GetComponent<BoxCollider2D>().enabled = isTrue;
     }
+    
     public void CheckDestroy()
     {
         if (isNull())
@@ -147,6 +144,7 @@ public class NoteHolder : MonoBehaviour
         Destroy(gameNoteHolder.gameObject);
         Destroy(this.gameObject);
     }
+    
     public void EnableNote(bool isEnable)
     {
         gameObject.SetActive(isEnable);
@@ -162,6 +160,21 @@ public class NoteHolder : MonoBehaviour
     {
         gameNoteHolder.UpdateLineTransform(0, lengthValue);
     }
+    public void ApplyLine(int posX, int lineLength)
+    {
+
+    }
+    public void ApplyScratchVec(bool isLeft, Vector3[] vectors)
+    {
+        LineRenderer renderer;
+        renderer = bottomObjects[isLeft ? 0 : 1].GetComponent<LineRenderer>();
+        renderer.positionCount = vectors.Length;
+        for (int i = 0; i < vectors.Length; i++)
+        {
+            renderer.SetPosition(i, vectors[i]);
+        }
+    }
+
     public int[][] ApplyJudge(NoteType type = NoteType.None, int line = 0)
     {
         int[][] ret;
@@ -342,16 +355,16 @@ public class NoteHolder : MonoBehaviour
         {
             bottoms[i] = new ScratchNote(
                 values: new int[3]{
-                    stdPos,                                                     //$ posY
-                    Convert.ToInt32(noteData[3 * i + 1]),                       //$ EndValue
-                    Mathf.Abs(SaveManager.StringToLength(noteData[3 * i + 2]))  //$ Length
+                    stdPos,                                         //$ posY
+                    Convert.ToInt32(noteData[3 * i + 1]),           //$ EndValue
+                    SaveManager.StringToLength(noteData[3 * i + 2]) //$ Length
                 },
-                _startValue: Mathf.Abs(Convert.ToInt32(noteData[3 * i])) / 100f,//$ StartValue
                 bools: new bool[3]{
-                    i == 0 ? true : false,                                      //$ isLeft
-                    Convert.ToInt32(noteData[3 * i + 0]) >= 0 ? true : false,   //$ isPowered
-                    Convert.ToInt32(noteData[3 * i + 2]) >= 0 ? true : false    //$ isInverse
-                }
+                    noteData[3 * i][0] == 'T' ? true : false,       //$ isPowered
+                    noteData[3 * i][1] == 'T' ? true : false,       //$ isInverse
+                    noteData[3 * i][2] == 'T' ? true : false        //$ isSlide
+                },
+                isLeft: i == 0 ? true : false
             );
         }
 

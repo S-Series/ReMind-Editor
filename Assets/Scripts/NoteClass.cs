@@ -24,11 +24,11 @@ namespace GameNote
     public class ScratchNote
     {
         public int posY, endValue, length;
-        public float startValue;
-        public bool isLeftNote, isInverse, isPowered;
+        public bool isLeftNote;
+        public bool isInverse, isPowered, isSlide;
         public ScratchNote(int[] values, bool isLeft)
         {
-            startValue = 0.0f;
+            isSlide = false;
             isPowered = false;
             isInverse = false;
 
@@ -37,15 +37,17 @@ namespace GameNote
             length = values[2];
             isLeftNote = isLeft;
         }
-        public ScratchNote(int[] values, float _startValue, bool[] bools)
+        public ScratchNote(int[] values, bool[] bools, bool isLeft)
         {
             posY = values[0];
-            startValue = _startValue;
             endValue = values[1];
             length = values[2];
-            isLeftNote = bools[0];
-            isPowered = bools[1];
-            isInverse = bools[2];
+
+            isLeftNote = isLeft;
+
+            isPowered = bools[0];
+            isInverse = bools[1];
+            isSlide = bools[2];
         }
     }
     public class SpeedNote
