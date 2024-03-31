@@ -108,7 +108,6 @@ public class EditManager : MonoBehaviour
                 break;
         }
 
-        InputManager.Editing(true);
         EditBox.PopUpBox(s_noteType);
         // HelperUpdate(true);
 
@@ -137,7 +136,6 @@ public class EditManager : MonoBehaviour
         s_LastData.Selected(false);
 
         foreach (NoteHolder holder in NoteHolder.s_holders) { holder.EnableCollider(true); }
-        InputManager.Editing(false);
         EditBox.Deselect();
         // HelperUpdate(false);
     }

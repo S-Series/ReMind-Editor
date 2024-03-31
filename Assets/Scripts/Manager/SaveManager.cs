@@ -83,7 +83,6 @@ public class SaveManager : MonoBehaviour
         saveFile = new SaveFile();
 
         NoteField.SortNoteHolder();
-        InputManager.EnableInput(false);
 
         List<string> datas;
         datas = new List<string>();
@@ -142,12 +141,9 @@ public class SaveManager : MonoBehaviour
 
         File.WriteAllText(path, jsonData);
         yield return null;
-        InputManager.EnableInput(true);
     }
     private IEnumerator IReadFile(string path)
     {
-        InputManager.EnableInput(false);
-
         //$ Check NoteField
         if (NoteHolder.s_holders.Count != 0)
         {
@@ -160,7 +156,7 @@ public class SaveManager : MonoBehaviour
                 if (isActive)
                 {
                     PopUpObjects[0].GetComponent<Animator>().SetTrigger("Off");
-                    if (!isPassed) { InputManager.EnableInput(true);  yield break; }
+                    if (!isPassed) { yield break; }
                     break;
                 }
                 yield return null;
@@ -190,7 +186,7 @@ public class SaveManager : MonoBehaviour
                 if (isActive)
                 {
                     PopUpObjects[1].GetComponent<Animator>().SetTrigger("Off");
-                    if (!isPassed) { InputManager.EnableInput(true); yield break; }
+                    if (!isPassed) { yield break; }
                     break;
                 }
                 yield return null;
@@ -212,7 +208,6 @@ public class SaveManager : MonoBehaviour
         }
         NoteClass.InitSpeedMs();
     
-        InputManager.EnableInput(true);
         ObjectCooling.UpdateCooling();
         isLoaded = true;
         s_LoadedPath = path;

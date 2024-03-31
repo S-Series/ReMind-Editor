@@ -5,124 +5,132 @@ using UnityEngine.InputSystem;
 
 public class InputManager : MonoBehaviour
 {
-    public static PlayerInputSystem inputActions;
+    public static InputManager s_this;
+    private static PlayerInput playerInput;
+    private static readonly string[] ActionMapName = new string[] { 
+        "Editing",
+        "Testing",
+        "Playing"
+    };
+    private bool isAlt = false, isShift = false, isControl = false;
 
     private void Awake()
     {
-        inputActions = new PlayerInputSystem();
+        if (s_this == null) { s_this = this; }
+        playerInput = GetComponent<PlayerInput>();
     }
     private void Start()
     {
-        #region //# General Actions
-        inputActions.General.SetZero.performed += item =>
-        {
-            NoteField.ResetZoom();
-        };
-        inputActions.General.AltZero.performed += item =>
-        {
-            NoteField.PageToSelect();
-        };
-        inputActions.General.Save.performed += item =>
-        {
-            SaveManager.SaveNoteFile();
-        };
-        #endregion
+        playerInput.SwitchCurrentActionMap(ActionMapName[0]);
 
-        #region //# Note Edits Actions
-        //# Up Arrow
-        inputActions.Edit.Up.performed += item =>
-        {
-            EditManager.MoveNoteInput(isUp: true);
-        };
-        //# Down Arrow
-        inputActions.Edit.Down.performed += item =>
-        {
-            EditManager.MoveNoteInput(isUp: false);
-        };
-        //# Left Arrow
-        inputActions.Edit.Left.performed += item =>
-        {
-            EditManager.LineNoteInput(isLeft: true);
-        };
-        //# Right Arrow
-        inputActions.Edit.Right.performed += item =>
-        {
-            EditManager.LineNoteInput(isLeft: false);
-        };
+        playerInput.actions["Alt"].performed += T => AltAction(true);
+        playerInput.actions["AltRelease"].performed += T => AltAction(false);
 
-        //# Left Tab
-        inputActions.Edit.Switch.performed += item =>
-        {
+        playerInput.actions["Shift"].performed += T => ShiftAction(true);
+        playerInput.actions["ShiftRelease"].performed += T => ShiftAction(false);
 
-        };
-        //# Delete
-        inputActions.Edit.Delete.performed += item =>
-        {
-            EditManager.Delete();
-        };
-        //# Esc
-        inputActions.Edit.Escape.performed += item =>
-        {
-            EditManager.Escape();
-        };
-        #endregion
+        playerInput.actions["Control"].performed += T => ControlAction(true);
+        playerInput.actions["ControlRelease"].performed += T => ControlAction(false);
 
-        #region //# Note Tools Actions
-        //# Keycode Q   || 
-        inputActions.Tools.NormalNote.performed += item =>
-        {
-            ToolManager.Tool(0);
-        };
-        //# Keycode W
-        inputActions.Tools.BottomNote.performed += item =>
-        {
-            ToolManager.Tool(1);
-        };
-        //# Keycode E
-        inputActions.Tools.Airial.performed += item =>
-        {
-            ToolManager.Tool(2);
-        };
-        //# Keycode R
-        inputActions.Tools.Special.performed += item =>
-        {
-            ToolManager.Tool(3);
-        };
-        //# Keycode Tab
-        inputActions.Tools.Change.performed += item =>
-        {
+        playerInput.actions["UpArrow"].performed += T => UpArrowAction();
+        playerInput.actions["DownArrow"].performed += T => DownArrowAction();
+        playerInput.actions["RightArrow"].performed += T => RightArrowAction();
+        playerInput.actions["LeftArrow"].performed += T => LeftArrowAction();
 
-        };
-        inputActions.Tools.Escape.performed += item =>
-        {
-            NoteGenerate.Escape();
-        };
-        #endregion
-        General(true);
-        Editing(false);
+        playerInput.SwitchCurrentActionMap(ActionMapName[1]);
     }
 
-    public static void EnableInput(bool isEnable)
+    public static void SwitchInputMap(int actionMapIndex)
     {
-        if (isEnable) { inputActions.Enable(); }
-        else { inputActions.Disable(); }
+        playerInput.SwitchCurrentActionMap(ActionMapName[actionMapIndex]);
+    }   
+
+    private void AltAction(bool isInput)
+    {
+        isAlt = isInput;
     }
-    public static void General(bool isEnable)
+    private void ShiftAction(bool isInput)
     {
-        if (isEnable) { inputActions.General.Enable(); }
-        else { inputActions.General.Disable(); }
+        isShift = isInput;
     }
-    public static void Editing(bool isEnable)
+    private void ControlAction(bool isInput)
     {
-        if (isEnable)
+        isControl = isInput;
+    }
+    private void UpArrowAction()
+    {
+        if (isControl)
         {
-            inputActions.Edit.Enable();
-            inputActions.Tools.Disable();
+
+        }
+        else if (isShift)
+        {
+
+        }
+        else if (isAlt)
+        {
+
         }
         else
         {
-            inputActions.Edit.Disable();
-            inputActions.Tools.Enable();
+                
+        }
+    }
+    private void DownArrowAction()
+    {
+        if (isControl)
+        {
+
+        }
+        else if (isShift)
+        {
+
+        }
+        else if (isAlt)
+        {
+
+        }
+        else
+        {
+
+        }
+    }
+    private void LeftArrowAction()
+    {
+        if (isControl)
+        {
+
+        }
+        else if (isShift)
+        {
+
+        }
+        else if (isAlt)
+        {
+
+        }
+        else
+        {
+
+        }
+    }
+    private void RightArrowAction(bool isControl = false, bool isShift = false, bool isAlt = false)
+    {
+        if (isControl)
+        {
+
+        }
+        else if (isShift)
+        {
+
+        }
+        else if (isAlt)
+        {
+
+        }
+        else
+        {
+
         }
     }
 }

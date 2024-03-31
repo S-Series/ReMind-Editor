@@ -127,7 +127,6 @@ public class AutoTest : MonoBehaviour
     public static void StartTest(int pos)
     {
         NoteGenerate.Escape();
-        InputManager.EnableInput(false);
         NoteField.SortNoteHolder();
         NoteField.s_isFieldMovable = false;
 
@@ -159,7 +158,6 @@ public class AutoTest : MonoBehaviour
     {
         s_isTesting = false;
         s_isPause = false;
-        InputManager.EnableInput(true);
         NoteField.s_isFieldMovable = true;
 
         foreach (NoteHolder holder in NoteHolder.s_holders)

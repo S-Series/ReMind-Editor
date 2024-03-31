@@ -52,7 +52,7 @@ namespace GameNote
     }
     public class SpeedNote
     {
-        public static List<SpeedNote> speedNotes;
+        public static List<SpeedNote> speedNotes = new List<SpeedNote>();
         public int posY;
         public float ms;
         public double bpm, multiple;

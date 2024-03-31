@@ -18,18 +18,10 @@ public class NoteGenerate : MonoBehaviour
     [SerializeField] GameObject[] GeneratePrefabs;
     [SerializeField] Transform[] GenerateField;
 
-    /// <summary> Pervies Note Type
-    /// previews[0] = Normal Note
-    /// previews[1] = Bottom Note
-    /// previews[2] = Airial Note
-    /// previews[3] = Speed Note
-    /// previews[4] = Effect Note
-    /// </summary>
-
     void Awake()
     {
         s_this = this;
-        ChangePreview(-1);
+        Escape();
 
         InitVec[0] = GeneratePrefabs[0].transform.localPosition;
         InitVec[1] = GeneratePrefabs[1].transform.localPosition;
@@ -169,6 +161,7 @@ public class NoteGenerate : MonoBehaviour
     }
     public static void ChangePreview(int index)
     {
+
         foreach (GameObject gameObject in s_this.previews) { gameObject.SetActive(false); }
 
         s_this.previews[index].SetActive(true);

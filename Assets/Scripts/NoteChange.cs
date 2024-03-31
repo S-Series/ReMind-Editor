@@ -141,25 +141,21 @@ public class NoteChange : MonoBehaviour
         NoteHolder holder;
         holder = EditManager.s_SelectNoteHolder;
     }
-    
+
     //$ ScratchNote Only
-    public void TogglePowered(Toggle toggle)
-    {
-        bool isOn;
-        isOn = toggle.isOn;
-        EditManager.EditScratch();
-    }
     public void ToggleInversed(Toggle toggle)
     {
-        bool isOn;
-        isOn = toggle.isOn;
+        EditManager.EditScratch(0, toggle.isOn);
+    }
+    public void TogglePowered(Toggle toggle)
+    {
+        EditManager.EditScratch(1, toggle.isOn);
     }
     public void ToggleSlide(Toggle toggle)
     {
-        bool isOn;
-        isOn = toggle.isOn;
+        EditManager.EditScratch(2, toggle.isOn);
     }
-    
+
     //$ SpeedNote Only
     public void InputBpm(TMP_InputField input)
     {
