@@ -95,13 +95,6 @@ public class NoteChange : MonoBehaviour
         InfoField.UpdateInfoField();
     }
 
-    public void InputPos(TMP_InputField input)
-    {
-        int value;
-        try { value = Convert.ToInt32(input.text); }
-        catch { input.text = (EditManager.s_SelectNoteHolder.stdPos % 1600).ToString(); return; }
-        EditManager.EditNote(pos: value);
-    }
     public void InputPage(TMP_InputField input)
     {
         int value;
@@ -109,6 +102,13 @@ public class NoteChange : MonoBehaviour
         catch { input.text = Mathf.FloorToInt(EditManager.s_SelectNoteHolder.stdPos / 1600f).ToString(); return; }
         if (value < 0) { value = 0; input.text = "0"; }
         EditManager.EditNote(page: value);
+    }
+    public void InputPos(TMP_InputField input)
+    {
+        int value;
+        try { value = Convert.ToInt32(input.text); }
+        catch { input.text = (EditManager.s_SelectNoteHolder.stdPos % 1600).ToString(); return; }
+        EditManager.EditNote(pos: value);
     }
     public void InputLegnth(TMP_InputField input)
     {
@@ -119,6 +119,7 @@ public class NoteChange : MonoBehaviour
         if (value < 1) { value = 1; input.text = "1"; }
         EditManager.LengthNote(value);
     }
+    
     public void ToggleLine()
     {
         if (EditManager.s_noteType == NoteType.None) { return; }
@@ -140,19 +141,25 @@ public class NoteChange : MonoBehaviour
         NoteHolder holder;
         holder = EditManager.s_SelectNoteHolder;
     }
-    //$ FloorNote Only
-    public void ToggleFloorLine(Toggle toggle)
+    
+    //$ ScratchNote Only
+    public void TogglePowered(Toggle toggle)
     {
-
+        bool isOn;
+        isOn = toggle.isOn;
+        EditManager.EditScratch();
     }
-    public void ToggleSoundNote(Toggle toggle)
+    public void ToggleInversed(Toggle toggle)
     {
-
+        bool isOn;
+        isOn = toggle.isOn;
     }
-    public void DropSoundIndex(TMP_Dropdown dropdown)
+    public void ToggleSlide(Toggle toggle)
     {
-
+        bool isOn;
+        isOn = toggle.isOn;
     }
+    
     //$ SpeedNote Only
     public void InputBpm(TMP_InputField input)
     {

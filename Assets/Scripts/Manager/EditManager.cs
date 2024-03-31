@@ -247,7 +247,7 @@ public class EditManager : MonoBehaviour
     }
     public static void LengthNote(int length)
     {
-        if (length < 1) { return; }
+        if (length < 0) { return; }
         else if (length > 256) { return; }
         
         switch (s_noteType)
@@ -267,6 +267,43 @@ public class EditManager : MonoBehaviour
             default: return;
         }
         s_SelectNoteHolder.UpdateNote();
+    }
+
+    public static void EditScratch()
+    {
+        ScratchNote[] targetNote;
+        targetNote = new ScratchNote[3]
+        {
+            s_SelectNoteHolder.bottoms[s_line],
+            s_SelectNoteHolder.bottoms[s_line == 0 ? 1 : 0],
+            null
+        };
+
+        targetNote[2] = targetNote[1];
+        targetNote[1] = targetNote[0];
+        targetNote[0] = targetNote[2];
+
+        LineGenerator.UpdateHolder(s_SelectNoteHolder);
+    }
+    public static void EditScratch(int endValue)
+    {
+        ScratchNote targetNote;
+        targetNote = s_SelectNoteHolder.bottoms[s_line];
+
+        targetNote.endValue = endValue;
+
+        LineGenerator.UpdateHolder(s_SelectNoteHolder);
+    }
+    public static void EditScratch(int dataIndex, bool data)
+    {
+        ScratchNote targetNote;
+        targetNote = s_SelectNoteHolder.bottoms[s_line];
+
+        if (dataIndex == 0) {targetNote.isInverse = data;}
+        else if (dataIndex == 1) {targetNote.isPowered = data;}
+        else if (dataIndex == 2) {targetNote.isSlide = data;}
+
+        LineGenerator.UpdateHolder(s_SelectNoteHolder);
     }
 
     public static void BpmNote(float value)

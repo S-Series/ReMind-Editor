@@ -21,7 +21,7 @@ public class LineGenerator : MonoBehaviour
         noteHolders = new List<NoteHolder>();
     }
 
-    public static void UpdateHolders()
+    public static void UpdateHolder()
     {
         int linePosX = 0, endPosX = 0, holderPosX = 0;
         int[] lastPosX = { 0, 0 };
@@ -33,29 +33,37 @@ public class LineGenerator : MonoBehaviour
             keepLastPos = holderPosX - endPosX > 100 ? false : true;
             var startPosX = keepLastPos ? lastPosX[0] : 0;
             scratchNotes = new ScratchNote[2] { noteHolders[i].bottoms[0], noteHolders[i].bottoms[1] };
-            if (scratchNotes[0] != null)
+            for (int j = 0; j < 2; j++)
             {
-                if (scratchNotes[0].isPowered)
+                var Xvalue = 120 * scratchNotes[j].endValue;
+                if (scratchNotes[j] != null)
                 {
-                    linePosX -= 120 * scratchNotes[0].endValue;
-                }
-                noteHolders[i].ApplyScratchVec(
-                    true, scratchNotes[0].isSlide ?
-                    new Vector3[2] {
-                        new Vector3(startPosX, 0, 0),
-                        new Vector3(startPosX, 0, 0)
-                    } :
-                    new Vector3[4] {
-                        new Vector3(keepLastPos ? lastPosX[0] : 0, -100, 0),
-                        new Vector3(keepLastPos ? lastPosX[0] : 0, 0, 0),
-                        new Vector3(),
-                        new Vector3()
+                    if (scratchNotes[j].isPowered)
+                    {
+                        linePosX -= Xvalue;
                     }
-                );
+                    noteHolders[i].ApplyScratchVec(
+                        true, scratchNotes[j].isSlide ?
+                        new Vector3[2] {
+                        new Vector3(startPosX, 0, 0),
+                        new Vector3(startPosX + Xvalue, scratchNotes[j].length * 100, 0)
+                        } :
+                        new Vector3[4] {
+                        new Vector3(startPosX, -100, 0),
+                        new Vector3(startPosX, 0, 0),
+                        new Vector3(startPosX + Xvalue, 0, 0),
+                        new Vector3(startPosX + Xvalue, scratchNotes[j].length * 100, 0)
+                        }
+                    );
+                }
             }
         }
     }
-
+    public static void UpdateHolder(NoteHolder holder)
+    {
+        int index;
+        index = noteHolders.FindIndex(item => item == holder);
+    }
     public static float GetNotePosX(float posY)
     {
         float ret = 0f;

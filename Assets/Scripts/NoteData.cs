@@ -15,7 +15,7 @@ public class NoteData : MonoBehaviour
 
     public void Length(int length)
     {
-        if (noteType != NoteType.Normal || noteType != NoteType.Scratch) { return; }
+        if (noteType != NoteType.Normal) { return; }
 
         if (length <= 1)
         {
