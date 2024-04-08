@@ -13,11 +13,16 @@ public class InputManager : MonoBehaviour
         "Playing"
     };
     private bool isAlt = false, isShift = false, isControl = false;
+    private static IEnumerator[] ScrollCoroutine = new IEnumerator[3];
 
     private void Awake()
     {
         if (s_this == null) { s_this = this; }
         playerInput = GetComponent<PlayerInput>();
+
+        ScrollCoroutine[0] = IScroll_Edit();
+        ScrollCoroutine[1] = IScroll_Test();
+        ScrollCoroutine[2] = IScroll_Play();
     }
     private void Start()
     {
@@ -31,18 +36,39 @@ public class InputManager : MonoBehaviour
 
         playerInput.actions["Control"].performed += T => ControlAction(true);
         playerInput.actions["ControlRelease"].performed += T => ControlAction(false);
+        
+        playerInput.actions["Tab"].performed += T => DeleteAction();
+        playerInput.actions["Delete"].performed += T => DeleteAction();
 
         playerInput.actions["UpArrow"].performed += T => UpArrowAction();
         playerInput.actions["DownArrow"].performed += T => DownArrowAction();
         playerInput.actions["RightArrow"].performed += T => RightArrowAction();
         playerInput.actions["LeftArrow"].performed += T => LeftArrowAction();
 
-        playerInput.SwitchCurrentActionMap(ActionMapName[1]);
+        playerInput.actions["Quick Tool-1"].performed += T => QuickToolAction(1);
+        playerInput.actions["Quick Tool-2"].performed += T => QuickToolAction(2);
+        playerInput.actions["Quick Tool-3"].performed += T => QuickToolAction(3);
+        playerInput.actions["Quick Tool-4"].performed += T => QuickToolAction(4);
+        playerInput.actions["Quick Tool-5"].performed += T => QuickToolAction(5);
+
+        playerInput.actions["A"].performed += T => A_Action();
+        playerInput.actions["S"].performed += T => S_Action();
+        playerInput.actions["C"].performed += T => C_Action();
+        playerInput.actions["V"].performed += T => V_Action();
+
+
+        // playerInput.SwitchCurrentActionMap(ActionMapName[1]);
     }
 
     public static void SwitchInputMap(int actionMapIndex)
     {
+        s_this.StopAllCoroutines();
+        playerInput.DeactivateInput();
+
         playerInput.SwitchCurrentActionMap(ActionMapName[actionMapIndex]);
+
+        playerInput.ActivateInput();
+        s_this.StartCoroutine(ScrollCoroutine[actionMapIndex]);
     }   
 
     private void AltAction(bool isInput)
@@ -57,6 +83,16 @@ public class InputManager : MonoBehaviour
     {
         isControl = isInput;
     }
+    
+    private void TabAction()
+    {
+
+    }
+    private void DeleteAction()
+    {
+
+    }
+
     private void UpArrowAction()
     {
         if (isControl)
@@ -114,7 +150,7 @@ public class InputManager : MonoBehaviour
 
         }
     }
-    private void RightArrowAction(bool isControl = false, bool isShift = false, bool isAlt = false)
+    private void RightArrowAction()
     {
         if (isControl)
         {
@@ -131,6 +167,72 @@ public class InputManager : MonoBehaviour
         else
         {
 
+        }
+    }
+
+    private void QuickToolAction(int toolIndex)
+    {
+
+    }
+
+    private void A_Action()
+    {
+
+    }
+    private void S_Action()
+    {
+
+    }
+    private void C_Action()
+    {
+
+    }
+    private void V_Action()
+    {
+
+    }
+
+    private void ScrollAction_Edit(bool isPositive)
+    {
+
+    }
+    private void ScrollAction_Test(bool isPositive)
+    {
+
+    }
+    private void ScrollAction_Play(bool isPositive)
+    {
+
+    }
+
+    private IEnumerator IScroll_Edit()
+    {
+        var ScrollVector = playerInput.actions["Scroll"]?.ReadValue<Vector2>().y;
+        while (true)
+        {
+            if (ScrollVector >= 1)
+            {
+
+            }
+            else if (ScrollVector <= -1)
+            {
+
+            }
+            yield return null;
+        }
+    }
+    private IEnumerator IScroll_Test()
+    {
+        while (true)
+        {
+            yield return null;
+        }
+    }
+    private IEnumerator IScroll_Play()
+    {
+        while (true)
+        {
+            yield return null;
         }
     }
 }

@@ -82,6 +82,24 @@ public partial class @InputPlay: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
+                    ""name"": ""Tab"",
+                    ""type"": ""Button"",
+                    ""id"": ""6199f729-327b-42c4-8aa5-e925be8e6472"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press"",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Delete"",
+                    ""type"": ""Button"",
+                    ""id"": ""effa17a5-fb17-43b5-83bc-5eb6e8cd4e94"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press"",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""UpArrow"",
                     ""type"": ""Button"",
                     ""id"": ""d3efbe91-bd54-4761-813e-9266ed6d3c61"",
@@ -161,171 +179,326 @@ public partial class @InputPlay: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": ""Press"",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""A"",
+                    ""type"": ""Button"",
+                    ""id"": ""7c810d82-9dae-4552-90e8-14b09ab430bf"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press"",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""S"",
+                    ""type"": ""Button"",
+                    ""id"": ""b6ae90ba-bb19-4f8b-82b7-96e052d1417c"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press"",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""C"",
+                    ""type"": ""Button"",
+                    ""id"": ""15f6bb97-6507-462c-8a3a-eb65d4b9a49f"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press"",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""V"",
+                    ""type"": ""Button"",
+                    ""id"": ""c922e807-6fe8-4683-8658-3f25d7aeeb5f"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press"",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Scroll"",
+                    ""type"": ""Button"",
+                    ""id"": ""c38e687c-be6e-46e0-9639-a2fd3db636e7"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
                 {
+                    ""name"": ""1D Axis"",
+                    ""id"": ""e299799e-f140-4b99-878f-906ee2d85145"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Scroll"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""1D Axis"",
+                    ""id"": ""7bdd0ef5-38ae-42f3-98f7-ab94d617e52c"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Scroll"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""227d5078-0b65-4889-8949-4006d4b68778"",
+                    ""path"": ""<Mouse>/scroll/y"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""PC"",
+                    ""action"": ""Scroll"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""19d97dfe-c530-4adb-b681-f794c949d855"",
+                    ""path"": ""<Mouse>/scroll/y"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""PC"",
+                    ""action"": ""Scroll"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
                     ""name"": """",
-                    ""id"": ""7e87be1f-ec21-45ab-99a8-a452422933c3"",
+                    ""id"": ""f5ca0e38-f1e3-455b-961b-4de594717fd8"",
                     ""path"": ""<Keyboard>/alt"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Keyboard"",
+                    ""groups"": ""PC"",
                     ""action"": ""Alt"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
-                    ""id"": ""98330173-e10e-47b8-a205-7212a7aeee1a"",
-                    ""path"": ""<Keyboard>/shift"",
+                    ""id"": ""728aab57-449f-4918-81e8-ff467ed3335d"",
+                    ""path"": ""<Keyboard>/s"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Keyboard"",
-                    ""action"": ""Shift"",
+                    ""groups"": ""PC"",
+                    ""action"": ""S"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
-                    ""id"": ""02a61f5d-3154-45d7-b3e0-2e98a6511bea"",
-                    ""path"": ""<Keyboard>/ctrl"",
+                    ""id"": ""1a245a17-38e1-46a8-8281-9222386ff8d0"",
+                    ""path"": ""<Keyboard>/5"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Keyboard"",
-                    ""action"": ""Control"",
+                    ""groups"": ""PC"",
+                    ""action"": ""QuickTool-5"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
-                    ""id"": ""225aa1ca-996e-45fe-a0ac-49883301237b"",
-                    ""path"": ""<Keyboard>/upArrow"",
+                    ""id"": ""743a96cb-36ff-49dd-9dea-a32e69eec095"",
+                    ""path"": ""<Keyboard>/4"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Keyboard"",
-                    ""action"": ""UpArrow"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""68856cca-a2ad-4c47-88c7-beef2ddcacbd"",
-                    ""path"": ""<Keyboard>/downArrow"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard"",
-                    ""action"": ""DownArrow"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""bc2ddbb1-c485-485b-aee7-b0a7b3068253"",
-                    ""path"": ""<Keyboard>/leftArrow"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard"",
-                    ""action"": ""LeftArrow"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""733679d6-58dd-4b6b-9ed2-65a514a338ba"",
-                    ""path"": ""<Keyboard>/rightArrow"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard"",
-                    ""action"": ""RightArrow"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""2f1a3d83-f728-4f8f-8c25-5576048acf92"",
-                    ""path"": ""<Keyboard>/alt"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard"",
-                    ""action"": ""AltRelease"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""441dd6a9-8055-442b-9d14-17c8a0eeca0e"",
-                    ""path"": ""<Keyboard>/shift"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard"",
-                    ""action"": ""ShiftRelease"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""0e97140f-4087-49ce-b0da-fb02622efa3e"",
-                    ""path"": ""<Keyboard>/ctrl"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard"",
-                    ""action"": ""ControlRelease"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""7e79749c-90d2-4297-adf6-b6cc3723914e"",
-                    ""path"": """",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard"",
-                    ""action"": ""QuickTool-1"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""7507a930-6e61-4c64-84b7-3aa7d89429e6"",
-                    ""path"": """",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard"",
-                    ""action"": ""QuickTool-2"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""15934095-8299-45ac-b7b8-8acadbd39136"",
-                    ""path"": """",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard"",
-                    ""action"": ""QuickTool-3"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""cf49f6e9-fe26-4374-a70d-c6b58ecadaf6"",
-                    ""path"": """",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard"",
+                    ""groups"": ""PC"",
                     ""action"": ""QuickTool-4"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
-                    ""id"": ""f1b0147c-fb23-450b-8984-4d51842e5f41"",
-                    ""path"": """",
+                    ""id"": ""9a7f57e6-0150-4637-abc8-50ebbaed8d72"",
+                    ""path"": ""<Keyboard>/3"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Keyboard"",
-                    ""action"": ""QuickTool-5"",
+                    ""groups"": ""PC"",
+                    ""action"": ""QuickTool-3"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f3ea98b2-9a62-471f-a730-4df231103a65"",
+                    ""path"": ""<Keyboard>/2"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""PC"",
+                    ""action"": ""QuickTool-2"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5e80dcbe-468d-4769-bcd9-67c24c4957c2"",
+                    ""path"": ""<Keyboard>/1"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""PC"",
+                    ""action"": ""QuickTool-1"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0406f5f1-2fb1-4728-a92b-1a9998a1c5d9"",
+                    ""path"": ""<Keyboard>/rightArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""PC"",
+                    ""action"": ""RightArrow"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0d65fe7a-0b7e-4b67-9d3a-2cdf05162b4d"",
+                    ""path"": ""<Keyboard>/leftArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""PC"",
+                    ""action"": ""LeftArrow"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""57393b15-c667-403f-944c-fdfc6d22f492"",
+                    ""path"": ""<Keyboard>/downArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""PC"",
+                    ""action"": ""DownArrow"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""06762ef1-3cee-4b47-a799-cc6d5f633657"",
+                    ""path"": ""<Keyboard>/upArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""PC"",
+                    ""action"": ""UpArrow"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""698682fb-a82f-4f3d-9799-63d2b262934a"",
+                    ""path"": ""<Keyboard>/ctrl"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""PC"",
+                    ""action"": ""ControlRelease"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""58fdf4c0-7ea4-4af2-b6fe-cdde42ca1575"",
+                    ""path"": ""<Keyboard>/ctrl"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""PC"",
+                    ""action"": ""Control"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3941eb15-e08a-4b2c-87cf-0aebb8af10d4"",
+                    ""path"": ""<Keyboard>/shift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""PC"",
+                    ""action"": ""ShiftRelease"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""55801f3d-9321-49fb-8343-b8a745b1645c"",
+                    ""path"": ""<Keyboard>/shift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""PC"",
+                    ""action"": ""Shift"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ca9873fd-48f4-42e7-81fb-58a83df16525"",
+                    ""path"": ""<Keyboard>/alt"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""PC"",
+                    ""action"": ""AltRelease"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d71e0fc2-c654-45a6-b5a8-357fca3a67ef"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""PC"",
+                    ""action"": ""A"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a129a79b-273e-435a-ad26-596a157edd43"",
+                    ""path"": ""<Keyboard>/c"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""PC"",
+                    ""action"": ""C"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d8c44a3b-d666-44b9-96bc-25e8e5e38ad7"",
+                    ""path"": ""<Keyboard>/v"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""PC"",
+                    ""action"": ""V"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9ddbc467-ed16-4a3a-913d-38b4cd5b6246"",
+                    ""path"": ""<Keyboard>/delete"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""PC"",
+                    ""action"": ""Delete"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b71c49b1-ee5c-4466-a73e-7f5a7bec26de"",
+                    ""path"": ""<Keyboard>/tab"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""PC"",
+                    ""action"": ""Tab"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -345,19 +518,7 @@ public partial class @InputPlay: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 }
             ],
-            ""bindings"": [
-                {
-                    ""name"": """",
-                    ""id"": ""473ddc26-7491-4198-8e94-913be3cb7c20"",
-                    ""path"": """",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard"",
-                    ""action"": ""New action"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                }
-            ]
+            ""bindings"": []
         },
         {
             ""name"": ""Playing"",
@@ -368,11 +529,16 @@ public partial class @InputPlay: IInputActionCollection2, IDisposable
     ],
     ""controlSchemes"": [
         {
-            ""name"": ""Keyboard"",
-            ""bindingGroup"": ""Keyboard"",
+            ""name"": ""PC"",
+            ""bindingGroup"": ""PC"",
             ""devices"": [
                 {
                     ""devicePath"": ""<Keyboard>"",
+                    ""isOptional"": false,
+                    ""isOR"": false
+                },
+                {
+                    ""devicePath"": ""<Mouse>"",
                     ""isOptional"": false,
                     ""isOR"": false
                 }
@@ -388,6 +554,8 @@ public partial class @InputPlay: IInputActionCollection2, IDisposable
         m_Editing_ShiftRelease = m_Editing.FindAction("ShiftRelease", throwIfNotFound: true);
         m_Editing_Control = m_Editing.FindAction("Control", throwIfNotFound: true);
         m_Editing_ControlRelease = m_Editing.FindAction("ControlRelease", throwIfNotFound: true);
+        m_Editing_Tab = m_Editing.FindAction("Tab", throwIfNotFound: true);
+        m_Editing_Delete = m_Editing.FindAction("Delete", throwIfNotFound: true);
         m_Editing_UpArrow = m_Editing.FindAction("UpArrow", throwIfNotFound: true);
         m_Editing_DownArrow = m_Editing.FindAction("DownArrow", throwIfNotFound: true);
         m_Editing_LeftArrow = m_Editing.FindAction("LeftArrow", throwIfNotFound: true);
@@ -397,6 +565,11 @@ public partial class @InputPlay: IInputActionCollection2, IDisposable
         m_Editing_QuickTool3 = m_Editing.FindAction("QuickTool-3", throwIfNotFound: true);
         m_Editing_QuickTool4 = m_Editing.FindAction("QuickTool-4", throwIfNotFound: true);
         m_Editing_QuickTool5 = m_Editing.FindAction("QuickTool-5", throwIfNotFound: true);
+        m_Editing_A = m_Editing.FindAction("A", throwIfNotFound: true);
+        m_Editing_S = m_Editing.FindAction("S", throwIfNotFound: true);
+        m_Editing_C = m_Editing.FindAction("C", throwIfNotFound: true);
+        m_Editing_V = m_Editing.FindAction("V", throwIfNotFound: true);
+        m_Editing_Scroll = m_Editing.FindAction("Scroll", throwIfNotFound: true);
         // Testing
         m_Testing = asset.FindActionMap("Testing", throwIfNotFound: true);
         m_Testing_Newaction = m_Testing.FindAction("New action", throwIfNotFound: true);
@@ -469,6 +642,8 @@ public partial class @InputPlay: IInputActionCollection2, IDisposable
     private readonly InputAction m_Editing_ShiftRelease;
     private readonly InputAction m_Editing_Control;
     private readonly InputAction m_Editing_ControlRelease;
+    private readonly InputAction m_Editing_Tab;
+    private readonly InputAction m_Editing_Delete;
     private readonly InputAction m_Editing_UpArrow;
     private readonly InputAction m_Editing_DownArrow;
     private readonly InputAction m_Editing_LeftArrow;
@@ -478,6 +653,11 @@ public partial class @InputPlay: IInputActionCollection2, IDisposable
     private readonly InputAction m_Editing_QuickTool3;
     private readonly InputAction m_Editing_QuickTool4;
     private readonly InputAction m_Editing_QuickTool5;
+    private readonly InputAction m_Editing_A;
+    private readonly InputAction m_Editing_S;
+    private readonly InputAction m_Editing_C;
+    private readonly InputAction m_Editing_V;
+    private readonly InputAction m_Editing_Scroll;
     public struct EditingActions
     {
         private @InputPlay m_Wrapper;
@@ -488,6 +668,8 @@ public partial class @InputPlay: IInputActionCollection2, IDisposable
         public InputAction @ShiftRelease => m_Wrapper.m_Editing_ShiftRelease;
         public InputAction @Control => m_Wrapper.m_Editing_Control;
         public InputAction @ControlRelease => m_Wrapper.m_Editing_ControlRelease;
+        public InputAction @Tab => m_Wrapper.m_Editing_Tab;
+        public InputAction @Delete => m_Wrapper.m_Editing_Delete;
         public InputAction @UpArrow => m_Wrapper.m_Editing_UpArrow;
         public InputAction @DownArrow => m_Wrapper.m_Editing_DownArrow;
         public InputAction @LeftArrow => m_Wrapper.m_Editing_LeftArrow;
@@ -497,6 +679,11 @@ public partial class @InputPlay: IInputActionCollection2, IDisposable
         public InputAction @QuickTool3 => m_Wrapper.m_Editing_QuickTool3;
         public InputAction @QuickTool4 => m_Wrapper.m_Editing_QuickTool4;
         public InputAction @QuickTool5 => m_Wrapper.m_Editing_QuickTool5;
+        public InputAction @A => m_Wrapper.m_Editing_A;
+        public InputAction @S => m_Wrapper.m_Editing_S;
+        public InputAction @C => m_Wrapper.m_Editing_C;
+        public InputAction @V => m_Wrapper.m_Editing_V;
+        public InputAction @Scroll => m_Wrapper.m_Editing_Scroll;
         public InputActionMap Get() { return m_Wrapper.m_Editing; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -524,6 +711,12 @@ public partial class @InputPlay: IInputActionCollection2, IDisposable
             @ControlRelease.started += instance.OnControlRelease;
             @ControlRelease.performed += instance.OnControlRelease;
             @ControlRelease.canceled += instance.OnControlRelease;
+            @Tab.started += instance.OnTab;
+            @Tab.performed += instance.OnTab;
+            @Tab.canceled += instance.OnTab;
+            @Delete.started += instance.OnDelete;
+            @Delete.performed += instance.OnDelete;
+            @Delete.canceled += instance.OnDelete;
             @UpArrow.started += instance.OnUpArrow;
             @UpArrow.performed += instance.OnUpArrow;
             @UpArrow.canceled += instance.OnUpArrow;
@@ -551,6 +744,21 @@ public partial class @InputPlay: IInputActionCollection2, IDisposable
             @QuickTool5.started += instance.OnQuickTool5;
             @QuickTool5.performed += instance.OnQuickTool5;
             @QuickTool5.canceled += instance.OnQuickTool5;
+            @A.started += instance.OnA;
+            @A.performed += instance.OnA;
+            @A.canceled += instance.OnA;
+            @S.started += instance.OnS;
+            @S.performed += instance.OnS;
+            @S.canceled += instance.OnS;
+            @C.started += instance.OnC;
+            @C.performed += instance.OnC;
+            @C.canceled += instance.OnC;
+            @V.started += instance.OnV;
+            @V.performed += instance.OnV;
+            @V.canceled += instance.OnV;
+            @Scroll.started += instance.OnScroll;
+            @Scroll.performed += instance.OnScroll;
+            @Scroll.canceled += instance.OnScroll;
         }
 
         private void UnregisterCallbacks(IEditingActions instance)
@@ -573,6 +781,12 @@ public partial class @InputPlay: IInputActionCollection2, IDisposable
             @ControlRelease.started -= instance.OnControlRelease;
             @ControlRelease.performed -= instance.OnControlRelease;
             @ControlRelease.canceled -= instance.OnControlRelease;
+            @Tab.started -= instance.OnTab;
+            @Tab.performed -= instance.OnTab;
+            @Tab.canceled -= instance.OnTab;
+            @Delete.started -= instance.OnDelete;
+            @Delete.performed -= instance.OnDelete;
+            @Delete.canceled -= instance.OnDelete;
             @UpArrow.started -= instance.OnUpArrow;
             @UpArrow.performed -= instance.OnUpArrow;
             @UpArrow.canceled -= instance.OnUpArrow;
@@ -600,6 +814,21 @@ public partial class @InputPlay: IInputActionCollection2, IDisposable
             @QuickTool5.started -= instance.OnQuickTool5;
             @QuickTool5.performed -= instance.OnQuickTool5;
             @QuickTool5.canceled -= instance.OnQuickTool5;
+            @A.started -= instance.OnA;
+            @A.performed -= instance.OnA;
+            @A.canceled -= instance.OnA;
+            @S.started -= instance.OnS;
+            @S.performed -= instance.OnS;
+            @S.canceled -= instance.OnS;
+            @C.started -= instance.OnC;
+            @C.performed -= instance.OnC;
+            @C.canceled -= instance.OnC;
+            @V.started -= instance.OnV;
+            @V.performed -= instance.OnV;
+            @V.canceled -= instance.OnV;
+            @Scroll.started -= instance.OnScroll;
+            @Scroll.performed -= instance.OnScroll;
+            @Scroll.canceled -= instance.OnScroll;
         }
 
         public void RemoveCallbacks(IEditingActions instance)
@@ -701,13 +930,13 @@ public partial class @InputPlay: IInputActionCollection2, IDisposable
         }
     }
     public PlayingActions @Playing => new PlayingActions(this);
-    private int m_KeyboardSchemeIndex = -1;
-    public InputControlScheme KeyboardScheme
+    private int m_PCSchemeIndex = -1;
+    public InputControlScheme PCScheme
     {
         get
         {
-            if (m_KeyboardSchemeIndex == -1) m_KeyboardSchemeIndex = asset.FindControlSchemeIndex("Keyboard");
-            return asset.controlSchemes[m_KeyboardSchemeIndex];
+            if (m_PCSchemeIndex == -1) m_PCSchemeIndex = asset.FindControlSchemeIndex("PC");
+            return asset.controlSchemes[m_PCSchemeIndex];
         }
     }
     public interface IEditingActions
@@ -718,6 +947,8 @@ public partial class @InputPlay: IInputActionCollection2, IDisposable
         void OnShiftRelease(InputAction.CallbackContext context);
         void OnControl(InputAction.CallbackContext context);
         void OnControlRelease(InputAction.CallbackContext context);
+        void OnTab(InputAction.CallbackContext context);
+        void OnDelete(InputAction.CallbackContext context);
         void OnUpArrow(InputAction.CallbackContext context);
         void OnDownArrow(InputAction.CallbackContext context);
         void OnLeftArrow(InputAction.CallbackContext context);
@@ -727,6 +958,11 @@ public partial class @InputPlay: IInputActionCollection2, IDisposable
         void OnQuickTool3(InputAction.CallbackContext context);
         void OnQuickTool4(InputAction.CallbackContext context);
         void OnQuickTool5(InputAction.CallbackContext context);
+        void OnA(InputAction.CallbackContext context);
+        void OnS(InputAction.CallbackContext context);
+        void OnC(InputAction.CallbackContext context);
+        void OnV(InputAction.CallbackContext context);
+        void OnScroll(InputAction.CallbackContext context);
     }
     public interface ITestingActions
     {
