@@ -20,8 +20,6 @@ public class NoteField : MonoBehaviour
     public static int s_StartPos = 0;
     private static bool s_isCtrl = false;
 
-    [SerializeField] InputAction[] CtrlAction;
-    [SerializeField] InputAction ScrollAction;
     [SerializeField] GameObject LinePrefab;
     [SerializeField] Transform PreviewNoteParent;
     [SerializeField] Transform[] DrawField;
@@ -47,39 +45,6 @@ public class NoteField : MonoBehaviour
             LineHolder.s_holders.Add(_holder);
         }
     }
-    private void Start()
-    {
-        CtrlAction[0].performed += item => { s_isCtrl = true; };
-        CtrlAction[1].performed += item => { s_isCtrl = false; };
-        CtrlAction[0].Enable();
-        CtrlAction[1].Enable();
-
-        //$ Mouse Scroll Up & Down
-        ScrollAction.performed += item =>
-        {
-            if (!s_isFieldMovable) { return; }
-            
-            float z;
-            z = ScrollAction.ReadValue<float>();
-            
-            //$ Mouse Scroll Up
-            if (z > 0)
-            {
-                if (s_isCtrl) { s_Zoom--; }
-                else { s_Scroll++; }
-                UpdateField();
-            }
-            //$ Mouse Scroll Down
-            else if (z < 0)
-            {
-                if (s_isCtrl) { s_Zoom++; }
-                else { s_Scroll--; }
-                UpdateField();
-            }
-        };
-        ScrollAction.Enable();
-    }
-
     public NoteHolder FindMultyHolder(NormalNote note)
     {
         NoteHolder ret = null;
@@ -187,6 +152,27 @@ public class NoteField : MonoBehaviour
     {
         if (EditManager.s_SelectNoteHolder == null) { return; }
         
+    }
+    
+    public static void ZoomIn()
+    {
+        s_Zoom--;
+        s_this.UpdateField();
+    }
+    public static void ZoomOut()
+    {
+        s_Zoom++;
+        s_this.UpdateField();
+    }
+    public static void ScrollUp()
+    {
+        s_Scroll++;
+        s_this.UpdateField();
+    }
+    public static void ScrollDown()
+    {
+        s_Scroll--;
+        s_this.UpdateField();
     }
 
     public void InputPage(TMP_InputField inputField)

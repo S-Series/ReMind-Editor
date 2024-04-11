@@ -254,19 +254,17 @@ public class SaveManager : MonoBehaviour
             holder.airials[4] == null ? "--" : LengthToString(holder.airials[4].length),
             holder.airials[5] == null ? "--" : LengthToString(holder.airials[5].length),
 
-            holder.bottoms[0] == null ? "---|---|--" : String.Format(
-                "{0}{1}{2}|{3:D3}|{4}",
+            holder.bottoms[0] == null ? "--|---|--" : String.Format(
+                "{0}{1}|{3:D3}|{4}",
                 holder.bottoms[0].isPowered ? "T" : "F",
                 holder.bottoms[0].isInverse ? "T" : "F",
-                holder.bottoms[0].isSlide ? "T" : "F",
                 holder.bottoms[0].endValue,
                 LengthToString(holder.bottoms[0].length)
             ),
-            holder.bottoms[1] == null ? "---|---|--" : String.Format(
-                "{0}{1}{2}|{3:D3}|{4}",
+            holder.bottoms[1] == null ? "--|---|--" : String.Format(
+                "{0}{1}|{3:D3}|{4}",
                 holder.bottoms[1].isPowered ? "T" : "F",
                 holder.bottoms[1].isInverse ? "T" : "F",
-                holder.bottoms[1].isSlide ? "T" : "F",
                 holder.bottoms[1].endValue,
                 LengthToString(holder.bottoms[1].length)
             ),

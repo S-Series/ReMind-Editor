@@ -23,12 +23,11 @@ namespace GameNote
     }
     public class ScratchNote
     {
-        public int posY, endValue, length;
+        public int posY, endValue, length, endLength;
         public bool isLeftNote;
-        public bool isInverse, isPowered, isSlide;
+        public bool isInverse, isPowered;
         public ScratchNote(int[] values, bool isLeft)
         {
-            isSlide = false;
             isPowered = false;
             isInverse = false;
 
@@ -47,7 +46,6 @@ namespace GameNote
 
             isPowered = bools[0];
             isInverse = bools[1];
-            isSlide = bools[2];
         }
     }
     public class SpeedNote

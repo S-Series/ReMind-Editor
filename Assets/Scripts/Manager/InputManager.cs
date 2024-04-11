@@ -13,16 +13,13 @@ public class InputManager : MonoBehaviour
         "Playing"
     };
     private bool isAlt = false, isShift = false, isControl = false;
-    private static IEnumerator[] ScrollCoroutine = new IEnumerator[3];
+    private InputAction ScrollInputAction;
+
 
     private void Awake()
     {
         if (s_this == null) { s_this = this; }
         playerInput = GetComponent<PlayerInput>();
-
-        ScrollCoroutine[0] = IScroll_Edit();
-        ScrollCoroutine[1] = IScroll_Test();
-        ScrollCoroutine[2] = IScroll_Play();
     }
     private void Start()
     {
@@ -45,30 +42,28 @@ public class InputManager : MonoBehaviour
         playerInput.actions["RightArrow"].performed += T => RightArrowAction();
         playerInput.actions["LeftArrow"].performed += T => LeftArrowAction();
 
-        playerInput.actions["Quick Tool-1"].performed += T => QuickToolAction(1);
-        playerInput.actions["Quick Tool-2"].performed += T => QuickToolAction(2);
-        playerInput.actions["Quick Tool-3"].performed += T => QuickToolAction(3);
-        playerInput.actions["Quick Tool-4"].performed += T => QuickToolAction(4);
-        playerInput.actions["Quick Tool-5"].performed += T => QuickToolAction(5);
+        playerInput.actions["QuickTool-1"].performed += T => QuickToolAction(1);
+        playerInput.actions["QuickTool-2"].performed += T => QuickToolAction(2);
+        playerInput.actions["QuickTool-3"].performed += T => QuickToolAction(3);
+        playerInput.actions["QuickTool-4"].performed += T => QuickToolAction(4);
+        playerInput.actions["QuickTool-5"].performed += T => QuickToolAction(5);
 
         playerInput.actions["A"].performed += T => A_Action();
         playerInput.actions["S"].performed += T => S_Action();
         playerInput.actions["C"].performed += T => C_Action();
         playerInput.actions["V"].performed += T => V_Action();
 
+        ScrollInputAction = playerInput.actions["Scroll"];
+        ScrollInputAction.performed += T => ScrollAction();
 
         // playerInput.SwitchCurrentActionMap(ActionMapName[1]);
+
+        playerInput.ActivateInput();
     }
 
     public static void SwitchInputMap(int actionMapIndex)
     {
-        s_this.StopAllCoroutines();
-        playerInput.DeactivateInput();
-
         playerInput.SwitchCurrentActionMap(ActionMapName[actionMapIndex]);
-
-        playerInput.ActivateInput();
-        s_this.StartCoroutine(ScrollCoroutine[actionMapIndex]);
     }   
 
     private void AltAction(bool isInput)
@@ -172,67 +167,102 @@ public class InputManager : MonoBehaviour
 
     private void QuickToolAction(int toolIndex)
     {
-
+        print(toolIndex);
     }
 
     private void A_Action()
     {
+        if (isControl)
+        {
 
+        }
+        else if (isShift)
+        {
+
+        }
+        else if (isAlt)
+        {
+
+        }
+        else
+        {
+
+        }
     }
     private void S_Action()
     {
+        if (isControl)
+        {
 
+        }
+        else if (isShift)
+        {
+
+        }
+        else if (isAlt)
+        {
+
+        }
+        else
+        {
+
+        }
     }
     private void C_Action()
     {
+        if (isControl)
+        {
 
+        }
+        else if (isShift)
+        {
+
+        }
+        else if (isAlt)
+        {
+
+        }
+        else
+        {
+
+        }
     }
     private void V_Action()
     {
-
-    }
-
-    private void ScrollAction_Edit(bool isPositive)
-    {
-
-    }
-    private void ScrollAction_Test(bool isPositive)
-    {
-
-    }
-    private void ScrollAction_Play(bool isPositive)
-    {
-
-    }
-
-    private IEnumerator IScroll_Edit()
-    {
-        var ScrollVector = playerInput.actions["Scroll"]?.ReadValue<Vector2>().y;
-        while (true)
+        if (isControl)
         {
-            if (ScrollVector >= 1)
-            {
 
-            }
-            else if (ScrollVector <= -1)
-            {
+        }
+        else if (isShift)
+        {
 
-            }
-            yield return null;
+        }
+        else if (isAlt)
+        {
+
+        }
+        else
+        {
+
         }
     }
-    private IEnumerator IScroll_Test()
+
+    private void ScrollAction()
     {
-        while (true)
+        float z;
+        z = ScrollInputAction.ReadValue<float>();
+
+        //$ Mouse Scroll Up
+        if (z > 0)
         {
-            yield return null;
+            if (isControl) { NoteField.ZoomIn(); }
+            else { NoteField.ScrollUp(); }
         }
-    }
-    private IEnumerator IScroll_Play()
-    {
-        while (true)
+        //$ Mouse Scroll Down
+        else if (z < 0)
         {
-            yield return null;
+            if (isControl) { NoteField.ZoomOut(); }
+            else { NoteField.ScrollDown(); }
         }
     }
 }

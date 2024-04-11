@@ -9,12 +9,14 @@ public class DragDrop : MonoBehaviour
     [SerializeField] InputAction inputAction;
     [SerializeField] private Camera dragCamera;
     private Vector3 velocity = Vector3.zero;
+    [SerializeField] float targetZ;
 
     private void Start()
     {
         s_this = this;
         inputAction.performed += MousePressed;
         inputAction.Enable();
+        if (targetZ <= 0) { targetZ = 10; }
     }
     public static void DragActionControl(bool isEnable)
     {
@@ -54,16 +56,16 @@ public class DragDrop : MonoBehaviour
                 pos = Vector3.SmoothDamp(clicked.transform.position,
                     ray.GetPoint(initialDistance), ref velocity, 0);
                 clicked.transform.position = RetouchVector3(pos);
-                EditBox.UpdateRenderer();
+                // EditBox.UpdateRenderer();
                 yield return null;
             }
         }
     }
     private Vector3 RetouchVector3(Vector3 value)
     {
-        value.x = value.x * 9.9f / value.z;
-        value.y = value.y * 9.9f / value.z - 1.05f;
-        value.z = 9.9f;
+        value.x = value.x * targetZ / value.z;
+        value.y = value.y * targetZ / value.z;
+        value.z = targetZ;
         return value;
     }
 }

@@ -39,6 +39,8 @@ public class EditManager : MonoBehaviour
     [SerializeField] GameObject p_DragSelectHelper;
     private static GameObject DragSelectHelper;
 
+    [SerializeField] 
+
     private void Awake()
     {
         s_this = this;
@@ -299,7 +301,6 @@ public class EditManager : MonoBehaviour
 
         if (dataIndex == 0) {targetNote.isInverse = data;}
         else if (dataIndex == 1) {targetNote.isPowered = data;}
-        else if (dataIndex == 2) {targetNote.isSlide = data;}
 
         LineGenerator.UpdateHolder(s_SelectNoteHolder);
     }
@@ -413,7 +414,6 @@ public class EditManager : MonoBehaviour
         EditNote(line: editLine);
         InfoField.UpdateInfoField();
     }
-
     /*
     private static void HelperUpdate(bool Enable)
     {

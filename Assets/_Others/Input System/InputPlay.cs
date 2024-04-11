@@ -141,7 +141,7 @@ public partial class @InputPlay: IInputActionCollection2, IDisposable
                     ""id"": ""f07845cb-3808-4e4e-8823-f49e9daf2945"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": ""Press"",
+                    ""interactions"": ""Hold"",
                     ""initialStateCheck"": false
                 },
                 {
@@ -240,7 +240,7 @@ public partial class @InputPlay: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""1D Axis"",
-                    ""id"": ""7bdd0ef5-38ae-42f3-98f7-ab94d617e52c"",
+                    ""id"": ""cb3bb4a7-15fc-4c36-8b5b-a88e8017a1c5"",
                     ""path"": ""1DAxis"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -251,8 +251,8 @@ public partial class @InputPlay: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""negative"",
-                    ""id"": ""227d5078-0b65-4889-8949-4006d4b68778"",
-                    ""path"": ""<Mouse>/scroll/y"",
+                    ""id"": ""611a9dfc-af78-47e7-bb10-4f062fc98b28"",
+                    ""path"": ""<Mouse>/scroll/down"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""PC"",
@@ -262,8 +262,8 @@ public partial class @InputPlay: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""positive"",
-                    ""id"": ""19d97dfe-c530-4adb-b681-f794c949d855"",
-                    ""path"": ""<Mouse>/scroll/y"",
+                    ""id"": ""47079602-8f6c-4d72-8a95-a74e6f27e467"",
+                    ""path"": ""<Mouse>/scroll/up"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""PC"",

@@ -42,19 +42,7 @@ public class LineGenerator : MonoBehaviour
                     {
                         linePosX -= Xvalue;
                     }
-                    noteHolders[i].ApplyScratchVec(
-                        true, scratchNotes[j].isSlide ?
-                        new Vector3[2] {
-                        new Vector3(startPosX, 0, 0),
-                        new Vector3(startPosX + Xvalue, scratchNotes[j].length * 100, 0)
-                        } :
-                        new Vector3[4] {
-                        new Vector3(startPosX, -100, 0),
-                        new Vector3(startPosX, 0, 0),
-                        new Vector3(startPosX + Xvalue, 0, 0),
-                        new Vector3(startPosX + Xvalue, scratchNotes[j].length * 100, 0)
-                        }
-                    );
+                    //noteHolders[i].ApplyScratchVec();
                 }
             }
         }
