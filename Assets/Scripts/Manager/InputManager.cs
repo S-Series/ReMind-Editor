@@ -85,14 +85,14 @@ public class InputManager : MonoBehaviour
     }
     private void DeleteAction()
     {
-
+        EditManager.Delete();
     }
 
     private void UpArrowAction()
     {
         if (isControl)
         {
-
+            NoteField.s_Page++;
         }
         else if (isShift)
         {
@@ -176,36 +176,16 @@ public class InputManager : MonoBehaviour
         {
 
         }
-        else if (isShift)
-        {
-
-        }
-        else if (isAlt)
-        {
-
-        }
-        else
-        {
-
-        }
     }
     private void S_Action()
     {
         if (isControl)
         {
+            if (isShift || isAlt)
+            {
 
-        }
-        else if (isShift)
-        {
-
-        }
-        else if (isAlt)
-        {
-
-        }
-        else
-        {
-
+            }
+            else { }
         }
     }
     private void C_Action()
@@ -214,34 +194,10 @@ public class InputManager : MonoBehaviour
         {
 
         }
-        else if (isShift)
-        {
-
-        }
-        else if (isAlt)
-        {
-
-        }
-        else
-        {
-
-        }
     }
     private void V_Action()
     {
         if (isControl)
-        {
-
-        }
-        else if (isShift)
-        {
-
-        }
-        else if (isAlt)
-        {
-
-        }
-        else
         {
 
         }
