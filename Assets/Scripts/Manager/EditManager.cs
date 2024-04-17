@@ -358,16 +358,6 @@ public class EditManager : MonoBehaviour
 
         LineGenerator.UpdateHolder(s_SelectNoteHolder);
     }
-    public static void EditScratch(int dataIndex, bool data)
-    {
-        ScratchNote targetNote;
-        targetNote = s_SelectNoteHolder.bottoms[s_line];
-
-        if (dataIndex == 0) {targetNote.isInverse = data;}
-        else if (dataIndex == 1) {targetNote.isPowered = data;}
-
-        LineGenerator.UpdateHolder(s_SelectNoteHolder);
-    }
 
     public static void BpmNote(float value)
     {

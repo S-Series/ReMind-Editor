@@ -318,7 +318,6 @@ public class NoteHolder : MonoBehaviour
     }
     public NoteHolder(string data)
     {
-        //@ --------#--|--|--|--|--|--#--|--|--|--|--|--#---|---|---|---|---|---#-----|-----#--|------
         string[] holderData, noteData;
         holderData = data.Split('#', StringSplitOptions.RemoveEmptyEntries);
 
@@ -350,21 +349,19 @@ public class NoteHolder : MonoBehaviour
             );
         }
 
+        int index;
         noteData = holderData[3].Split('|', StringSplitOptions.RemoveEmptyEntries);
         for (int i = 0; i < 2; i++)
         {
+            index = i == 0 ? 0 : 4;
             bottoms[i] = new ScratchNote(
-                values: new int[3]{
-                    stdPos,                                         //$ posY
-                    Convert.ToInt32(noteData[3 * i + 1]),           //$ EndValue
-                    SaveManager.StringToLength(noteData[3 * i + 2]) //$ Length
+                _posY: stdPos,
+                _length: SaveManager.StringToLength(noteData[index + 1]),
+                values: new int[2]{
+                    Convert.ToInt32(noteData[index + 2]),
+                    Convert.ToInt32(noteData[index + 3])
                 },
-                bools: new bool[3]{
-                    noteData[3 * i][0] == 'T' ? true : false,       //$ isPowered
-                    noteData[3 * i][1] == 'T' ? true : false,       //$ isInverse
-                    noteData[3 * i][2] == 'T' ? true : false        //$ isSlide
-                },
-                isLeft: i == 0 ? true : false
+                _isPowered: noteData[4 * i][1] == 'T' ? true : false
             );
         }
 

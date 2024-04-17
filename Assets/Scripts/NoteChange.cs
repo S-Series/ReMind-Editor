@@ -145,15 +145,12 @@ public class NoteChange : MonoBehaviour
     //$ ScratchNote Only
     public void ToggleInversed(Toggle toggle)
     {
-        EditManager.EditScratch(0, toggle.isOn);
     }
     public void TogglePowered(Toggle toggle)
     {
-        EditManager.EditScratch(1, toggle.isOn);
     }
     public void ToggleSlide(Toggle toggle)
     {
-        EditManager.EditScratch(2, toggle.isOn);
     }
 
     //$ SpeedNote Only

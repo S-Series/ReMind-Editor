@@ -107,8 +107,10 @@ public class NoteGenerate : MonoBehaviour
             case NoteType.Scratch:
                 ScratchNote scratch;
                 scratch = new ScratchNote(
-                    new int[3] { holder.stdPos, 1, 1 },
-                    s_Line < 3 ? true : false
+                    _posY: holder.stdPos,
+                    _length: 0,
+                    new int[2] {0, 1000},
+                    false
                 );
                 holder.bottoms[s_Line < 3 ? 0 : 1] = scratch;
                 break;

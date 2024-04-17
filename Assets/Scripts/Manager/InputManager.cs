@@ -92,11 +92,11 @@ public class InputManager : MonoBehaviour
     {
         if (isControl)
         {
-            NoteField.s_Page++;
+            EditManager.MoveNoteInput(true);
         }
         else if (isShift)
         {
-
+            
         }
         else if (isAlt)
         {
