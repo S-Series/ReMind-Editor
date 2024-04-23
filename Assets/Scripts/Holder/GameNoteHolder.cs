@@ -58,11 +58,7 @@ public class GameNoteHolder : MonoBehaviour
         for (int i = 0; i < 2; i++)
         {
             if (holder.bottoms[i] == null) { bottomObjects[i].SetActive(false); }
-            else
-            {
-                bottomObjects[i].SetActive(true);
-                bottomObjects[i].GetComponent<NoteData>().Length(holder.bottoms[i].length);
-            }
+            else { bottomObjects[i].SetActive(true); }
         }
     }
     public void UpdateScale()

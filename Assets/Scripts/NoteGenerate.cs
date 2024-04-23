@@ -6,7 +6,7 @@ using System.Runtime.CompilerServices;
 
 public class NoteGenerate : MonoBehaviour
 {
-    private static NoteGenerate s_this;
+    public static NoteGenerate s_this;
     public static bool s_isGenerating = false;
 
     public static int posX = 0, posY = 0, posZ = 0, s_Line = 0;
@@ -41,7 +41,7 @@ public class NoteGenerate : MonoBehaviour
         else if (s_previewType == NoteType.Speed || s_previewType == NoteType.Effect) { posX = -1050; }
         else if (s_Line == 0) { posX = -360; }
 
-        previews[(int)s_previewType].transform.localPosition
+        previews[(int)s_previewType - 1].transform.localPosition
             = new Vector3(posX, 2 * posY / NoteField.s_Zoom, posZ);
         previewGuide.transform.localPosition = new Vector3(3086, 2 * posY / NoteField.s_Zoom, 0);
     }
@@ -77,11 +77,11 @@ public class NoteGenerate : MonoBehaviour
         else
         {
             copyObject = Instantiate(s_this.GeneratePrefabs[0], s_this.GenerateField[0], false);
-            //copyObject.transform.localPosition = 
             holder = copyObject.GetComponent<NoteHolder>();
             holder.name = "Pos : " + pos.ToString();
             holder.stdMs = NoteClass.PosToMs(pos);
             holder.stdPos = pos;
+            holder.GeneratingInit();
             holder.EnableCollider(false);
 
             copyObject = Instantiate(s_this.GeneratePrefabs[1], s_this.GenerateField[1], false);
@@ -91,7 +91,7 @@ public class NoteGenerate : MonoBehaviour
             NoteHolder.s_holders.Add(holder);
         }
 
-        switch (ToolManager.noteType)
+        switch (s_previewType)
         {
             case NoteType.Normal:
             case NoteType.Airial:
@@ -100,6 +100,10 @@ public class NoteGenerate : MonoBehaviour
                     new int[3] { holder.stdPos, s_Line, 1 },
                     false
                 );
+                if (normal == null) { print("Error 01");}
+                if (holder == null) { print("Error 02");}
+                if (holder.normals == null) { print("Error 03");}
+                print(holder.normals.Length);
                 if (s_previewType == NoteType.Airial) { holder.airials[s_Line - 1] = normal; }
                 else { holder.normals[s_Line - 1] = normal; }
                 break;
@@ -109,8 +113,7 @@ public class NoteGenerate : MonoBehaviour
                 scratch = new ScratchNote(
                     _posY: holder.stdPos,
                     _length: 0,
-                    new int[2] {0, 1000},
-                    false
+                    _powerValue: 500
                 );
                 holder.bottoms[s_Line < 3 ? 0 : 1] = scratch;
                 break;
@@ -161,12 +164,13 @@ public class NoteGenerate : MonoBehaviour
         NoteHolder.s_holders.Add(ret);
         return ret;
     }
-    public static void ChangePreview(int index)
+    private static void ChangePreview(int index)
     {
-
+        s_isGenerating = true;
         foreach (GameObject gameObject in s_this.previews) { gameObject.SetActive(false); }
 
         s_this.previews[index].SetActive(true);
+        s_previewType = (NoteType)(index + 1);
 
         GuideGenerate.EnableGuideCollider(true);
         foreach (NoteHolder holder in NoteHolder.s_holders) { holder.EnableCollider(false); }
@@ -180,5 +184,8 @@ public class NoteGenerate : MonoBehaviour
         GuideGenerate.EnableGuideCollider(false);
         foreach (NoteHolder holder in NoteHolder.s_holders) { holder.EnableCollider(true); }
     }
-
+    public void ToolAction(int index)
+    {
+        ChangePreview(index);
+    }
 }

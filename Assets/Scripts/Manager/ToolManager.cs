@@ -14,10 +14,5 @@ public class ToolManager : MonoBehaviour
     }
     public static void Tool(int index)
     {
-        s_this.ToolButton(index);
-    }
-    public void ToolButton(int index)
-    {
-        NoteGenerate.ChangePreview(index);
     }
 }

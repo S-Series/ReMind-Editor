@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using GameNote;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -167,7 +168,7 @@ public class InputManager : MonoBehaviour
 
     private void QuickToolAction(int toolIndex)
     {
-        print(toolIndex);
+        NoteGenerate.s_this.ToolAction(toolIndex - 1);
     }
 
     private void A_Action()

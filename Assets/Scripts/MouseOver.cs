@@ -5,12 +5,12 @@ using UnityEngine.EventSystems;
 
 public class MouseOver : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler
 {
+    [SerializeField] int lineNum;
     public void OnPointerEnter(PointerEventData eventData)
     {
         if (!NoteGenerate.s_isGenerating) { return; }
 
-        try { NoteGenerate.s_Line = System.Convert.ToInt32(tag.ToString()); }
-        catch { NoteGenerate.s_Line = 0; }
+        NoteGenerate.s_Line = lineNum;
         NoteGenerate.posY = transform.parent.GetComponent<GuideHolder>().posY;
     }
     public void OnPointerClick(PointerEventData eventData)

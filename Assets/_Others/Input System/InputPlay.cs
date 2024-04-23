@@ -141,7 +141,7 @@ public partial class @InputPlay: IInputActionCollection2, IDisposable
                     ""id"": ""f07845cb-3808-4e4e-8823-f49e9daf2945"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": ""Hold"",
+                    ""interactions"": ""Press"",
                     ""initialStateCheck"": false
                 },
                 {

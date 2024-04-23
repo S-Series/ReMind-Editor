@@ -23,15 +23,12 @@ namespace GameNote
     }
     public class ScratchNote
     {
-        public int posY, startValue, endValue, length;
-        public bool isPowered;
-        public ScratchNote(int _posY, int _length, int[] values, bool _isPowered)
+        public int posY, length, powerValue;
+        public ScratchNote(int _posY, int _length, int _powerValue)
         {
             posY = _posY;
             length = _length;
-            startValue = values[0];
-            endValue = values[1];
-            isPowered = _isPowered;
+            powerValue = _powerValue;
         }
     }
     public class SpeedNote

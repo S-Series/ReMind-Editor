@@ -239,6 +239,12 @@ public class NoteHolder : MonoBehaviour
     {
 
     }
+    public void GeneratingInit()
+    {
+        normals = new NormalNote[] { null, null, null, null, null, null };
+        airials = new NormalNote[] { null, null, null, null, null, null };
+        bottoms = new ScratchNote[] { null, null };
+    }
     public void ApplyGameMode(GameMode mode)
     {
         int lineCount, startPosX;
@@ -299,7 +305,7 @@ public class NoteHolder : MonoBehaviour
 
     private bool isNull()
     {
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < 6; i++)
         {
             if (normals[i] == null) { return false; }
             if (airials[i] == null) { return false; }
@@ -353,15 +359,11 @@ public class NoteHolder : MonoBehaviour
         noteData = holderData[3].Split('|', StringSplitOptions.RemoveEmptyEntries);
         for (int i = 0; i < 2; i++)
         {
-            index = i == 0 ? 0 : 4;
+            index = i == 0 ? 0 : 2;
             bottoms[i] = new ScratchNote(
                 _posY: stdPos,
-                _length: SaveManager.StringToLength(noteData[index + 1]),
-                values: new int[2]{
-                    Convert.ToInt32(noteData[index + 2]),
-                    Convert.ToInt32(noteData[index + 3])
-                },
-                _isPowered: noteData[4 * i][1] == 'T' ? true : false
+                _length: SaveManager.StringToLength(noteData[index]),
+                _powerValue: Convert.ToInt32(noteData[index + 1])
             );
         }
 

@@ -349,15 +349,6 @@ public class EditManager : MonoBehaviour
 
         LineGenerator.UpdateHolder(s_SelectNoteHolder);
     }
-    public static void EditScratch(int endValue)
-    {
-        ScratchNote targetNote;
-        targetNote = s_SelectNoteHolder.bottoms[s_line];
-
-        targetNote.endValue = endValue;
-
-        LineGenerator.UpdateHolder(s_SelectNoteHolder);
-    }
 
     public static void BpmNote(float value)
     {
