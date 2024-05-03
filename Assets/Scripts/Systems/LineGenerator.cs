@@ -23,16 +23,10 @@ public class LineGenerator : MonoBehaviour
 
     public static void UpdateHolder()
     {
-        int linePosX = 0, endPosX = 0, holderPosX = 0;
-        int[] lastPosX = { 0, 0 };
-        bool keepLastPos = false;
-        ScratchNote[] scratchNotes;
-        for (int i = 0; i < noteHolders.Count; i++)
+        int linePosX = 0;
+        for (int i = 0; i < NoteHolder.s_holders.Count; i++)
         {
-            holderPosX = noteHolders[i].stdPos;
-            keepLastPos = holderPosX - endPosX > 100 ? false : true;
-            var startPosX = keepLastPos ? lastPosX[0] : 0;
-            scratchNotes = new ScratchNote[2] { noteHolders[i].bottoms[0], noteHolders[i].bottoms[1] };
+            
         }
     }
     public static void UpdateHolder(NoteHolder holder)

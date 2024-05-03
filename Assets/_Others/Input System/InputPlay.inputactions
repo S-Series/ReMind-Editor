@@ -78,6 +78,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "Escape",
+                    "type": "Button",
+                    "id": "2ad67081-7b08-4d80-9a8f-c1e0fecc31af",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "UpArrow",
                     "type": "Button",
                     "id": "d3efbe91-bd54-4761-813e-9266ed6d3c61",
@@ -477,6 +486,17 @@
                     "processors": "",
                     "groups": "PC",
                     "action": "Tab",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "eff8cfad-5d93-41d3-b740-8bd3f1f45a7b",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "PC",
+                    "action": "Escape",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

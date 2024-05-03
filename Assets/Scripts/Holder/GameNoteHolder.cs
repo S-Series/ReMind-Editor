@@ -111,7 +111,7 @@ public class GameNoteHolder : MonoBehaviour
             airialObjects[i].SetActive(isActive);
         }
 
-        vec3 = new Vector3(96f / Mathf.Pow(0.815f, (int)mode - 4), 96f, 96f);
+        vec3 = new Vector3(1f / Mathf.Pow(0.815f, (int)mode - 4), 1f, 1f);
         bottomObjects[0].transform.localScale = vec3;
         bottomObjects[1].transform.localScale = vec3;
     }

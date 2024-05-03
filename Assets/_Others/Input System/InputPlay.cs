@@ -100,6 +100,15 @@ public partial class @InputPlay: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
+                    ""name"": ""Escape"",
+                    ""type"": ""Button"",
+                    ""id"": ""2ad67081-7b08-4d80-9a8f-c1e0fecc31af"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press"",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""UpArrow"",
                     ""type"": ""Button"",
                     ""id"": ""d3efbe91-bd54-4761-813e-9266ed6d3c61"",
@@ -501,6 +510,17 @@ public partial class @InputPlay: IInputActionCollection2, IDisposable
                     ""action"": ""Tab"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""eff8cfad-5d93-41d3-b740-8bd3f1f45a7b"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""PC"",
+                    ""action"": ""Escape"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -556,6 +576,7 @@ public partial class @InputPlay: IInputActionCollection2, IDisposable
         m_Editing_ControlRelease = m_Editing.FindAction("ControlRelease", throwIfNotFound: true);
         m_Editing_Tab = m_Editing.FindAction("Tab", throwIfNotFound: true);
         m_Editing_Delete = m_Editing.FindAction("Delete", throwIfNotFound: true);
+        m_Editing_Escape = m_Editing.FindAction("Escape", throwIfNotFound: true);
         m_Editing_UpArrow = m_Editing.FindAction("UpArrow", throwIfNotFound: true);
         m_Editing_DownArrow = m_Editing.FindAction("DownArrow", throwIfNotFound: true);
         m_Editing_LeftArrow = m_Editing.FindAction("LeftArrow", throwIfNotFound: true);
@@ -644,6 +665,7 @@ public partial class @InputPlay: IInputActionCollection2, IDisposable
     private readonly InputAction m_Editing_ControlRelease;
     private readonly InputAction m_Editing_Tab;
     private readonly InputAction m_Editing_Delete;
+    private readonly InputAction m_Editing_Escape;
     private readonly InputAction m_Editing_UpArrow;
     private readonly InputAction m_Editing_DownArrow;
     private readonly InputAction m_Editing_LeftArrow;
@@ -670,6 +692,7 @@ public partial class @InputPlay: IInputActionCollection2, IDisposable
         public InputAction @ControlRelease => m_Wrapper.m_Editing_ControlRelease;
         public InputAction @Tab => m_Wrapper.m_Editing_Tab;
         public InputAction @Delete => m_Wrapper.m_Editing_Delete;
+        public InputAction @Escape => m_Wrapper.m_Editing_Escape;
         public InputAction @UpArrow => m_Wrapper.m_Editing_UpArrow;
         public InputAction @DownArrow => m_Wrapper.m_Editing_DownArrow;
         public InputAction @LeftArrow => m_Wrapper.m_Editing_LeftArrow;
@@ -717,6 +740,9 @@ public partial class @InputPlay: IInputActionCollection2, IDisposable
             @Delete.started += instance.OnDelete;
             @Delete.performed += instance.OnDelete;
             @Delete.canceled += instance.OnDelete;
+            @Escape.started += instance.OnEscape;
+            @Escape.performed += instance.OnEscape;
+            @Escape.canceled += instance.OnEscape;
             @UpArrow.started += instance.OnUpArrow;
             @UpArrow.performed += instance.OnUpArrow;
             @UpArrow.canceled += instance.OnUpArrow;
@@ -787,6 +813,9 @@ public partial class @InputPlay: IInputActionCollection2, IDisposable
             @Delete.started -= instance.OnDelete;
             @Delete.performed -= instance.OnDelete;
             @Delete.canceled -= instance.OnDelete;
+            @Escape.started -= instance.OnEscape;
+            @Escape.performed -= instance.OnEscape;
+            @Escape.canceled -= instance.OnEscape;
             @UpArrow.started -= instance.OnUpArrow;
             @UpArrow.performed -= instance.OnUpArrow;
             @UpArrow.canceled -= instance.OnUpArrow;
@@ -949,6 +978,7 @@ public partial class @InputPlay: IInputActionCollection2, IDisposable
         void OnControlRelease(InputAction.CallbackContext context);
         void OnTab(InputAction.CallbackContext context);
         void OnDelete(InputAction.CallbackContext context);
+        void OnEscape(InputAction.CallbackContext context);
         void OnUpArrow(InputAction.CallbackContext context);
         void OnDownArrow(InputAction.CallbackContext context);
         void OnLeftArrow(InputAction.CallbackContext context);
