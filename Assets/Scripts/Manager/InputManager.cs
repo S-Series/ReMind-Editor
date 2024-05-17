@@ -37,6 +37,7 @@ public class InputManager : MonoBehaviour
         
         playerInput.actions["Tab"].performed += T => DeleteAction();
         playerInput.actions["Delete"].performed += T => DeleteAction();
+        playerInput.actions["Escape"].performed += T => EscapeAction();
 
         playerInput.actions["UpArrow"].performed += T => UpArrowAction();
         playerInput.actions["DownArrow"].performed += T => DownArrowAction();
@@ -82,11 +83,16 @@ public class InputManager : MonoBehaviour
     
     private void TabAction()
     {
-
+        
     }
     private void DeleteAction()
     {
         EditManager.Delete();
+    }
+    private void EscapeAction()
+    {
+        NoteGenerate.ToolAction(-1);
+        EditManager.Escape();
     }
 
     private void UpArrowAction()
@@ -168,7 +174,7 @@ public class InputManager : MonoBehaviour
 
     private void QuickToolAction(int toolIndex)
     {
-        NoteGenerate.s_this.ToolAction(toolIndex - 1);
+        NoteGenerate.ToolAction(toolIndex - 1);
     }
 
     private void A_Action()

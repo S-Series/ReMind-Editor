@@ -166,6 +166,8 @@ public class NoteGenerate : MonoBehaviour
     }
     private static void ChangePreview(int index)
     {
+        if (index + 1 == (int)s_previewType) { Escape(); return; }
+
         s_isGenerating = true;
         foreach (GameObject gameObject in s_this.previews) { gameObject.SetActive(false); }
 
@@ -184,8 +186,9 @@ public class NoteGenerate : MonoBehaviour
         GuideGenerate.EnableGuideCollider(false);
         foreach (NoteHolder holder in NoteHolder.s_holders) { holder.EnableCollider(true); }
     }
-    public void ToolAction(int index)
+    public static void ToolAction(int index)
     {
-        ChangePreview(index);
+        if (index < 0) { Escape(); }
+        else { ChangePreview(index); }
     }
 }

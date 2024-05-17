@@ -135,6 +135,7 @@ public class EditManager : MonoBehaviour
     }
     public static void Escape()
     {
+        if (s_LastData == null) { return; }
         s_LastData.Selected(false);
 
         foreach (NoteHolder holder in NoteHolder.s_holders) { holder.EnableCollider(true); }

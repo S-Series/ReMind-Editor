@@ -160,9 +160,9 @@ public class NoteHolder : MonoBehaviour
     {
         gameNoteHolder.UpdateLineTransform(0, lengthValue);
     }
-    public void ApplyLine(int posX, int lineLength)
+    public void ApplyLine(int posX, float lineLength)
     {
-
+        
     }
     public void ApplyScratchVec(bool isLeft, Vector3[] vectors)
     {
