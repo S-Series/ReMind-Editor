@@ -1725,6 +1725,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stdPos: 0
+  stdEndPos: 0
   stdMs: 0
   gameNoteHolder: {fileID: 0}
   normalObjects:
@@ -1747,6 +1748,9 @@ MonoBehaviour:
   AlertObjects: []
   speedObject: {fileID: 5346671460098484311}
   effectObject: {fileID: 2051157923456923410}
+  lineRenderers:
+  - {fileID: 392320998826332971}
+  - {fileID: 2227311258439189645}
   ParentObjects:
   - {fileID: 1014723832836383260}
   - {fileID: 1014723834383784659}
@@ -2992,8 +2996,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 3085690152935186410}
   - {fileID: 3155825506945147842}
+  - {fileID: 3085690152935186410}
   m_Father: {fileID: 1014723833351867500}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3344424496488595227
@@ -3917,9 +3921,8 @@ LineRenderer:
   m_SortingOrder: 5
   m_Positions:
   - {x: 0, y: 0, z: 0}
-  - {x: 300, y: 0, z: 0}
-  - {x: 0, y: 400, z: 0}
-  - {x: 300, y: 400, z: 0}
+  - {x: 160, y: 0, z: 0}
+  - {x: 320, y: 800, z: 0}
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 20
@@ -7398,10 +7401,9 @@ LineRenderer:
   m_SortingLayer: 2
   m_SortingOrder: 5
   m_Positions:
-  - {x: 0, y: 0, z: 0}
-  - {x: 300, y: 0, z: 0}
-  - {x: 0, y: 400, z: 0}
-  - {x: 300, y: 400, z: 0}
+  - {x: 0, y: 200, z: 0}
+  - {x: 0, y: 200, z: 0}
+  - {x: 320, y: 600, z: 0}
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 20

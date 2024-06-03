@@ -99,7 +99,7 @@ public class InputManager : MonoBehaviour
     {
         if (isControl)
         {
-            EditManager.MoveNoteInput(true);
+            EditManager.MoveNoteInput(true, isCtrl: true);
         }
         else if (isShift)
         {

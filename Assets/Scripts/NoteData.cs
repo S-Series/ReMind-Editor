@@ -37,8 +37,8 @@ public class NoteData : MonoBehaviour
             {
                 if (noteType == NoteType.Normal)
                 {
-                    LongNotes[1].localScale = new Vector3(1, 2 * length * 0.05683594f, 1);
-                    LongNotes[3].localPosition = new Vector3(0, 2 * length * 0.5681819f, 0);
+                    LongNotes[1].localScale = new Vector3(1, length * 1760f, 1);
+                    LongNotes[3].localPosition = new Vector3(0, length * 176f, 0);
                 }
                 else
                 {
@@ -49,8 +49,8 @@ public class NoteData : MonoBehaviour
             }
             else
             {
-                LongNotes[1].localScale = new Vector3(96, length * 10, 96);
-                LongNotes[3].localPosition = new Vector3(0, 100 * length, 0);
+                LongNotes[1].localScale = new Vector3(96, length / 10f, 96);
+                LongNotes[3].localPosition = new Vector3(0, length, 0);
             }
         }
     }

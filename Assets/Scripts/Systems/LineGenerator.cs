@@ -45,9 +45,6 @@ public class LineGenerator : MonoBehaviour
         var bottoms = noteHolder.bottoms;
         for (int i = 0; i < NoteHolder.s_holders.Count; i++)
         {
-            linePosX -= bottoms[0] == null ? 0 : (bottoms[0].length == 0 ? bottoms[0].powerValue : 0);
-            linePosX += bottoms[1] == null ? 0 : (bottoms[1].length == 0 ? bottoms[1].powerValue : 0);
-
             noteHolder = NoteHolder.s_holders[i];
             noteHolder.ApplyLine(linePosX, GetScaleValueY(noteHolder.NoteMaxLength()));
         }

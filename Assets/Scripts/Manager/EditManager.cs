@@ -34,8 +34,6 @@ public class EditManager : MonoBehaviour
     public static NoteHolder s_SelectNoteHolder;
     public static int s_page, s_posY, s_line, s_length;
     public static bool s_isAirial = false, s_isGuideLeft = true;
-    private static bool s_shift = false, s_ctrl = false;
-    [SerializeField] InputAction[] actions;
     [SerializeField] GameObject p_DragSelectHelper;
     private static GameObject DragSelectHelper;
 
@@ -44,23 +42,10 @@ public class EditManager : MonoBehaviour
     private void Awake()
     {
         s_this = this;
-        actions[0].performed += item => { s_shift = true; };
-        actions[1].performed += item => { s_shift = false; };
-        actions[2].performed += item => { s_ctrl = true; };
-        actions[3].performed += item => { s_ctrl = false; };
-        InputEnable(true);
         DragSelectHelper = p_DragSelectHelper;
         p_DragSelectHelper = null;
     }
 
-    public static void InputEnable(bool isEnable)
-    {
-        foreach (InputAction action in s_this.actions)
-        {
-            if (isEnable) { action.Enable(); }
-            else { action.Disable(); }
-        }
-    }
     public static void Select(NoteData data)
     {
         NoteHolder holder;
@@ -374,21 +359,25 @@ public class EditManager : MonoBehaviour
         s_SelectNoteHolder.UpdateTextInfo();
     }
 
-    public static void MoveNoteInput(bool isUp)
+    public static void MoveNoteInput(bool isUp, bool isAlt = false, bool isShift = false, bool isCtrl = false)
     {
-        if (s_shift && s_ctrl) { return; }
+        if (isShift && isCtrl) { return; }
 
         //$ Page Movement
-        if (s_ctrl)
+        if (isCtrl)
         {
             EditNote(page: isUp ? s_page + 1 : s_page - 1);
         }
         //$ Legnth Change
-        else if (s_shift)
+        else if (isShift)
         {
             LengthNote(length: isUp ? s_length + 1 : s_length - 1);
         }
         //$ Pos Movement
+        else if (isAlt)
+        {
+
+        }
         else
         {
             int indexer;

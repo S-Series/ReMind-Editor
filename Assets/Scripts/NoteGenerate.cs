@@ -113,7 +113,7 @@ public class NoteGenerate : MonoBehaviour
                 scratch = new ScratchNote(
                     _posY: holder.stdPos,
                     _length: 0,
-                    _powerValue: 500
+                    valueXs: new int[3] { 100, 0, 0 }
                 );
                 holder.bottoms[s_Line < 3 ? 0 : 1] = scratch;
                 break;

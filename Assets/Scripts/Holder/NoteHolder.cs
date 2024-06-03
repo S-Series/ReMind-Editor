@@ -13,7 +13,7 @@ public class NoteHolder : MonoBehaviour
 
     private const float lineValue = 0.02632813f;
 
-    public int stdPos;
+    public int stdPos, stdEndPos;
     public float stdMs;
     public GameNoteHolder gameNoteHolder;
 
@@ -35,6 +35,8 @@ public class NoteHolder : MonoBehaviour
     [SerializeField] private GameObject[] AlertObjects;
     [SerializeField] private GameObject speedObject;
     [SerializeField] private GameObject effectObject;
+
+    [SerializeField] private LineRenderer[] lineRenderers;
 
     [SerializeField] private GameObject[] ParentObjects;
     [SerializeField] private TextMeshPro[] InfoTmps;
@@ -81,11 +83,22 @@ public class NoteHolder : MonoBehaviour
             {
                 airialObjects[i].SetActive(true);
             }
+        }
 
-            if (i > 1) { continue; }
-
-            if (bottoms[i] == null) { bottomObjects[i].SetActive(false); }
-            else { bottomObjects[i].SetActive(true); }
+        for (int i = 0; i < 2; i++)
+        {
+            if (bottoms[i] == null)
+            {
+                bottomObjects[i].SetActive(false);
+                lineRenderers[i].enabled = false;
+                continue;
+            }
+            bottomObjects[i].SetActive(true);
+            lineRenderers[i].enabled = true;
+            lineRenderers[i].positionCount = 3;
+            lineRenderers[i].SetPosition(0, new Vector3(bottoms[i].startX * 3.2f, 0, 0));
+            lineRenderers[i].SetPosition(0, new Vector3((bottoms[i].startX + bottoms[i].powerX) * 3.2f, 0, 0));
+            lineRenderers[i].SetPosition(0, new Vector3(bottoms[i].endX * 3.2f, bottoms[i].length, 0));
         }
 
         if (speedNote == null) { speedObject.SetActive(false); }
@@ -163,16 +176,6 @@ public class NoteHolder : MonoBehaviour
     public void ApplyLine(int posX, float lineLength)
     {
         
-    }
-    public void ApplyScratchVec(bool isLeft, Vector3[] vectors)
-    {
-        LineRenderer renderer;
-        renderer = bottomObjects[isLeft ? 0 : 1].GetComponent<LineRenderer>();
-        renderer.positionCount = vectors.Length;
-        for (int i = 0; i < vectors.Length; i++)
-        {
-            renderer.SetPosition(i, vectors[i]);
-        }
     }
 
     public int[][] ApplyJudge(NoteType type = NoteType.None, int line = 0)
@@ -355,26 +358,29 @@ public class NoteHolder : MonoBehaviour
             );
         }
 
-        int index;
-        noteData = holderData[3].Split('|', StringSplitOptions.RemoveEmptyEntries);
         for (int i = 0; i < 2; i++)
         {
-            index = i == 0 ? 0 : 2;
+            noteData = holderData[i + 3].Split('|', StringSplitOptions.RemoveEmptyEntries);
             bottoms[i] = new ScratchNote(
                 _posY: stdPos,
-                _length: SaveManager.StringToLength(noteData[index]),
-                _powerValue: Convert.ToInt32(noteData[index + 1])
+                _length: SaveManager.StringToLength(noteData[0]),
+                valueXs: new int[]{
+                    Convert.ToInt32(noteData[1]),
+                    Convert.ToInt32(noteData[2]),
+                    Convert.ToInt32(noteData[3]),
+                },
+                _isPower: Convert.ToInt32(noteData[0]) > 0 ? true : false
             );
         }
 
-        noteData = holderData[4].Split('|', StringSplitOptions.RemoveEmptyEntries);
+        noteData = holderData[5].Split('|', StringSplitOptions.RemoveEmptyEntries);
         speedNote = new SpeedNote(
             posY: stdPos,
             bpm: Convert.ToInt32(noteData[0]) / 100d,
             multiple: Convert.ToInt32(noteData[1]) / 10000d
         );
 
-        noteData = holderData[5].Split('|', StringSplitOptions.RemoveEmptyEntries);
+        noteData = holderData[6].Split('|', StringSplitOptions.RemoveEmptyEntries);
         effectNote = new EffectNote(
             posY: stdPos,
             index: Convert.ToInt32(noteData[0]),
