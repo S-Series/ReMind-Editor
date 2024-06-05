@@ -96,9 +96,9 @@ public class NoteHolder : MonoBehaviour
             bottomObjects[i].SetActive(true);
             lineRenderers[i].enabled = true;
             lineRenderers[i].positionCount = 3;
-            lineRenderers[i].SetPosition(0, new Vector3(bottoms[i].startX * 3.2f, 0, 0));
-            lineRenderers[i].SetPosition(0, new Vector3((bottoms[i].startX + bottoms[i].powerX) * 3.2f, 0, 0));
-            lineRenderers[i].SetPosition(0, new Vector3(bottoms[i].endX * 3.2f, bottoms[i].length, 0));
+            lineRenderers[i].SetPosition(0, new Vector3(bottoms[i].startX * 4.8f, 0, 0));
+            lineRenderers[i].SetPosition(0, new Vector3((bottoms[i].startX + bottoms[i].powerX) * 4.8f, 0, 0));
+            lineRenderers[i].SetPosition(0, new Vector3(bottoms[i].endX * 4.8f, bottoms[i].length, 0));
         }
 
         if (speedNote == null) { speedObject.SetActive(false); }

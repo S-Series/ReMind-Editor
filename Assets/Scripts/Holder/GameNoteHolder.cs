@@ -8,7 +8,7 @@ public class GameNoteHolder : MonoBehaviour
     private NoteHolder holder = null;
     [SerializeField] GameObject[] normalObjects;
     [SerializeField] GameObject[] airialObjects;
-    [SerializeField] GameObject[] bottomObjects;
+    [SerializeField] LineRenderer[] bottomObjects;
     [SerializeField] Transform lineTransform;
 
     public void UpdateNote(NoteHolder noteHolder = null)
@@ -57,8 +57,14 @@ public class GameNoteHolder : MonoBehaviour
 
         for (int i = 0; i < 2; i++)
         {
-            if (holder.bottoms[i] == null) { bottomObjects[i].SetActive(false); }
-            else { bottomObjects[i].SetActive(true); }
+            if (holder.bottoms[i] == null)
+            {
+                bottomObjects[i].enabled = false;
+            }
+            else
+            {
+                bottomObjects[i].enabled = true;
+            }
         }
     }
     public void UpdateScale()
@@ -83,14 +89,14 @@ public class GameNoteHolder : MonoBehaviour
             {
                 normalObjects[i].SetActive(false);
                 airialObjects[i].SetActive(false);
-                if (i < 2) { bottomObjects[i].SetActive(false); }
+                if (i < 2) { bottomObjects[i].enabled = false; }
             }
         }
         else
         {
             if (line < 0) { throw new System.Exception("Judge Line Error (line < 0)"); }
             else if (line < 4) { normalObjects[line].SetActive(false); }
-            else if (line < 6) { bottomObjects[line - 4].SetActive(false); }
+            else if (line < 6) { bottomObjects[line - 4].enabled = false; }
             else if (line < 10) { airialObjects[line - 6].SetActive(false); }
             else { throw new System.Exception("Judge Line Error (line >= 10)"); }
         }
