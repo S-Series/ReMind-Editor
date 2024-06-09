@@ -16,12 +16,11 @@ public class NoteField : MonoBehaviour
     public static int s_Scroll = 0;
     public static int s_Zoom = 2;
     public static int s_StartPos = 0;
-    private static bool s_isCtrl = false;
 
     [SerializeField] GameObject LinePrefab;
     [SerializeField] Transform PreviewNoteParent;
+    [SerializeField] Transform[] CameraTransform;
     [SerializeField] Transform[] DrawField;
-    [SerializeField] GameObject[] LineObjects;
 
     private void Awake()
     {
@@ -76,13 +75,12 @@ public class NoteField : MonoBehaviour
     }
     public void UpdateField()
     {
-        Vector3 _pos;
         Vector3 _scale;
         int _count = GuideGenerate.s_guideCount;
         float zoomValue;
 
         s_StartPos = s_Page * 1600 + Mathf.RoundToInt(1600f / _count * s_Scroll);
-        ObjectCooling.UpdateCooling(s_StartPos);
+        // ObjectCooling.UpdateCooling(s_StartPos);
 
         if (s_Scroll < 0) { s_Page--; s_Scroll += _count; }
         while (s_Scroll > _count) { s_Page++; s_Scroll -= _count; }
@@ -95,24 +93,13 @@ public class NoteField : MonoBehaviour
 
         zoomValue = 10.0f / s_Zoom;
 
-        _pos = new Vector3(-0.5f, ((s_Page * -10)
-            - (10f / _count * s_Scroll)) * zoomValue / 10 - 5, 0);
         _scale = new Vector3(0.00312f, zoomValue * 0.0003125f, 0.00312f);
 
-        DrawField[0].localScale = _scale;
-        DrawField[0].localPosition = _pos;
-
-        DrawField[1].localScale = new Vector3(0.00415f, 2f * zoomValue * 0.0003125001f, 0.00415f);
-        DrawField[1].localPosition = new Vector3(25, -16.3f, 2f *
-            (((s_Page * -10) - (10f / _count * s_Scroll)) * zoomValue / 10) - 29f);
-
-        DrawField[2].localScale = _scale;
-        DrawField[2].localPosition = _pos;
-
-        SpectrumManager.UpdatePosY((s_Page * -1600f) - (1600f * s_Scroll / _count));
-        SpectrumManager.UpdateScale(zoomValue / 5f);
-        PreviewNoteParent.localScale = new Vector3(0.00312f, 0.00312f, 0.00312f);
-
+        float vecValue;
+        vecValue = 5f * (s_Page + s_Scroll / (float)_count);
+        CameraTransform[0].localPosition = new Vector3(0, vecValue, 0);
+        CameraTransform[1].localPosition = new Vector3(0, 0, vecValue);
+            
         GuideGenerate.UpdateGuideColor();
         GuideGenerate.GuideFieldSize(_scale, zoomValue);
 
@@ -124,12 +111,6 @@ public class NoteField : MonoBehaviour
     public static void SortNoteHolder()
     {
         NoteHolder.s_holders.OrderBy(item => item.stdPos).ToList();
-    }
-    public static void UpdateFieldByGameMode()
-    {
-        foreach (GameObject obj in s_this.LineObjects) { obj.SetActive(false); }
-        s_this.LineObjects[(int)GameManager.gameMode - 4].SetActive(true);
-        NoteHolder.GameModeHolderUpdate(GameManager.gameMode);
     }
     public static IEnumerator IResetHolderList()
     {

@@ -34,7 +34,6 @@ public class SaveManager : MonoBehaviour
     private void Start()
     {
         HiddenKey = PlayerPrefs.GetString("HiddenKey");
-        LoadNoteFile();
     }
     public static void SaveNoteFile()
     {
