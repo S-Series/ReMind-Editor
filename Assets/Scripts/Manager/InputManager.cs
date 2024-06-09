@@ -97,79 +97,19 @@ public class InputManager : MonoBehaviour
 
     private void UpArrowAction()
     {
-        if (isControl)
-        {
-            EditManager.MoveNoteInput(true, isCtrl: true);
-        }
-        else if (isShift)
-        {
-            
-        }
-        else if (isAlt)
-        {
-
-        }
-        else
-        {
-                
-        }
+        EditManager.MoveNoteInput(true, isAlt, isShift, isControl);
     }
     private void DownArrowAction()
     {
-        if (isControl)
-        {
-
-        }
-        else if (isShift)
-        {
-
-        }
-        else if (isAlt)
-        {
-
-        }
-        else
-        {
-
-        }
+        EditManager.MoveNoteInput(false, isAlt, isShift, isControl);
     }
     private void LeftArrowAction()
     {
-        if (isControl)
-        {
-
-        }
-        else if (isShift)
-        {
-
-        }
-        else if (isAlt)
-        {
-
-        }
-        else
-        {
-
-        }
+        EditManager.LineNoteInput(isLeft: true);
     }
     private void RightArrowAction()
     {
-        if (isControl)
-        {
-
-        }
-        else if (isShift)
-        {
-
-        }
-        else if (isAlt)
-        {
-
-        }
-        else
-        {
-
-        }
+        EditManager.LineNoteInput(isLeft: false);
     }
 
     private void QuickToolAction(int toolIndex)

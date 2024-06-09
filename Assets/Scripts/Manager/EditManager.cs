@@ -255,70 +255,6 @@ public class EditManager : MonoBehaviour
         s_SelectNoteHolder.UpdateNote();
     }
 
-    public static void EditPos(bool isPlus, int value = 0)
-    {
-        if (value < 1)
-        {
-            var posArr = GuideGenerate.s_guidePos;
-
-            int[] inputValue = new int[] { -1, -1};
-            int count = GuideGenerate.s_guideCount;
-            int index = posArr.ToList().FindIndex(item => item == s_posY);
-
-            //$ Note Pos Value Dosen't fit by guide
-            if (index == -1)
-            {
-                index = posArr.ToList().FindLastIndex(item => item < s_posY);
-                if (isPlus)
-                {
-                    index++;
-                    if (index == count)
-                    {
-                        inputValue[0] = s_page + 1;
-                        inputValue[1] = posArr[0];
-                    }
-                }
-                else { inputValue[1] = posArr[index]; }
-            }
-            else
-            {
-                if (isPlus)
-                {
-                    index++;
-                    if (index >= count)
-                    {
-                        inputValue[0] = s_page == 0 ? -1 : s_page - 1;
-                        inputValue[1] = posArr[index - count];
-                    }
-                    else { inputValue[1] = posArr[index]; }
-                }
-                else
-                {
-                    index--;
-                    if (index < 0)
-                    {
-                        inputValue[0] = s_page == 999 ? -1 : s_page + 1;
-                        inputValue[1] = posArr[index + count];
-                    }
-                    else { inputValue[1] = posArr[index]; }
-                }
-            }
-            EditNote(page: inputValue[0], pos: inputValue[1]);
-        }
-        else
-        {
-            EditNote(pos: isPlus ? +value : -value);
-        }
-    }
-    public static void EditPage(bool isPlus, int value = 0)
-    {
-        
-    }
-    public static void EditLine(bool isPlus)
-    {
-
-    }
-
     public static void EditScratch()
     {
         ScratchNote[] targetNote;
@@ -373,7 +309,7 @@ public class EditManager : MonoBehaviour
         {
             LengthNote(length: isUp ? s_length + 1 : s_length - 1);
         }
-        //$ Pos Movement
+        //$ SemiPos Movement
         else if (isAlt)
         {
 
