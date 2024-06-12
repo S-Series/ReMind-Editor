@@ -3922,7 +3922,7 @@ LineRenderer:
   m_Positions:
   - {x: 0, y: 0, z: 0}
   - {x: 480, y: 0, z: 0}
-  - {x: 480, y: 800, z: 0}
+  - {x: 240, y: 800, z: 0}
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 35
@@ -7403,7 +7403,7 @@ LineRenderer:
   m_Positions:
   - {x: 0, y: 0, z: 0}
   - {x: 480, y: 0, z: 0}
-  - {x: 480, y: 360, z: 0}
+  - {x: 240, y: 360, z: 0}
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 35
