@@ -12,10 +12,9 @@ public class NoteField : MonoBehaviour
     public static NoteField s_this;
 
     public static bool s_isFieldMovable = true;
-    public static int s_Page = 0;
-    public static int s_Scroll = 0;
-    public static int s_Zoom = 2;
+    public static int s_Page = 0, s_Scroll = 0, s_Zoom = 0;
     public static int s_StartPos = 0;
+    public static int s_PagePos = 0;
 
     [SerializeField] GameObject LinePrefab;
     [SerializeField] Transform PreviewNoteParent;
@@ -31,13 +30,12 @@ public class NoteField : MonoBehaviour
         for (int i = 0; i < 999; i++)
         {
             _copyObject = Instantiate(LinePrefab, DrawField[0], false);
-            _copyObject.transform.localPosition = new Vector3(-465f, 1600 * 2 * i, 0);
+            _copyObject.transform.localPosition = new Vector3(-400, 1600 * i, 0);
 
             _holder = _copyObject.transform.GetComponent<LineHolder>();
             _holder.page = i;
-            _holder.texts[0].text = string.Format("{0:D3}", i + 1);
-            _holder.texts[1].text = string.Format("{0}", NoteClass.PosToMs(1600 * i));
-            _holder.EnableHolder(false);
+            _holder.UpdateMs();
+            _holder.EnableHolder(true);
 
             LineHolder.s_holders.Add(_holder);
         }
@@ -94,14 +92,12 @@ public class NoteField : MonoBehaviour
         zoomValue = 10.0f / s_Zoom;
 
         _scale = new Vector3(0.00312f, zoomValue * 0.0003125f, 0.00312f);
+        s_PagePos = Mathf.RoundToInt(5f * (s_Page + s_Scroll / (float)_count));
 
-        float vecValue;
-        vecValue = 5f * (s_Page + s_Scroll / (float)_count);
-        CameraTransform[0].localPosition = new Vector3(0, vecValue, 0);
-        CameraTransform[1].localPosition = new Vector3(0, 0, vecValue);
+        CameraTransform[0].localPosition = new Vector3(0, s_PagePos, 0);
+        CameraTransform[1].localPosition = new Vector3(0, 0, s_PagePos);
             
         GuideGenerate.UpdateGuideColor();
-        GuideGenerate.GuideFieldSize(_scale, zoomValue);
 
         foreach (NoteHolder holder in NoteHolder.s_holders) { holder.UpdateScale(); }
         foreach (LineHolder holder in LineHolder.s_holders) { holder.UpdateScale(); }

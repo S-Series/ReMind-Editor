@@ -5,7 +5,6 @@ using TMPro;
 
 public class GuideHolder : MonoBehaviour
 {
-    public int index = 0;
     public int posY = 0;
     private static Color32[] color32s =
     {
@@ -30,12 +29,10 @@ public class GuideHolder : MonoBehaviour
                 (i == 0 ? 630 : 240, Mathf.RoundToInt(3200.0f / GuideGenerate.s_guideCount));
         }
     }
-
     public void ReSizeLineRenderer(float invertScale)
     {
         guideLineRenderer.transform.localScale = new Vector3(300, 1000 / invertScale, 1);
     }
-
     public void EnableCollider(bool isEnable)
     {
         foreach(BoxCollider2D collider2D in guideColliders)
@@ -44,7 +41,6 @@ public class GuideHolder : MonoBehaviour
             collider2D.GetComponent<MouseOver>().enabled = isEnable;
         }
     }
-
     public void UpdateLineColor(bool third, bool fourth)
     {
         Color32 color32;
@@ -59,5 +55,9 @@ public class GuideHolder : MonoBehaviour
         guideLineRenderer.color = color32;
         guideLineRenderer.transform.GetChild(0)
             .GetComponent<SpriteRenderer>().color = color32;
+    }
+    public void UpdatePosY(int value)
+    {
+        if (value == posY) {;}
     }
 }
