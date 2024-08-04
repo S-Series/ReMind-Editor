@@ -10,13 +10,19 @@ public class MouseOver : MonoBehaviour, IPointerEnterHandler, IPointerClickHandl
     {
         if (!NoteGenerate.s_isGenerating) { return; }
 
-        NoteGenerate.s_Line = lineNum;
-        NoteGenerate.posY = transform.parent.GetComponent<GuideHolder>().posY;
+        NoteGenerate.ShowPreview(
+            lineValue: lineNum, 
+            posValue: GetPosValue()
+        );
     }
     public void OnPointerClick(PointerEventData eventData)
     {
         if (!NoteGenerate.s_isGenerating) { return; }
 
-        NoteGenerate.GenerateNote();
+        NoteGenerate.GenerateNote(GetPosValue());
+    }
+    private int GetPosValue()
+    {
+        return transform.parent.GetComponent<GuideHolder>().posY;
     }
 }

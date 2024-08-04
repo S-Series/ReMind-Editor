@@ -199,7 +199,7 @@ public class AutoTest : MonoBehaviour
                 judgeEffects[2][i].SetTrigger(s_Trigger[0]);
                 StartCoroutine
                 (ILongNote(
-                    NoteType.Scratch,
+                    NoteType.Floor,
                     new int[3]{holder.stdPos, i, data[0][i]},
                     holder.longMs[i + 6]
                 ));

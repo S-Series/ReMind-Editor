@@ -5,6 +5,7 @@ using TMPro;
 using GameNote;
 using GameData;
 using System;
+using System.Linq;
 
 public class NoteHolder : MonoBehaviour
 {
@@ -25,14 +26,13 @@ public class NoteHolder : MonoBehaviour
     };
     public NormalNote[] normals = new NormalNote[6] { null, null, null, null, null, null };
     public NormalNote[] airials = new NormalNote[6] { null, null, null, null, null, null };
-    public ScratchNote[] bottoms = new ScratchNote[2] { null, null };
+    public FloorNote[] floors = new FloorNote[2] { null, null };
     public SpeedNote speedNote;
     public EffectNote effectNote;
 
     [SerializeField] private GameObject[] normalObjects;
     [SerializeField] private GameObject[] airialObjects;
     [SerializeField] private GameObject[] bottomObjects;
-    [SerializeField] private GameObject[] AlertObjects;
     [SerializeField] private GameObject speedObject;
     [SerializeField] private GameObject effectObject;
 
@@ -87,18 +87,13 @@ public class NoteHolder : MonoBehaviour
 
         for (int i = 0; i < 2; i++)
         {
-            if (bottoms[i] == null)
+            if (floors[i] == null)
             {
                 bottomObjects[i].SetActive(false);
                 lineRenderers[i].enabled = false;
                 continue;
             }
-            bottomObjects[i].SetActive(true);
-            lineRenderers[i].enabled = true;
-            lineRenderers[i].positionCount = 3;
-            lineRenderers[i].SetPosition(0, new Vector3(bottoms[i].startX * 4.8f, 0, 0));
-            lineRenderers[i].SetPosition(0, new Vector3((bottoms[i].startX + bottoms[i].powerX) * 4.8f, 0, 0));
-            lineRenderers[i].SetPosition(0, new Vector3(bottoms[i].endX * 4.8f, bottoms[i].length, 0));
+            //TODO: Floor Note Algorithem
         }
 
         if (speedNote == null) { speedObject.SetActive(false); }
@@ -203,7 +198,7 @@ public class NoteHolder : MonoBehaviour
 
                 if (i > 1) { continue; }
                 
-                if (bottoms[i] != null) { ret[2][i] = bottoms[i].length; }
+                if (floors[i] != null) { ret[2][i] = floors[i].length; }
                 bottomObjects[i].SetActive(false);
             }
         }
@@ -227,10 +222,10 @@ public class NoteHolder : MonoBehaviour
                     ret[1][index] = airials[index].length;
                     break;
 
-                case NoteType.Scratch:
+                case NoteType.Floor:
                     if (index > 1) { break; }
                     airialObjects[index].SetActive(false);
-                    ret[2][index] = bottoms[index].length;
+                    ret[2][index] = floors[index].length;
                     break;
 
                 default: break;
@@ -246,7 +241,7 @@ public class NoteHolder : MonoBehaviour
     {
         normals = new NormalNote[] { null, null, null, null, null, null };
         airials = new NormalNote[] { null, null, null, null, null, null };
-        bottoms = new ScratchNote[] { null, null };
+        floors = new FloorNote[] { null, null };
     }
     public void ApplyGameMode(GameMode mode)
     {
@@ -280,7 +275,7 @@ public class NoteHolder : MonoBehaviour
         {
             if (normals[i] != null) if (normals[i].length > ret) ret = normals[i].length;
             if (i > 1) continue;
-            if (bottoms[i] != null) if (bottoms[i].length > ret) ret = bottoms[i].length;
+            if (floors[i] != null) if (floors[i].length > ret) ret = floors[i].length;
         }
         return isPos ? ret * 100 : ret;
     }
@@ -313,8 +308,8 @@ public class NoteHolder : MonoBehaviour
             if (normals[i] == null) { return false; }
             if (airials[i] == null) { return false; }
         }
-        if (bottoms[0] == null) { return false; }
-        if (bottoms[1] == null) { return false; }
+        if (floors[0] == null) { return false; }
+        if (floors[1] == null) { return false; }
         if (speedNote == null) { return false; }
         if (effectNote == null) { return false; }
 
@@ -324,67 +319,11 @@ public class NoteHolder : MonoBehaviour
     public NoteHolder(int pos)
     {
         stdPos = pos;
+        s_holders.Add(this);
+        s_holders.OrderBy(item => item.stdPos);
     }
     public NoteHolder(string data)
     {
-        string[] holderData, noteData;
-        holderData = data.Split('#', StringSplitOptions.RemoveEmptyEntries);
-
-        stdPos = Convert.ToInt32(holderData[0]);
-
-        noteData = holderData[1].Split('|', StringSplitOptions.RemoveEmptyEntries);
-        for (int i = 0; i < 6; i++)
-        {
-            normals[i] = new NormalNote(
-                values: new int[3]
-                {
-                    stdPos, i,
-                    SaveManager.StringToLength(noteData[i])
-                },
-                isAirial: false
-            );
-        }
-
-        noteData = holderData[2].Split('|', StringSplitOptions.RemoveEmptyEntries);
-        for (int i = 0; i < 6; i++)
-        {
-            airials[i] = new NormalNote(
-                values: new int[3]
-                {
-                    stdPos, i,
-                    SaveManager.StringToLength(noteData[i])
-                },
-                isAirial: true
-            );
-        }
-
-        for (int i = 0; i < 2; i++)
-        {
-            noteData = holderData[i + 3].Split('|', StringSplitOptions.RemoveEmptyEntries);
-            bottoms[i] = new ScratchNote(
-                _posY: stdPos,
-                _length: SaveManager.StringToLength(noteData[0]),
-                valueXs: new int[]{
-                    Convert.ToInt32(noteData[1]),
-                    Convert.ToInt32(noteData[2]),
-                    Convert.ToInt32(noteData[3]),
-                },
-                _isPower: Convert.ToInt32(noteData[0]) > 0 ? true : false
-            );
-        }
-
-        noteData = holderData[5].Split('|', StringSplitOptions.RemoveEmptyEntries);
-        speedNote = new SpeedNote(
-            posY: stdPos,
-            bpm: Convert.ToInt32(noteData[0]) / 100d,
-            multiple: Convert.ToInt32(noteData[1]) / 10000d
-        );
-
-        noteData = holderData[6].Split('|', StringSplitOptions.RemoveEmptyEntries);
-        effectNote = new EffectNote(
-            posY: stdPos,
-            index: Convert.ToInt32(noteData[0]),
-            value: Convert.ToInt32(noteData[1])
-        );
+        
     }
 }

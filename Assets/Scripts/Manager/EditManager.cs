@@ -70,10 +70,10 @@ public class EditManager : MonoBehaviour
                 s_length = note.length;
                 break;
 
-            case NoteType.Scratch:
-                ScratchNote scratch;
-                scratch = holder.bottoms[s_line - 1];
-                s_length = scratch.length;
+            case NoteType.Floor:
+                FloorNote floorNote;
+                floorNote = holder.floors[s_line - 1];
+                s_length = floorNote.length;
                 break;
 
             case NoteType.Airial:
@@ -139,8 +139,8 @@ public class EditManager : MonoBehaviour
                 s_SelectNoteHolder.normals[s_line - 1] = null;
                 break;
 
-            case NoteType.Scratch:
-                s_SelectNoteHolder.bottoms[s_line - 1] = null;
+            case NoteType.Floor:
+                s_SelectNoteHolder.floors[s_line - 1] = null;
                 break;
 
             case NoteType.Airial:
@@ -209,12 +209,12 @@ public class EditManager : MonoBehaviour
                 Select(targetHolder.getAirial(noteData[2] - 1).GetComponent<NoteData>());
                 break;
 
-            case NoteType.Scratch:
-                ScratchNote[] scratchs = new ScratchNote[2];
-                scratchs[0] = s_SelectNoteHolder.bottoms[s_line - 1]; //@ A
-                scratchs[1] = targetHolder.bottoms[noteData[2] - 1];  //@ B
-                s_SelectNoteHolder.bottoms[s_line - 1] = scratchs[1]; //$ B
-                targetHolder.bottoms[noteData[2] - 1] = scratchs[0];  //$ A
+            case NoteType.Floor:
+                FloorNote[] scratchs = new FloorNote[2];
+                scratchs[0] = s_SelectNoteHolder.floors[s_line - 1]; //@ A
+                scratchs[1] = targetHolder.floors[noteData[2] - 1];  //@ B
+                s_SelectNoteHolder.floors[s_line - 1] = scratchs[1]; //$ B
+                targetHolder.floors[noteData[2] - 1] = scratchs[0];  //$ A
                 targetHolder.UpdateNote();
                 s_SelectNoteHolder.UpdateNote();
                 Select(targetHolder.getAirial(noteData[2] - 1).GetComponent<NoteData>());
@@ -242,8 +242,8 @@ public class EditManager : MonoBehaviour
                 s_SelectNoteHolder.normals[s_line - 1].length = length;
                 break;
             
-            case NoteType.Scratch:
-                s_SelectNoteHolder.bottoms[s_line - 1].length = length;
+            case NoteType.Floor:
+                s_SelectNoteHolder.floors[s_line - 1].length = length;
                 break;
             
             case NoteType.Airial:
@@ -257,11 +257,11 @@ public class EditManager : MonoBehaviour
 
     public static void EditScratch()
     {
-        ScratchNote[] targetNote;
-        targetNote = new ScratchNote[3]
+        FloorNote[] targetNote;
+        targetNote = new FloorNote[3]
         {
-            s_SelectNoteHolder.bottoms[s_line],
-            s_SelectNoteHolder.bottoms[s_line == 0 ? 1 : 0],
+            s_SelectNoteHolder.floors[s_line],
+            s_SelectNoteHolder.floors[s_line == 0 ? 1 : 0],
             null
         };
 

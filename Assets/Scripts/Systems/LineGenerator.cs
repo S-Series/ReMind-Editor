@@ -42,7 +42,7 @@ public class LineGenerator : MonoBehaviour
         DefaultLine[0].localScale = vecValue;
 
         int linePosX = 0;
-        var bottoms = noteHolder.bottoms;
+        var bottoms = noteHolder.floors;
         for (int i = 0; i < NoteHolder.s_holders.Count; i++)
         {
             noteHolder = NoteHolder.s_holders[i];

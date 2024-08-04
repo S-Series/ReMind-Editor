@@ -235,62 +235,8 @@ public class SaveManager : MonoBehaviour
 
     private static string HolderToData(NoteHolder holder)
     {
-        string ret;
-        ret = String.Format("{0:D8}#" +                             //# stdPos
-            "{01:D4}|{02:D4}|{03:D4}|{04:D4}|{05:D4}|{06:D4}#" +    //# NormalNote
-            "{07:D4}|{08:D4}|{09:D4}|{10:D4}|{11:D4}|{12:D4}#" +    //# AirialNote
-            "{13}#{14}#{15}", holder.stdPos,                        //# ScratchNote(13, 14) + [SpeedNote + EffectNote](15)
-            holder.normals[0] == null ? "----" : holder.normals[0].length,
-            holder.normals[1] == null ? "----" : holder.normals[1].length,
-            holder.normals[2] == null ? "----" : holder.normals[2].length,
-            holder.normals[3] == null ? "----" : holder.normals[3].length,
-            holder.normals[4] == null ? "----" : holder.normals[4].length,
-            holder.normals[5] == null ? "----" : holder.normals[5].length,
-
-            holder.airials[0] == null ? "----" : holder.airials[0].length,
-            holder.airials[1] == null ? "----" : holder.airials[1].length,
-            holder.airials[2] == null ? "----" : holder.airials[2].length,
-            holder.airials[3] == null ? "----" : holder.airials[3].length,
-            holder.airials[4] == null ? "----" : holder.airials[4].length,
-            holder.airials[5] == null ? "----" : holder.airials[5].length,
-
-            holder.bottoms[0] == null ? "-----|----|----|----" : String.Format(
-                "{4}{0:D4}|{5}{1:D3}|{6}{2:D3}|{7}{3:D3}",
-                Mathf.Abs(holder.bottoms[0].length),
-                Mathf.Abs(holder.bottoms[0].startX),
-                Mathf.Abs(holder.bottoms[0].powerX),
-                Mathf.Abs(holder.bottoms[0].endX),
-                holder.bottoms[0].isPower ? "+" : "-",
-                holder.bottoms[0].startX > 0 ? "+" : "-",
-                holder.bottoms[0].powerX > 0 ? "+" : "-",
-                holder.bottoms[0].endX > 0 ? "+" : "-"
-            ),
-            holder.bottoms[1] == null ? "-----|----|----|----" : String.Format(
-                "{4}{0:D4}|{5}{1:D3}|{6}{2:D3}|{7}{3:D3}",
-                Mathf.Abs(holder.bottoms[1].length),
-                Mathf.Abs(holder.bottoms[1].startX),
-                Mathf.Abs(holder.bottoms[1].powerX),
-                Mathf.Abs(holder.bottoms[1].endX),
-                holder.bottoms[1].isPower ? "T" : "F",
-                holder.bottoms[1].startX > 0 ? "+" : "-",
-                holder.bottoms[1].powerX > 0 ? "+" : "-",
-                holder.bottoms[1].endX > 0 ? "+" : "-"
-            ),
-
-            String.Format(
-                "{0}#{1}",
-                holder.speedNote == null ? "-----|-----" : String.Format(
-                    "{0:D5}|{1:D5}",
-                    Mathf.RoundToInt((Single)(holder.speedNote.bpm * 100d)),
-                    Mathf.RoundToInt((Single)(holder.speedNote.multiple * 10000d))
-                ),
-                holder.effectNote == null ? "--|------" : String.Format(
-                    "{0:D2}|{1:D6}",
-                    holder.effectNote.effectIndex,
-                    holder.effectNote.value
-                )
-            )
-        ) ;
+        string ret = "";
+        
         return ret;
     }
 

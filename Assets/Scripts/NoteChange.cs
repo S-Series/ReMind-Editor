@@ -67,7 +67,7 @@ public class NoteChange : MonoBehaviour
                 s_this.NormalToggles[4].isOn = false;
             }
         }
-        else if (type == NoteType.Scratch)
+        else if (type == NoteType.Floor)
         {
             //ToDo : asd;fkljasdf;lkjasdflk;jasdflkj;sadfl;kjasdflk;jsadfl;kj
         }

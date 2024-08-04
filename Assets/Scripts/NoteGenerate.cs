@@ -13,7 +13,8 @@ public class NoteGenerate : MonoBehaviour
     public static Vector3[] InitVec = new Vector3[2];
     public static NoteType s_previewType = NoteType.None;
 
-    [SerializeField] GameObject[] previews;
+    private static GameObject[] PreviewObjects;
+    [SerializeField] GameObject[] _previews;
     [SerializeField] GameObject previewGuide;
     [SerializeField] GameObject[] GeneratePrefabs;
     [SerializeField] Transform[] GenerateField;
@@ -25,170 +26,89 @@ public class NoteGenerate : MonoBehaviour
 
         InitVec[0] = GeneratePrefabs[0].transform.localPosition;
         InitVec[1] = GeneratePrefabs[1].transform.localPosition;
+
+        PreviewObjects = _previews;
+        _previews = null;
     }
 
-    private void Update()
+    public static void ShowPreview(int lineValue, int posValue)
     {
-        if (!s_isGenerating) { return; }
+        if (s_previewType == NoteType.None) { return; }
 
-        posX = s_Line * 240 - 600;
-
-        if (s_previewType == NoteType.Scratch)
-        {
-            if (s_Line <= 2) { posX = -480; }
-            else { posX = 0; }
-        }
-        else if (s_previewType == NoteType.Speed || s_previewType == NoteType.Effect) { posX = -1050; }
-        else if (s_Line == 0) { posX = -360; }
-
-        previews[(int)s_previewType - 1].transform.localPosition
-            = new Vector3(posX, 2 * posY / NoteField.s_Zoom, posZ);
-        previewGuide.transform.localPosition = new Vector3(3086, 2 * posY / NoteField.s_Zoom, 0);
+        s_Line = lineValue;
+        posY = posValue;
+        posX = lineToPosX(lineValue);
+        
+        GameObject targetObject;
+        foreach (GameObject @object in PreviewObjects) { @object.SetActive(false); }
+        targetObject = PreviewObjects[(int)s_previewType -1];
+        targetObject.SetActive(true);
+        targetObject.transform.localPosition = new Vector3(posX, posY, posZ);
     }
-
-    public static void GenerateNote()
+    public static void GenerateNote(int posValue)
     {
-        int pos;
-        GameObject copyObject;
-        NoteHolder holder;
-        pos = posY + Mathf.RoundToInt
-            (1600f / GuideGenerate.s_guideCount * NoteField.s_Scroll + 1600f * NoteField.s_Page);
-        holder = NoteHolder.s_holders.Find(item => item.stdPos == pos);
+        if (s_previewType == NoteType.None) { return; }
 
-        if (holder != null)
-        {
-            if (s_previewType == NoteType.Scratch)
-            { if (holder.bottoms[s_Line < 3 ? 0 : 1] != null) { return; } }
-
-            else if (s_previewType == NoteType.Airial)
-            { if (holder.airials[s_Line - 1] != null) { return; } }
-
-            else if (s_previewType == NoteType.Speed)
-            { if (holder.speedNote != null) { return; } }
-
-            else if (s_previewType == NoteType.Effect)
-            { if (holder.effectNote != null) { return; } }
-
-            else if (s_previewType == NoteType.Normal)
-            { if (holder.normals[s_Line - 1] != null) { return; } }
-
-            else { throw new System.Exception(""); }
-        }
-        else
-        {
-            copyObject = Instantiate(s_this.GeneratePrefabs[0], s_this.GenerateField[0], false);
-            holder = copyObject.GetComponent<NoteHolder>();
-            holder.name = "Pos : " + pos.ToString();
-            holder.stdMs = NoteClass.PosToMs(pos);
-            holder.stdPos = pos;
-            holder.GeneratingInit();
-            holder.EnableCollider(false);
-
-            copyObject = Instantiate(s_this.GeneratePrefabs[1], s_this.GenerateField[1], false);
-            holder.gameNoteHolder = copyObject.GetComponent<GameNoteHolder>();
-            holder.gameNoteHolder.name = "Pos : " + pos.ToString();
-            holder.ApplyGameMode(GameManager.gameMode);
-            NoteHolder.s_holders.Add(holder);
-        }
+        NoteHolder targetHolder;
+        targetHolder = NoteHolder.s_holders.Find(item => item.stdPos == posValue);
 
         switch (s_previewType)
         {
             case NoteType.Normal:
-            case NoteType.Airial:
-                NormalNote normal;
-                normal = new NormalNote(
-                    new int[3] { holder.stdPos, s_Line, 1 },
-                    false
-                );
-                if (normal == null) { print("Error 01");}
-                if (holder == null) { print("Error 02");}
-                if (holder.normals == null) { print("Error 03");}
-                print(holder.normals.Length);
-                if (s_previewType == NoteType.Airial) { holder.airials[s_Line - 1] = normal; }
-                else { holder.normals[s_Line - 1] = normal; }
                 break;
 
-            case NoteType.Scratch:
-                ScratchNote scratch;
-                scratch = new ScratchNote(
-                    _posY: holder.stdPos,
-                    _length: 0,
-                    valueXs: new int[3] { 100, 0, 0 }
-                );
-                holder.bottoms[s_Line < 3 ? 0 : 1] = scratch;
+            case NoteType.Airial:
+                break;
+
+            case NoteType.Floor:
                 break;
 
             case NoteType.Speed:
-                SpeedNote speed;
-                speed = new SpeedNote(pos);
-                holder.speedNote = speed;
                 break;
-
+                
             case NoteType.Effect:
-                EffectNote effect;
-                effect = new EffectNote(pos);
-                holder.effectNote = effect;
                 break;
 
-            default: print("returned"); return;
+            default: return;
         }
-
-        holder.UpdateNote();
-        holder.UpdateScale();
-        holder.EnableNote(false);
-        holder.EnableCollider(false);
-
-        NoteField.SortNoteHolder();
-        InfoField.UpdateInfoField();
-        ObjectCooling.UpdateCooling();
     }
     public static NoteHolder GenerateNoteManual(int pos)
     {
         NoteHolder ret;
-        GameObject copyObject;
-
         ret = NoteHolder.s_holders.Find(item => item.stdPos == pos);
-
-        if (ret != null) { return ret; }
-
-        copyObject = Instantiate(s_this.GeneratePrefabs[0], s_this.GenerateField[0], false);
-        ret = copyObject.GetComponent<NoteHolder>();
-        ret.name = "Pos : " + pos.ToString();
-        ret.stdMs = NoteClass.PosToMs(pos);
-        ret.stdPos = pos;
-        ret.EnableCollider(false);
-
-        copyObject = Instantiate(s_this.GeneratePrefabs[1], s_this.GenerateField[1], false);
-        ret.gameNoteHolder = copyObject.GetComponent<GameNoteHolder>();
-        ret.gameNoteHolder.name = "Pos : " + pos.ToString();
-        NoteHolder.s_holders.Add(ret);
+        if (ret == null) { ret = new NoteHolder(pos); }
         return ret;
     }
     private static void ChangePreview(int index)
     {
-        if (index + 1 == (int)s_previewType) { Escape(); return; }
 
-        s_isGenerating = true;
-        foreach (GameObject gameObject in s_this.previews) { gameObject.SetActive(false); }
-
-        s_this.previews[index].SetActive(true);
-        s_previewType = (NoteType)(index + 1);
-
-        GuideGenerate.EnableGuideCollider(true);
-        foreach (NoteHolder holder in NoteHolder.s_holders) { holder.EnableCollider(false); }
     }
     public static void Escape()
     {
-        s_isGenerating = false;
-
-        foreach (GameObject gameObject in s_this.previews) { gameObject.SetActive(false); }
-
-        GuideGenerate.EnableGuideCollider(false);
-        foreach (NoteHolder holder in NoteHolder.s_holders) { holder.EnableCollider(true); }
     }
     public static void ToolAction(int index)
     {
-        if (index < 0) { Escape(); }
-        else { ChangePreview(index); }
+
+    }
+
+    private static int lineToPosX(int line)
+    {
+        switch (s_previewType)
+        {
+            case NoteType.Normal :
+            case NoteType.Airial :
+                return -600 + 240 * line;
+
+            case NoteType.Floor :
+                return line > 2 ? +240 : -240;
+
+            case NoteType.Effect :
+            case NoteType.Speed :
+                return -1120;
+
+            case NoteType.None :
+            default:
+                return 0;
+        }
     }
 }

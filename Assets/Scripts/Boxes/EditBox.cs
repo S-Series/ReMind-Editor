@@ -31,7 +31,7 @@ public class EditBox : MonoBehaviour
         {
             s_this.UpdateBox(1);
         }
-        else if (type == NoteType.Scratch)
+        else if (type == NoteType.Floor)
         {
             s_this.UpdateBox(2);
         }

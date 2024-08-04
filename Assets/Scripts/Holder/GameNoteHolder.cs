@@ -57,7 +57,7 @@ public class GameNoteHolder : MonoBehaviour
 
         for (int i = 0; i < 2; i++)
         {
-            if (holder.bottoms[i] == null)
+            if (holder.floors[i] == null)
             {
                 bottomObjects[i].enabled = false;
             }

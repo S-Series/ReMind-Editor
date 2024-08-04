@@ -71,7 +71,7 @@ public class NoteData : MonoBehaviour
                     Color32 = new Color32(255, 200, 0, 255);
                     break;
 
-                case NoteType.Scratch:
+                case NoteType.Floor:
                     Color32 = new Color32(0, 255, 200, 255);
                     break;
 

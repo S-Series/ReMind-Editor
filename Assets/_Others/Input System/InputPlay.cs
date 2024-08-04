@@ -545,6 +545,67 @@ public partial class @InputPlay: IInputActionCollection2, IDisposable
             ""id"": ""15f931f2-c276-4d50-9ff2-2ffe5fa710e4"",
             ""actions"": [],
             ""bindings"": []
+        },
+        {
+            ""name"": ""StartMenu"",
+            ""id"": ""65647137-f4d9-427c-9ab6-f16f27f7850d"",
+            ""actions"": [
+                {
+                    ""name"": ""Scroll"",
+                    ""type"": ""Button"",
+                    ""id"": ""bf4ec994-fe71-4c64-9338-608ef7d17783"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": ""1D Axis"",
+                    ""id"": ""41536b8f-dca2-4ce8-9fa1-22176fceef58"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Scroll"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""2328d606-8fb4-4fd1-bb55-5139ae5abd70"",
+                    ""path"": ""<Mouse>/scroll/down"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""PC"",
+                    ""action"": ""Scroll"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""8c9a38b0-1be7-4028-b861-163beb9ae25a"",
+                    ""path"": ""<Mouse>/scroll/up"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""PC"",
+                    ""action"": ""Scroll"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""1D Axis"",
+                    ""id"": ""2037c6e1-d24a-4d6f-ab54-6b956a21769a"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Scroll"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": [
@@ -596,6 +657,9 @@ public partial class @InputPlay: IInputActionCollection2, IDisposable
         m_Testing_Newaction = m_Testing.FindAction("New action", throwIfNotFound: true);
         // Playing
         m_Playing = asset.FindActionMap("Playing", throwIfNotFound: true);
+        // StartMenu
+        m_StartMenu = asset.FindActionMap("StartMenu", throwIfNotFound: true);
+        m_StartMenu_Scroll = m_StartMenu.FindAction("Scroll", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -959,6 +1023,52 @@ public partial class @InputPlay: IInputActionCollection2, IDisposable
         }
     }
     public PlayingActions @Playing => new PlayingActions(this);
+
+    // StartMenu
+    private readonly InputActionMap m_StartMenu;
+    private List<IStartMenuActions> m_StartMenuActionsCallbackInterfaces = new List<IStartMenuActions>();
+    private readonly InputAction m_StartMenu_Scroll;
+    public struct StartMenuActions
+    {
+        private @InputPlay m_Wrapper;
+        public StartMenuActions(@InputPlay wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Scroll => m_Wrapper.m_StartMenu_Scroll;
+        public InputActionMap Get() { return m_Wrapper.m_StartMenu; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(StartMenuActions set) { return set.Get(); }
+        public void AddCallbacks(IStartMenuActions instance)
+        {
+            if (instance == null || m_Wrapper.m_StartMenuActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_StartMenuActionsCallbackInterfaces.Add(instance);
+            @Scroll.started += instance.OnScroll;
+            @Scroll.performed += instance.OnScroll;
+            @Scroll.canceled += instance.OnScroll;
+        }
+
+        private void UnregisterCallbacks(IStartMenuActions instance)
+        {
+            @Scroll.started -= instance.OnScroll;
+            @Scroll.performed -= instance.OnScroll;
+            @Scroll.canceled -= instance.OnScroll;
+        }
+
+        public void RemoveCallbacks(IStartMenuActions instance)
+        {
+            if (m_Wrapper.m_StartMenuActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(IStartMenuActions instance)
+        {
+            foreach (var item in m_Wrapper.m_StartMenuActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_StartMenuActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public StartMenuActions @StartMenu => new StartMenuActions(this);
     private int m_PCSchemeIndex = -1;
     public InputControlScheme PCScheme
     {
@@ -1000,5 +1110,9 @@ public partial class @InputPlay: IInputActionCollection2, IDisposable
     }
     public interface IPlayingActions
     {
+    }
+    public interface IStartMenuActions
+    {
+        void OnScroll(InputAction.CallbackContext context);
     }
 }

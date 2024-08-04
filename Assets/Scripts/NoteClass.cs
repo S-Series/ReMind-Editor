@@ -8,7 +8,7 @@ using GameNote;
 
 namespace GameNote
 {
-    public enum NoteType { None = 0, Normal = 1, Airial = 2, Scratch = 3, Speed = 4, Effect = 5 }
+    public enum NoteType { None = 0, Normal = 1, Airial = 2, Floor = 3, Speed = 4, Effect = 5 }
     public class NormalNote
     {
         public int posY, line, length;
@@ -21,19 +21,15 @@ namespace GameNote
             this.isAirial = isAirial;
         }
     }
-    public class ScratchNote
+    public class FloorNote
     {
         public int posY, length;
-        public int startX, powerX, endX;
-        public bool isPower;
-        public ScratchNote(int _posY, int _length, int[] valueXs, bool _isPower = false)
+        public bool isLeftNote;
+        public FloorNote(int _posY, int _length, bool isLeft)
         {
             posY = _posY;
             length = _length;
-            startX = valueXs[0];
-            powerX = valueXs[1];
-            endX = valueXs[2];
-            isPower = _isPower;
+            isLeftNote = isLeft;
         }
     }
     public class SpeedNote

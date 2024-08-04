@@ -41,8 +41,8 @@ public class InfoField : MonoBehaviour
                 normalCount[j] += holder.normals[j] == null ? 0 : holder.normals[j].length;
                 airialCount[j] += holder.airials[j] == null ? 0 : 1;
             }
-            floorCount[0] += holder.bottoms[0] == null ? 0 : holder.bottoms[0].length;
-            floorCount[1] += holder.bottoms[1] == null ? 0 : holder.bottoms[1].length;
+            floorCount[0] += holder.floors[0] == null ? 0 : holder.floors[0].length;
+            floorCount[1] += holder.floors[1] == null ? 0 : holder.floors[1].length;
         }
 
         noteCount = floorCount[0] + floorCount[1]
