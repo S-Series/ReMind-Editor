@@ -9,19 +9,24 @@ using UnityEngine.EventSystems;
 
 public class test : MonoBehaviour
 {
-    [SerializeField] InputAction[] InputAction;
+    string[] dataPaths = new string[100];
 
-    private void Awake()
+    private string ReadFile(int index)
     {
-        for (int i = 0; i < 4; i++)
-        {
-            InputAction[i].performed += item => PrintAction(i);
-            InputAction[i].Enable();
-        }
+        return File.ReadAllText(dataPaths[index]);
     }
 
-    private void PrintAction(int data)
+    private IEnumerator IFileToData(string files)
     {
-        print(String.Format("Data is {0}", data));
+        // DoSomething;
+        yield return null;
+    }
+
+    IEnumerator IReadFile()
+    {
+        for (int i = 0; i < dataPaths.Length - 1; i++)
+        {
+            yield return IFileToData(ReadFile(i));
+        }
     }
 }

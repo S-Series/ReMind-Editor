@@ -116,7 +116,7 @@ TextureImporter:
         x: 0
         y: 0
         width: 400
-        height: 350
+        height: 400
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -137,7 +137,7 @@ TextureImporter:
         x: 400
         y: 0
         width: 400
-        height: 350
+        height: 400
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -158,7 +158,7 @@ TextureImporter:
         x: 800
         y: 0
         width: 400
-        height: 350
+        height: 400
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -168,6 +168,48 @@ TextureImporter:
       bones: []
       spriteID: e5c1c8d0bb933dd4d928d2e099d4f65b
       internalID: 502659565
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Loading Buttons_3
+      rect:
+        serializedVersion: 2
+        x: 1200
+        y: 0
+        width: 400
+        height: 400
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 271b8d0ba4b0c314f82d759809dc54e6
+      internalID: 1576962259
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Loading Buttons_4
+      rect:
+        serializedVersion: 2
+        x: 1600
+        y: 0
+        width: 400
+        height: 400
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dfb25e0bb9e03fc479f98df7bcab2636
+      internalID: -1617193054
       vertices: []
       indices: 
       edges: []
@@ -186,6 +228,8 @@ TextureImporter:
       Loading Buttons_0: 179507622
       Loading Buttons_1: 640853793
       Loading Buttons_2: 502659565
+      Loading Buttons_3: 1576962259
+      Loading Buttons_4: -1617193054
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
