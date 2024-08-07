@@ -6,27 +6,35 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.EventSystems;
+using System.Threading.Tasks;
+using System.Threading;
 
 public class test : MonoBehaviour
 {
     string[] dataPaths = new string[100];
+    float timer = 0f;
 
+    void Start()
+    {
+        FileToData();
+    }
+    void Update()
+    {
+        timer += Time.deltaTime;
+    }
     private string ReadFile(int index)
     {
-        return File.ReadAllText(dataPaths[index]);
+        return index.ToString();
     }
 
-    private IEnumerator IFileToData(string files)
+    private async void FileToData()
     {
-        // DoSomething;
-        yield return null;
-    }
-
-    IEnumerator IReadFile()
-    {
-        for (int i = 0; i < dataPaths.Length - 1; i++)
+        await Task.Run(() => 
         {
-            yield return IFileToData(ReadFile(i));
-        }
+            for (int i = 0; i < dataPaths.Length - 1; i++)
+            {
+                ReadFile(i);
+            }
+        });
     }
 }

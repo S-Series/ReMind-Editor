@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
+using System.Threading.Tasks;
 
 public class FileSelector : MonoBehaviour
 {
@@ -12,22 +13,25 @@ public class FileSelector : MonoBehaviour
     [SerializeField] GameObject[] DataHolderPrefabs;
     [SerializeField] Transform[] ScrollViewContentFields;
 
-    private void Start()
+    private async void NoteFileLoader()
     {
-        
-    }
-
-    private IEnumerator NoteFileLoader()
-    {
-        TextAsset textAsset;
+        NoteDataHolders = new List<NoteData>();
         var TargetDirectory = new DirectoryInfo(Application.dataPath + @"\_DataBox\");
 
         var fileInfo = TargetDirectory.GetFiles("*.nd");
         foreach (FileInfo f in fileInfo)
         {
-            //textAsset = File.ReadAllText(f.FullName);
+            NoteDataHolders.Add(new NoteData(f.Name, f.FullName));
         }
-        yield return null;
+
+        await Task.Run(() =>
+        {
+            for (int i = 0; i < NoteDataHolders.Count - 1; i++)
+            {
+                NoteDataHolders[i].NoteFileData = null;
+                JsonUtility.FromJson<SaveFile>(File.ReadAllText(NoteDataHolders[i].NoteFilePath));
+            }
+        });
     }
     private IEnumerator MusicFileLoader()
     {
@@ -61,7 +65,18 @@ public class FileSelector : MonoBehaviour
             }
         }
     }
-
+    public class NoteData
+    {
+        public string FileName { get; }
+        public string NoteFilePath { get; }
+        public SaveFile NoteFileData { get; set; }
+        public NoteData(string name, string path)
+        {
+            FileName = name;
+            NoteFilePath = path;
+            NoteFileData = null;
+        }
+    }
     private struct MusicData
     {
         public AudioClip AudioClip { get; }
@@ -72,16 +87,6 @@ public class FileSelector : MonoBehaviour
             AudioClip = x;
             AudioPath = y;
             AudioHolder = z;
-        }
-    }
-    private struct NoteData
-    {
-        public string NoteFilePath { get; }
-        public string NoteFileData { get; set; }
-        public NoteData(string path)
-        {
-            NoteFilePath = path;
-            NoteFileData = string.Empty;
         }
     }
 }
