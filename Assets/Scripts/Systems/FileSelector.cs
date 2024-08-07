@@ -24,14 +24,10 @@ public class FileSelector : MonoBehaviour
             NoteDataHolders.Add(new NoteData(f.Name, f.FullName));
         }
 
-        await Task.Run(() =>
+        for (int i = 0; i < NoteDataHolders.Count - 1; i++)
         {
-            for (int i = 0; i < NoteDataHolders.Count - 1; i++)
-            {
-                NoteDataHolders[i].NoteFileData = null;
-                JsonUtility.FromJson<SaveFile>(File.ReadAllText(NoteDataHolders[i].NoteFilePath));
-            }
-        });
+            await Task.Run(() => DataToJson(i));
+        }
     }
     private IEnumerator MusicFileLoader()
     {
@@ -65,6 +61,16 @@ public class FileSelector : MonoBehaviour
             }
         }
     }
+    
+    private void DataToJson(int index)
+    {
+        string path;
+        SaveFile saveFile;
+        path = NoteDataHolders[index].NoteFilePath;
+        saveFile = JsonUtility.FromJson<SaveFile>(File.ReadAllText(path));
+        NoteDataHolders[index].NoteFileData = saveFile;
+    }
+
     public class NoteData
     {
         public string FileName { get; }
@@ -74,10 +80,9 @@ public class FileSelector : MonoBehaviour
         {
             FileName = name;
             NoteFilePath = path;
-            NoteFileData = null;
         }
     }
-    private struct MusicData
+    private class MusicData
     {
         public AudioClip AudioClip { get; }
         public string AudioPath { get; }
