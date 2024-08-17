@@ -7,13 +7,23 @@ using System.Threading.Tasks;
 
 public class FileSelector : MonoBehaviour
 {
-    private List<NoteData> NoteDataHolders;
-    private List<MusicData> MusicDataHolders;
+    private static List<NoteData> NoteDataHolders;
+    private static List<MusicData> MusicDataHolders;
 
-    [SerializeField] GameObject[] DataHolderPrefabs;
-    [SerializeField] Transform[] ScrollViewContentFields;
+    [SerializeField] GameObject[] _DataHolderPrefabs;
+    private static GameObject[] DataHolderPrefabs;
+    [SerializeField] Transform[] _ScrollViewContentFields;
+    private static Transform[] ScrollViewContentFields;
 
-    private async void NoteFileLoader()
+    private void Start()
+    {
+        DataHolderPrefabs = _DataHolderPrefabs;
+        ScrollViewContentFields = _ScrollViewContentFields;
+        //_DataHolderPrefabs = null;
+        //_ScrollViewContentFields = null;
+    }
+
+    private async static void NoteFileLoader()
     {
         NoteDataHolders = new List<NoteData>();
         var TargetDirectory = new DirectoryInfo(Application.dataPath + @"\_DataBox\");
@@ -29,7 +39,7 @@ public class FileSelector : MonoBehaviour
             await Task.Run(() => DataToJson(i));
         }
     }
-    private IEnumerator MusicFileLoader()
+    private static IEnumerator MusicFileLoader()
     {
         AudioClip newClip;
         var TargetDirectory = new DirectoryInfo(Application.dataPath + @"\_DataBox\_MusicFile\");
@@ -62,7 +72,7 @@ public class FileSelector : MonoBehaviour
         }
     }
     
-    private void DataToJson(int index)
+    private static void DataToJson(int index)
     {
         string path;
         SaveFile saveFile;

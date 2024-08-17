@@ -295,7 +295,9 @@ public class SaveFile
 {
     public int delay = 0, gameMode = 0;
     public float bpm = 120.0f;
+    public float[] maxBpm = {0f, 0f};
     public int[] version = { 1, 0, 0 };
+    public int[] editDate = { 68, 10, 23, 23, 59 };
 
     public List<string> noteDatas = new List<string>();
 }
