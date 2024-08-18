@@ -17,7 +17,8 @@ public class MusicDataHolder : MonoBehaviour
         dataTmps[1].text = string.Format("{0} channels", audioClip.channels);
         dataTmps[2].text = string.Format("Type | {0}", audioClip.GetType());
         dataTmps[3].text = string.Format("{0} HertZ", audioClip.frequency);
-        dataTmps[4].text = string.Format("Time | {0:D2}:{1:D2}", audioClip.length / 60, audioClip.length % 60);
+        dataTmps[4].text = string.Format("Time | {0:D2}:{1:D2}", 
+            Mathf.FloorToInt(audioClip.length / 60f), audioClip.length % 60);
     }
 
     public void OnDataSelected() //# Activate by Button Action

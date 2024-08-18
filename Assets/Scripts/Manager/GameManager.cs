@@ -38,4 +38,8 @@ public class GameManager : MonoBehaviour
     {
         gameMode = mode;
     }
+    public static string GetGameModeName(int GameMode)
+    {
+        return "4Line - Single";
+    }
 }
