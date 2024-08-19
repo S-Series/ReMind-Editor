@@ -19,13 +19,14 @@ public class MusicLoader : MonoBehaviour
 
     private void Awake()
     {
+        /*
         audioSource = GetComponent<AudioSource>();
         if (!Directory.Exists(Application.dataPath + @"\_DataBox\_MusicFile\"))
         {
             Directory.CreateDirectory(Application.dataPath + @"\_DataBox\_MusicFile\");
         }
         path = Application.dataPath + @"\_DataBox\_MusicFile\";
-        StartCoroutine(ILoadAllFile(true));
+        StartCoroutine(ILoadAllFile(true));*/
     }
     private IEnumerator ILoadAllFile(bool isStartLoad = false)
     {

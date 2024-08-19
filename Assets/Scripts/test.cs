@@ -8,33 +8,28 @@ using UnityEngine.InputSystem;
 using UnityEngine.EventSystems;
 using System.Threading.Tasks;
 using System.Threading;
+using TMPro;
 
 public class test : MonoBehaviour
 {
-    string[] dataPaths = new string[100];
-    float timer = 0f;
+    [SerializeField] GameObject prefab;
+    [SerializeField] Transform transform;
+    RectTransform rect;
 
-    void Start()
+    int count = 0; 
+
+    private void Start()
     {
-        FileToData();
-    }
-    void Update()
-    {
-        timer += Time.deltaTime;
-    }
-    private string ReadFile(int index)
-    {
-        return index.ToString();
+        rect = GetComponent<RectTransform>();
     }
 
-    private async void FileToData()
+    public void btn()
     {
-        await Task.Run(() => 
-        {
-            for (int i = 0; i < dataPaths.Length - 1; i++)
-            {
-                ReadFile(i);
-            }
-        });
+        GameObject copy;
+        copy = Instantiate(prefab, transform, false);
+        copy.GetComponent<RectTransform>().anchoredPosition = new Vector3(0, -100 * count - 60, 0);
+        rect.sizeDelta = new Vector2(0, 100.25f * (count + 1) + 14);
+        copy.GetComponentInChildren<TextMeshPro>().text = string.Format("No.{0} Object", count);
+        count++;
     }
 }

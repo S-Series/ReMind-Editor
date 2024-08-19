@@ -15,8 +15,8 @@ public class FileSelector : MonoBehaviour
 
     [SerializeField] GameObject[] _DataHolderPrefabs;
     private static GameObject[] DataHolderPrefabs;
-    [SerializeField] Transform[] _ScrollViewContentFields;
-    private static Transform[] ScrollViewContentFields;
+    [SerializeField] RectTransform[] _ScrollViewContentFields;
+    private static RectTransform[] ScrollViewContentFields;
 
     [SerializeField] TextMeshPro[] dataTmps;
     [SerializeField] Transform[] CopyDataField;
@@ -38,10 +38,17 @@ public class FileSelector : MonoBehaviour
         NoteDataHolders = new List<NoteData>();
         var TargetDirectory = new DirectoryInfo(Application.dataPath + @"\_DataBox\");
 
+        int copyCount = 0;
+        GameObject copy;
         var fileInfo = TargetDirectory.GetFiles("*.nd");
+
         foreach (FileInfo f in fileInfo)
         {
-            NoteDataHolders.Add(new NoteData(f.Name, f.FullName));
+            copy = Instantiate(DataHolderPrefabs[0], ScrollViewContentFields[0]);
+            copy.GetComponent<RectTransform>().anchoredPosition = new Vector3(0, copyCount * -100 - 60, 0);
+            ScrollViewContentFields[0].sizeDelta = new Vector2(0, 100.25f * (copyCount + 1) + 14);
+            NoteDataHolders.Add(new NoteData(f.Name, f.FullName, copy));
+            copyCount++;
         }
 
         for (int i = 0; i < NoteDataHolders.Count - 1; i++)
@@ -140,13 +147,15 @@ public class FileSelector : MonoBehaviour
         public string FileName { get; }
         public string NoteFilePath { get; }
         public SaveFile NoteFileData { get; set; }
-        public NoteData(string name, string path)
+        public GameObject DataHolder { get; set; }
+        public NoteData(string name, string path, GameObject @object)
         {
             FileName = name;
             NoteFilePath = path;
+            DataHolder = @object;
         }
     }
-    private class MusicData
+    public class MusicData
     {
         public AudioClip AudioClip { get; }
         public string AudioPath { get; }
