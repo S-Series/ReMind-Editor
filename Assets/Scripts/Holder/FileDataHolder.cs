@@ -7,14 +7,18 @@ public class FileDataHolder : MonoBehaviour
 {
     [SerializeField] private TextMeshPro[] dataTmps;
 
-    private string fileName;
-    public SaveFile dataFile;
+    private FileSelector.NoteData noteData;
 
-    public void ApplyDataFile(SaveFile saveFile, string Name)
+    public void ApplyDataFile(FileSelector.NoteData data)
     {
+        noteData = data;
+    }
+    public void UpdateData()
+    {
+        var saveFile = noteData.NoteFileData;
+
         //$ Note Data File Name
-        fileName = Name;
-        dataTmps[0].text = Name;
+        dataTmps[0].text = noteData.FileName;
 
         //$ Bpm
         dataTmps[1].text = 
@@ -31,12 +35,10 @@ public class FileDataHolder : MonoBehaviour
             string.Format("{0}.{1:D2}.{2:D2} {3:D2}:{4:D2}", 
             saveFile.editDate[0], saveFile.editDate[1], saveFile.editDate[2],
             saveFile.editDate[3], saveFile.editDate[4]);
-        
-        dataFile = saveFile;
     }
 
     public void OnDataSelected() //# Activate by Button Action
     {
-        FileSelector.s_this.ApplyNoteFile(gameObject, dataFile, fileName);
+        FileSelector.s_this.ApplyNoteFile(gameObject, noteData);
     }
 }

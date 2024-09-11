@@ -9,6 +9,7 @@ using AESWithJava.Con;
 using Ookii.Dialogs;
 using System.Windows.Forms;
 using GameData;
+using System.Linq;
 
 public class SaveManager : MonoBehaviour
 {
@@ -289,15 +290,31 @@ public class SaveManager : MonoBehaviour
         isLoadable = false;
         noteFileInput.textComponent.color = new Color32(220, 025, 000, 255);
     }
+
+    public static SaveFile GetSaveFile(string dataPath, bool isCheckAvailable = false)
+    {
+        SaveFile ret;
+        ret = JsonUtility.FromJson<SaveFile>(File.ReadAllText(dataPath));
+
+        if (isCheckAvailable)
+        {
+            if (ret.delay == -1 || ret.gameMode == -1 || ret.bpm == -1 ) { ret = null; }
+            else if (ret.maxBpm.Contains(-1f)) { ret = null; }
+            else if (ret.version.Contains(-1)) { ret = null; }
+            else if (ret.editDate.Contains(-1)) { ret = null; }
+        }
+
+        return ret;
+    }
 }
 
 public class SaveFile
 {
-    public int delay = 0, gameMode = 0;
-    public float bpm = 120.0f;
-    public float[] maxBpm = {0f, 0f};
-    public int[] version = { 1, 0, 0 };
-    public int[] editDate = { 68, 10, 23, 23, 59 };
+    public int delay = -1, gameMode = -1;
+    public float bpm = -1f;
+    public float[] maxBpm = {-1f, -1f};
+    public int[] version = { -1, -1, -1 };
+    public int[] editDate = { -1, -1, -1, -1, -1 };
 
     public List<string> noteDatas = new List<string>();
 }

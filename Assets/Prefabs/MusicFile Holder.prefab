@@ -528,7 +528,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 652a1cb8d2f598043b02cfbe0a6a33e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dataTmps: []
+  dataTmps:
+  - {fileID: 5669098045173272846}
+  - {fileID: 2477949889620734375}
+  - {fileID: 2599117631408463406}
+  - {fileID: 3335355391692969792}
+  - {fileID: 7268046079596235137}
   musicFile: {fileID: 0}
 --- !u!1 &7558595024520781016
 GameObject:
