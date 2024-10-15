@@ -12,13 +12,14 @@ public class FileDataHolder : MonoBehaviour
     public void ApplyDataFile(FileSelector.NoteData data)
     {
         noteData = data;
+        UpdateData();
     }
     public void UpdateData()
     {
         var saveFile = noteData.NoteFileData;
 
         //$ Note Data File Name
-        dataTmps[0].text = noteData.FileName;
+        dataTmps[0].text = noteData.FileName.Replace(".nd", string.Empty);
 
         //$ Bpm
         dataTmps[1].text = 
@@ -28,13 +29,10 @@ public class FileDataHolder : MonoBehaviour
 
         //$ GameMode
         dataTmps[2].text = 
-            string.Format("Mode || Line{0}", (GameData.GameMode)saveFile.gameMode);
+            string.Format("Mode || {0}", (GameData.GameMode)saveFile.gameMode);
 
         //$ Last Edit Date & Time
-        dataTmps[3].text = 
-            string.Format("{0}.{1:D2}.{2:D2} {3:D2}:{4:D2}", 
-            saveFile.editDate[0], saveFile.editDate[1], saveFile.editDate[2],
-            saveFile.editDate[3], saveFile.editDate[4]);
+        dataTmps[3].text = saveFile.editDate;
     }
 
     public void OnDataSelected() //# Activate by Button Action

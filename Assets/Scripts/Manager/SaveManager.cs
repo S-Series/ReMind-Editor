@@ -80,7 +80,7 @@ public class SaveManager : MonoBehaviour
         else { path = s_LoadedPath; }
 
         SaveFile saveFile;
-        saveFile = new SaveFile();
+        saveFile = new SaveFile((int)GameManager.gameMode);
 
         NoteField.SortNoteHolder();
 
@@ -298,13 +298,71 @@ public class SaveManager : MonoBehaviour
 
         if (isCheckAvailable)
         {
-            if (ret.delay == -1 || ret.gameMode == -1 || ret.bpm == -1 ) { ret = null; }
-            else if (ret.maxBpm.Contains(-1f)) { ret = null; }
-            else if (ret.version.Contains(-1)) { ret = null; }
-            else if (ret.editDate.Contains(-1)) { ret = null; }
+            try
+            {
+                if (ret.delay == -1 || ret.gameMode == -1 || ret.bpm == -1) { ret = null; }
+                else if (ret.maxBpm.Contains(-1f)) { ret = null; }
+                else if (ret.version.Contains(-1)) { ret = null; }
+            }
+            catch { ret = null; }
         }
 
         return ret;
+    }
+
+    [UnityEngine.ContextMenu("Generate")]
+    public void a()
+    {
+        CreateNewFile(4);
+    }
+    public static bool CreateNewFile(int gameMode = 4)
+    {
+        bool isCreated;
+        isCreated = false;
+
+        string path = "";
+        string dialogPath = (UnityEngine.Application.dataPath + "\\_DataBox").Replace("/", "\\");
+        print(dialogPath);
+
+        VistaSaveFileDialog dialog;
+        dialog = new VistaSaveFileDialog();
+        dialog.Filter = "All Files|*.*";
+        dialog.FilterIndex = 1;
+        dialog.Title = "Save Data";
+        dialog.InitialDirectory = dialogPath;
+        dialog.RestoreDirectory = true;
+
+        if (dialog.ShowDialog() == DialogResult.OK)
+        {
+            Stream stream;
+            if ((stream = dialog.OpenFile()) != null)
+            {
+                path = dialog.FileName;
+                print(path);
+                stream.Close();
+                /*if (File.Exists(path))
+                {
+                    while (path.Contains(".nd"))
+                    {
+                        string data;
+                        data = File.ReadAllText(path);
+                        File.Delete(path);
+                        if (path == ".nd") { path = "_"; }
+                        else { path = path.Substring(0, path.Length - 3); }
+                        File.WriteAllText(path, data);
+                    }
+                    File.Move(path, path + ".nd");
+                }*/
+                
+                SaveFile file;
+                file = new SaveFile(gameMode);
+                File.WriteAllText(path, JsonUtility.ToJson(file, true));
+            }
+            else { return false; }
+        }
+        else { return false; }
+
+        return isCreated;
     }
 }
 
@@ -314,7 +372,26 @@ public class SaveFile
     public float bpm = -1f;
     public float[] maxBpm = {-1f, -1f};
     public int[] version = { -1, -1, -1 };
-    public int[] editDate = { -1, -1, -1, -1, -1 };
+    public string editDate = String.Empty;
 
     public List<string> noteDatas = new List<string>();
+    public SaveFile() { }
+    public SaveFile(int modeInt)
+    {
+        delay = 0;
+        gameMode = modeInt;
+        bpm = 120.0f;
+        maxBpm = new float[] { 0f, 0f };
+        version = VersionManager.GetVersion();
+        editDate = DateTime.Now.ToString("yyyy-MM-dd\tHH:mm");
+    }
+    public SaveFile(int[] data, float[] bpms)
+    {
+        delay = data[0];
+        gameMode = data[1];
+        bpm = bpms[0];
+        maxBpm = new float[] { bpms[1], bpms[2] };
+        version = VersionManager.GetVersion();
+        editDate = DateTime.Now.ToString("yyyy-MM-dd\tHH:mm");
+    }
 }

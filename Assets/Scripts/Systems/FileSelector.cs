@@ -2,10 +2,13 @@ using System.IO;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.Networking;
 using System.Threading.Tasks;
 using TMPro;
 using System;
+using Ookii.Dialogs;
+using System.Windows.Forms;
 
 public class FileSelector : MonoBehaviour
 {
@@ -27,6 +30,11 @@ public class FileSelector : MonoBehaviour
 
     private static IEnumerator MusicLoadCoroutine;
 
+    [SerializeField] Transform GenerateSequence;
+    [SerializeField] UnityEngine.UI.Button GenerateButton;
+    [SerializeField] Animator GenerateAnimator;
+    [SerializeField] TMP_InputField GenerateField;
+
     private void Start()
     {
         s_this = this;
@@ -44,7 +52,7 @@ public class FileSelector : MonoBehaviour
     private static void NoteFileLoader()
     {
         NoteDataHolders = new List<NoteData>();
-        var TargetDirectory = new DirectoryInfo(Application.dataPath + @"\_DataBox\");
+        var TargetDirectory = new DirectoryInfo(UnityEngine.Application.dataPath + @"\_DataBox\");
 
         int copyCount = 0;
         GameObject copy;
@@ -71,7 +79,7 @@ public class FileSelector : MonoBehaviour
     private static IEnumerator MusicFileLoader()
     {
         AudioClip newClip;
-        var TargetDirectory = new DirectoryInfo(Application.dataPath + @"\_DataBox\_MusicFile\");
+        var TargetDirectory = new DirectoryInfo(UnityEngine.Application.dataPath + @"\_DataBox\_MusicFile\");
 
         int copyCount = 0;
 
@@ -214,13 +222,61 @@ public class FileSelector : MonoBehaviour
         dataTmps[4].text = "Nan\n0 Ch.";
     }
 
+    public void OpenNewFile()
+    {
+        print("A");
+        GenerateButton.interactable = false;
+        GenerateAnimator.SetTrigger("Down");
+    }
     public void CreateNewFile()
     {
+        string path = "";
+        string dialogPath = (UnityEngine.Application.dataPath + "\\_DataBox").Replace("/", "\\");
+        print(dialogPath);
 
+        VistaSaveFileDialog dialog;
+        dialog = new VistaSaveFileDialog();
+        dialog.Filter = "All Files|*.*";
+        dialog.FilterIndex = 1;
+        dialog.Title = "Save Data";
+        dialog.InitialDirectory = dialogPath;
+        dialog.RestoreDirectory = true;
+
+        if (dialog.ShowDialog() == DialogResult.OK)
+        {
+            Stream stream;
+            if ((stream = dialog.OpenFile()) != null)
+            {
+                path = dialog.FileName;
+                stream.Close();
+                if (File.Exists(path))
+                {
+                    while (path.Contains(".nd"))
+                    {
+                        string data;
+                        data = File.ReadAllText(path);
+                        File.Delete(path);
+                        if (path == ".nd") { path = "_"; }
+                        else { path = path.Substring(0, path.Length - 3); }
+                        File.WriteAllText(path, data);
+                    }
+                    File.Move(path, path + ".nd");
+                }
+            }
+            else { return; }
+        }
+        else { return; }
+    }
+    public void CancelNewFile()
+    {
+        print("B");
+        GenerateButton.interactable = true;
+        GenerateAnimator.SetTrigger("Up");
     }
     public void OpenFolder(bool isNoteFile)
     {
-        Application.OpenURL( Application.dataPath + (isNoteFile ? @"\_DataBox\" : @"\_DataBox\_MusicFile\"));
+        UnityEngine.Application.OpenURL( UnityEngine.Application.dataPath 
+            + (isNoteFile ? @"\_DataBox\" : @"\_DataBox\_MusicFile\"));
     }
     public void ReloadFiles(bool isNoteFile)
     {
