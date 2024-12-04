@@ -5,6 +5,7 @@ using TMPro;
 
 public class FileDataHolder : MonoBehaviour
 {
+    public bool isCopyObject = false;
     [SerializeField] private TextMeshPro[] dataTmps;
 
     private FileSelector.NoteData noteData;
@@ -37,6 +38,7 @@ public class FileDataHolder : MonoBehaviour
 
     public void OnDataSelected() //# Activate by Button Action
     {
-        FileSelector.s_this.ApplyNoteFile(gameObject, noteData);
+        if (isCopyObject) { FileSelector.CancelNoteFile(); }
+        else { FileSelector.s_this.ApplyNoteFile(gameObject, noteData);}
     }
 }

@@ -162,7 +162,7 @@ public class NoteHolder : MonoBehaviour
         InfoTmps[0].text = speedNote == null ? "" : String.Format("{0:F2} X {1:F2} = {2:F2}",
             speedNote.bpm, speedNote.multiple, speedNote.bpm * speedNote.multiple);
         InfoTmps[1].text = effectNote == null ? "" : String.Format("{0} || {1:D4}",
-            effectNote.GetEffectName(), effectNote.value);
+            effectNote.effectName, effectNote.value);
     }
     public void LineScale(float lengthValue)
     {

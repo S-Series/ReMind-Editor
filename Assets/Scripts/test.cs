@@ -12,24 +12,34 @@ using TMPro;
 
 public class test : MonoBehaviour
 {
-    [SerializeField] GameObject prefab;
-    [SerializeField] Transform transform;
-    RectTransform rect;
-
-    int count = 0; 
-
-    private void Start()
+    [SerializeField] int[] data;
+    void Start()
     {
-        rect = GetComponent<RectTransform>();
+        int input = 578;
+        data = ConvertBase(input, 16, 15);
     }
 
-    public void btn()
+    //$ Convert input Number from Base N to Base
+    private int[] ConvertBase(int input, int N, int M)
     {
-        GameObject copy;
-        copy = Instantiate(prefab, transform, false);
-        copy.GetComponent<RectTransform>().anchoredPosition = new Vector3(0, -100 * count - 60, 0);
-        rect.sizeDelta = new Vector2(0, 100.25f * (count + 1) + 14);
-        copy.GetComponentInChildren<TextMeshPro>().text = string.Format("No.{0} Object", count);
-        count++;
+        List<int> ret = new List<int>();
+
+        int passNum = 0;
+        for (int index = 0; true; index++)
+        {
+            passNum += Mathf.FloorToInt(input % Mathf.Pow(10, index + 1) 
+                / Mathf.Pow(10, index)) * Mathf.FloorToInt(Mathf.Pow(N, index));
+            if (MathF.Pow(10 , index) >= input) { break;}
+        }
+
+        print(passNum);
+
+        for (int index = 0; true; index++)
+        {
+            if (Mathf.Pow(M, index) >= passNum) { break; }
+            ret.Add(Mathf.FloorToInt(passNum / Mathf.Pow(M, index)) % M);
+        }
+        ret.Reverse();
+        return ret.ToArray();
     }
 }

@@ -10,24 +10,23 @@ public class GuideGenerate : MonoBehaviour
     public static int[] s_guidePos = new int[1] { 0 };
     public static bool[] s_Accent = new bool[2] { false, true };
     public static GameObject ColliderPrefab;
+    private static Transform ColliderField;
     private static bool[] s_HasAccent = new bool[2] { false, true };
 
     [SerializeField] GameObject _ColliderPrefab;
-    [SerializeField] Transform ColliderField;
+    [SerializeField] Transform _ColliderField;
     [SerializeField] TMP_InputField InputGuideCount;
 
     private void Awake() 
     {
         s_this = this;
         ColliderPrefab = _ColliderPrefab;
+        ColliderField = _ColliderField;
     }
     private void Start() { Generate(8); }
 
     public static void Generate(int count)
     {
-        GameObject copyObject;
-        GuideHolder copyHolder;
-        
         if (count < 01) { count = 01; }
         if (count > 33) { count = 32; }
 
@@ -37,10 +36,20 @@ public class GuideGenerate : MonoBehaviour
         //s_HasAccent[0] = count % 3 == 0 ? true : false;
         //s_HasAccent[1] = count % 4 == 0 ? true : false;
 
-        s_guideCount = count;
+        GameObject copyObject;
 
+        s_guideCount = count;
         s_guidePos = new int[count + 1];
-        for (int i = 0; i < count; i++) { s_guidePos[i] = System.Convert.ToInt32(1600f / count * i); }
+
+        for (int i = 0; i < count; i++)
+        {
+            s_guidePos[i] = System.Convert.ToInt32(1600f / count * i);
+            for (int j = 0; j < 300; j++)
+            {
+                copyObject = Instantiate(ColliderPrefab, ColliderField, false);
+                copyObject.transform.localPosition = new Vector3(0, j * 1600 + (1600f / count * i), 0);
+            }
+        }
         s_guidePos[count] = 1600;
     }
     public static void UpdateGuideColor()

@@ -5,6 +5,7 @@ using TMPro;
 
 public class MusicDataHolder : MonoBehaviour
 {
+    public bool isCopyObject = false;
     [SerializeField] private TextMeshPro[] dataTmps;
 
     private FileSelector.MusicData musicData;
@@ -30,6 +31,7 @@ public class MusicDataHolder : MonoBehaviour
 
     public void OnDataSelected() //# Activate by Button Action
     {
-        FileSelector.s_this.ApplyMusicFile(this.gameObject, musicData);
+        if (isCopyObject) { FileSelector.CancelMusicFile(); }
+        else { FileSelector.s_this.ApplyMusicFile(this.gameObject, musicData); }
     }
 }

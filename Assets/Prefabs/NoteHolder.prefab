@@ -1195,7 +1195,6 @@ MonoBehaviour:
   bottomObjects:
   - {fileID: 1772648353475881414}
   - {fileID: 5393720600644525825}
-  AlertObjects: []
   speedObject: {fileID: 5346671460098484311}
   effectObject: {fileID: 2051157923456923410}
   lineRenderers:
@@ -1385,7 +1384,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1014723834383784660
 Transform:
   m_ObjectHideFlags: 0
@@ -1864,7 +1863,7 @@ Transform:
   m_GameObject: {fileID: 2051157923456923410}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1120, y: 0, z: 0}
+  m_LocalPosition: {x: -1067, y: 0, z: 0}
   m_LocalScale: {x: 72.5, y: 72.5, z: 72.5}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -3400,7 +3399,7 @@ Transform:
   m_GameObject: {fileID: 5346671460098484311}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1120, y: 0, z: 0}
+  m_LocalPosition: {x: -1067, y: 0, z: 0}
   m_LocalScale: {x: 72.5, y: 72.5, z: 72.5}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -3804,7 +3803,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &6367677637986505249
 Transform:
   m_ObjectHideFlags: 0
@@ -4777,7 +4776,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &27168108730190036
 Transform:
   m_ObjectHideFlags: 0

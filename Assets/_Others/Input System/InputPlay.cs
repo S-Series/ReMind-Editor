@@ -24,6 +24,12 @@ public partial class @InputPlay: IInputActionCollection2, IDisposable
     ""name"": ""InputPlay"",
     ""maps"": [
         {
+            ""name"": ""StartMenu"",
+            ""id"": ""65647137-f4d9-427c-9ab6-f16f27f7850d"",
+            ""actions"": [],
+            ""bindings"": []
+        },
+        {
             ""name"": ""Editing"",
             ""id"": ""2b99812d-a3ca-465b-94bd-982e02cbd8e4"",
             ""actions"": [
@@ -529,83 +535,34 @@ public partial class @InputPlay: IInputActionCollection2, IDisposable
             ""id"": ""18b644ad-f219-48f8-9e27-6a266083835c"",
             ""actions"": [
                 {
-                    ""name"": ""New action"",
+                    ""name"": ""Pause/Release"",
                     ""type"": ""Button"",
-                    ""id"": ""6d064657-5225-4855-bf19-60bd5615ed9a"",
+                    ""id"": ""29fac8c6-8a11-4acb-8b44-403b35bb7986"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """",
+                    ""interactions"": ""Press"",
                     ""initialStateCheck"": false
                 }
             ],
-            ""bindings"": []
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""ce1b05a1-50d0-47fc-96cb-03091f2b29b6"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""PC"",
+                    ""action"": ""Pause/Release"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         },
         {
             ""name"": ""Playing"",
             ""id"": ""15f931f2-c276-4d50-9ff2-2ffe5fa710e4"",
             ""actions"": [],
             ""bindings"": []
-        },
-        {
-            ""name"": ""StartMenu"",
-            ""id"": ""65647137-f4d9-427c-9ab6-f16f27f7850d"",
-            ""actions"": [
-                {
-                    ""name"": ""Scroll"",
-                    ""type"": ""Button"",
-                    ""id"": ""bf4ec994-fe71-4c64-9338-608ef7d17783"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                }
-            ],
-            ""bindings"": [
-                {
-                    ""name"": ""1D Axis"",
-                    ""id"": ""41536b8f-dca2-4ce8-9fa1-22176fceef58"",
-                    ""path"": ""1DAxis"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Scroll"",
-                    ""isComposite"": true,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""negative"",
-                    ""id"": ""2328d606-8fb4-4fd1-bb55-5139ae5abd70"",
-                    ""path"": ""<Mouse>/scroll/down"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""PC"",
-                    ""action"": ""Scroll"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""positive"",
-                    ""id"": ""8c9a38b0-1be7-4028-b861-163beb9ae25a"",
-                    ""path"": ""<Mouse>/scroll/up"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""PC"",
-                    ""action"": ""Scroll"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""1D Axis"",
-                    ""id"": ""2037c6e1-d24a-4d6f-ab54-6b956a21769a"",
-                    ""path"": ""1DAxis"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Scroll"",
-                    ""isComposite"": true,
-                    ""isPartOfComposite"": false
-                }
-            ]
         }
     ],
     ""controlSchemes"": [
@@ -627,6 +584,8 @@ public partial class @InputPlay: IInputActionCollection2, IDisposable
         }
     ]
 }");
+        // StartMenu
+        m_StartMenu = asset.FindActionMap("StartMenu", throwIfNotFound: true);
         // Editing
         m_Editing = asset.FindActionMap("Editing", throwIfNotFound: true);
         m_Editing_Alt = m_Editing.FindAction("Alt", throwIfNotFound: true);
@@ -654,12 +613,9 @@ public partial class @InputPlay: IInputActionCollection2, IDisposable
         m_Editing_Scroll = m_Editing.FindAction("Scroll", throwIfNotFound: true);
         // Testing
         m_Testing = asset.FindActionMap("Testing", throwIfNotFound: true);
-        m_Testing_Newaction = m_Testing.FindAction("New action", throwIfNotFound: true);
+        m_Testing_PauseRelease = m_Testing.FindAction("Pause/Release", throwIfNotFound: true);
         // Playing
         m_Playing = asset.FindActionMap("Playing", throwIfNotFound: true);
-        // StartMenu
-        m_StartMenu = asset.FindActionMap("StartMenu", throwIfNotFound: true);
-        m_StartMenu_Scroll = m_StartMenu.FindAction("Scroll", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -717,6 +673,44 @@ public partial class @InputPlay: IInputActionCollection2, IDisposable
     {
         return asset.FindBinding(bindingMask, out action);
     }
+
+    // StartMenu
+    private readonly InputActionMap m_StartMenu;
+    private List<IStartMenuActions> m_StartMenuActionsCallbackInterfaces = new List<IStartMenuActions>();
+    public struct StartMenuActions
+    {
+        private @InputPlay m_Wrapper;
+        public StartMenuActions(@InputPlay wrapper) { m_Wrapper = wrapper; }
+        public InputActionMap Get() { return m_Wrapper.m_StartMenu; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(StartMenuActions set) { return set.Get(); }
+        public void AddCallbacks(IStartMenuActions instance)
+        {
+            if (instance == null || m_Wrapper.m_StartMenuActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_StartMenuActionsCallbackInterfaces.Add(instance);
+        }
+
+        private void UnregisterCallbacks(IStartMenuActions instance)
+        {
+        }
+
+        public void RemoveCallbacks(IStartMenuActions instance)
+        {
+            if (m_Wrapper.m_StartMenuActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(IStartMenuActions instance)
+        {
+            foreach (var item in m_Wrapper.m_StartMenuActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_StartMenuActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public StartMenuActions @StartMenu => new StartMenuActions(this);
 
     // Editing
     private readonly InputActionMap m_Editing;
@@ -943,12 +937,12 @@ public partial class @InputPlay: IInputActionCollection2, IDisposable
     // Testing
     private readonly InputActionMap m_Testing;
     private List<ITestingActions> m_TestingActionsCallbackInterfaces = new List<ITestingActions>();
-    private readonly InputAction m_Testing_Newaction;
+    private readonly InputAction m_Testing_PauseRelease;
     public struct TestingActions
     {
         private @InputPlay m_Wrapper;
         public TestingActions(@InputPlay wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Newaction => m_Wrapper.m_Testing_Newaction;
+        public InputAction @PauseRelease => m_Wrapper.m_Testing_PauseRelease;
         public InputActionMap Get() { return m_Wrapper.m_Testing; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -958,16 +952,16 @@ public partial class @InputPlay: IInputActionCollection2, IDisposable
         {
             if (instance == null || m_Wrapper.m_TestingActionsCallbackInterfaces.Contains(instance)) return;
             m_Wrapper.m_TestingActionsCallbackInterfaces.Add(instance);
-            @Newaction.started += instance.OnNewaction;
-            @Newaction.performed += instance.OnNewaction;
-            @Newaction.canceled += instance.OnNewaction;
+            @PauseRelease.started += instance.OnPauseRelease;
+            @PauseRelease.performed += instance.OnPauseRelease;
+            @PauseRelease.canceled += instance.OnPauseRelease;
         }
 
         private void UnregisterCallbacks(ITestingActions instance)
         {
-            @Newaction.started -= instance.OnNewaction;
-            @Newaction.performed -= instance.OnNewaction;
-            @Newaction.canceled -= instance.OnNewaction;
+            @PauseRelease.started -= instance.OnPauseRelease;
+            @PauseRelease.performed -= instance.OnPauseRelease;
+            @PauseRelease.canceled -= instance.OnPauseRelease;
         }
 
         public void RemoveCallbacks(ITestingActions instance)
@@ -1023,52 +1017,6 @@ public partial class @InputPlay: IInputActionCollection2, IDisposable
         }
     }
     public PlayingActions @Playing => new PlayingActions(this);
-
-    // StartMenu
-    private readonly InputActionMap m_StartMenu;
-    private List<IStartMenuActions> m_StartMenuActionsCallbackInterfaces = new List<IStartMenuActions>();
-    private readonly InputAction m_StartMenu_Scroll;
-    public struct StartMenuActions
-    {
-        private @InputPlay m_Wrapper;
-        public StartMenuActions(@InputPlay wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Scroll => m_Wrapper.m_StartMenu_Scroll;
-        public InputActionMap Get() { return m_Wrapper.m_StartMenu; }
-        public void Enable() { Get().Enable(); }
-        public void Disable() { Get().Disable(); }
-        public bool enabled => Get().enabled;
-        public static implicit operator InputActionMap(StartMenuActions set) { return set.Get(); }
-        public void AddCallbacks(IStartMenuActions instance)
-        {
-            if (instance == null || m_Wrapper.m_StartMenuActionsCallbackInterfaces.Contains(instance)) return;
-            m_Wrapper.m_StartMenuActionsCallbackInterfaces.Add(instance);
-            @Scroll.started += instance.OnScroll;
-            @Scroll.performed += instance.OnScroll;
-            @Scroll.canceled += instance.OnScroll;
-        }
-
-        private void UnregisterCallbacks(IStartMenuActions instance)
-        {
-            @Scroll.started -= instance.OnScroll;
-            @Scroll.performed -= instance.OnScroll;
-            @Scroll.canceled -= instance.OnScroll;
-        }
-
-        public void RemoveCallbacks(IStartMenuActions instance)
-        {
-            if (m_Wrapper.m_StartMenuActionsCallbackInterfaces.Remove(instance))
-                UnregisterCallbacks(instance);
-        }
-
-        public void SetCallbacks(IStartMenuActions instance)
-        {
-            foreach (var item in m_Wrapper.m_StartMenuActionsCallbackInterfaces)
-                UnregisterCallbacks(item);
-            m_Wrapper.m_StartMenuActionsCallbackInterfaces.Clear();
-            AddCallbacks(instance);
-        }
-    }
-    public StartMenuActions @StartMenu => new StartMenuActions(this);
     private int m_PCSchemeIndex = -1;
     public InputControlScheme PCScheme
     {
@@ -1077,6 +1025,9 @@ public partial class @InputPlay: IInputActionCollection2, IDisposable
             if (m_PCSchemeIndex == -1) m_PCSchemeIndex = asset.FindControlSchemeIndex("PC");
             return asset.controlSchemes[m_PCSchemeIndex];
         }
+    }
+    public interface IStartMenuActions
+    {
     }
     public interface IEditingActions
     {
@@ -1106,13 +1057,9 @@ public partial class @InputPlay: IInputActionCollection2, IDisposable
     }
     public interface ITestingActions
     {
-        void OnNewaction(InputAction.CallbackContext context);
+        void OnPauseRelease(InputAction.CallbackContext context);
     }
     public interface IPlayingActions
     {
-    }
-    public interface IStartMenuActions
-    {
-        void OnScroll(InputAction.CallbackContext context);
     }
 }

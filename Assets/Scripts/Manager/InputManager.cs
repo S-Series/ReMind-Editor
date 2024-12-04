@@ -8,7 +8,9 @@ public class InputManager : MonoBehaviour
 {
     public static InputManager s_this;
     private static PlayerInput playerInput;
+    private static int lastActionIndex;
     private static readonly string[] ActionMapName = new string[] { 
+        "StartMenu",
         "Editing",
         "Testing",
         "Playing"
@@ -24,8 +26,12 @@ public class InputManager : MonoBehaviour
     }
     private void Start()
     {
+        #region ActionMap[0]
         playerInput.SwitchCurrentActionMap(ActionMapName[0]);
+        #endregion
 
+        #region ActionMap[1]
+        playerInput.SwitchCurrentActionMap(ActionMapName[1]);
         playerInput.actions["Alt"].performed += T => AltAction(true);
         playerInput.actions["AltRelease"].performed += T => AltAction(false);
 
@@ -57,17 +63,19 @@ public class InputManager : MonoBehaviour
 
         ScrollInputAction = playerInput.actions["Scroll"];
         ScrollInputAction.performed += T => ScrollAction();
+        #endregion
 
-        // playerInput.SwitchCurrentActionMap(ActionMapName[1]);
-
+        //playerInput.SwitchCurrentActionMap(ActionMapName[0]);
         playerInput.ActivateInput();
     }
 
-    public static void SwitchInputMap(int actionMapIndex)
+    public static void SwitchInputMap(int actionMapIndex, InputAction.CallbackContext context)
     {
         playerInput.SwitchCurrentActionMap(ActionMapName[actionMapIndex]);
-    }   
+    }
 
+
+    #region Actions For Map[1]
     private void AltAction(bool isInput)
     {
         isAlt = isInput;
@@ -168,4 +176,13 @@ public class InputManager : MonoBehaviour
             else { NoteField.ScrollDown(); }
         }
     }
+    #endregion
+
+    #region Actions For Map[2]
+    private void PauseRelease()
+    {
+
+    }
+    #endregion
 }
+

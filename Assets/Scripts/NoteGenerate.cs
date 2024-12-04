@@ -13,7 +13,9 @@ public class NoteGenerate : MonoBehaviour
     public static Vector3[] InitVec = new Vector3[2];
     public static NoteType s_previewType = NoteType.None;
 
+    
     private static GameObject[] PreviewObjects;
+    [Header("[0]-Normal\t[1]-Airial\t[2]-Scratch\n[3]-Speed\t[4]-Effect")]
     [SerializeField] GameObject[] _previews;
     [SerializeField] GameObject previewGuide;
     [SerializeField] GameObject[] GeneratePrefabs;
@@ -30,7 +32,6 @@ public class NoteGenerate : MonoBehaviour
         PreviewObjects = _previews;
         _previews = null;
     }
-
     public static void ShowPreview(int lineValue, int posValue)
     {
         if (s_previewType == NoteType.None) { return; }
@@ -88,7 +89,7 @@ public class NoteGenerate : MonoBehaviour
     }
     public static void ToolAction(int index)
     {
-
+        
     }
 
     private static int lineToPosX(int line)

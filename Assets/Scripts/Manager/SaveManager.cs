@@ -215,11 +215,21 @@ public class SaveManager : MonoBehaviour
 
     private static string LengthToString(int value)
     {
-        if (value < 1) { return "--"; }
-        else if (value > 259) { return "--"; }
-        char c;
-        c = (char)(Mathf.FloorToInt(value / 10.0f) + 65);
-        return String.Format("{0}{1}", c, value % 10);
+        List<int> values;
+        string ret;
+        values = ConvertBase(value, from: 10, to: 26);
+
+        if (values.Count < 1 || values.Count > 4) { return "ZZZZ"; }
+
+        while (values.Count > 3) { values.Insert(0, 0); }
+
+        ret = String.Format("{0}{1}{2}{3}",
+            values[0] == 0 ? '0' : (char)(values[0] + 65),
+            values[1] == 0 ? '0' : (char)(values[1] + 65),
+            values[2] == 0 ? '0' : (char)(values[2] + 65),
+            values[3] == 0 ? '0' : (char)(values[3] + 65)
+        );
+        return ret;
     }
     public static Int32 StringToLength(string value)
     {
@@ -233,11 +243,89 @@ public class SaveManager : MonoBehaviour
         if (ret < 1) { ret = 1; }
         return ret;
     }
+    //$ Convert input Number from Base N to Base
+    private static List<int> ConvertBase(int input, int from, int to)
+    {
+        List<int> ret = new List<int>();
+
+        int passNum = 0;
+        for (int index = 0; true; index++)
+        {
+            passNum += Mathf.FloorToInt(input % Mathf.Pow(10, index + 1) 
+                / Mathf.Pow(10, index)) * Mathf.FloorToInt(Mathf.Pow(from, index));
+            if (MathF.Pow(10 , index) >= input) { break;}
+        }
+
+        print(passNum);
+
+        for (int index = 0; true; index++)
+        {
+            if (Mathf.Pow(to, index) >= passNum) { break; }
+            ret.Add(Mathf.FloorToInt(passNum / Mathf.Pow(to, index)) % to);
+        }
+        ret.Reverse();
+        return ret;
+    }
 
     private static string HolderToData(NoteHolder holder)
     {
-        string ret = "";
+        /* Note Information
+        Holder = [Normal Note * 6] + [Airial Note * 6] + [Shift Note * 2] + [Bpm Note] + [Effect Note]
+        000000#
+        AAAA|AAAA|AAAA|AAAA|AAAA|AAAA#
+        AAAA|AAAA|AAAA|AAAA|AAAA|AAAA#
+        AAAA|AAAA%AAA|AAA%0|1#
+        00000|000#
+        00000|01010101010101|"effectName",
+        */
+
+        string ret = String.Empty;
+        var effect = holder.effectNote;
         
+        ret = String.Format("{0:d6}#{1}#{2}#{3}#{4}#{5}",
+            holder.stdMs,
+            String.Format("{0}|{1}|{2}|{3}|{4}|{5}",
+                LengthToString(holder.normals[0].length),
+                LengthToString(holder.normals[1].length),
+                LengthToString(holder.normals[2].length),
+                LengthToString(holder.normals[3].length),
+                LengthToString(holder.normals[4].length),
+                LengthToString(holder.normals[5].length)
+            ),
+            String.Format("{0}|{1}|{2}|{3}|{4}|{5}",
+                LengthToString(holder.airials[0].length),
+                LengthToString(holder.airials[1].length),
+                LengthToString(holder.airials[2].length),
+                LengthToString(holder.airials[3].length),
+                LengthToString(holder.airials[4].length),
+                LengthToString(holder.airials[5].length)
+            ),
+            String.Format("{0}|{1}%{2}|{3}%{4}|{5}",
+                LengthToString(holder.floors[0].length),
+                LengthToString(holder.floors[1].length),
+                holder.floors[0].value,
+                holder.floors[1].value,
+                holder.floors[0].isPowered ? 1 : 0,
+                holder.floors[1].isPowered ? 1 : 0
+            ),
+            String.Format("{0:d5}|{1:d3}",
+                Mathf.FloorToInt((float)holder.speedNote.bpm * 100),
+                Mathf.FloorToInt((float)holder.speedNote.multiple * 100)
+            ),
+            String.Format("{0:d5}|{1}|{2}",
+                holder.effectNote.value,
+                String.Format("{0}{1}{2}{3}{4}{5}{6}{7}{8}{9}{10}{11}{12}{13}",
+                    effect.isEffected[00] ? 0 : 1, effect.isEffected[01] ? 0 : 1,
+                    effect.isEffected[02] ? 0 : 1, effect.isEffected[03] ? 0 : 1,
+                    effect.isEffected[04] ? 0 : 1, effect.isEffected[05] ? 0 : 1,
+                    effect.isEffected[06] ? 0 : 1, effect.isEffected[07] ? 0 : 1,
+                    effect.isEffected[08] ? 0 : 1, effect.isEffected[09] ? 0 : 1,
+                    effect.isEffected[10] ? 0 : 1, effect.isEffected[11] ? 0 : 1,
+                    effect.isEffected[12] ? 0 : 1, effect.isEffected[13] ? 0 : 1
+                ),
+                holder.effectNote.effectName
+            )
+        );
         return ret;
     }
 
@@ -322,11 +410,10 @@ public class SaveManager : MonoBehaviour
 
         string path = "";
         string dialogPath = (UnityEngine.Application.dataPath + "\\_DataBox").Replace("/", "\\");
-        print(dialogPath);
 
         VistaSaveFileDialog dialog;
         dialog = new VistaSaveFileDialog();
-        dialog.Filter = "All Files|*.*";
+        dialog.Filter = "ND Files|*.nd";
         dialog.FilterIndex = 1;
         dialog.Title = "Save Data";
         dialog.InitialDirectory = dialogPath;
@@ -358,9 +445,9 @@ public class SaveManager : MonoBehaviour
                 file = new SaveFile(gameMode);
                 File.WriteAllText(path, JsonUtility.ToJson(file, true));
             }
-            else { return false; }
+            else { print("Open Failed"); return false; }
         }
-        else { return false; }
+        else { print("Select Failed"); return false; }
 
         return isCreated;
     }

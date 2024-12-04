@@ -25,15 +25,16 @@ public class FileSelector : MonoBehaviour
     [SerializeField] TextMeshPro[] dataTmps;
     [SerializeField] Transform[] CopyDataField;
     [SerializeField] GameObject[] CopyDataCont;
+    [SerializeField] AudioSource musicPlayer;
     private static NoteData lastNoteData = null; 
     private static MusicData lastMusicData = null;
-
     private static IEnumerator MusicLoadCoroutine;
 
     [SerializeField] Transform GenerateSequence;
     [SerializeField] UnityEngine.UI.Button GenerateButton;
     [SerializeField] Animator GenerateAnimator;
     [SerializeField] TMP_InputField GenerateField;
+    [SerializeField] UnityEngine.UI.Button StartButton;
 
     private void Start()
     {
@@ -147,7 +148,6 @@ public class FileSelector : MonoBehaviour
             }
         }
     }
-    
     private static void DataToJson(int index)
     {
         var data = NoteDataHolders[index];
@@ -165,12 +165,13 @@ public class FileSelector : MonoBehaviour
     public void ApplyNoteFile(GameObject copy, NoteData noteData)
     {
         if (lastNoteData == noteData) { CancelNoteFile(); return; }
+        
+        var saveFile = noteData.NoteFileData;
 
         if (CopyDataCont[0] != null) { Destroy(CopyDataCont[0]); }
         CopyDataCont[0] = Instantiate(copy, CopyDataField[0], false);
         CopyDataCont[0].transform.localPosition = new Vector3(0, 0, 0);
-
-        var saveFile = noteData.NoteFileData;
+        CopyDataCont[0].GetComponent<FileDataHolder>().isCopyObject = true;  
 
         dataTmps[0].text = string.Format("# File Name\n{0}",noteData.FileName);
         dataTmps[1].text = string.Format("{0}\n{1} - {2}\n{3}",
@@ -178,11 +179,10 @@ public class FileSelector : MonoBehaviour
             saveFile.maxBpm[0] == 0 ? "-" : saveFile.maxBpm[0],
             saveFile.maxBpm[1] == 0 ? "-" : saveFile.maxBpm[1],
             GameManager.GetGameModeName(saveFile.gameMode));
-        dataTmps[2].text = string.Format("{0}.{1}.{2}\t{3}:{4}",
-            saveFile.editDate[0], saveFile.editDate[1], saveFile.editDate[2],
-            saveFile.editDate[3], saveFile.editDate[4]);
+        dataTmps[2].text = string.Format("# Last Edit Date\n{0}", saveFile.editDate);
 
         lastNoteData = noteData;
+        CheckStarting();
     }
     //public void ApplyMusicFile(GameObject copy, AudioClip audioClip, bool isWav)
     public void ApplyMusicFile(GameObject copy, MusicData musicData)
@@ -192,9 +192,11 @@ public class FileSelector : MonoBehaviour
         if (CopyDataCont[1] != null) { Destroy(CopyDataCont[1]); }
         CopyDataCont[1] = Instantiate(copy, CopyDataField[1], false);
         CopyDataCont[1].transform.localPosition = new Vector3(0, 0, 0);
+        CopyDataCont[1].GetComponent<MusicDataHolder>().isCopyObject = true;  
 
         var audioClip = musicData.AudioClip;
         int length = Mathf.FloorToInt(audioClip.length);
+        musicPlayer.clip = audioClip;
 
         dataTmps[3].text = string.Format("{0}:{1:D2}\n<size=2>{2}Hz",
             Mathf.FloorToInt(length / 60f), length % 60, audioClip.frequency);
@@ -202,9 +204,12 @@ public class FileSelector : MonoBehaviour
             musicData.isWav ? "Wav" : "Mp3", audioClip.channels);
 
         lastMusicData = musicData;
+        CheckStarting();
     }
 
-    public void CancelNoteFile()
+    public static void CancelNoteFile() { s_this._CancelNoteFile(); }
+    public static void CancelMusicFile() { s_this._CancelMusicFile(); }
+    public void _CancelNoteFile()
     {
         lastNoteData = null;
         if (CopyDataCont[0] != null) { Destroy(CopyDataCont[0]); }
@@ -212,14 +217,30 @@ public class FileSelector : MonoBehaviour
         dataTmps[0].text = "# File Name\n- - - - - - - - - - - - - - - -";
         dataTmps[1].text = "- - -\n0 - 999\nNaN";
         dataTmps[2].text = "# Last Edit Date\n- - - -.- -.- -\t-- : --";
+        CheckStarting();
     }
-    public void CancelMusicFile()
+    public void _CancelMusicFile()
     {
         lastMusicData = null;
         if (CopyDataCont[1] != null) { Destroy(CopyDataCont[1]); }
+
+        musicPlayer.Stop();
+        musicPlayer.clip = null;
         
         dataTmps[3].text = "-- : --\n<size=2>- - - - Hz";
         dataTmps[4].text = "Nan\n0 Ch.";
+        CheckStarting();
+    }
+
+    private void CheckStarting()
+    {
+        if (lastNoteData == null) { StartButton.interactable = false; }
+        else if (lastMusicData == null) { StartButton.interactable = false; }
+        else { StartButton.interactable = true; }
+    }
+    public void StartEdit(Camera cam)
+    {
+        SwitchManager.ChangeCamera(cam);
     }
 
     public void OpenNewFile()
@@ -236,9 +257,9 @@ public class FileSelector : MonoBehaviour
 
         VistaSaveFileDialog dialog;
         dialog = new VistaSaveFileDialog();
-        dialog.Filter = "All Files|*.*";
+        dialog.Filter = "All Files|*.nd";
         dialog.FilterIndex = 1;
-        dialog.Title = "Save Data";
+        dialog.Title = "New File";
         dialog.InitialDirectory = dialogPath;
         dialog.RestoreDirectory = true;
 
@@ -266,6 +287,15 @@ public class FileSelector : MonoBehaviour
             else { return; }
         }
         else { return; }
+
+        SaveFile saveFile;
+        saveFile = new SaveFile((int)GameManager.gameMode);
+
+        string jsonData;
+        jsonData = JsonUtility.ToJson(saveFile, true);
+
+        File.WriteAllText(path + @".nd", jsonData);
+        ReloadFiles(true);
     }
     public void CancelNewFile()
     {
@@ -307,6 +337,18 @@ public class FileSelector : MonoBehaviour
             StartCoroutine(MusicLoadCoroutine);
         }
     }
+    public void PlayMusicPreview(bool isPlay)
+    {
+        if (musicPlayer.clip == null) return;
+
+        if (isPlay)
+        {
+            if (musicPlayer.isPlaying) musicPlayer.Pause();
+            else musicPlayer.Play();
+        }
+        else musicPlayer.Stop();
+    }
+    
     public class NoteData
     {
         public string FileName { get; }

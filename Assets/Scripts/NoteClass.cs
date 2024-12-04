@@ -23,13 +23,13 @@ namespace GameNote
     }
     public class FloorNote
     {
-        public int posY, length;
-        public bool isLeftNote;
-        public FloorNote(int _posY, int _length, bool isLeft)
+        public int posY, length, value;
+        public bool isPowered;
+        public FloorNote(int _posY, int _length, bool isPower)
         {
             posY = _posY;
             length = _length;
-            isLeftNote = isLeft;
+            isPowered = isPower;
         }
     }
     public class SpeedNote
@@ -56,16 +56,12 @@ namespace GameNote
     public class EffectNote
     {
         public int posY, effectIndex, value;
-        public EffectHolder holder;
-        public string GetEffectName()
-        {
-            switch (effectIndex)
-            {
-                case 1: return "None";
-
-                default: return "None";
-            }
-        }
+        public bool[] isEffected = {
+            false,false,false,false,false,false,
+            false,false,false,false,false,false,
+            false,false
+        };
+        public string effectName;
         public EffectNote(int _value)
         {
             posY = _value;

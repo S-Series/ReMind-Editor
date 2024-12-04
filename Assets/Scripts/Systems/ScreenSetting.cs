@@ -4,26 +4,23 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Rendering.Universal;
 using TMPro;
+using System.Diagnostics;
 
 public class ScreenSetting : MonoBehaviour
 {
-    private static List<Camera> s_cameras = new List<Camera>();
     private static int[] s_Values = new int[5] { 3, 0, 0, 0, 0 };
     [SerializeField] TMP_Dropdown[] drops;
 
     void Start()
     {
-        print(gameObject.name);
-        s_cameras = GameManager.FindAllObjects<Camera>();
         s_Values[0] = PlayerPrefs.GetInt("Screen01");
         s_Values[1] = PlayerPrefs.GetInt("Screen02");
         s_Values[2] = PlayerPrefs.GetInt("Screen03");
         s_Values[3] = PlayerPrefs.GetInt("Screen04");
         s_Values[4] = PlayerPrefs.GetInt("Screen05");
-        for (int i = 0; i < 5; i++)
-        {
-            drops[i].value = s_Values[i];
-        }
+
+        for (int i = 0; i < 5; i++) { drops[i].value = s_Values[i]; }
+        
         UpdateScreen();
     }
 
@@ -79,7 +76,7 @@ public class ScreenSetting : MonoBehaviour
         else if (value == 2) {mode = AntialiasingMode.SubpixelMorphologicalAntiAliasing;}
         else { mode = AntialiasingMode.None; }
 
-        foreach(Camera camera in s_cameras)
+        foreach(Camera camera in SwitchManager.s_cameras)
         {
             camera.GetComponent<UniversalAdditionalCameraData>().antialiasing = mode;
         }
