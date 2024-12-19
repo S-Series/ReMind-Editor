@@ -28,6 +28,7 @@ public class ValueManager : MonoBehaviour
     public static int s_DrawOffset = 0;     //$ [0]
     public static int s_JudgeOffset = 0;    //$ [1]
     public static int s_GameSpeed = 100;    //$ [2]
+    public static bool[] isAccent = { false, false };
 
     private void Awake()
     {

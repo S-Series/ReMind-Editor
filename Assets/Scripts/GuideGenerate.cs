@@ -6,12 +6,13 @@ using TMPro;
 public class GuideGenerate : MonoBehaviour
 {
     private static GuideGenerate s_this;
-    public static int s_guideCount = 1;
+    public static int s_guideCount = 8;
     public static int[] s_guidePos = new int[1] { 0 };
     public static bool[] s_Accent = new bool[2] { false, true };
     public static GameObject ColliderPrefab;
     private static Transform ColliderField;
     private static bool[] s_HasAccent = new bool[2] { false, true };
+    private static List<LineHolder> s_holders;
 
     [SerializeField] GameObject _ColliderPrefab;
     [SerializeField] Transform _ColliderField;
@@ -22,13 +23,12 @@ public class GuideGenerate : MonoBehaviour
         s_this = this;
         ColliderPrefab = _ColliderPrefab;
         ColliderField = _ColliderField;
-    }
-    private void Start() { Generate(8); }
 
+        Generate(8);
+    }
     public static void Generate(int count)
     {
-        if (count < 01) { count = 01; }
-        if (count > 33) { count = 32; }
+        if (count == s_guideCount) { return; }
 
         NoteField.s_Scroll = Mathf.FloorToInt(1.0f * NoteField.s_Scroll * count / s_guideCount);
         NoteField.s_this.UpdateField();
@@ -36,25 +36,13 @@ public class GuideGenerate : MonoBehaviour
         //s_HasAccent[0] = count % 3 == 0 ? true : false;
         //s_HasAccent[1] = count % 4 == 0 ? true : false;
 
-        GameObject copyObject;
-
         s_guideCount = count;
         s_guidePos = new int[count + 1];
 
-        for (int i = 0; i < count; i++)
-        {
-            s_guidePos[i] = System.Convert.ToInt32(1600f / count * i);
-            for (int j = 0; j < 300; j++)
-            {
-                copyObject = Instantiate(ColliderPrefab, ColliderField, false);
-                copyObject.transform.localPosition = new Vector3(0, j * 1600 + (1600f / count * i), 0);
-            }
-        }
-        s_guidePos[count] = 1600;
     }
     public static void UpdateGuideColor()
     {
-
+        
     }
     public static void EnableGuideCollider(bool isEnable)
     {

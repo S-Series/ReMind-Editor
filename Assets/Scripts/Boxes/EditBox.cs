@@ -81,6 +81,7 @@ public class EditBox : MonoBehaviour
     }
     public static void UpdateRenderer()
     {
+        return;
         if (nowIndex == -1) { s_lineRenderer.SetPosition(1, new Vector3(-5.25f, 2.0f, 10f)); }
         else
         { 

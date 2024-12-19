@@ -95,29 +95,29 @@ public class InputManager : MonoBehaviour
     }
     private void DeleteAction()
     {
-        EditManager.Delete();
+        EditManager.DeleteNote();
     }
     private void EscapeAction()
     {
         NoteGenerate.ToolAction(-1);
-        EditManager.Escape();
+        EditManager.EscapeEdit();
     }
 
     private void UpArrowAction()
     {
-        EditManager.MoveNoteInput(true, isAlt, isShift, isControl);
+        EditManager.InputCol(isUp: true);
     }
     private void DownArrowAction()
     {
-        EditManager.MoveNoteInput(false, isAlt, isShift, isControl);
+        EditManager.InputCol(isUp: false);
     }
     private void LeftArrowAction()
     {
-        EditManager.LineNoteInput(isLeft: true);
+        EditManager.InputRow(isLeft: true);
     }
     private void RightArrowAction()
     {
-        EditManager.LineNoteInput(isLeft: false);
+        EditManager.InputRow(isLeft: false);
     }
 
     private void QuickToolAction(int toolIndex)

@@ -92,7 +92,7 @@ public class NoteField : MonoBehaviour
         zoomValue = 10.0f / s_Zoom;
 
         _scale = new Vector3(0.00312f, zoomValue * 0.0003125f, 0.00312f);
-        s_PagePos = Mathf.RoundToInt(5f * (s_Page + s_Scroll / (float)_count));
+        s_PagePos = Mathf.RoundToInt(6f * (s_Page + s_Scroll / (float)_count));
 
         CameraTransform[0].localPosition = new Vector3(0, s_PagePos, 0);
         CameraTransform[1].localPosition = new Vector3(0, 0, s_PagePos);

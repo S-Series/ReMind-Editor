@@ -9,8 +9,8 @@ public class NoteClick : MonoBehaviour, IPointerClickHandler
     {
         if (NoteGenerate.s_isGenerating) { return; }
 
-        if (isNoteParent) { EditManager.Select(GetComponentInParent<NoteData>()); }
-        else { EditManager.Select(GetComponent<NoteData>()); }
+        //if (isNoteParent) { EditManager.SelectNote(GetComponentInParent<NoteData>()); }
+        //else { EditManager.SelectNote(GetComponent<NoteData>()); }
     }
 
     void OnTriggerEnter2D(Collider2D other)

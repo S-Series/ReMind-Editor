@@ -101,14 +101,14 @@ public class NoteChange : MonoBehaviour
         try { value = Convert.ToInt32(input.text); }
         catch { input.text = Mathf.FloorToInt(EditManager.s_SelectNoteHolder.stdPos / 1600f).ToString(); return; }
         if (value < 0) { value = 0; input.text = "0"; }
-        EditManager.EditNote(page: value);
+        EditManager.NoteEdit(page: value);
     }
     public void InputPos(TMP_InputField input)
     {
         int value;
         try { value = Convert.ToInt32(input.text); }
         catch { input.text = (EditManager.s_SelectNoteHolder.stdPos % 1600).ToString(); return; }
-        EditManager.EditNote(pos: value);
+        EditManager.NoteEdit(pos: value);
     }
     public void InputLegnth(TMP_InputField input)
     {
@@ -117,7 +117,7 @@ public class NoteChange : MonoBehaviour
         catch { value = 1; input.text = "1";}
         print(value);
         if (value < 1) { value = 1; input.text = "1"; }
-        EditManager.LengthNote(value);
+        EditManager.NoteEdit(length: value);
     }
     
     public void ToggleLine()
@@ -129,7 +129,7 @@ public class NoteChange : MonoBehaviour
         {
             if (NormalToggles[i].isOn)
             {
-                EditManager.EditNote(line: i + 1);
+                EditManager.NoteEdit(line: i + 1);
                 break;
             }
         }
@@ -159,13 +159,13 @@ public class NoteChange : MonoBehaviour
         float value;
         try {value = Convert.ToSingle(input.text); }
         catch { return; }
-        EditManager.BpmNote(value);
+        EditManager.BpmNoteEdit(bpm: value);
     }
     public void InputMultiply(TMP_InputField input)
     {
         float value;
         try {value = Convert.ToSingle(input.text); }
         catch { return; }
-        EditManager.MultiplyNote(value);
+        EditManager.BpmNoteEdit(multiply: value);
     }
 }
