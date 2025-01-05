@@ -8,6 +8,7 @@ using GameNote;
 
 public class NoteChange : MonoBehaviour
 {
+    /*
     private static NoteChange s_this;
     private static readonly string[] noteTag = { "Normal", "Airial", "Bottom" };
     private const string NoteTag = "";
@@ -54,7 +55,6 @@ public class NoteChange : MonoBehaviour
             inputFields[1].text = EditManager.s_page.ToString();
             inputFields[2].text = EditManager.s_length.ToString();
             s_this.NormalToggles[EditManager.s_line - 1].isOn = true;
-            s_this.NormalToggles[5].isOn = EditManager.s_isGuideLeft;
 
             if (EditManager.s_isAirial)
             {
@@ -168,4 +168,5 @@ public class NoteChange : MonoBehaviour
         catch { return; }
         EditManager.BpmNoteEdit(multiply: value);
     }
+    */
 }

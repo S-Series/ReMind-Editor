@@ -4,16 +4,18 @@ using UnityEngine.EventSystems;
 
 public class NoteClick : MonoBehaviour, IPointerClickHandler
 {
+    private NoteData data;
     [SerializeField] private bool isNoteParent;
     public void OnPointerClick(PointerEventData eventData)
     {
         if (NoteGenerate.s_isGenerating) { return; }
 
-        //if (isNoteParent) { EditManager.SelectNote(GetComponentInParent<NoteData>()); }
-        //else { EditManager.SelectNote(GetComponent<NoteData>()); }
+        if (data == null) { data = GetComponentInParent<NoteData>(); }
+
+        data.Selected();
     }
 
-    void OnTriggerEnter2D(Collider2D other)
+    /*void OnTriggerEnter2D(Collider2D other)
     {
         if (!other.gameObject.CompareTag("Draggable")) { return; }
 
@@ -24,5 +26,5 @@ public class NoteClick : MonoBehaviour, IPointerClickHandler
         if (!other.gameObject.CompareTag("Draggable")) { return; }
 
         DragSelect.RemoveObject(this);
-    }
+    }*/
 }

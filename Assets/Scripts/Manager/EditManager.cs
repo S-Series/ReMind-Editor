@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using GameNote;
+using UnityEditor;
 
 public class EditManager : MonoBehaviour
 {
@@ -33,43 +34,93 @@ public class EditManager : MonoBehaviour
     public static NoteType s_noteType = NoteType.None;
     public static NoteHolder s_SelectNoteHolder;
     public static int s_page, s_posY, s_line, s_length;
-    public static bool s_isAirial = false, s_isGuideLeft = true;
+    public static double s_bpm, s_multiply;
+    public static bool s_isAirial = false;
+    public static string s_effectTitle;
+    /*
     [SerializeField] GameObject p_DragSelectHelper;
     private static GameObject DragSelectHelper;
-
-    [SerializeField] 
+    */
 
     private void Awake()
     {
         s_this = this;
-        DragSelectHelper = p_DragSelectHelper;
-        p_DragSelectHelper = null;
+        /*DragSelectHelper = p_DragSelectHelper;
+        p_DragSelectHelper = null;*/
     }
 
     #region SelectNote(NoteType)
     public static void SelectNote(NormalNote note)
     {
+        ResetSelectData();
         s_noteType = NoteType.Normal;
+        EditBox.PopUpBox(note);
+
+        s_posY = note.posY % 1600;
+        s_page = Mathf.FloorToInt(note.posY / 1600f);
+        s_line = note.line;
+        s_length = note.length;
+        s_isAirial = note.isAirial;
     }
     public static void SelectNote(FloorNote note)
     {
+        ResetSelectData();
         s_noteType = NoteType.Floor;
+        EditBox.PopUpBox(note);
+
+        s_posY = note.posY % 1600;
+        s_page = Mathf.FloorToInt(note.posY / 1600f);
+        s_line = note.line;
+        s_length = note.length;
+        s_isAirial = false;
     }
     public static void SelectNote(SpeedNote note)
     {
+        ResetSelectData();
         s_noteType = NoteType.Speed;
+        EditBox.PopUpBox(note);
+
+        s_posY = note.posY % 1600;
+        s_page = Mathf.FloorToInt(note.posY / 1600f);
+        s_bpm = note.bpm;
+        s_multiply = note.multiple;
+        s_isAirial = false;
+        s_effectTitle = String.Empty;
     }
     public static void SelectNote(EffectNote note)
     {
+        ResetSelectData();
         s_noteType = NoteType.Effect;
+        EditBox.PopUpBox(note);
+
+        s_posY = note.posY % 1600;
+        s_page = Mathf.FloorToInt(note.posY / 1600f);
+        s_isAirial = false;
+        s_effectTitle = note.effectName;
     }
+    public static void SelectHolder(NoteHolder holder) { s_SelectNoteHolder = holder; }
     #endregion
-
-    public static void EscapeEdit()
+    private static void ResetSelectData()
     {
-        
-
+        s_SelectNoteHolder = null;
         s_noteType = NoteType.None;
+
+        s_posY = -1;
+        s_page = -1;
+        s_line = -1;
+        s_length = -1;
+
+        s_bpm = -1d;
+        s_multiply = -1d;
+
+        s_isAirial = false;
+
+        s_effectTitle = String.Empty;
+    }
+    public static void Deselect()
+    {
+        EditBox.Deselect();
+        ResetSelectData();
     }
     public static void DeleteNote()
     {

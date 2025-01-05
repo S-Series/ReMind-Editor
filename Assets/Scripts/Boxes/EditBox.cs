@@ -21,34 +21,21 @@ public class EditBox : MonoBehaviour
         s_lineRenderer = _lineRenderer;
     }
 
-    public static void PopUpBox(NoteType type)
+    public static void PopUpBox(NormalNote note)
     {
-        if (EditManager.s_isMultyEditing) { MultyEditMode(); return; }
 
-        foreach (GameObject obj in s_this.editBoxes) { obj.SetActive(false); }
+    }
+    public static void PopUpBox(FloorNote note)
+    {
 
-        if (type == NoteType.Normal || type == NoteType.Airial)
-        {
-            s_this.UpdateBox(1);
-        }
-        else if (type == NoteType.Floor)
-        {
-            s_this.UpdateBox(2);
-        }
-        else
-        {
-            if (type == NoteType.Speed)
-            {
-                s_this.UpdateBox(3);
-            }
-            else if (type == NoteType.Effect)
-            {
-                s_this.UpdateBox(4);
-            }
-            else { throw new System.Exception(""); }
-        }
+    }
+    public static void PopUpBox(SpeedNote note)
+    {
         
-        UpdateRenderer();
+    }
+    public static void PopUpBox(EffectNote note)
+    {
+        
     }
     public static void Deselect()
     {
@@ -68,7 +55,7 @@ public class EditBox : MonoBehaviour
     private void UpdateBox(int index)
     {
         editBoxes[index].SetActive(true);
-        NoteChange.UpdateInfoFields();
+        //NoteChange.UpdateInfoFields();
 
         /*
         Vector3 position;

@@ -75,7 +75,7 @@ public class NoteHolder : MonoBehaviour
                 normalObjects[i].SetActive(true);
                 normalObjects[i].TryGetComponent<NoteData>(out var normalLength);
                 if (normalLength == null) { throw new System.Exception("Notelength Operation is not Exist!"); }
-                normalLength.Length(normals[i].length);
+                //normalLength.Length(normals[i].length);
             }
 
             if (airials[i] == null) { airialObjects[i].SetActive(false); }

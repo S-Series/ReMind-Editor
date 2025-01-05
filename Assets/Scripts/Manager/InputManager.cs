@@ -100,7 +100,7 @@ public class InputManager : MonoBehaviour
     private void EscapeAction()
     {
         NoteGenerate.ToolAction(-1);
-        EditManager.EscapeEdit();
+        EditManager.Deselect();
     }
 
     private void UpArrowAction()

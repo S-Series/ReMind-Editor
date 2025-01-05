@@ -23,7 +23,7 @@ namespace GameNote
     }
     public class FloorNote
     {
-        public int posY, length, value;
+        public int posY, line, length, value;
         public bool isPowered;
         public FloorNote(int _posY, int _length, bool isPower)
         {

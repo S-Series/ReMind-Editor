@@ -23,7 +23,7 @@ public class GameNoteHolder : MonoBehaviour
             else
             {
                 normalObjects[i].SetActive(true);
-                normalObjects[i].GetComponent<NoteData>().Length(holder.normals[i].length);
+                //normalObjects[i].GetComponent<NoteData>().Length(holder.normals[i].length);
             }
 
             if (holder.airials[i] == null) { airialObjects[i].SetActive(false); }
